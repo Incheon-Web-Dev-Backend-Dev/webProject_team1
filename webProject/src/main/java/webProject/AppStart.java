@@ -9,5 +9,6 @@ public class AppStart {
         System.out.println("");
         SpringApplication.run(AppStart.class);
         System.out.println("hi");
+        System.out.println("bye");
     }
 }
