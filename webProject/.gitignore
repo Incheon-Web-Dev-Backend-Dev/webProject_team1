@@ -15,6 +15,9 @@
 # AWS User-specific
 .idea/**/aws.xml
 
+# IntelliJ IDEA 관련 설정 무시
+.idea/
+
 # Generated files
 .idea/**/contentModel.xml
 
