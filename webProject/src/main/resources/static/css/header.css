@@ -1,3 +1,22 @@
-* {
-    width : 600px;
+.header_all {
+    width: 600px;
+    background-color: #A8B5A2;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo_nav {
+    width:30%;
+    align-items: center;
+    border: solid 1px red;
+
+    font-size: medium;
+}
+
+.auth_nav {
+    width: 70%;
+    align-items: center;
+    border: solid 1px blue;
+
+    font-size: medium;
 }
