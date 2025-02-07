@@ -10,5 +10,8 @@ public class AppStart {
         SpringApplication.run(AppStart.class);
         System.out.println("hi");
         System.out.println("bye");
+
+
+        System.out.println("김진홍 테스트");
     }
 }
