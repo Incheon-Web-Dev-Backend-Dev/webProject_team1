@@ -15,5 +15,8 @@ public class AppStart {
         System.out.println("김진홍 테스트");
         System.out.println("김진홍 테스트2");
         System.out.println("김진홍 테스트3");
+        System.out.println("선근호 테스트3");
+        System.out.println("선근호 테스트3");
+        System.out.println("선근호 테스트3");
     }
 }
