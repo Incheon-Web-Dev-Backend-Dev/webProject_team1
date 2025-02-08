@@ -1,4 +1,7 @@
 package webProject.model.repository.request;
 
-public interface RequestRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import webProject.model.entity.request.RequestEntity;
+
+public interface RequestRepository extends JpaRepository<RequestEntity, Integer> {
 }
