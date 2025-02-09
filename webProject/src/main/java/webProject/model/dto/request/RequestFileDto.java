@@ -18,6 +18,8 @@ public class RequestFileDto {
     private String rfcdate;
     private String rfudate;
 
+    private String reqno; // fk 파일이 해당하는 요청서 번호
+
     public RequestFileEntity toEntity(){
         return RequestFileEntity.builder()
                 .rfno(this.rfno)
