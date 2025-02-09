@@ -14,9 +14,11 @@ public class LikeEntity extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int lno;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "mno")
     private MemberEntity memberEntity;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "jono")
     private JobOfferEntity jobOfferEntity;

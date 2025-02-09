@@ -14,17 +14,23 @@ import webProject.model.entity.request.RequestEntity;
 public class EstimateEntity extends BaseTime {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int estno; // 견적서 번호
+
     @Column(columnDefinition = "varchar(50)", nullable = false)
     private String esttitle; // 견적서 제목
+
     @Column(columnDefinition = "longtext", nullable = false)
     private String estcontent; // 견적서 내용
+
     @Column(columnDefinition = "varchar(30)", nullable = false)
     private String estcash; // 견적 금액
+
     @Column( columnDefinition = "boolean default false")
     private boolean eststate; // 견적 체택 상태
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "mno") // 요청자 회원번호
     private MemberEntity memberEntity;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "reqno") // 요청서 번호
     private RequestEntity requestEntity;
