@@ -8,7 +8,7 @@ import webProject.model.entity.member.MemberEntity;
 import webProject.model.entity.request.RequestEntity;
 
 @Entity
-@Table(name ="estimate")
+@Table(name ="service_estimate")
 @NoArgsConstructor@AllArgsConstructor
 @Getter@Setter@Builder@ToString
 public class EstimateEntity extends BaseTime {
