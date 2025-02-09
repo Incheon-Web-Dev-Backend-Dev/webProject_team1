@@ -44,7 +44,7 @@ public class EstimateEntity extends BaseTime {
                 .eststate(this.eststate)
                 .mno(this.memberEntity.getMno())
                 .reqno(this.requestEntity.getReqno())
-                .memail(this.memberEntity.getEmail())
+                .memail(this.memberEntity.getMemail())
                 .mname(this.memberEntity.getMname())
                 .cdate(this.getCdate().toString())
                 .build();
