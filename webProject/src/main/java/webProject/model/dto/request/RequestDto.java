@@ -23,6 +23,8 @@ public class RequestDto {
     private boolean reqstate;
     private String reqdatetime;
 
+    private String mno; // 요청서 작성한 회원번호
+
     public RequestEntity toEntity() {
         return RequestEntity.builder()
                 .reqno(this.reqno)
