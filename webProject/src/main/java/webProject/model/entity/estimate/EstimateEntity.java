@@ -2,6 +2,8 @@ package webProject.model.entity.estimate;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import webProject.model.dto.estimate.EstimateDto;
 import webProject.model.entity.BaseTime;
 import webProject.model.entity.member.MemberEntity;
@@ -11,6 +13,7 @@ import webProject.model.entity.request.RequestEntity;
 @Table(name ="estimate")
 @NoArgsConstructor@AllArgsConstructor
 @Getter@Setter@Builder@ToString
+@DynamicInsert // @columnDefault 쓸 경우 넣어야되는 어노테이션
 public class EstimateEntity extends BaseTime {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int estno; // 견적서 번호
@@ -24,7 +27,8 @@ public class EstimateEntity extends BaseTime {
     @Column(columnDefinition = "varchar(30)", nullable = false)
     private String estcash; // 견적 금액
 
-    @Column( columnDefinition = "boolean default false")
+    @Column( columnDefinition = "boolean")
+    @ColumnDefault("false")
     private boolean eststate; // 견적 체택 상태
 
     @ManyToOne(cascade = CascadeType.ALL)
