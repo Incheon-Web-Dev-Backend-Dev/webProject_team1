@@ -8,10 +8,11 @@ import webProject.model.dto.request.RequestDto;
 import webProject.model.entity.BaseTime;
 import webProject.model.entity.member.MemberEntity;
 
+@Entity
 @Getter @Setter @ToString @Builder
 @NoArgsConstructor @AllArgsConstructor
 @Table(name="service_request")
-@DynamicInsert
+@DynamicInsert // @columnDefault 쓸 경우 넣어야되는 어노테이션
 public class RequestEntity extends BaseTime {
 
     @Id
@@ -34,7 +35,7 @@ public class RequestEntity extends BaseTime {
     private String reqsmallarea;
 
     @Column(columnDefinition = "boolean")
-    @ColumnDefault("true")
+    @ColumnDefault("false")
     private boolean reqstate;
 
 

@@ -8,6 +8,7 @@ import webProject.model.entity.job.LikeEntity;
 @Getter@Setter@Builder@ToString
 public class LikeDto {
     private int lno;
+    private boolean lstatus;
     private int mno;
     private int jono;
     private String cdate;

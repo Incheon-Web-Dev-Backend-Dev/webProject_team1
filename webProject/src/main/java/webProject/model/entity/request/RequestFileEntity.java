@@ -6,6 +6,7 @@ import webProject.model.dto.request.RequestDto;
 import webProject.model.dto.request.RequestFileDto;
 import webProject.model.entity.BaseTime;
 
+@Entity
 @Getter
 @Setter
 @ToString
