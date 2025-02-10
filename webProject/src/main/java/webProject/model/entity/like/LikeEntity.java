@@ -1,10 +1,11 @@
-package webProject.model.entity.job;
+package webProject.model.entity.like;
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
-import webProject.model.dto.job.LikeDto;
+import webProject.model.dto.like.LikeDto;
 import webProject.model.entity.BaseTime;
+import webProject.model.entity.job.JobOfferEntity;
 import webProject.model.entity.member.MemberEntity;
 
 @Entity
@@ -17,7 +18,7 @@ public class LikeEntity extends BaseTime {
     private int lno;
 
     @Column(columnDefinition = "boolean")
-    @ColumnDefault("false")
+    @ColumnDefault("false") 
     private boolean lstatus;
 
     @ManyToOne(cascade = CascadeType.ALL)

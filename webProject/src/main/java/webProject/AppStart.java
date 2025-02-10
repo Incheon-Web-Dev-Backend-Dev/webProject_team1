@@ -13,7 +13,6 @@ public class AppStart {
         System.out.println("hi");
         System.out.println("bye");
 
-
         System.out.println("김진홍 테스트");
         System.out.println("김진홍 테스트2");
         System.out.println("김진홍 테스트3");

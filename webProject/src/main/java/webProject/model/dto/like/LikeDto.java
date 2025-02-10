@@ -1,8 +1,8 @@
-package webProject.model.dto.job;
+package webProject.model.dto.like;
 
 
 import lombok.*;
-import webProject.model.entity.job.LikeEntity;
+import webProject.model.entity.like.LikeEntity;
 
 @NoArgsConstructor@AllArgsConstructor
 @Getter@Setter@Builder@ToString
