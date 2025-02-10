@@ -53,6 +53,7 @@ public class RequestEntity extends BaseTime {
                 .reqbigarea(this.reqbigarea)
                 .reqsmallarea(this.reqsmallarea)
                 .reqstate(this.reqstate)
+                .mno(this.memberEntity.getMno())
                 .reqdatetime(this.getCdate().toString())
                 .build();
 
