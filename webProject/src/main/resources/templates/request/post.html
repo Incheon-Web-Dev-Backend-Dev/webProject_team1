@@ -5,88 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/request/post.css">
     <!-- 썸머노트 api 에 필요한 css 임포트 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote-bs5.min.css"/>
 </head>
 <body>
 
+    
     <div th:replace="~{ /header.html :: header }"></div>
+    
+    
+    <!-- 전체 페이지  -->
+    <div class="requestContent">
+           
+        <h2> 견적서 요청 페이지입니다. </h2>
 
-    <h2> 견적서 요청 페이지입니다. </h2>
+        <!-- 요청서 form section -->
+        <div class="postBox">
 
-    <!-- 요청서 전체 section -->
-    <div class="postBox">
+            <!-- reqtitle input section -->
+            <div class="mb-3">
+                <label for="basic-url" class="form-label">정리/수납 견적 요청서 제목</label>
+                <div class="input-group">
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+                </div>
+                <div class="form-text" id="basic-addon4">제목은 50자 이내로 작성해주세요.</div>
+            </div> <!-- reqtitle end -->
 
-        <!-- reqtitle input section -->
-        <div class="mb-3">
-            <label for="basic-url" class="form-label">정리/수납 견적 요청서 제목</label>
-            <div class="input-group">
-              <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
-            </div>
-            <div class="form-text" id="basic-addon4">제목은 50자 이내로 작성해주세요.</div>
-        </div> <!-- reqtitle end -->
-
-        <!-- reqspace input section -->
-        <div class="mb-3">
-            <label for="basic-url" class="form-label">정리/수납 요청 공간</label>
-            <div class="input-group">
-                <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                  <option selected>선택하기</option>
-                  <option value="1">주방</option>
-                  <option value="2">안방</option>
-                  <option value="3">자녀방</option>
-                  <option value="4">거실</option>
-                  <option value="5">서재</option>
-                  <option value="6">사무실</option>
-                  <option value="7">기타</option>
-                </select>
-            </div> 
-            <div class="form-text" id="basic-addon4">기타를 선택할 경우 아래 요청 내용에 작업 요청공간을 자세하게 작성해주세요.</div>
-        </div> <!-- reqspace end -->
+            <!-- reqspace input section -->
+            <div class="mb-3">
+                <label for="basic-url" class="form-label">정리/수납 요청 공간</label>
+                <div class="input-group">
+                    <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                    <option selected>선택하기</option>
+                    <option value="1">주방</option>
+                    <option value="2">안방</option>
+                    <option value="3">자녀방</option>
+                    <option value="4">거실</option>
+                    <option value="5">서재</option>
+                    <option value="6">사무실</option>
+                    <option value="7">기타</option>
+                    </select>
+                </div> 
+                <div class="form-text" id="basic-addon4">기타를 선택할 경우 아래 요청 내용에 작업 요청공간을 자세하게 작성해주세요.</div>
+            </div> <!-- reqspace end -->
 
 
-        <!-- reqarea input section -->
-        <div class="mb-3">
-            <label for="basic-url" class="form-label">정리/수납 요청 지역</label>
-            <div class="input-group">
-                <select class="form-select reqbigarea" id="inputGroupSelect04" aria-label="Example select with button addon">
-                  <option selected>선택하기</option>
-                  <option value="1">서울특별시</option>
-                  <option value="2">경기도</option>
-                  <option value="3">충청북도</option>
-                  <option value="4">충청남도</option>
-                  <option value="5">전라남도</option>
-                  <option value="6">경상북도</option>
-                  <option value="7">경상남도</option>
-                  <option value="8">부산광역시</option>
-                  <option value="9">인천광역시</option>
-                  <option value="10">대구광역시</option>
-                  <option value="11">광주광역시</option>
-                  <option value="12">울산광역시</option>
-                  <option value="13">세종특별자치시</option>
-                  <option value="14">강원특별자치도</option>
-                  <option value="15">전북특별자치도</option>
-                  <option value="16">제주특별자치도</option>
-                </select>
-                <select class="form-select reqsmallarea" id="inputGroupSelect04" aria-label="Example select with button addon">
-                  <option selected>선택하기</option>
-                </select>
-            </div> 
-        </div>  <!-- reqarea end -->
+            <!-- reqarea input section -->
+            <div class="mb-3">
+                <label for="basic-url" class="form-label">정리/수납 요청 지역</label>
+                <div class="input-group">
+                    <select class="form-select reqbigarea" id="inputGroupSelect04" aria-label="Example select with button addon">
+                    <option selected>선택하기</option>
+                    <option value="1">서울특별시</option>
+                    <option value="2">경기도</option>
+                    <option value="3">충청북도</option>
+                    <option value="4">충청남도</option>
+                    <option value="5">전라남도</option>
+                    <option value="6">경상북도</option>
+                    <option value="7">경상남도</option>
+                    <option value="8">부산광역시</option>
+                    <option value="9">인천광역시</option>
+                    <option value="10">대구광역시</option>
+                    <option value="11">광주광역시</option>
+                    <option value="12">울산광역시</option>
+                    <option value="13">세종특별자치시</option>
+                    <option value="14">강원특별자치도</option>
+                    <option value="15">전북특별자치도</option>
+                    <option value="16">제주특별자치도</option>
+                    </select>
+                    <select class="form-select reqsmallarea" id="inputGroupSelect04" aria-label="Example select with button addon">
+                    <option selected>선택하기</option>
+                    </select>
+                </div> 
+            </div>  <!-- reqarea end -->
 
-        <!-- reqcontent input section -->
-        <div class="mb-3">
-            <label for="basic-url" class="form-label">정리/수납 자세한 요청 내용</label>
+            <!-- reqcontent input section -->
+            <div class="mb-3">
+                <label for="basic-url" class="form-label">정리/수납 자세한 요청 내용</label>
 
-            <!-- summernote -->
-            <textarea id="summernote" name="editordata" class="reqcontentInput"></textarea> <br/>
-        </div><!-- reqcontent end -->
+                <!-- summernote -->
+                <textarea id="summernote" name="editordata" class="reqcontentInput"></textarea> <br/>
+            </div><!-- reqcontent end -->
 
-        <!-- request post button -->
-        <button type="button" class="btn btn-secondary btn-lg" style="margin: 100px 50px;"> 정리/수납 견적 요청서 올리기 </button>
+            <!-- request post button -->
+            <button type="button" class="btn btn-secondary btn-lg" style="margin: 100px 50px;"> 정리/수납 견적 요청서 올리기 </button>
+    
+
+        </div> <!-- section end -->
+
+    </div> <!-- page and -->
+    
  
-
-    </div> <!-- section end -->
 
     <div th:replace="~{ /footer.html :: footer }"></div>
 
