@@ -15,7 +15,7 @@ public class MemberController {
     @PostMapping("/member/signup.do")
     public boolean signup(MemberDto memberDto){
 
-        return memberService.sign(memberDto);
+        return memberService.signup(memberDto);
     }
     //2. 로그인
     @PostMapping("/member/login.do")
