@@ -11,4 +11,9 @@ public class ViewController {
     public String index() {
         return "/index.html";
     }
+
+    @GetMapping("/request/post")
+    public String requestPost() {
+        return ".request/post.html";
+    }
 }
