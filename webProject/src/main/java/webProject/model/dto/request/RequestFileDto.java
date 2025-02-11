@@ -2,6 +2,7 @@ package webProject.model.dto.request;
 
 import jakarta.persistence.Column;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 import webProject.model.entity.request.RequestEntity;
 import webProject.model.entity.request.RequestFileEntity;
 
@@ -17,6 +18,7 @@ public class RequestFileDto {
     private String reqfname;
     private String reqfcdate;
     private String reqfudate;
+    private MultipartFile uploadfile;
 
     private int reqno; // fk 파일이 해당하는 요청서 번호
 
