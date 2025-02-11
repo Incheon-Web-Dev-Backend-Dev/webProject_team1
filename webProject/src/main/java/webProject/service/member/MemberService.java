@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 public class MemberService {
-    @Autowired private MemberRepository memberRepository;
+    @Autowired MemberRepository memberRepository;
     @Transactional
     //1. 회원가입
     public boolean signup(MemberDto memberDto){
@@ -35,7 +35,7 @@ public class MemberService {
     }
     @Transactional // 트랜잭션
     public boolean login( MemberDto memberDto ){
-        boolean result = memberRepository.existsBymEmailAndMpwd(memberDto.getMemail(),  memberDto.getMpwd() );
+        boolean result = memberRepository.existsByMemailAndMpwd(memberDto.getMemail(),  memberDto.getMpwd() );
 
         if (result == true){
             System.out.println("로그인성공!");
@@ -73,7 +73,7 @@ public class MemberService {
     public MemberDto getMyInfo(){
         String memail = getSession();  // 1. 현재 세션에 저장된 회원 아이디 조회
         if( memail != null ){   // 2. 만약에 로그인상태이면
-            MemberEntity memberEntity = memberRepository.findByMid( getMyInfo().getMemail() );  // 3. 회원아이디로 엔티티 조회
+            MemberEntity memberEntity = memberRepository.findByMemail(  memail);  // 3. 회원아이디로 엔티티 조회
             MemberDto memberDto = memberEntity.toDto(); // 4. entity --> dto 변환
             return memberDto;// 5. 반환
         }
@@ -83,7 +83,7 @@ public class MemberService {
     public boolean myDelete( ){
         String memail = getSession(); // 1. 현재 세션에 저장된 회원 아이디 조회
         if( memail != null ){// 2. 만약에 로그인상태이면
-            MemberEntity memberEntity = memberRepository.findByMid( getMyInfo().getMemail() ); // 3. 현재 로그인된 아이디로 엔티티 조회
+            MemberEntity memberEntity = memberRepository.findByMemail( memail ); // 3. 현재 로그인된 아이디로 엔티티 조회
 
 
             // 외래 키로 참조하고 있는 엔티티의 관계를 끊음
@@ -99,7 +99,7 @@ public class MemberService {
     public boolean myUpdate( MemberDto memberDto ){
         String memail = getSession();
         if( memail != null ){
-            MemberEntity memberEntity = memberRepository.findByMid(getMyInfo().getMemail() );
+            MemberEntity memberEntity = memberRepository.findByMemail(memail );
             memberEntity.setMname( memberDto.getMname() );
             memberEntity.setMemail( memberDto.getMemail() );
             return true;

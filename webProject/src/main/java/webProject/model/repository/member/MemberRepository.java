@@ -5,9 +5,9 @@ import org.springframework.stereotype.Repository;
 import webProject.model.entity.member.MemberEntity;
 @Repository
 public interface MemberRepository extends JpaRepository<MemberEntity,Integer> {
-    boolean existsBymEmailAndMpwd( String memail , String mpwd );
+    boolean existsByMemailAndMpwd( String memail , String mpwd );
 
-    MemberEntity findByMid( String memail );
+    MemberEntity findByMemail( String memail );
 
 
 }

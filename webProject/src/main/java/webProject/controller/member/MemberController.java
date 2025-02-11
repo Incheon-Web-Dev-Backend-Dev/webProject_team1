@@ -13,7 +13,7 @@ public class MemberController {
 
    //1. 회원가입
     @PostMapping("/member/signup.do")
-    public boolean signup(MemberDto memberDto){
+    public boolean signup(@RequestBody MemberDto memberDto){
 
         return memberService.signup(memberDto);
     }
