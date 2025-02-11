@@ -9,8 +9,6 @@ import webProject.model.dto.member.MemberDto;
 import webProject.model.entity.member.MemberEntity;
 import webProject.model.repository.member.MemberRepository;
 
-import java.util.List;
-
 @Service
 public class MemberService {
     @Autowired MemberRepository memberRepository;
