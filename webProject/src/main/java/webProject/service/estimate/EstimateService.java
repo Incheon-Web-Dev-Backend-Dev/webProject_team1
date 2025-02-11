@@ -20,12 +20,13 @@ public class EstimateService {
         return false;
     }
     // 견적글 전체 보기
-    public List<EstimateDto> estimateFindAll(int rno){
+    public List<EstimateDto> estimateFindAll(int reqno){
         List<EstimateEntity> estimateEntityList = estimateRepository.findAll();
         List<EstimateDto> estimateDtoList =new ArrayList<>();
-        estimateEntityList.forEach(estimateEntity -> {
-            if(estimateEntity.getRequestEntity().getReqno() == rno ) {
-                EstimateDto estimateDto = estimateEntity.toESDto();
+        estimateEntityList.forEach(entity -> {
+            if(entity.getRequestEntity().getReqno() == reqno ) {
+                EstimateDto estimateDto = entity.toESDto();
+                estimateDtoList.add(estimateDto);
             } else {
 
             }
