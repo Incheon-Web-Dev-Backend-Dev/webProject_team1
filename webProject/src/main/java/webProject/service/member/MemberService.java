@@ -55,8 +55,8 @@ public class MemberService {
         Object object = httpSession.getAttribute( "loginId");
         // (5) 검사후 타입변환
         if( object != null ){// 만약에 세션 정보가 존재하면
-            String mid = (String)object; // Object타입 --> String타입
-            return mid;
+            String memail = (String)object; // Object타입 --> String타입
+            return memail;
         }
         return null;
     }
@@ -71,9 +71,9 @@ public class MemberService {
 
     // 현재 로그인된 회원의 회원정보 조회
     public MemberDto getMyInfo(){
-        String mid = getSession();  // 1. 현재 세션에 저장된 회원 아이디 조회
-        if( mid != null ){   // 2. 만약에 로그인상태이면
-            MemberEntity memberEntity = memberRepository.findByMid( mid );  // 3. 회원아이디로 엔티티 조회
+        String memail = getSession();  // 1. 현재 세션에 저장된 회원 아이디 조회
+        if( memail != null ){   // 2. 만약에 로그인상태이면
+            MemberEntity memberEntity = memberRepository.findByMid( getMyInfo().getMemail() );  // 3. 회원아이디로 엔티티 조회
             MemberDto memberDto = memberEntity.toDto(); // 4. entity --> dto 변환
             return memberDto;// 5. 반환
         }
@@ -81,9 +81,9 @@ public class MemberService {
     }
     // 현재 로그인된 회원 탈퇴
     public boolean myDelete( ){
-        String mid = getSession(); // 1. 현재 세션에 저장된 회원 아이디 조회
-        if( mid != null ){// 2. 만약에 로그인상태이면
-            MemberEntity memberEntity = memberRepository.findByMid( mid ); // 3. 현재 로그인된 아이디로 엔티티 조회
+        String memail = getSession(); // 1. 현재 세션에 저장된 회원 아이디 조회
+        if( memail != null ){// 2. 만약에 로그인상태이면
+            MemberEntity memberEntity = memberRepository.findByMid( getMyInfo().getMemail() ); // 3. 현재 로그인된 아이디로 엔티티 조회
 
 
             // 외래 키로 참조하고 있는 엔티티의 관계를 끊음
@@ -97,9 +97,9 @@ public class MemberService {
     // 현재 로그인된 회원 정보 수정 , mname 닉네임 , memail 이메일
     @Transactional
     public boolean myUpdate( MemberDto memberDto ){
-        String mid = getSession();
-        if( mid != null ){
-            MemberEntity memberEntity = memberRepository.findByMid( mid );
+        String memail = getSession();
+        if( memail != null ){
+            MemberEntity memberEntity = memberRepository.findByMid(getMyInfo().getMemail() );
             memberEntity.setMname( memberDto.getMname() );
             memberEntity.setMemail( memberDto.getMemail() );
             return true;
