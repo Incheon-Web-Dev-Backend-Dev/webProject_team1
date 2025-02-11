@@ -20,8 +20,8 @@ public class EstimateController {
     }
     // 견적서 전체 보기
     @GetMapping("/estimate/findall.do")
-    public List<EstimateDto> estimateFindAll(@RequestParam int rno){
-        return estimateService.estimateFindAll(rno);
+    public List<EstimateDto> estimateFindAll(@RequestParam int reqno){
+        return estimateService.estimateFindAll(reqno);
     }
     // 견적글 선택 보기
     @GetMapping("/estimate/find.do")
