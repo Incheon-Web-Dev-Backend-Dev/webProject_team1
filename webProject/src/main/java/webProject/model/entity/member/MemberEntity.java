@@ -36,6 +36,8 @@ public class MemberEntity extends BaseTime {
                 .mphone(this.mphone)
                 .maddr(this.maddr)
                 .role(this.role)
+                .cdate(this.getCdate().toString())
+                .udate(this.getUdate().toString())
                 .build();
     }
 }
