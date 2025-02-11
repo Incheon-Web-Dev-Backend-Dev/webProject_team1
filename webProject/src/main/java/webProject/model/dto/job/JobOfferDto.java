@@ -3,6 +3,8 @@ package webProject.model.dto.job;
 import lombok.*;
 import webProject.model.entity.job.JobOfferEntity;
 
+import java.util.List;
+
 @Getter@Setter@ToString@Builder@AllArgsConstructor@NoArgsConstructor
 public class JobOfferDto {
 
@@ -13,6 +15,8 @@ public class JobOfferDto {
     private String joservice; // 구인하는 서비스
     private String jocity; // 구인하는 시
     private String jodistrict; // 구인하는 구
+
+    private List<JobFileDto> jobFileDto;
 
     private int mno; // 회원번호 FK
 
