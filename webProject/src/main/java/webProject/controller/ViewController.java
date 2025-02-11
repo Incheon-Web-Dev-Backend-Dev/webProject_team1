@@ -13,15 +13,11 @@ public class ViewController {
     }
 
     @GetMapping("/member/signup")
-    public String signup() {
-        return "/member/signup.html";
-    }
-
+    public String signup(){return "/member/signup.html";}
+    
     @GetMapping("/member/login")
-    public String login() {
-        return "/member/login.html";
-    }
-
+    public String login(){return "/member/login.html";}
+    
     @GetMapping("/request/post")
     public String requestPost() {
         return "/request/post.html";
