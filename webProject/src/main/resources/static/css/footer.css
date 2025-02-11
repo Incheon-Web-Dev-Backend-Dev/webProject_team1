@@ -72,7 +72,7 @@ body {
 }
 
 /* 반응형 스타일 추가 */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 500px) {
     .footer-buttons {
         justify-content: center; /* 작은 화면에서는 중앙 정렬 */
     }
@@ -89,7 +89,7 @@ body {
     }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 420px) {
     .footer-buttons {
         justify-content: center !important; /* 작은 화면에서는 중앙 정렬 */
         align-items: center;
