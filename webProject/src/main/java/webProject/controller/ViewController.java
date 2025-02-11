@@ -14,6 +14,6 @@ public class ViewController {
 
     @GetMapping("/request/post")
     public String requestPost() {
-        return ".request/post.html";
+        return "/request/post.html";
     }
 }
