@@ -16,4 +16,9 @@ public class ViewController {
     public String requestPost() {
         return "/request/post.html";
     }
+    // 견적서 쓰기 (업체 / 개인수납가)
+    @GetMapping("/estimate/write")
+    public String estimateWrite(){
+        return "/estimate/write.html";
+    }
 }
