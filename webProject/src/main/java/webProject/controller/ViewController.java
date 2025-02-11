@@ -12,6 +12,16 @@ public class ViewController {
         return "/index.html";
     }
 
+    @GetMapping("/member/signup")
+    public String signup() {
+        return "/member/signup.html";
+    }
+
+    @GetMapping("/member/login")
+    public String login() {
+        return "/member/login.html";
+    }
+
     @GetMapping("/request/post")
     public String requestPost() {
         return "/request/post.html";
