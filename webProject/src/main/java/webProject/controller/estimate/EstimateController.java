@@ -3,6 +3,7 @@ package webProject.controller.estimate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import webProject.model.dto.estimate.EstimateDto;
+import webProject.model.dto.member.MemberDto;
 import webProject.service.estimate.EstimateService;
 
 import java.util.List;
@@ -18,13 +19,19 @@ public class EstimateController {
          return estimateService.estimateWrite(estimateDto);
     }
     // 견적서 전체 보기
-    @GetMapping("estimate/findall.do")
-    public List<EstimateDto> estimateFindAll(){
-        return estimateService.estimateFindAll();
+    @GetMapping("/estimate/findall.do")
+    public List<EstimateDto> estimateFindAll(@RequestParam int rno){
+        return estimateService.estimateFindAll(rno);
     }
-    // 내가 쓴 견적서 선택 보기
-    @GetMapping("estimate/find.do")
+    // 견적글 선택 보기
+    @GetMapping("/estimate/find.do")
     public EstimateDto estimateFind(@RequestParam int eno) {
         return estimateService.estimateFind(eno);
     }
+    // 현재 로그인된 회원이 작성한 견적글 목록 조회
+    @GetMapping("/estimate/myfind.do")
+    public List<EstimateDto> estimateMyFind(@RequestParam int eno){
+        return estimateService.estimateMyFind(eno);
+    }
+
 }

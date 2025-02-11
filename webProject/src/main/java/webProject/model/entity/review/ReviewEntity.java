@@ -26,7 +26,7 @@ public class ReviewEntity extends BaseTime {
     private String revcontent;
 
     @Column(columnDefinition = "int", nullable = false)
-    private int revstart;
+    private int revstar;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name= "mno")

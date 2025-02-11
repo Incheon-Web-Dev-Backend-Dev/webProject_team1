@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.springframework.stereotype.Component;
 import webProject.model.dto.request.RequestDto;
 import webProject.model.entity.BaseTime;
 import webProject.model.entity.member.MemberEntity;
@@ -13,6 +14,7 @@ import webProject.model.entity.member.MemberEntity;
 @NoArgsConstructor @AllArgsConstructor
 @Table(name="service_request")
 @DynamicInsert // @columnDefault 쓸 경우 넣어야되는 어노테이션
+@Component
 public class RequestEntity extends BaseTime {
 
     @Id
