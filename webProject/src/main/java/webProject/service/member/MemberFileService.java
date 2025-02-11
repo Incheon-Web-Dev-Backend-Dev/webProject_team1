@@ -3,5 +3,5 @@ package webProject.service.member;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface MemberFileService {
+public class MemberFileService {
 }

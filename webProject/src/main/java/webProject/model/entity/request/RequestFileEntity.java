@@ -6,6 +6,7 @@ import webProject.model.dto.request.RequestDto;
 import webProject.model.dto.request.RequestFileDto;
 import webProject.model.entity.BaseTime;
 
+@Entity
 @Getter
 @Setter
 @ToString
@@ -17,10 +18,10 @@ public class RequestFileEntity extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int rfno;
+    private int reqfno;
 
     @Column(columnDefinition = "varchar(50)", nullable = false, unique = true)
-    private String rfname;
+    private String reqfname;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "reqno")
@@ -28,10 +29,10 @@ public class RequestFileEntity extends BaseTime {
 
     public RequestFileDto toDto(){
         return RequestFileDto.builder()
-                .rfno(this.rfno)
-                .rfname(this.rfname)
-                .rfcdate(this.getCdate().toString())
-                .rfudate(this.getUdate().toString())
+                .reqfno(this.reqfno)
+                .reqfname(this.reqfname)
+                .reqfcdate(this.getCdate().toString())
+                .reqfudate(this.getUdate().toString())
                 .build();
     }
 

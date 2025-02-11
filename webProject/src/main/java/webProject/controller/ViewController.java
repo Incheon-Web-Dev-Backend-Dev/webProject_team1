@@ -11,4 +11,20 @@ public class ViewController {
     public String index() {
         return "/index.html";
     }
+
+    @GetMapping("/member/signup")
+    public String signup(){return "/member/signup.html";}
+    
+    @GetMapping("/member/login")
+    public String login(){return "/member/login.html";}
+    
+    @GetMapping("/request/post")
+    public String requestPost() {
+        return "/request/post.html";
+    }
+    // 견적서 쓰기 (업체 / 개인수납가)
+    @GetMapping("/estimate/write")
+    public String estimateWrite(){
+        return "/estimate/write.html";
+    }
 }

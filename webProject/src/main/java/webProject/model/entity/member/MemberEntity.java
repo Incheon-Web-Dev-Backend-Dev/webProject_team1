@@ -31,11 +31,12 @@ public class MemberEntity extends BaseTime {
         return MemberDto.builder()
                 .mno(this.mno)
                 .memail(this.memail)
-                .mpwd(this.mpwd)
                 .mname(this.mname)
                 .mphone(this.mphone)
                 .maddr(this.maddr)
                 .role(this.role)
+                .cdate(this.getCdate().toString())
+                .udate(this.getUdate().toString())
                 .build();
     }
 }

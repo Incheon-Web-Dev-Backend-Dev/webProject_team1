@@ -20,7 +20,7 @@ public class JobFileEntity extends BaseTime {
 
     @ManyToOne
     @JoinColumn(name = "jono")
-    @ToString.Exclude@Builder.Default
+    @ToString.Exclude
     private JobOfferEntity jobOfferEntity; // 구인글 번호 FK
 
 

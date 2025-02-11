@@ -2,6 +2,8 @@ package webProject.model.entity.job;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import webProject.model.dto.job.JobOfferDto;
 import webProject.model.entity.BaseTime;
 import webProject.model.entity.member.MemberEntity;
@@ -9,6 +11,7 @@ import webProject.model.entity.member.MemberEntity;
 @Entity
 @Table(name = "joboffer") // 기업에서 작성하는 구인글 테이블
 @Getter@Setter@ToString@Builder@AllArgsConstructor@NoArgsConstructor
+@DynamicInsert // @columnDefault 쓸 경우 넣어야되는 어노테이션
 public class JobOfferEntity extends BaseTime {
 
     @Id
@@ -22,8 +25,8 @@ public class JobOfferEntity extends BaseTime {
     private String jocontent; // 구인글 내용
 
     @Column(columnDefinition = "boolean", nullable = false)
-    @Builder.Default
-    private boolean jostate = false; // 구인글 마감상태 (글 작성시 기본 false, 마감되면 true)
+    @ColumnDefault("false")
+    private boolean jostate; // 구인글 마감상태 (글 작성시 기본 false, 마감되면 true)
 
     @Column(columnDefinition = "varchar(255)", nullable = false)
     private String joservice; // 구인하는 서비스
@@ -39,7 +42,7 @@ public class JobOfferEntity extends BaseTime {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "mno")
-    @Builder.Default@ToString.Exclude
+    @ToString.Exclude
     private MemberEntity memberEntity; // 회원번호 FK
 
 

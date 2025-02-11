@@ -17,6 +17,9 @@ public class MemberDto {
     private String mphone;
     private String maddr;
     private String role;
+    private String cdate;
+    private String udate;
+
 
     public MemberEntity toEntity(){
         return MemberEntity.builder()

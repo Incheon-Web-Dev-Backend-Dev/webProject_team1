@@ -2,6 +2,7 @@ package webProject.model.dto.request;
 
 import jakarta.persistence.Column;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 import webProject.model.entity.request.RequestEntity;
 import webProject.model.entity.request.RequestFileEntity;
 
@@ -13,15 +14,18 @@ import webProject.model.entity.request.RequestFileEntity;
 @AllArgsConstructor
 public class RequestFileDto {
 
-    private int rfno;
-    private String rfname;
-    private String rfcdate;
-    private String rfudate;
+    private int reqfno;
+    private String reqfname;
+    private String reqfcdate;
+    private String reqfudate;
+    private MultipartFile uploadfile;
+
+    private int reqno; // fk 파일이 해당하는 요청서 번호
 
     public RequestFileEntity toEntity(){
         return RequestFileEntity.builder()
-                .rfno(this.rfno)
-                .rfname(this.rfname)
+                .reqfno(this.reqfno)
+                .reqfname(this.reqfname)
                 .build();
     }
 }

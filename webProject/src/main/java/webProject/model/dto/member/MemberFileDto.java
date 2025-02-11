@@ -1,6 +1,7 @@
 package webProject.model.dto.member;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 import webProject.model.entity.member.MemberFileEntity;
 
 @Getter
@@ -12,7 +13,8 @@ import webProject.model.entity.member.MemberFileEntity;
 public class MemberFileDto {
     private int mfno; //가입파일번호
     private String mfname; //파일이름
-    private String cdate; // 지급일
+    private String cdate; // 파일생성일
+    private MultipartFile uploadfile;
 
 
     public MemberFileEntity toEntity(){
