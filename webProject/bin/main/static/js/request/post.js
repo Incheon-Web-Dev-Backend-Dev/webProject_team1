@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('#summernote').summernote({
       height : 500 , // 썸머노트 게시판의 높이조절 속성
       lang : 'ko-KR', // 썸머노트 메뉴 한글화 속성
-      placeholder : '게시물 내용 입력해주세요' // 입력 전에 가이드라인 제공 속성
+      placeholder : '요청서 내용 입력해주세요' // 입력 전에 가이드라인 제공 속성
     });
   });
 
@@ -29,8 +29,8 @@ const areaData = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    const bigAreaSelect = document.querySelector('.reqbigarea'); console.log(bigAreaSelect)
-    const smallAreaSelect = document.querySelector('.reqsmallarea'); console.log(smallAreaSelect)
+    const bigAreaSelect = document.querySelector('.reqbigareaValue'); console.log(bigAreaSelect)
+    const smallAreaSelect = document.querySelector('.reqsmallareaValue'); console.log(smallAreaSelect)
     
     // 시/도 선택 시 이벤트
     bigAreaSelect.addEventListener('change', function() {
@@ -50,3 +50,52 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
+// 견적서 요청서 작성 함수
+const onRequestPost = () => {
+
+    // 1. input dom 가져오기
+    let reqtitleValue = document.querySelector('.reqtitleValue'); console.log(reqtitleValue);
+    let reqspaceValue = document.querySelector('.reqspaceValue'); console.log(reqspaceValue);
+    let reqbigareaValue = document.querySelector('.reqbigareaValue'); console.log(reqbigareaValue);
+    let reqsmallareaValue = document.querySelector('.reqsmallareaValue'); console.log(reqsmallareaValue);
+    let reqcontentValue = document.querySelector('.reqcontentValue'); console.log(reqcontentValue);
+
+    // 2. dom의 value 가져오기
+    let reqtitle = reqtitleValue.value; console.log(reqtitle);
+    let reqspace = reqspaceValue.value; console.log(reqspace);
+    let reqbigarea = reqbigareaValue.value; console.log(reqbigarea);
+    let reqsmallarea = reqsmallareaValue.value; console.log(reqsmallarea);
+    let reqcontent = reqcontentValue.value; console.log(reqcontent);
+
+    // 3. 유효성 검사
+
+    // 4. 입력받은 값들 서버에 보낼 객체 만들기
+    const requestDto = {
+        reqtitle : reqtitle,
+        reqspace : reqspace,
+        reqbigarea : reqbigarea,
+        reqsmallarea : reqsmallarea,
+        reqcontent : reqcontent
+    }
+
+    // 5. fetch
+    const option = {
+        method : 'POST',
+        headers : { 'Content-Type' : 'application/json' },
+        body : JSON.stringify( requestDto )
+    }
+
+    fetch('/request/post.do', option)
+        .then(r=> r.json())
+        .then(data =>{
+            console.log(data)
+            if( data == true ){
+                alert("요청서가 업로드 성공")
+            } else {
+                alert("요청서 업로드 실패")
+            }
+        })
+        .catch(e=> {console.log(e)})
+}

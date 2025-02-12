@@ -19,6 +19,11 @@ body {
     padding: 20px;
 }
 
+.reqstpostHeader{
+    margin-top: 50px;
+    padding: 20px;
+}
+
 /* 썸머노트 에디터 너비 조정 */
 .note-editor {
     width: 100% !important;

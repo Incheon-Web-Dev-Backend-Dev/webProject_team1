@@ -12,9 +12,10 @@ public class ViewController {
         return "/index.html";
     }
 
+    //회원가입 페이지
     @GetMapping("/member/signup")
     public String signup(){return "/member/signup.html";}
-    
+    //로그인 페이지
     @GetMapping("/member/login")
     public String login(){return "/member/login.html";}
 
@@ -35,4 +36,5 @@ public class ViewController {
     public String estimateWrite(){
         return "/estimate/write.html";
     }
+
 }
