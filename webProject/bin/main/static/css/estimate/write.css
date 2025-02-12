@@ -1,0 +1,48 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.estimateContainer {
+    width: 600px;
+    margin-top: 60px;    /* 헤더 높이만큼 여백 */
+    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.estimateBox {
+    width: 100%;
+    padding: 20px;
+}
+
+.estTitle{
+    width: 320px !important;
+}
+
+.content{
+    margin-top: 30px;
+}
+
+.estcontent{
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    resize: none; /*크기조정 제거*/
+}
+
+.cash{
+    margin-top: 30px;
+}
+
+/* 반응형 처리 */
+@media screen and (max-width: 600px) {
+    .estimateContent {
+        width: 100%;
+        padding: 10px;
+    }
+}

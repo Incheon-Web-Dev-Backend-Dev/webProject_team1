@@ -2,52 +2,80 @@ package webProject.service.request;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import webProject.model.dto.member.MemberDto;
 import webProject.model.dto.request.RequestDto;
+import webProject.model.entity.member.MemberEntity;
 import webProject.model.entity.request.RequestEntity;
+import webProject.model.repository.member.MemberRepository;
 import webProject.model.repository.request.RequestRepository;
+import webProject.service.member.MemberService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RequestService {
 
     @Autowired
     private RequestRepository requestRepository;
+    @Autowired
+    private MemberService memberService;
+    @Autowired
+    private MemberRepository memberRepository;
 
     // 현재 로그인된 회원의 요청글 전체조회
     public List<RequestDto> requestFindAll() {
+
+        // 1. 모든 요청서의 엔티티 조회
+        List<RequestEntity> requestEntityList = requestRepository.findAll();
+
+
         return null;
     }
 
     // 현재 로그인된 회윈의 요청글 개별조회
     public RequestDto requestFind(int reqno) {
+
+        // 1. 조회할 특정 요청글의 번호 매개변수 reqno의 엔티티를 조회한다.
+        Optional< RequestEntity > optional = requestRepository.findById( reqno );
+        // 조회된 엔티티 여부에 따라 true/false 반환
+        if(optional.isPresent() ) {
+            RequestEntity requestEntity = optional.get(); // optional 엔티티 꺼내고
+            RequestDto requestDto = requestEntity.toDto(); // 엔티티를 Dto 변환
+
+            // 게시글에 댓글 조회한것처럼 요청글에 견적서 들어오면 견적서 제목, 가격, 내용 보여주기
+            //->
+
+            return requestDto;
+        }// if end
         return null;
-    }
+    }// requestFind end
 
     // 견적 요청글 작성
     public boolean requestPost (RequestDto requestDto){
-    // 1. 사용자로부터 전달받은 requestDto를 엔테테로 변환
-        // 1. dto를 entity로 변환
+        // 1. 사용자로부터 전달받은 requestDto를 엔테테로 변환
+        // -1. dto를 entity로 변환
         RequestEntity requestEntity = requestDto.toEntity();
-        // 2. 견적서 작성자는 현재 로그인된 회원이므로 세션에서 현재 로그인된 회원번호를 조회
-        //MemberDto loginDto = memberService.getMyInfo(); 아직 메서드 만들어지지 않음
-        int loginTest = 1; // 테스터임 멤버에서 로그인한 메서드 만들어지면 삭제하고 위 주석코드 풀기
+        // -2. 견적서 작성자는 현재 로그인된 회원이므로 세션에서 현재 로그인된 회원번호를 조회
+        MemberDto loginDto = memberService.getMyInfo();
 
         // 로그인된 상태가 아니면 글쓰기 종료
-        // loginTest로 무조건 로그인 되어있는걸로 가정함
-        // if(login Dto == null) return false;
-        if(loginTest > 1) return false;
+        if(loginDto == null) return false;
 
         // 로그인된 상태이면 회원번호를 조회
-        int loginMno = 2; // 테스터
+        int loginMno = loginDto.getMno();
+        // 로그인된 회원 엔티티를 요청서 엔티티에 대입한다.
+        MemberEntity loginEntity = memberRepository.findById( loginMno ).get();
+        requestEntity.setMemberEntity( loginEntity );
 
-        // 로그인된ㄷ 회원 엔티티를 요청서 엔티티에 대입한다.
-        // MemberEntity loginEntity = MemberRepository
+        // 2. 엔티티 저장
+        RequestEntity saveRequestEntity = requestRepository.save( requestEntity );
 
-
-
-
-
-        return false;
-    }
+        // 게시글 등록 여부에 따라 true/false 반환
+        if(saveRequestEntity.getReqno() > 0 ) {
+            return true;
+        } else {
+            return false;
+        } // if-else end
+    } // requestPost end
 }

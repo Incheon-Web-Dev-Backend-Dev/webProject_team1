@@ -4,8 +4,198 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/css/member/signup.css">
+
 </head>
 <body>
-    <h2>회원가입 페이지입니다</h2>
+    <div class="form">  
+            <ul class="tab-group">
+              <li class="tab active"><a href="#companysignup">업체</a></li>
+              <li class="tab active"><a href="#mastersignup">정리수납전문가</a></li>
+              <li class="tab active"><a href="#requestersignup">개인의뢰인</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="companysignup">
+                <h1>업체회원가입을 해주세요! </h1>
+                <form action="/" method="post">
+                
+                  <div class="field-wrap">
+                    <label>
+                      Email Address<span class="req">*</span>
+                    </label>
+                    <input type="email"required autocomplete="off"/>
+                  </div>
+       
+                  
+                  <div class="field-wrap">
+                  <label>
+                    비밀번호를 입력하세요 <span class="req">*</span>
+                  </label>
+                  <input type="password"required autocomplete="off"/>
+                </div>
+                  
+                  <div class="field-wrap">
+                  <label>
+                    비밀번호를 재확인<span class="req">*</span>
+                  </label>
+                  <input type="password"required autocomplete="off"/>
+                </div>
+              
+                  <div class="field-wrap">
+                    <label>
+                      이름을 입력해주세요<span class="req">*</span>
+                    </label>
+                    <input type="text"required autocomplete="off"/>
+                  </div>
+                <div class="field-wrap">
+                    <label>
+                     핸드폰번호를 입력해주세요<span class="req">*</span>
+                    </label>
+                    <input type="text" />
+                  </div>
+                  <div class="field-wrap">
+                    <label>
+                     주소를 입력해주세요<span class="req">*</span>
+                    </label>
+                    <input type="text" />
+                  </div>
+                <button type="submit" class="button button-block"/>회원가입
+                  </button>
+              </form>
+      
+              </div>
+              
+              
+      <div id="mastersignup">   
+                <h1> 정리수납 전문가 회원가입을 해주세요! </h1>
+                <form action="/" method="post">
+                
+                  <div class="field-wrap">
+                  <label>
+                    Email Address<span class="req">*</span>
+                  </label>
+                  <input type="email"required autocomplete="off"/>
+                </div>
+       
+                  <div class="field-wrap">
+                  <label>
+                    비밀번호를 입력하세요 <span class="req">*</span>
+                  </label>
+                  <input type="password"required autocomplete="off"/>
+                </div>
+                  
+                  <div class="field-wrap">
+                  <label>
+                    비밀번호를 재확인<span class="req">*</span>
+                  </label>
+                  <input type="password"required autocomplete="off"/>
+                </div>
+              
+                  <div class="field-wrap">
+                    <label>
+                      이름을 입력해주세요<span class="req">*</span>
+                    </label>
+                    <input type="text"required autocomplete="off"/>
+                  </div>
+                <div class="field-wrap">
+                    <label>
+                     핸드폰번호를 입력해주세요<span class="req">*</span>
+                    </label>
+                    <input type="text" />
+                  </div>
+                  <div class="field-wrap">
+                    <label>
+                     주소를 입력해주세요<span class="req">*</span>
+                    </label>
+                    <input type="text" />
+                  </div>
+                <button type="submit" class="button button-block"/>회원가입
+                  </button>
+              </form>
+      
+              </div>
+      <div id="requestersignup">   
+                <h1>개인의뢰인 회원가입을 해주세요! </h1>
+                <form action="/" method="post">
+                
+                  <div class="field-wrap">
+                  <label>
+                    Email Address<span class="req">*</span>
+                  </label>
+                  <input type="email"required autocomplete="off"/>
+                </div>
+                  
+                  
+                  
+                  <div class="field-wrap">
+                  <label>
+                    비밀번호를 입력하세요 <span class="req">*</span>
+                  </label>
+                  <input type="password"required autocomplete="off"/>
+                </div>
+                  
+                  <div class="field-wrap">
+                  <label>
+                    비밀번호를 재확인<span class="req">*</span>
+                  </label>
+                  <input type="password"required autocomplete="off"/>
+                </div>
+              
+                  <div class="field-wrap">
+                    <label>
+                      이름을 입력해주세요<span class="req">*</span>
+                    </label>
+                    <input type="text"required autocomplete="off"/>
+                  </div>
+                <div class="field-wrap">
+                    <label>
+                     핸드폰번호를 입력해주세요<span class="req">*</span>
+                    </label>
+                    <input type="text" />
+                  </div>
+                  <div class="field-wrap">
+                    <label>
+                     주소를 입력해주세요<span class="req">*</span>
+                    </label>
+                    <input type="text" />
+                  </div>
+                <button type="submit" class="button button-block"/>회원가입
+                  </button>
+              </form>
+      
+              </div>
+              <div id="login">   
+                <h1>로그인 해주세요!
+                </h1>
+                
+                <form action="/" method="post">
+                
+                  <div class="field-wrap">
+                  <label>
+                    Email Address<span class="req">*</span>
+                  </label>
+                  <input type="email"required autocomplete="off"/>
+                </div>
+                
+                <div class="field-wrap">
+                  <label>
+                    Password<span class="req">*</span>
+                  </label>
+                  <input type="password"required autocomplete="off"/>
+                </div>
+                
+                <p class="forgot"><a href="#">비밀번호찾기</a></p>
+                
+                <button class="button button-block"/>로그인</button>
+                
+                </form>
+          </div>
+      
+            </div><!-- tab-content -->
+            
+      </div> <!-- /form -->
+
+    <script src="/js/member/signup.js"></script>
 </body>
 </html>

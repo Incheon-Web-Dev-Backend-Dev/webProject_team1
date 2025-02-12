@@ -83,7 +83,7 @@ public class JobOfferService {
 
             List<JobFileEntity> jobFileEntityList = jobFileRepository.findAll();
             List<JobFileDto> jobFileDtoList = new ArrayList<>();
-            jobFileEntityList.forEach();
+
         }
         return null;
     }
