@@ -1,0 +1,49 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.estimateContainer {
+    width: 600px;
+    margin-top: 60px;    /* 헤더 높이만큼 여백 */
+    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.estallviewContent {
+    width: 600px;
+    margin-top: 60px;    /* 헤더 높이만큼 여백 */
+    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.showBox {
+    width: 100%;
+    padding: 20px;
+}
+
+.reqstpostHeader{
+    margin-top: 50px;
+    padding: 20px;
+}
+
+.estFindAllCardBox {
+    display: flex;       /* 가로 정렬 */
+    flex-wrap: wrap;     /* 너비 초과 시 줄바꿈 */
+    gap: 20px;           /* 카드 사이 간격 */
+    justify-content: center; /* 중앙 정렬 */
+    max-width: 600px;    /* 최대 너비 제한 */
+}
+
+.card {
+    width: calc(50% - 10px); /* 한 줄에 두 개씩 배치 */
+    min-width: 250px;  /* 최소 크기 설정 */
+    max-width: 280px;  /* 카드 크기 제한 */
+}
+
+
