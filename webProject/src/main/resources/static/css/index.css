@@ -77,3 +77,17 @@ body {
 .cardBox{
     display: flex;
 }
+
+.showbox {
+    text-align: center; /* 중앙 정렬 */
+  }
+  
+  #circle {
+    display: inline-block; /* 한 줄에 배치 */
+    width: 100px; /* 원의 크기 */
+    height: 100px; /* 원의 크기 */
+    background-color: #A8B5A2; /* 원의 색상 */
+    border-radius: 50%; /* 원 형태로 만듬 */
+    margin: 0 30px; /* 원 사이 간격 */
+    margin-top: 50px; /* 원 사이 간격 */
+  }
