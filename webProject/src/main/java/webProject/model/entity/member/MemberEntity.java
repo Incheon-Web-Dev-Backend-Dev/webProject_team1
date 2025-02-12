@@ -13,19 +13,19 @@ public class MemberEntity extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Unsigned
-    private int mno;
+    private int mno; //회원번호 
     @Column( nullable = false , unique = true , columnDefinition = "varchar(50)")
-    private String memail;
+    private String memail;//회원 이메일
     @Column( nullable = false ,columnDefinition = "varchar(16)")
-    private String mpwd;
+    private String mpwd;//회원 비밀번호
     @Column( nullable = false ,columnDefinition = "varchar(30)")
-    private String mname;
+    private String mname;//회원 이름
     @Column( nullable = false ,columnDefinition = "varchar(13)")
-    private String mphone;
+    private String mphone;//회원핸드폰번호
     @Column( nullable = false ,columnDefinition = "varchar(255)")
-    private String maddr;
+    private String maddr;//회원주소
     @Column( nullable = false ,columnDefinition = "varchar(30)")
-    private String role;
+    private String role;//회원구분
 
     public MemberDto toDto(){
         return MemberDto.builder()

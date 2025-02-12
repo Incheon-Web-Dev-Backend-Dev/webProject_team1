@@ -10,13 +10,13 @@ import webProject.model.entity.member.MemberEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberDto {
-    private int mno;
-    private String memail;
-    private String mpwd;
-    private String mname;
-    private String mphone;
-    private String maddr;
-    private String role;
+    private int mno;//회원번호
+    private String memail;//회원 이메일
+    private String mpwd;//회원 비밀번호
+    private String mname;//회원 이름
+    private String mphone;//회원핸드폰번호
+    private String maddr;//회원주소
+    private String role;//회원구분
     private String cdate;
     private String udate;
 
