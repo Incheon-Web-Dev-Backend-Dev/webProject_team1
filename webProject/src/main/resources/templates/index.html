@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/index.css">
     <title>수납의 달인</title>
 </head>
 <body>
     <div th:replace="~{ /header.html :: header }"></div>
 
-    <!-- bootstrap container -->
-    <div class="container">
-         <!-- 캐러셀 -->
+
+    <div class="mainContent">
+
+      <!-- bootstrap container -->
+      <div class="container">
+        <!-- 캐러셀 -->
         <div id="carouselExampleIndicators" class="carousel slide">
             <div class="carousel-indicators">
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -39,57 +43,98 @@
           </div>
         </div> <!-- 캐러셀 end  -->
 
-        <!-- card section -->
-        <div class="row">
-            <div class="col-sm-5 mb-3 mb-sm-0">
-              <div class="card" style="width: 16rem;">
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment111</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
+        <div class="showbox">
+          <div class="icon-container">
+              <div class="icon">
+                  <i class="fa-solid fa-magnifying-glass-dollar"></i>
               </div>
-            </div>
-            <div class="col-sm-5">
-              <div class="card" style="width: 16rem;">
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment222</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
+              <p id="adtitle">합리적인 가격 선택</p>
+          </div>
+          <div class="icon-container">
+              <div class="icon">
+                  <i class="fa-regular fa-lightbulb"></i>
               </div>
-            </div>
-          </div> <!-- card end -->
+              <p id="adtitle">최상의 서비스 선택</p>
+          </div>
+          <div class="icon-container">
+              <div class="icon">
+                  <i class="fa-regular fa-book"></i>
+              </div>
+              <p id="adtitle">믿음직한 전문가</p>
+          </div>
+      </div>
+       
+      <!-- card section -->
+      <div class="cardBox">
+        <div class="card" style="width: 16rem;">
+          <img src="/img/WebprojectLogo.png" class="card-img-top" alt="...">
+          <div class="card-body">
+          <p class="card-text">🌟🌟🌟🌟🌟🌟</p>
+            <p class="card-text">주방 정리에 최고!</p>
+            <p class="card-text">주방 정리/수납 의뢰 맡겼습니다. 혼자 엄두도 못냈는데 너무 깔끔해져서 대만족이에요. 짱짱</p>
+          </div>
+        </div>
+
+        <div class="card" style="width: 16rem;">
+          <img src="/img/WebprojectLogo.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">🌟🌟🌟🌟🌟🌟</p>
+            <p class="card-text">사무실 정리에 최고!</p>
+            <p class="card-text">사무실 정리/수납 의뢰 맡겼습니다. 혼자 엄두도 못냈는데 너무 깔끔해져서 대만족이에요. 짱짱</p>
+          </div>
+        </div>
+      </div> <!-- card end -->
 
 
-    </div> <!-- container end -->
+        <div>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <a href="/request/post">견적 요청서 작성하기</a>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <a href="/request/list">내가 올린 견적요청서 리스트</a>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+        </div>
+  
+        <div>
+          <span>estimate 구역입니다.</span>
+          <a href="/estimate/write">견적서 작성하기</a>
+        </div>
+
+
+      </div> <!-- container end -->
+
+  </div>
+   
 
 
 
     
-    <div>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <a href="/request/post">견적서 작성하기</a>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-    </div>
-
-    <div>
-        <span>estimate 구역입니다.</span>
-        <a href="/estimate/write">견적서 작성하기</a>
-    </div>
 
 
 
-    <div th:replace="~{ /footer.html :: footer }"></div>
+
+  <div th:replace="~{ /footer.html :: footer }"></div>
     
 </body>
 </html>

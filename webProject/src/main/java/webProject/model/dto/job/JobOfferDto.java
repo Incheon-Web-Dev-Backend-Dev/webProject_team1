@@ -1,9 +1,11 @@
 package webProject.model.dto.job;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 import webProject.model.entity.job.JobOfferEntity;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter@Setter@ToString@Builder@AllArgsConstructor@NoArgsConstructor
 public class JobOfferDto {
@@ -16,7 +18,8 @@ public class JobOfferDto {
     private String jocity; // 구인하는 시
     private String jodistrict; // 구인하는 구
 
-    private List<JobFileDto> jobFileDto;
+    private List<JobFileDto> jobFileDtoList;
+    private List<MultipartFile> uploadFiles;
 
     private int mno; // 회원번호 FK
 
