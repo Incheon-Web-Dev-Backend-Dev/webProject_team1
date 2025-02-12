@@ -8,9 +8,12 @@
 <body>
     <div th:replace="~{ /header.html :: header }"></div>
 
-    <!-- bootstrap container -->
-    <div class="container">
-         <!-- 캐러셀 -->
+
+    <div class="mainContent">
+
+      <!-- bootstrap container -->
+      <div class="container">
+        <!-- 캐러셀 -->
         <div id="carouselExampleIndicators" class="carousel slide">
             <div class="carousel-indicators">
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -39,57 +42,76 @@
           </div>
         </div> <!-- 캐러셀 end  -->
 
-        <!-- card section -->
-        <div class="row">
-            <div class="col-sm-5 mb-3 mb-sm-0">
-              <div class="card" style="width: 16rem;">
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment111</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
+      <!-- card section -->
+      <div class="row">
+          <div class="col-sm-5 mb-3 mb-sm-0">
+            <div class="card" style="width: 16rem;">
+              <div class="card-body">
+                <h5 class="card-title">정리수납 이용후기</h5>
+                <p class="card-text">짱짱 좋습니다</p>
+                <a href="#" class="btn btn-primary">이용후기 자세히보기</a>
               </div>
             </div>
-            <div class="col-sm-5">
-              <div class="card" style="width: 16rem;">
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment222</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
+          </div>
+          <div class="col-sm-5">
+            <div class="card" style="width: 16rem;">
+              <div class="card-body">
+                <h5 class="card-title">정리수납 이용후기2</h5>
+                <p class="card-text">많이들이용하세요</p>
+                <a href="#" class="btn btn-primary">이용후기 자세히보기</a>
               </div>
             </div>
-          </div> <!-- card end -->
+          </div>
+        </div> <!-- card end -->
+
+        <div>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <a href="/request/post">견적서 작성하기</a>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <span>request 구역입니다.</span>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+        </div>
+  
+        <div>
+          <span>estimate 구역입니다.</span>
+          <a href="/estimate/write">견적서 작성하기</a>
+        </div>
 
 
-    </div> <!-- container end -->
+      </div> <!-- container end -->
+
+  </div>
+   
 
 
 
     
-    <div>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <a href="/request/post">견적서 작성하기</a>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-        <span>request 구역입니다.</span>
-    </div>
-
-    <div>
-        <span>estimate 구역입니다.</span>
-        <a href="/estimate/write">견적서 작성하기</a>
-    </div>
 
 
 
-    <div th:replace="~{ /footer.html :: footer }"></div>
+
+  <div th:replace="~{ /footer.html :: footer }"></div>
     
 </body>
 </html>

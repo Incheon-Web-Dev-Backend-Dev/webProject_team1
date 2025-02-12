@@ -39,7 +39,6 @@
     font-family: 'NanumSquareNeo';
 }
 
-
 body {
     display: flex;
     flex-direction: column;
@@ -47,6 +46,9 @@ body {
     margin: 0;
     padding: 0;
 }
+
+
+
 
 .mainContent {
     width: 600px !important;
@@ -74,28 +76,4 @@ body {
 
 .cardBox{
     display: flex;
-}
-
-.headerAll {
-    width: 600px;
-    background-color: #A8B5A2;
-    display: flex;
-    justify-content: space-between;
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-}
-
-.logoNav {
-    width: 30%;
-    align-items: center;
-    font-size: medium;
-}
-
-.authNav {
-    width: 70%;
-    align-items: center;
-    font-size: medium;
 }
