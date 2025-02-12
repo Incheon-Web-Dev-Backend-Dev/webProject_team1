@@ -1,22 +1,53 @@
-.header_all {
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+
+.headerAll {
     width: 600px;
     background-color: #A8B5A2;
     display: flex;
     justify-content: space-between;
+    align-items: center;  /* 세로 중앙 정렬 추가 */
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    padding: 10px 20px;  /* 좌우 여백 추가 */
 }
 
-.logo_nav {
-    width:30%;
-    align-items: center;
-    border: solid 1px red;
-
-    font-size: medium;
+.logoNav {
+    width: auto;  
 }
 
-.auth_nav {
-    width: 70%;
-    align-items: center;
-    border: solid 1px blue;
+.logoNav img {
+    height: 100%;  /* 이미지를 로고 영역에 맞춤 */
+    width: auto;
+}
 
-    font-size: medium;
+.authNav {
+    display: flex;  /* 가로 정렬을 위해 추가 */
+    list-style: none;  /* li 점 제거 */
+    padding: 0;  /* 기본 패딩 제거 */
+    margin-left: auto;  /* 기본 마진 제거 */
+    margin-top: auto;
+    margin-bottom: auto;
+    align-items: center;  /* 세로 중앙 정렬 */
+    gap: 20px;  /* 항목 사이 간격 */
+}
+
+.authNav li a {
+    text-decoration: none;  /* 밑줄 제거 */
+    color: black;  /* 글자색 검정으로 */
+    font-family: 'NanumSquareNeo';  /* 폰트 통일 */
+}
+
+/* 호버 효과 (선택사항) */
+.authNav li a:hover {
+    opacity: 0.8;  /* 호버 시 약간 투명하게 */
 }
