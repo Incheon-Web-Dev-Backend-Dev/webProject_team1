@@ -36,12 +36,12 @@ public class JobOfferService {
 
     @Transactional
     public boolean jobOfferWrite(JobOfferDto jobOfferDto) {
-//        MemberDto loginDto = memberService.getMyInfo();
-//        if (loginDto == null){return false;}
-//        MemberEntity loginEntity = memberRepository.findById(loginDto.getMno()).get();
+        // MemberDto loginDto = memberService.getMyInfo();
+        // if (loginDto == null){return false;}
+        MemberEntity loginEntity = memberRepository.findById(jobOfferDto.getMno()).get();
 
         JobOfferEntity jobOfferEntity = jobOfferDto.toEntity();
-//        jobOfferEntity.setMemberEntity(loginEntity);
+        jobOfferEntity.setMemberEntity(loginEntity);
         JobOfferEntity saveEntity = jobOfferRepository.save(jobOfferEntity);
 
         List<MultipartFile> uploadFiles = jobOfferDto.getUploadFiles();
@@ -51,7 +51,6 @@ public class JobOfferService {
                 for (int index = 0; index <= uploadFiles.size()-1; index++) {
                     String fileName = jobFileService.fileUpload(uploadFiles.get(index));
                     jobFileDto.setJfname(fileName);
-                    System.out.println(jobFileDto);
                     JobFileEntity jobFileEntity = jobFileDto.toEntity();
                     jobFileEntity.setJobOfferEntity(jobOfferEntity);
                     JobFileEntity saveFileEntity = jobFileRepository.save(jobFileEntity);
@@ -84,20 +83,39 @@ public class JobOfferService {
             List<JobFileEntity> jobFileEntityList = jobFileRepository.findAll();
             List<JobFileDto> jobFileDtoList = new ArrayList<>();
 
+            jobFileEntityList.forEach(jobFileEntity -> {
+                if (jobFileEntity.getJobOfferEntity().getJono() == jono){
+                    JobFileDto jobFileDto = jobFileEntity.toDto();
+                    jobFileDtoList.add(jobFileDto);
+                    jobOfferDto.setJobFileDtoList(jobFileDtoList);
+                }
+            });
+            return jobOfferDto;
         }
         return null;
     }
 
+    @Transactional
     public boolean jobOfferUpdate(JobOfferDto jobOfferDto) {
-        return false;
+        JobOfferEntity updateEntity = jobOfferRepository.findById(jobOfferDto.getJono()).get();
+        updateEntity.setJotitle(jobOfferDto.getJotitle());
+        updateEntity.setJocontent(jobOfferDto.getJocontent());
+        updateEntity.setJoservice(jobOfferDto.getJoservice());
+        updateEntity.setJocity(jobOfferDto.getJocity());
+        updateEntity.setJodistrict(jobOfferDto.getJodistrict());
+        return true;
     }
 
+    @Transactional
     public boolean jobStateUpdate(int jono) {
-        return false;
+        JobOfferEntity entity = jobOfferRepository.findById(jono).get();
+        entity.setJostate(!entity.isJostate());
+        return true;
     }
 
     public boolean jobOfferDelete(int jono) {
-        return false;
+        jobOfferRepository.deleteById(jono);
+        return true;
     }
 
     public List<JobOfferDto> jobOfferMyList(int mno) {
