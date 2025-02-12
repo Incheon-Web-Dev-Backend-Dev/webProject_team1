@@ -2,6 +2,8 @@ package webProject.controller.job;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import webProject.model.dto.job.JobFileDto;
 import webProject.model.dto.job.JobOfferDto;
 import webProject.service.job.JobOfferService;
 

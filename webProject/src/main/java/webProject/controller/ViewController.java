@@ -16,4 +16,5 @@ public class ViewController {
     public String requestPost() {
         return "/request/post.html";
     }
+
 }
