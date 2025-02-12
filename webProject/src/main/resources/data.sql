@@ -55,13 +55,13 @@ VALUES
 (4, 'job4_image.jpg', NOW(), NOW()),
 (5, 'job5_image.jpg', NOW(), NOW());
 
-INSERT INTO like_job (jono, lno, lstatus, mno, cdate, udate)
+INSERT INTO like_job (jono, lno, mno, cdate, udate)
 VALUES
-(1, 1, 1, 2, NOW(), NOW()),
-(2, 2, 1, 1, NOW(), NOW()),
-(3, 3, 1, 4, NOW(), NOW()),
-(4, 4, 1, 3, NOW(), NOW()),
-(5, 5, 1, 5, NOW(), NOW());
+(1, 1, 2, NOW(), NOW()),
+(2, 2, 1, NOW(), NOW()),
+(3, 3, 4, NOW(), NOW()),
+(4, 4, 3, NOW(), NOW()),
+(5, 5, 5, NOW(), NOW());
 
 INSERT INTO review (revno, revcontent, revstar, mno, reqno, estno, cdate, udate)
 VALUES
