@@ -33,7 +33,7 @@ const requestFindAll = () => {
                                 <h5 class="card-title">${list.reqtitle}</h5>
                             </div>
                             <div class="card-link">
-                                <a href="#" class="card-link">들어온 견적서 수</a>
+                                <a href="/estimate/findall?reqno=${list.reqno}" class="card-link">들어온 견적서 수</a>
                             </div>
                         </div>
                     </div>
