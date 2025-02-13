@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-  <!--썸머노트 api 에 필요한 css 임포트-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote-bs5.min.css" />
+    <link rel="stylesheet" href="/css/job/write.css">
+
+    <!-- 썸머노트 api 에 필요한 css 임포트 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote-bs5.min.css"/>
 </head>
 <body>
   <div th:replace="~{/header.html :: header}"></div>
@@ -17,16 +19,16 @@
     <!-- 요청서 form section -->
     <div class="postBox">
 
-      <!-- reqtitle input section -->
+      <!-- jotitle input section -->
       <div class="mb-3">
         <label for="basic-url" class="form-label">구인글 제목</label>
         <div class="input-group">
-          <input type="text" class="form-control reqtitleValue" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+          <input type="text" class="form-control jotitleValue" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
         </div>
         <div class="form-text" id="basic-addon4">제목은 50자 이내로 작성해주세요.</div>
-      </div> <!-- reqtitle end -->
+      </div> <!-- jotitle end -->
 
-      <!-- reqspace input section -->
+      <!-- jospace input section -->
       <div class="mb-3">
         <label for="basic-url" class="form-label">정리/수납 공간</label>
         <div class="input-group">
@@ -42,10 +44,10 @@
           </select>
         </div>
         <div class="form-text" id="basic-addon4">기타를 선택할 경우 아래 요청 내용에 작업 요청공간을 자세하게 작성해주세요.</div>
-      </div> <!-- reqspace end -->
+      </div> <!-- jospace end -->
 
 
-      <!-- reqarea input section -->
+      <!-- jocity input section -->
       <div class="mb-3">
         <label for="basic-url" class="form-label">정리/수납 지역</label>
         <div class="input-group">
@@ -68,22 +70,22 @@
             <option value="15">전북특별자치도</option>
             <option value="16">제주특별자치도</option>
           </select>
-          <select class="form-select reqsmallareaValue" id="inputGroupSelect04" aria-label="Example select with button addon">
+          <select class="form-select jodistrictValue" id="inputGroupSelect04" aria-label="Example select with button addon">
             <option selected>선택하기</option>
           </select>
         </div>
-      </div>  <!-- reqarea end -->
+      </div>  <!-- jocity end -->
 
-      <!-- reqcontent input section -->
+      <!-- jocontent input section -->
       <div class="mb-3">
         <label for="basic-url" class="form-label">정리/수납 자세한 요청 내용</label>
 
         <!-- summernote -->
         <textarea id="summernote" name="editordata" class="jocontentValue"></textarea> <br/>
-      </div><!-- reqcontent end -->
+      </div><!-- jocontent end -->
 
       <!-- joboffer post button -->
-      <button type="button" class="btn btn-secondary btn-lg" style="margin: 100px 50px;" onclick=""> 구인글 올리기 </button>
+      <button type="button" class="btn btn-secondary btn-lg" style="margin: 100px 50px;" onclick="jobwrite()"> 구인글 올리기 </button>
 
 
     </div> <!-- section end -->
@@ -100,6 +102,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote-bs5.min.js"></script>
   <!-- 썸머노트 API 한글 메뉴 JS 임포트 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/lang/summernote-ko-KR.min.js"></script>
-  <!-- post.js 임포트 -->
+  <!-- job/write.js 임포트 -->
   <script src="/js/job/write.js"></script>
 </html>
