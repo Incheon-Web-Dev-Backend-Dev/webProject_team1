@@ -11,12 +11,14 @@ import webProject.service.like.LikeService;
 @RestController
 public class LikeController {
     @Autowired LikeService likeService;
-//
-//    @PostMapping("/like/post.do")
-//    public boolean likePost(@RequestBody LikeDto likeDto){
-//        return likeService.likePost(likeDto);
-//    }
 
-    @DeleteMapping("/like/delete.do")
-    public boolean likeDelete(){return false;}
+    @PostMapping("/like/post.do")
+    public boolean likePost(@RequestBody LikeDto likeDto){
+        return likeService.likePost(likeDto);
+    }
+
+//    @DeleteMapping("/like/delete.do")
+//    public boolean likeDelete(int jono) {
+//        return likeService.likeDelete(jono);
+    //}
 }
