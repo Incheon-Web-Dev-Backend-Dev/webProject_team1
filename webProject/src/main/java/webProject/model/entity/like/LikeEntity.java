@@ -15,14 +15,14 @@ import webProject.model.entity.member.MemberEntity;
 public class LikeEntity extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int lno;
+    private int lno; // 좋아요 번호
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "mno")
+    @JoinColumn(name = "mno") // 누가 눌렀는지
     private MemberEntity memberEntity;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "jono")
+    @JoinColumn(name = "jono") // 누른 게시글
     private JobOfferEntity jobOfferEntity;
 
     public LikeDto toLDto(){
