@@ -19,15 +19,15 @@
             <!-- esttitle input -->
             <div class="title">
                 <label for="esttitle" class="form-label esttitle">&#128073; 견적서 제목</label>
-                <input type="text" id="esttitle" class="form-control esttitle" aria-describedby="estimate">
+                <input type="text esttitle" id="esttitle" class="form-control esttitleValue" aria-describedby="estimate">
                 <div id="passwordHelpBlock" class="form-text">제목은 50자 이내로 작성해주세요.</div>
             </div><!-- esttitle end -->
             
             <!-- estcontent input -->
             <div class="content">            
-                <label for="esttitle" class="form-label estcontent">&#128073; 견적서 내용</label>
+                <label for="esttitle" class="form-label estcontitle">&#128073; 견적서 내용</label>
                 <div class="form-floating">
-                <textarea class="form-control estcontent" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 280px"></textarea>
+                <textarea class="form-control estcontentValue" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 280px"></textarea>
                 <label for="floatingTextarea2">견적 내용 입력 항목입니다.</label>
               </div>
             </div><!-- estcontent end -->
@@ -35,15 +35,15 @@
             <!-- estcash input -->
             <div class="cash">
                 <label for="esttitle" class="form-label estcash">&#128073; 견적 금액(원)</label>
-                <input type="text" id="estcash" class="form-control estcash" onkeyup="inputNumberFormat(this);"
+                <input type="text estcash" id="estcash" class="form-control estcashValue" onkeyup="inputNumberFormat(this);"
                 aria-describedby="estimate" placeholder="숫자만 입력해주세요" style="margin-bottom: 5px;">
                 <!-- 버튼 알림 -->
                 <div id="liveAlertPlaceholder"></div>
-                <button type="button" class="btn btn-danger" id="liveAlertBtn" style="width: 84px; height: 34px; font-size: 9.2px; font-weight: bold;">견적 안내 사항</button>
+                <button type="button" class="btn btn-danger" id="liveAlertBtn" style="width: 84px; height: 34px; font-size: 9.6px; font-weight: bold;">견적안내사항</button>
             </div><!-- estcash end -->
 
             <!-- request post button -->
-            <button type="button" class="btn btn-secondary btn-lg" style="margin: 100px 50px;"> 요청글 견적서 올리기 </button>
+            <button type="button" class="btn btn-secondary btn-lg" style="margin: 100px 50px;" onclick="onEstimateWrite()"> 요청글 견적서 올리기 </button>
 
         </div>
 
@@ -52,7 +52,6 @@
     <div th:replace="~{ /footer.html :: footer }"></div>
 
     <script src="/js/estimate/write.js"></script>
-    <script src="site/assets/js/snippets.js"></script>
     <script type="text/javascript"></script>
 </body>
 </html>

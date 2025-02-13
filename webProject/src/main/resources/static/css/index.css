@@ -114,7 +114,7 @@ body {
 
 
   /* 반응형 처리를 위한 미디어 쿼리 */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 390px) {
     .cardBox {
         flex-direction: column;  /* 세로 정렬로 변경 */
         align-items: center;     /* 가운데 정렬 유지 */
