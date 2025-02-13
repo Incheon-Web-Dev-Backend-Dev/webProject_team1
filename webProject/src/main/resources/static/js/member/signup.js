@@ -1,88 +1,89 @@
-$(".form")
-  .find("input, textarea")
-  .on("keyup blur focus", function (e) {
-    var $this = $(this),
-      label = $this.prev("label");
+// signup.js
 
-    if (e.type === "keyup") {
-      if ($this.val() === "") {
-        label.removeClass("active highlight");
-      } else {
-        label.addClass("active highlight");
-      }
-    } else if (e.type === "blur") {
-      if ($this.val() === "") {
-        label.removeClass("active highlight");
-      } else {
-        label.removeClass("highlight");
-      }
-    } else if (e.type === "focus") {
-      if ($this.val() === "") {
-        label.removeClass("highlight");
-      } else if ($this.val() !== "") {
-        label.addClass("highlight");
-      }
+function selectRole(role, event) {
+    document.getElementById('selectedRole').value = role;
+
+    // 모든 박스의 배경색 초기화
+    const boxes = document.querySelectorAll('.role-box');
+    boxes.forEach(box => {
+        box.style.backgroundColor = ''; // 초기화
+    });
+
+    // 선택된 박스 강조
+    event.currentTarget.style.backgroundColor = '#e0e0e0';
+}
+
+document.getElementById('signupForm').addEventListener('submit', function(event) {
+    const password = document.getElementById('mpwd').value;
+    const passwordConfirm = document.getElementById('mpwdConfirm').value;
+
+    // 비밀번호 확인
+    if (password !== passwordConfirm) {
+        event.preventDefault(); // 폼 제출 방지
+        alert('비밀번호가 일치하지 않습니다.'); // 경고 메시지
+        return;
     }
-  });
-$(document).ready(function () {
-  // 페이지 로드 시 첫 번째 탭만 표시
-  $(".tab-content > div").hide();
-  $("#companysignup").show();
 
-  // 탭 클릭 시 해당 탭만 표시
-  $(".tab a").on("click", function (e) {
-    e.preventDefault();
+    // 비밀번호 유효성 검사
+    const regex = /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{1,20}$/; // 영어 대소문자, 숫자 포함, 20자 이내
+    if (!regex.test(password)) {
+        event.preventDefault(); // 폼 제출 방지
+        alert('비밀번호는 영어와 숫자를 포함하고, 20자 이내여야 합니다.'); // 경고 메시지
+        return;
+    }
 
-    $(this).parent().addClass("active");
-    $(this).parent().siblings().removeClass("active");
+    // 모든 입력값을 서버로 전송하는 부분
+    const formData = new FormData(event.target); // 폼 데이터 생성
+    fetch('/api/signup', { // 서버 API 엔드포인트로 POST 요청
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json(); // JSON 응답 처리
+        }
+        throw new Error('회원가입 실패');
+    })
+    .then(data => {
+        alert('회원가입이 완료되었습니다!'); // 성공 메시지
+        // 필요에 따라 리다이렉션 또는 다음 단계 처리
+    })
+    .catch(error => {
+        console.error(error);
+        alert('오류가 발생했습니다. 다시 시도해 주세요.'); // 오류 처리
+    });
 
-    let target = $(this).attr("href");
-    $(".tab-content > div").hide();
-    $(target).fadeIn(600);
-  });
+    event.preventDefault(); // 기본 폼 제출 방지
+});
 
-  // 비밀번호 유효성 검사
-  $('input[type="password"]').on("keyup", function () {
-    let password = $('input[type="password"]').eq(0).val();
-    let confirmPassword = $('input[type="password"]').eq(1).val();
-    let passwordMessage = $("#password-message");
-    let confirmMessage = $("#confirm-message");
+// 비밀번호 유효성 검사
+document.getElementById('mpwd').addEventListener('input', function() {
+    const password = this.value;
+    const confirmMessage = document.getElementById('confirmMessage');
+    const regex = /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{1,20}$/; // 영어 대소문자, 숫자 포함, 20자 이내
 
-    let hasNumber = /[0-9]/.test(password);
-    let hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-    let isValidLength = password.length >= 8;
-
-    if (!isValidLength || !hasNumber || !hasSpecialChar) {
-      passwordMessage
-        .text("비밀번호는 8자 이상, 숫자 및 특수문자를 포함해야 합니다.")
-        .css("color", "red");
+    if (regex.test(password)) {
+        confirmMessage.textContent = ''; // 메시지 초기화
+        document.getElementById('mpwdConfirm').disabled = false; // 비밀번호가 유효하면 활성화
     } else {
-      passwordMessage.text("사용 가능한 비밀번호입니다.").css("color", "green");
+        confirmMessage.textContent = '비밀번호는 영어와 숫자를 포함하고, 20자 이내여야 합니다.';
+        confirmMessage.style.color = 'red';
+        document.getElementById('mpwdConfirm').disabled = true; // 비밀번호가 유효하지 않으면 비활성화
+        document.getElementById('mpwdConfirm').value = ''; // 비밀번호 확인 입력란 초기화
     }
-
-    if (confirmPassword.length > 0) {
-      if (password !== confirmPassword) {
-        confirmMessage
-          .text("비밀번호가 일치하지 않습니다.")
-          .css("color", "red");
-      } else {
-        confirmMessage.text("비밀번호가 일치합니다.").css("color", "green");
-      }
-    }
-  });
 });
 
-$(".tab a").on("click", function (e) {
-  e.preventDefault();
+// 비밀번호 확인 실시간 검사
+document.getElementById('mpwdConfirm').addEventListener('input', function() {
+    const password = document.getElementById('mpwd').value;
+    const passwordConfirm = this.value;
+    const confirmMessage = document.getElementById('confirmMessage');
 
-  $(this).parent().addClass("active");
-  $(this).parent().siblings().removeClass("active");
-
-  target = $(this).attr("href");
-
-  $(".tab-content > div").not(target).hide();
-
-  $(target).fadeIn(600);
+    if (password === passwordConfirm) {
+        confirmMessage.textContent = '비밀번호가 일치합니다.';
+        confirmMessage.style.color = 'green';
+    } else {
+        confirmMessage.textContent = '비밀번호가 일치하지 않습니다.';
+        confirmMessage.style.color = 'red';
+    }
 });
-
-//
