@@ -2,6 +2,7 @@ package webProject.model.dto.job;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
+import webProject.model.dto.member.MemberDto;
 import webProject.model.entity.job.JobOfferEntity;
 
 import java.util.List;
@@ -17,11 +18,13 @@ public class JobOfferDto {
     private String joservice; // 구인하는 서비스
     private String jocity; // 구인하는 시
     private String jodistrict; // 구인하는 구
+    private String cdate;
 
     private List<JobFileDto> jobFileDtoList;
     private List<MultipartFile> uploadFiles;
 
     private int mno; // 회원번호 FK
+    private MemberDto memberDto;
 
     public JobOfferEntity toEntity(){
         return JobOfferEntity.builder().jono(this.jono)

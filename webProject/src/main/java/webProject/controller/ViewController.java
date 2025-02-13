@@ -37,10 +37,32 @@ public class ViewController {
         return "/estimate/write.html";
     }
 
+
     // 요청서에 해당하는 견적서 전체 출력 (일반 의뢰인이 올린)
     @GetMapping("/estimate/findall")
     public String estimateFindAll(){
         return "/estimate/findall.html";
+    }
+
+
+
+    //============================JobOffer============================
+    // 구인글 쓰기(업체)
+    @GetMapping("/job/write")
+    public String jobWrite(){
+        return "/job/write.html";
+    }
+
+    // 구인글 리스트(업체/개인수납가)
+    @GetMapping("/job/list")
+    public String jobList(){
+        return "/job/list.html";
+    }
+
+    // 구인글 보기(업체/개인수납가)
+    @GetMapping("/job/view")
+    public String jobView(){
+        return "/job/view.html";
     }
 
 }

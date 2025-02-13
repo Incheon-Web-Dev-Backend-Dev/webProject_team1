@@ -53,7 +53,9 @@ public class JobOfferEntity extends BaseTime {
                 .jotitle(this.jotitle).jocontent(this.jocontent)
                 .jostate(this.jostate).joservice(this.joservice)
                 .jocity(this.jocity).jodistrict(this.jodistrict)
-                .mno(memberEntity.getMno()).build();
+                .cdate(this.getCdate().toString())
+                .mno(memberEntity.getMno())
+                .memberDto(memberEntity.toDto()).build();
     }
 
 }
