@@ -53,5 +53,65 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function jobwrite(){
 
-    
+    let jotitleValue = document.querySelector('.jotitleValue');
+    let joserviceValue = document.querySelector('.joserviceValue');
+    let jocityValue = document.querySelector('.jocityValue');
+    let jodistrictValue = document.querySelector('.jodistrictValue');
+    let jocontentValue = document.querySelector('.jocontentValue');
+
+    let jotitle = jotitleValue.value;
+    let joservice = joserviceValue.value;
+    let jocity = jocityValue.value;
+    let jodistrict = jodistrictValue.value;
+    let jocontent = jocontentValue.value;
+
+    // 3. 유효성 검사
+    // 모든 요소는 필수선택 조건이어야 한다.
+    if(jotitle.trim() === '') {
+        alert('제목을 입력해주세요.');
+        return false;
+    } else if(joservice === '선택하기') {
+        alert('정리/수납 요청 공간을 선택해주세요.');
+        return false;
+    } else if(jocity === '선택하기') {
+        alert('시/도를 선택해주세요.');
+        return false;
+    } else if(jodistrict === '선택하기') {
+        alert('시/군/구를 선택해주세요.');
+        return false;
+    } else if(jocontent.trim() === '') {
+        alert('요청 내용을 입력해주세요.');
+        return false;
+    }
+
+
+    // 4. 입력받은 값들 서버에 보낼 객체 만들기
+    const jobofferDto = {
+        jotitle : jotitle,
+        joservice : joservice,
+        jocity : jocity,
+        jodistrict : jodistrict,
+        jocontent : jocontent
+    }
+
+    // 5. fetch
+    const option = {
+        method : 'POST',
+        headers : { 'Content-Type' : 'application/json' },
+        body : JSON.stringify( jobofferDto )
+    }
+
+    fetch('/joboffer/write.do', option)
+        .then(r=> r.json())
+        .then(data =>{
+            console.log(data)
+            if( data == true ){
+                confirm('구인글을을 올리시겠습니까?')
+                alert("구인글 업로드 성공")
+                location.href='/'; // 요청서 개별 조회 페이지 만들면 링크 수정하기 
+            } else {
+                alert("구인글 업로드 실패")
+            }
+        })
+        .catch(e=> {console.log(e)})
 };

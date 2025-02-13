@@ -7,10 +7,13 @@ const jobFind = () => {
     .then(d => {
         console.log(d)
         document.querySelector('.mnamebox').innerHTML = d.memberDto.mname;
-        document.querySelector('.cdatebox').innerHTML = d.cdate;
 
         document.querySelector('.jotitle').innerHTML = d.jotitle;
         document.querySelector('.jocontent').innerHTML = d.jocontent;
+
+        document.querySelector('.maddrbox').innerHTML = d.memberDto.maddr;
+        document.querySelector('.cdatebox').innerHTML = d.cdate;
+
     })
     .catch(e => console.log(e))
 

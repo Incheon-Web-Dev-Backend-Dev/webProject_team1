@@ -36,28 +36,28 @@ public class JobOfferService {
 
     @Transactional
     public boolean jobOfferWrite(JobOfferDto jobOfferDto) {
-        // MemberDto loginDto = memberService.getMyInfo();
-        // if (loginDto == null){return false;}
-        MemberEntity loginEntity = memberRepository.findById(jobOfferDto.getMno()).get();
+//        MemberDto loginDto = memberService.getMyInfo();
+//        if (loginDto == null){return false;}
+        MemberEntity loginEntity = memberRepository.findById(2).get();
 
         JobOfferEntity jobOfferEntity = jobOfferDto.toEntity();
         jobOfferEntity.setMemberEntity(loginEntity);
         JobOfferEntity saveEntity = jobOfferRepository.save(jobOfferEntity);
 
-        List<MultipartFile> uploadFiles = jobOfferDto.getUploadFiles();
-        JobFileDto jobFileDto = new JobFileDto();
-        if (uploadFiles!=null){
-            try {
-                for (int index = 0; index <= uploadFiles.size()-1; index++) {
-                    String fileName = jobFileService.fileUpload(uploadFiles.get(index));
-                    jobFileDto.setJfname(fileName);
-                    JobFileEntity jobFileEntity = jobFileDto.toEntity();
-                    jobFileEntity.setJobOfferEntity(jobOfferEntity);
-                    JobFileEntity saveFileEntity = jobFileRepository.save(jobFileEntity);
-                    if (!(saveFileEntity.getJfno() > 0)){return false;}
-                }
-            } catch (Exception e){System.out.println(e); return false;}
-        }
+//        List<MultipartFile> uploadFiles = jobOfferDto.getUploadFiles();
+//        JobFileDto jobFileDto = new JobFileDto();
+//        if (uploadFiles!=null){
+//            try {
+//                for (int index = 0; index <= uploadFiles.size()-1; index++) {
+//                    String fileName = jobFileService.fileUpload(uploadFiles.get(index));
+//                    jobFileDto.setJfname(fileName);
+//                    JobFileEntity jobFileEntity = jobFileDto.toEntity();
+//                    jobFileEntity.setJobOfferEntity(jobOfferEntity);
+//                    JobFileEntity saveFileEntity = jobFileRepository.save(jobFileEntity);
+//                    if (!(saveFileEntity.getJfno() > 0)){return false;}
+//                }
+//            } catch (Exception e){System.out.println(e); return false;}
+//        }
 
         if (saveEntity.getJono() > 0){return true;}
         return false;
@@ -118,7 +118,16 @@ public class JobOfferService {
         return true;
     }
 
-    public List<JobOfferDto> jobOfferMyList(int mno) {
-        return null;
+    public List<JobOfferDto> jobOfferMyList() {
+        // String mid = memberService.getSession();
+        // company1@gmail.com
+        MemberEntity loginEntity = memberRepository.findByMemail("company1@gmail.com");
+        List<JobOfferEntity> jobOfferEntityList = jobOfferRepository.findByMemberEntity_Mno(loginEntity.getMno());
+        List<JobOfferDto> list = new ArrayList<>();
+        jobOfferEntityList.forEach(jobOfferEntity -> {
+            JobOfferDto jobOfferDto = jobOfferEntity.toDto();
+            list.add(jobOfferDto);
+        });
+        return list;
     }
 }

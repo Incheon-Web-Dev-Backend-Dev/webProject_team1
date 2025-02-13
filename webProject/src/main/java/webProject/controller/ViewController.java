@@ -65,4 +65,7 @@ public class ViewController {
         return "/job/view.html";
     }
 
+    @GetMapping("/job/mylist")
+    public String jobMylist(){return "/job/mylist.html";}
+
 }
