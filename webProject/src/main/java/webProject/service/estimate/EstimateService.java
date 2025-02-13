@@ -49,6 +49,9 @@ public class EstimateService {
 
     // 견적글 전체 보기
     public List<EstimateDto> estimateFindAll(int reqno){
+        // 현재 로그인된 세션 객체 조회
+        MemberDto loginDto = memberService.getMyInfo();
+        if(loginDto == null){ System.out.println("login error"); return null; }
         List<EstimateEntity> estimateEntityList = estimateRepository.findAll();
         List<EstimateDto> estimateDtoList =new ArrayList<>();
         estimateEntityList.forEach(entity -> {

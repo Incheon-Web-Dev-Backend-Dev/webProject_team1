@@ -70,6 +70,24 @@ const onRequestPost = () => {
     let reqcontent = reqcontentValue.value; console.log(reqcontent);
 
     // 3. 유효성 검사
+    // 모든 요소는 필수선택 조건이어야 한다.
+    if(reqtitle.trim() === '') {
+        alert('제목을 입력해주세요.');
+        return false;
+    } else if(reqspace === '선택하기') {
+        alert('정리/수납 요청 공간을 선택해주세요.');
+        return false;
+    } else if(reqbigarea === '선택하기') {
+        alert('시/도를 선택해주세요.');
+        return false;
+    } else if(reqsmallarea === '선택하기') {
+        alert('시/군/구를 선택해주세요.');
+        return false;
+    } else if(reqcontent.trim() === '') {
+        alert('요청 내용을 입력해주세요.');
+        return false;
+    }
+
 
     // 4. 입력받은 값들 서버에 보낼 객체 만들기
     const requestDto = {
@@ -92,7 +110,9 @@ const onRequestPost = () => {
         .then(data =>{
             console.log(data)
             if( data == true ){
-                alert("요청서가 업로드 성공")
+                confirm('요청서를 올리시겠습니까?')
+                alert("요청서 업로드 성공")
+                location.href='/'; // 요청서 개별 조회 페이지 만들면 링크 수정하기 
             } else {
                 alert("요청서 업로드 실패")
             }

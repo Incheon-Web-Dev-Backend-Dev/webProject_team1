@@ -12,9 +12,10 @@ public class ViewController {
         return "/index.html";
     }
 
+    //회원가입 페이지
     @GetMapping("/member/signup")
     public String signup(){return "/member/signup.html";}
-    
+    //로그인 페이지
     @GetMapping("/member/login")
     public String login(){return "/member/login.html";}
 
@@ -37,6 +38,14 @@ public class ViewController {
     }
 
 
+    // 요청서에 해당하는 견적서 전체 출력 (일반 의뢰인이 올린)
+    @GetMapping("/estimate/findall")
+    public String estimateFindAll(){
+        return "/estimate/findall.html";
+    }
+
+
+
     //============================JobOffer============================
     // 구인글 쓰기(업체)
     @GetMapping("/job/write")
@@ -55,4 +64,5 @@ public class ViewController {
     public String jobView(){
         return "/job/view.html";
     }
+
 }

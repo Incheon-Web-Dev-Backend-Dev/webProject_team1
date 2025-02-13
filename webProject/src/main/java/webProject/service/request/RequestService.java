@@ -1,5 +1,6 @@
 package webProject.service.request;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import webProject.model.dto.member.MemberDto;
@@ -8,8 +9,10 @@ import webProject.model.entity.member.MemberEntity;
 import webProject.model.entity.request.RequestEntity;
 import webProject.model.repository.member.MemberRepository;
 import webProject.model.repository.request.RequestRepository;
+import webProject.service.estimate.EstimateService;
 import webProject.service.member.MemberService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,15 +25,32 @@ public class RequestService {
     private MemberService memberService;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private EstimateService estimateService;
 
     // 현재 로그인된 회원의 요청글 전체조회
     public List<RequestDto> requestFindAll() {
+        // 1. 로그인 된 유저 정보 가져오기
+        String loginid = memberService.getSession();
+        MemberEntity memberEntity = memberRepository.findByMemail(loginid);
 
-        // 1. 모든 요청서의 엔티티 조회
-        List<RequestEntity> requestEntityList = requestRepository.findAll();
+        // 2. 모든 요청서의 엔티티 조회
+        List<RequestEntity> requestEntityList = requestRepository.findByMemberEntity(memberEntity);
 
+        // 3. 조회된 회원의 요청글 엔티티를 dto로 변환
+        List<RequestDto> requestDtoList = new ArrayList<>();
+        requestEntityList.forEach( entity -> {
+            RequestDto requestDto = entity.toDto();
+            requestDtoList.add( requestDto );
+        });
 
-        return null;
+        return requestDtoList;
+    }
+
+    // 요청글에 응답이 온 견적서 수를 계산해주는 메서드
+    public int countEstimate () {
+
+        return 0;
     }
 
     // 현재 로그인된 회윈의 요청글 개별조회
@@ -52,6 +72,7 @@ public class RequestService {
     }// requestFind end
 
     // 견적 요청글 작성
+    @Transactional
     public boolean requestPost (RequestDto requestDto){
         // 1. 사용자로부터 전달받은 requestDto를 엔테테로 변환
         // -1. dto를 entity로 변환

@@ -17,10 +17,6 @@ public class LikeEntity extends BaseTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int lno;
 
-    @Column(columnDefinition = "boolean")
-    @ColumnDefault("false") 
-    private boolean lstatus;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "mno")
     private MemberEntity memberEntity;

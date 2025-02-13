@@ -1,5 +1,8 @@
-
-
+console.log("onEstimateWrite open!")
+// 1. 견적서 올리기
+const onEstimateWrite = () => {
+    // 1. input dom 가져오기..
+}
 
 //========================================== 참고 효과 js =======================================================//
 const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
