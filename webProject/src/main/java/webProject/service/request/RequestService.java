@@ -9,6 +9,7 @@ import webProject.model.entity.member.MemberEntity;
 import webProject.model.entity.request.RequestEntity;
 import webProject.model.repository.member.MemberRepository;
 import webProject.model.repository.request.RequestRepository;
+import webProject.service.estimate.EstimateService;
 import webProject.service.member.MemberService;
 
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ public class RequestService {
     private MemberService memberService;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private EstimateService estimateService;
 
     // 현재 로그인된 회원의 요청글 전체조회
     public List<RequestDto> requestFindAll() {
@@ -44,7 +47,7 @@ public class RequestService {
         return requestDtoList;
     }
 
-    // 요청글에 대한 견적서 수를 계산해주는 메서드
+    // 요청글에 응답이 온 견적서 수를 계산해주는 메서드
     public int countEstimate () {
 
         return 0;
