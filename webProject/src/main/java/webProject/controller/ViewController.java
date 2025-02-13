@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ViewController {
-
+    //메인
     @GetMapping("")
     public String index() {
         return "/index.html";
     }
+
+    // ============== Member(선근호) =========================
 
     //회원가입 페이지
     @GetMapping("/member/signup")
@@ -19,6 +21,7 @@ public class ViewController {
     @GetMapping("/member/login")
     public String login(){return "/member/login.html";}
 
+    // ============== Request(유지명) =========================
     // 견적 요청서 쓰기 (일반 의뢰인)
     @GetMapping("/request/post")
     public String requestPost() {
