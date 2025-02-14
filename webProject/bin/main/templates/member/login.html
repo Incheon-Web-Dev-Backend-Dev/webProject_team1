@@ -8,53 +8,47 @@
     <link rel="stylesheet" href="/css/member/login.css" />
   </head>
   <body>
-    <div class="form">
-      <div id="companysignup">
-        <h1>로그인을 해주세요!</h1>
-        <form action="/" method="post">
-          <div class="field-wrap">
-            <label> Email Address<span class="req">*</span> </label>
-            <input type="email" required autocomplete="off" />
-          </div>
+    <div th:replace="~{ /header.html :: header }"></div>
+    <div class="mainContent">
 
-          <div class="field-wrap">
-            <label> 비밀번호를 입력하세요 <span class="req">*</span> </label>
-            <input type="password" required autocomplete="off" />
-          </div>
-          <p class="forgot"><a href="/member/signup">회원가입</a></p>
-          <p class="forgot"><a href="#">비밀번호를 찾기</a></p>
-          <button type="submit" class="button button-block">로그인</button>
-        </form>
-      </div>
-    </div>
-  </body>
-</html>
-<!--- 
-<div id="login">
-          <h1>로그인 해주세요!</h1>
+      <div class="form">
+        <div id="companysignup">
+          <h3>Hello, Login!</h3>
 
-          <form action="/" method="post">
-            <div class="field-wrap">
-              <label> Email Address<span class="req">*</span> </label>
-              <input type="email" required autocomplete="off" />
+          <div class="role">
+            <ul>
+              <li><button type="button" class="role-btn companyInput">업체회원</button></li>
+              <li><button type="button" class="role-btn masterInput">개인회원</button></li>
+              <li><button type="button" class="role-btn requestercompanyInput">의뢰회원</button></li>
+            </ul>
+          </div>          
+
+          <form>
+            <div class="input-group input-group-sm mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-sm">Email</span>
+              <input type="text" class="form-control memailInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
             </div>
-
-            <div class="field-wrap">
-              <label> Password<span class="req">*</span> </label>
-              <input type="password" required autocomplete="off" />
+            <div class="input-group input-group-sm mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-sm">Password</span>
+              <input type="password" class="form-control mpwdInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
             </div>
-
-            <p class="forgot"><a href="#">비밀번호찾기</a></p>
-
-            <button class="button button-block">로그인</button>
+      
+            <!-- 비밀번호 찾기, 회원가입 링크는 여기에 배치 --> <!--기능 추후 대입 -->
+            <div class="forgot-container">
+              <p id="signup"><a href="/member/signup" style="text-decoration: none;">👉 회원가입</a></p>
+              <p id="forgotpw"><a href="#" style="text-decoration: none;">👉 비밀번호를 찾기</a></p>
+            </div>
+      
+            <button type="submit" onclick="onLogin()" class="button button-block">Login</button>
           </form>
         </div>
-        
+      </div>
+      
+      
 
-        <div class="form-floating mb-3">
-            <input type="file" name="uploadfile" class="form-control " id="floatingInput" placeholder="img">
-            <label for="floatingInput">프로필사진</label>
-          </div>
+    </div>
+    <div th:replace="~{ /footer.html :: footer }"></div>
+    <script src="/js/member/login.js"></script>
+  </body>
+</html>
 
-
-        -->

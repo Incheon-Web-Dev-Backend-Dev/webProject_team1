@@ -34,7 +34,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
 
     // 모든 입력값을 서버로 전송하는 부분
     const formData = new FormData(event.target); // 폼 데이터 생성
-    fetch('/api/signup', { // 서버 API 엔드포인트로 POST 요청
+    fetch('/member/signup.do', {
         method: 'POST',
         body: formData
     })

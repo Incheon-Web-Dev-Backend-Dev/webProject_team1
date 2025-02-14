@@ -1,7 +1,10 @@
 package webProject.model.dto.member;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 import webProject.model.entity.member.MemberEntity;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,6 +22,7 @@ public class MemberDto {
     private String role;//회원구분
     private String cdate;
     private String udate;
+    private List<MultipartFile> uploadFile;
 
 
     public MemberEntity toEntity(){
