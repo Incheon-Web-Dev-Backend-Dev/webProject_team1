@@ -21,10 +21,10 @@ public class MemberFileEntity extends BaseTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Unsigned
     private int mfno; //가입파일번호
-
-    @Column(columnDefinition = "varchar(50)")
-    private String mfname; //파일이름
-
+    @Column(columnDefinition = "varchar(255)")
+    private String mfname; //첨부파일이름
+    @Column(columnDefinition = "varchar(255)")
+    private String mprofilename; //프로필이름
     @ManyToOne  // FK
     @JoinColumn(name = "mno")
     private MemberEntity memberEntity;
@@ -33,6 +33,7 @@ public class MemberFileEntity extends BaseTime {
         return MemberFileDto.builder()
                 .mfno(this.mfno)
                 .mfname(this.mfname)
+                .profile(this.mprofilename)
                 .cdate(this.getCdate().toString())
                 .build();
     }
