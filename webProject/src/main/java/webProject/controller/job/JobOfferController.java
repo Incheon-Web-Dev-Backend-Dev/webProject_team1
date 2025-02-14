@@ -17,7 +17,7 @@ public class JobOfferController {
 
     // 구인글 작성
     @PostMapping("/joboffer/write.do")
-    public boolean jobOfferWrite(JobOfferDto jobOfferDto){return jobOfferService.jobOfferWrite(jobOfferDto);}
+    public boolean jobOfferWrite(@RequestBody JobOfferDto jobOfferDto){return jobOfferService.jobOfferWrite(jobOfferDto);}
 
     // 구인글 전체 조회
     @GetMapping("/joboffer/findall.do")
@@ -41,5 +41,5 @@ public class JobOfferController {
 
     // 내가 쓴 구인글 조회
     @GetMapping("/joboffer/mylist.do")
-    public List<JobOfferDto> jobOfferMyList(@RequestParam int mno){return jobOfferService.jobOfferMyList(mno);}
+    public List<JobOfferDto> jobOfferMyList(){return jobOfferService.jobOfferMyList();}
 }

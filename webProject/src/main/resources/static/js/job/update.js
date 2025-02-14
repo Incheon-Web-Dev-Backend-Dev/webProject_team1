@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-function jobwrite(){
+function jobUpdate(){
 
     let jotitleValue = document.querySelector('.jotitleValue');
     let joserviceValue = document.querySelector('.joserviceValue');

@@ -18,16 +18,10 @@ public class JobFileEntity extends BaseTime {
     private String jfname; // 구인글의 첨부파일 이름
 
 
-    @ManyToOne
-    @JoinColumn(name = "jono")
-    @ToString.Exclude
-    private JobOfferEntity jobOfferEntity; // 구인글 번호 FK
-
-
     public JobFileDto toDto(){
         return JobFileDto.builder()
                 .jfno(this.jfno).jfname(this.jfname)
-                .jono(jobOfferEntity.getJono()).build();
+                .build();
     }
 
 

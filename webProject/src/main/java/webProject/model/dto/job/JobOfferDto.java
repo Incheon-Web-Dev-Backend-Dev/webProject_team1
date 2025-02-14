@@ -2,6 +2,7 @@ package webProject.model.dto.job;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
+import webProject.model.dto.like.LikeDto;
 import webProject.model.dto.member.MemberDto;
 import webProject.model.entity.job.JobOfferEntity;
 
@@ -20,9 +21,7 @@ public class JobOfferDto {
     private String jodistrict; // 구인하는 구
     private String cdate;
 
-    private List<JobFileDto> jobFileDtoList;
-    private List<MultipartFile> uploadFiles;
-
+    private List<LikeDto> likeDtoList;
     private int mno; // 회원번호 FK
     private MemberDto memberDto;
 
