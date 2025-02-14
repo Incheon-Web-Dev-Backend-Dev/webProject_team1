@@ -4,17 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/request/post.css">
     <!-- 썸머노트 api 에 필요한 css 임포트 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote-bs5.min.css"/>
 </head>
 <body>
 
-    
     <div th:replace="~{ /header.html :: header }"></div>
-    
-    
+
     <!-- 전체 페이지  -->
     <div class="requestContent">
            
@@ -89,7 +86,9 @@
             </div><!-- reqcontent end -->
 
             <!-- request post button -->
-            <button type="button" class="btn btn-secondary btn-lg" style="margin: 100px 50px;" onclick="onRequestPost()"> 정리/수납 견적 요청서 올리기 </button>
+             <div class="reqpostBtn">
+                 <button type="button" class="btn btn-secondary btn-lg" onclick="onRequestPost()"> 정리/수납 견적 요청서 올리기 </button>
+             </div>
     
 
         </div> <!-- section end -->

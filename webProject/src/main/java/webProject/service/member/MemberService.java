@@ -5,19 +5,54 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import webProject.model.dto.member.MemberDto;
+import webProject.model.dto.member.MemberFileDto;
 import webProject.model.entity.member.MemberEntity;
+import webProject.model.entity.member.MemberFileEntity;
+import webProject.model.repository.member.MemberFileRepository;
 import webProject.model.repository.member.MemberRepository;
+
+import java.util.List;
 
 @Service
 public class MemberService {
     @Autowired MemberRepository memberRepository;
+    @Autowired MemberFileService memberFileService;
+    @Autowired
+    MemberFileRepository memberFileRepository;
     @Transactional
     //1. 회원가입
     public boolean signup(MemberDto memberDto){
         MemberEntity memberEntity = memberDto.toEntity();
         MemberEntity saveEntity = memberRepository.save(memberEntity);
 
+        List<MultipartFile> uploadFiles = memberDto.getUploadFile();
+        MemberFileDto memberFileDto = new MemberFileDto();
+        if (uploadFiles!=null){
+            try {
+                for (int index = 0; index <= uploadFiles.size()-1; index++) {
+                    String fileName = memberFileService.fileUpload(uploadFiles.get(index));
+                    memberFileDto.setMfname(fileName);
+                    MemberFileEntity memberFileEntity = memberFileDto.toEntity();
+                    memberFileEntity.setMemberEntity(memberEntity);
+                    MemberFileEntity saveFileEntity = memberFileRepository.save(memberFileEntity);
+                    if (!(saveFileEntity.getMfno() > 0)){return false;}
+                }
+            } catch (Exception e){System.out.println(e); return false;}
+        }
+        MultipartFile uploadFile = memberDto.getUploadFile2();
+        MemberFileDto memberFileDto1 = new MemberFileDto();
+        if (uploadFile != null){
+            String filename2 = memberFileService.fileUpload(uploadFile);
+            memberFileDto1.setMfname(filename2);
+            MemberFileEntity memberFileEntity = memberFileDto1.toEntity();
+            memberFileEntity.setMemberEntity(memberEntity);
+            MemberFileEntity saveFileEntity = memberFileRepository.save(memberFileEntity);
+            if (!(saveFileEntity.getMfno() > 0 )) {return false;}
+        }else {memberFileDto1.setMfname( "default.jpg");}
+
+        
         if (saveEntity.getMno() > 0){
             return true;
         }else {
