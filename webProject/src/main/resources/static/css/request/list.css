@@ -46,6 +46,15 @@ body {
     align-items: center;
 }
 
+.cardbox {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
 
 /* 썸머노트 에디터 너비 조정 */
 .note-editor {

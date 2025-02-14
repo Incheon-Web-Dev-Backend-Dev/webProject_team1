@@ -7,6 +7,7 @@ import webProject.model.dto.member.MemberDto;
 import webProject.model.dto.request.RequestDto;
 import webProject.model.entity.member.MemberEntity;
 import webProject.model.entity.request.RequestEntity;
+import webProject.model.repository.estimate.EstimateRepository;
 import webProject.model.repository.member.MemberRepository;
 import webProject.model.repository.request.RequestRepository;
 import webProject.service.estimate.EstimateService;
@@ -21,6 +22,8 @@ public class RequestService {
 
     @Autowired
     private RequestRepository requestRepository;
+    @Autowired
+    private EstimateRepository estimateRepository;
     @Autowired
     private MemberService memberService;
     @Autowired
@@ -41,17 +44,15 @@ public class RequestService {
         List<RequestDto> requestDtoList = new ArrayList<>();
         requestEntityList.forEach( entity -> {
             RequestDto requestDto = entity.toDto();
+
+            // 각 요청글의 견적서 수를 계산하여 DTO에 설정
+            requestDto.setEstimateCount(estimateRepository.countByRequestEntity_Reqno(entity.getReqno()));
             requestDtoList.add( requestDto );
         });
 
         return requestDtoList;
     }
 
-    // 요청글에 응답이 온 견적서 수를 계산해주는 메서드
-    public int countEstimate () {
-
-        return 0;
-    }
 
     // 현재 로그인된 회윈의 요청글 개별조회
     public RequestDto requestFind(int reqno) {

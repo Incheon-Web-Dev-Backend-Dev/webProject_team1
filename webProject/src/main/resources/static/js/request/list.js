@@ -27,13 +27,14 @@ const requestFindAll = () => {
                 html += `
                 <div class="card" style="width: 32rem;">
                     <div class="card-body">
-                        <div class="card-content">
+                        <div class="card-content cardbox">
                             <div>
                                 <h6 class="card-subtitle mb-2 text-body-secondary">${list.reqdatetime}</h6>
                                 <h5 class="card-title">${list.reqtitle}</h5>
                             </div>
                             <div class="card-link">
-                                <a href="/estimate/findall?reqno=${list.reqno}" class="card-link">들어온 견적서 수</a>
+                                <span> 들어온 견적서 </span>
+                                <a href="/estimate/findall?reqno=${list.reqno}" class="card-link">${list.estimateCount}건 </a>
                             </div>
                         </div>
                     </div>
