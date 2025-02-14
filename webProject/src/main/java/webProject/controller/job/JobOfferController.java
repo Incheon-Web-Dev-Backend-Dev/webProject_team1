@@ -29,7 +29,7 @@ public class JobOfferController {
 
     // 구인글 내용 수정
     @PutMapping("/joboffer/update.do")
-    public boolean jobOfferUpdate(JobOfferDto jobOfferDto){return jobOfferService.jobOfferUpdate(jobOfferDto);}
+    public boolean jobOfferUpdate(@RequestBody JobOfferDto jobOfferDto){return jobOfferService.jobOfferUpdate(jobOfferDto);}
 
     // 구인글 마감상태 수정
     @PutMapping("/joboffer/stateupdate.do")

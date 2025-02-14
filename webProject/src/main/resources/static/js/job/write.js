@@ -54,15 +54,12 @@ document.addEventListener('DOMContentLoaded', function() {
 function jobwrite(){
 
     let jotitleValue = document.querySelector('.jotitleValue');
-    let joserviceValue = document.querySelector('.joserviceValue');
-    let jocityValue = document.querySelector('.jocityValue');
-    let jodistrictValue = document.querySelector('.jodistrictValue');
+    let joservice = $("select[id=joserviceSelect] option:selected").text();
+    let jocity = $("select[id=jocitySelect] option:selected").text();
+    let jodistrict = $("select[id=jodistrictSelect] option:selected").text();
     let jocontentValue = document.querySelector('.jocontentValue');
 
     let jotitle = jotitleValue.value;
-    let joservice = joserviceValue.value;
-    let jocity = jocityValue.value;
-    let jodistrict = jodistrictValue.value;
     let jocontent = jocontentValue.value;
 
     // 3. 유효성 검사
