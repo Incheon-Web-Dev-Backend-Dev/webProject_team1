@@ -1,8 +1,8 @@
 INSERT INTO member (memail, mpwd, mname, mphone, maddr, role, cdate, udate)
 VALUES
-('test@mail.com', '1234', '김철수', '010-1234-5678', '서울시 강남구', 'requester', NOW(), NOW()),
-('company1@gmail.com', 'password456', '주식회사 인테리어', '010-9876-5432', '서울시 서초구', 'company', NOW(), NOW()),
-('expert1@gmail.com', 'password789', '이민수', '010-5555-1234', '서울시 송파구', 'master', NOW(), NOW()),
+('dmlfhlwk@gmail.com', '1234', '김철수', '010-1234-5678', '서울시 강남구', 'requester', NOW(), NOW()),
+('djqcp@gmail.com', '1234', '주식회사 인테리어', '010-9876-5432', '서울시 서초구', 'company', NOW(), NOW()),
+('aktmxj@gmail.com', '1234', '이민수', '010-5555-1234', '서울시 송파구', 'master', NOW(), NOW()),
 ('company2@gmail.com', 'passwordabc', '행복한 리모델링', '010-4444-8888', '서울시 강동구', 'company', NOW(), NOW()),
 ('expert2@gmail.com', 'passworddef', '정현우', '010-7777-9999', '서울시 마포구', 'master', NOW(), NOW()),
 ('admin@goguma.com', 'admin1234', '관리자', '010-6666-8888', '서울시 강서구', 'admin', NOW(), NOW());
