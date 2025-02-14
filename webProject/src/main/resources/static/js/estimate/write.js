@@ -53,6 +53,10 @@ const onEstimateWrite = () => {
           reqno : reqno
         }
 
+    // *
+    let result = confirm("견적 등록하시겠습니까?")
+    if(result == false){return;}
+
     // 4. fetch
     const option = {
       method : 'POST',
@@ -64,7 +68,6 @@ const onEstimateWrite = () => {
     .then(data => {
       console.log(data)
       if(data == true){
-        confirm('견적을 등록 하시겠습니까?')
         alert("견적서 업로드 성공!")
         location.href='/'; // 해당 요청서로 이동하기 추후 수정 
       }else{
