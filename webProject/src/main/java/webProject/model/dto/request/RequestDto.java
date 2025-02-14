@@ -21,6 +21,7 @@ public class RequestDto {
     private String reqbigarea;
     private String reqsmallarea;
     private boolean reqstate;
+    private int reqroll; // 요청하고싶은 상대 정보 1:업체, 2:개인(전문가)
     private String reqdatetime;
     private long estimateCount; // 요청글에 들어오는 견적서 수
 
@@ -36,6 +37,7 @@ public class RequestDto {
                 .reqbigarea(this.reqbigarea)
                 .reqsmallarea(this.reqsmallarea)
                 .reqstate(this.reqstate)
+                .reqroll(this.reqroll)
                 .build();
     }
 

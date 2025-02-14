@@ -34,6 +34,18 @@ public class ViewController {
         return "/request/list.html";
     }
 
+
+    // 내가 올린 견적 요청서 상세보기 (일반 의뢰인)
+    @GetMapping("/request/view")
+    public String requestView() {
+        return "/request/view.html";
+    }
+
+
+
+
+
+
     // 견적서 쓰기 (업체 / 개인수납가)
     @GetMapping("/estimate/write")
     public String estimateWrite(){
