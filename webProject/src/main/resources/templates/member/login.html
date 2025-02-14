@@ -17,29 +17,29 @@
 
           <div class="role">
             <ul>
-              <li><button type="button" class="role-btn">업체회원</button></li>
-              <li><button type="button" class="role-btn">개인회원</button></li>
-              <li><button type="button" class="role-btn">의뢰회원</button></li>
+              <li><button type="button" class="role-btn companyInput">업체회원</button></li>
+              <li><button type="button" class="role-btn masterInput">개인회원</button></li>
+              <li><button type="button" class="role-btn requestercompanyInput">의뢰회원</button></li>
             </ul>
           </div>          
 
-          <form action="/" method="post">
+          <form>
             <div class="input-group input-group-sm mb-3">
               <span class="input-group-text" id="inputGroup-sizing-sm">Email</span>
-              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+              <input type="text" class="form-control memailInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
             </div>
             <div class="input-group input-group-sm mb-3">
               <span class="input-group-text" id="inputGroup-sizing-sm">Password</span>
-              <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+              <input type="password" class="form-control mpwdInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
             </div>
       
-            <!-- 비밀번호 찾기, 회원가입 링크는 여기에 배치 -->
+            <!-- 비밀번호 찾기, 회원가입 링크는 여기에 배치 --> <!--기능 추후 대입 -->
             <div class="forgot-container">
               <p id="signup"><a href="/member/signup" style="text-decoration: none;">👉 회원가입</a></p>
               <p id="forgotpw"><a href="#" style="text-decoration: none;">👉 비밀번호를 찾기</a></p>
             </div>
       
-            <button type="submit" class="button button-block">Login</button>
+            <button type="submit" onclick="onLogin()" class="button button-block">Login</button>
           </form>
         </div>
       </div>

@@ -1,6 +1,6 @@
 INSERT INTO member (memail, mpwd, mname, mphone, maddr, role, cdate, udate)
 VALUES
-('user1@gmail.com', 'password123', '김철수', '010-1234-5678', '서울시 강남구', 'requester', NOW(), NOW()),
+('test@mail.com', '1234', '김철수', '010-1234-5678', '서울시 강남구', 'requester', NOW(), NOW()),
 ('company1@gmail.com', 'password456', '주식회사 인테리어', '010-9876-5432', '서울시 서초구', 'company', NOW(), NOW()),
 ('expert1@gmail.com', 'password789', '이민수', '010-5555-1234', '서울시 송파구', 'master', NOW(), NOW()),
 ('company2@gmail.com', 'passwordabc', '행복한 리모델링', '010-4444-8888', '서울시 강동구', 'company', NOW(), NOW()),

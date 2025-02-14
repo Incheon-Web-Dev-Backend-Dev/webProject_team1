@@ -42,9 +42,9 @@ public class ViewController {
 
 
     // 요청서에 해당하는 견적서 전체 출력 (일반 의뢰인이 올린)
-    @GetMapping("/estimate/findall")
+    @GetMapping("/estimate/list")
     public String estimateFindAll(){
-        return "/estimate/findall.html";
+        return "/estimate/list.html";
     }
 
 
