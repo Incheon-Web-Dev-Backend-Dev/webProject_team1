@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import webProject.model.dto.job.JobOfferDto;
 import webProject.model.dto.member.MemberDto;
 import webProject.model.entity.job.JobOfferEntity;
+import webProject.model.entity.like.LikeEntity;
 import webProject.model.entity.member.MemberEntity;
 import webProject.model.repository.job.JobFileRepository;
 import webProject.model.repository.job.JobOfferRepository;
@@ -101,8 +102,18 @@ public class JobOfferService {
 
     @Transactional
     public boolean jobOfferDelete(int jono) {
-        likeRepository.deleteByJono(jono);
+
+        List<LikeEntity> likeEntityList = likeRepository.findAll();
+        likeEntityList.forEach(likeEntity -> {
+            if (likeEntity.getJobOfferEntity().getJono()==jono){
+            likeRepository.delete(likeEntity);
+            }
+        });
+
+//        likeRepository.deleteByQuery(jono);
         jobOfferRepository.deleteById(jono);
+
+
         return true;
     }
 

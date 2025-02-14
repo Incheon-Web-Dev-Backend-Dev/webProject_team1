@@ -49,9 +49,9 @@ public class JobOfferEntity extends BaseTime {
     @ToString.Exclude
     private MemberEntity memberEntity; // 회원번호 FK
 
-    @ToString.Exclude@Builder.Default
-    @OneToMany(mappedBy = "jobOfferEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<LikeEntity> likeEntityList = new ArrayList<>();
+//    @ToString.Exclude@Builder.Default
+//    @OneToMany(mappedBy = "jobOfferEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<LikeEntity> likeEntityList = new ArrayList<>();
 
 
 
