@@ -1,4 +1,4 @@
-function jobFindAll(){
+const jobFindAll = () => {
     fetch('/joboffer/findall.do',{method : 'GET'})
     .then(r => r.json())
     .then(d => {
@@ -20,3 +20,19 @@ function jobFindAll(){
 };
 
 jobFindAll();
+
+const getMyInfo = () => {
+    fetch('/member/myinfo.do',{method : 'GET'})
+    .then(r => r.json())
+    .then(d => {
+        console.log(d)
+        if (d.role == 'company'){
+            document.querySelector('.bottomMenu').innerHTML += 
+                    `<a href="/job/write"><button type="button">글쓰기</button></a>
+                     <a href="/job/mylist"><button type="button">내가 쓴 글 보기</button></a>`
+        }
+    })
+    .catch(e => console.log(e))
+}
+
+getMyInfo();

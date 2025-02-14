@@ -3,21 +3,18 @@ package webProject.service.job;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import webProject.model.dto.job.JobFileDto;
 import webProject.model.dto.job.JobOfferDto;
 import webProject.model.dto.member.MemberDto;
-import webProject.model.entity.job.JobFileEntity;
 import webProject.model.entity.job.JobOfferEntity;
 import webProject.model.entity.member.MemberEntity;
 import webProject.model.repository.job.JobFileRepository;
 import webProject.model.repository.job.JobOfferRepository;
+import webProject.model.repository.like.LikeRepository;
 import webProject.model.repository.member.MemberRepository;
 import webProject.service.member.MemberService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -28,17 +25,17 @@ public class JobOfferService {
     @Autowired
     private JobOfferRepository jobOfferRepository;
     @Autowired
-    private JobFileRepository jobFileRepository;
-    @Autowired
     private MemberRepository memberRepository;
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private LikeRepository likeRepository;
 
     @Transactional
     public boolean jobOfferWrite(JobOfferDto jobOfferDto) {
-//        MemberDto loginDto = memberService.getMyInfo();
-//        if (loginDto == null){return false;}
-        MemberEntity loginEntity = memberRepository.findById(2).get();
+        MemberDto loginDto = memberService.getMyInfo();
+        if (loginDto == null){return false;}
+        MemberEntity loginEntity = memberRepository.findById(loginDto.getMno()).get();
 
         JobOfferEntity jobOfferEntity = jobOfferDto.toEntity();
         jobOfferEntity.setMemberEntity(loginEntity);
@@ -79,17 +76,6 @@ public class JobOfferService {
         if (optionalList.isPresent()){
             JobOfferEntity jobOfferEntity = optionalList.get();
             JobOfferDto jobOfferDto = jobOfferEntity.toDto();
-
-            List<JobFileEntity> jobFileEntityList = jobFileRepository.findAll();
-            List<JobFileDto> jobFileDtoList = new ArrayList<>();
-
-            jobFileEntityList.forEach(jobFileEntity -> {
-                if (jobFileEntity.getJobOfferEntity().getJono() == jono){
-                    JobFileDto jobFileDto = jobFileEntity.toDto();
-                    jobFileDtoList.add(jobFileDto);
-                    jobOfferDto.setJobFileDtoList(jobFileDtoList);
-                }
-            });
             return jobOfferDto;
         }
         return null;
@@ -113,15 +99,16 @@ public class JobOfferService {
         return true;
     }
 
+    @Transactional
     public boolean jobOfferDelete(int jono) {
+        likeRepository.deleteByJono(jono);
         jobOfferRepository.deleteById(jono);
         return true;
     }
 
     public List<JobOfferDto> jobOfferMyList() {
-        // String mid = memberService.getSession();
-        // company1@gmail.com
-        MemberEntity loginEntity = memberRepository.findByMemail("company1@gmail.com");
+        String mid = memberService.getSession();
+        MemberEntity loginEntity = memberRepository.findByMemail(mid);
         List<JobOfferEntity> jobOfferEntityList = jobOfferRepository.findByMemberEntity_Mno(loginEntity.getMno());
         List<JobOfferDto> list = new ArrayList<>();
         jobOfferEntityList.forEach(jobOfferEntity -> {

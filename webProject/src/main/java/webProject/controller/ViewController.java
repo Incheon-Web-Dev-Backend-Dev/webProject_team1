@@ -68,4 +68,7 @@ public class ViewController {
     @GetMapping("/job/mylist")
     public String jobMylist(){return "/job/mylist.html";}
 
+    @GetMapping("/job/update")
+    public String jobUpdate(){return "/job/update.html";}
+
 }
