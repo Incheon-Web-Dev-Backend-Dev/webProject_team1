@@ -23,6 +23,7 @@ public class MemberDto {
     private String cdate;
     private String udate;
     private List<MultipartFile> uploadFile;
+    private MultipartFile uploadFile2;
 
 
     public MemberEntity toEntity(){

@@ -26,6 +26,7 @@ public class MemberService {
     public boolean signup(MemberDto memberDto){
         MemberEntity memberEntity = memberDto.toEntity();
         MemberEntity saveEntity = memberRepository.save(memberEntity);
+
         List<MultipartFile> uploadFiles = memberDto.getUploadFile();
         MemberFileDto memberFileDto = new MemberFileDto();
         if (uploadFiles!=null){
@@ -40,6 +41,17 @@ public class MemberService {
                 }
             } catch (Exception e){System.out.println(e); return false;}
         }
+        MultipartFile uploadFile = memberDto.getUploadFile2();
+        MemberFileDto memberFileDto1 = new MemberFileDto();
+        if (uploadFile != null){
+            String filename2 = memberFileService.fileUpload(uploadFile);
+            memberFileDto1.setMfname(filename2);
+            MemberFileEntity memberFileEntity = memberFileDto1.toEntity();
+            memberFileEntity.setMemberEntity(memberEntity);
+            MemberFileEntity saveFileEntity = memberFileRepository.save(memberFileEntity);
+            if (!(saveFileEntity.getMfno() > 0 )) {return false;}
+        }else {memberFileDto1.setMfname( "default.jpg");}
+
         
         if (saveEntity.getMno() > 0){
             return true;
