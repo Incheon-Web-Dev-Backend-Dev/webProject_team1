@@ -68,12 +68,12 @@ public class EstimateService {
     }
     @Transactional
     // 견적글 개별 조회
-    public EstimateDto estimateFind(int eno){
+    public EstimateDto estimateFind(int estno){
         // 현재 로그인된 세션 객체 조회
         MemberDto loginDto = memberService.getMyInfo();
         if(loginDto == null){ System.out.println("login error"); return null; }
         // 조회할 특정 견적글 번호 엔티티를 조회
-        Optional<EstimateEntity> optional = estimateRepository.findById(eno);
+        Optional<EstimateEntity> optional = estimateRepository.findById(estno);
         // 만약 조회된 엔티티가 있다면 꺼내서 -> DTO 로
         if (optional.isPresent()){
             EstimateEntity estimateEntity = optional.get();
@@ -84,9 +84,8 @@ public class EstimateService {
         }return null;
     }
     // 현재 로그인된 회원이 작성한 견적글 개별 조회
-    public List<EstimateDto> estimateMyFind(int eno){
+    public List<EstimateDto> estimateMyFind(int estno){
         return null;
     }
 
-    // 내역할에 대한 게시물만 보기 (reqroll)
 }
