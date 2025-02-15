@@ -24,7 +24,7 @@ function getLoginMemailFoot(){
                                 <i class="fa-solid fa-sheet-plastic btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">작성한 구인글</span>
                             </a>
-                            <a href="/request/list" class="footer-btn">
+                            <a href="/request/rolelist" class="footer-btn">
                                 <i class="fa-solid fa-person-circle-question btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">요청글</span>
                             </a>
@@ -32,7 +32,7 @@ function getLoginMemailFoot(){
                                 <i class="fa-solid fa-phone-volume btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">고객 센터</span>
                             </a>
-                            <a href="/mypage/mastermp" class="footer-btn">
+                            <a href="/mypage/companymp" class="footer-btn">
                                 <i class="fa-solid fa-user btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">마이페이지</span>
                             </a>
@@ -49,7 +49,7 @@ function getLoginMemailFoot(){
                                 <i class="fa-solid fa-people-line btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">구인글 목록</span>
                             </a>
-                            <a href="/request/list" class="footer-btn">
+                            <a href="/request/rolelist" class="footer-btn">
                                 <i class="fa-solid fa-person-circle-question btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">요청글</span>
                             </a>

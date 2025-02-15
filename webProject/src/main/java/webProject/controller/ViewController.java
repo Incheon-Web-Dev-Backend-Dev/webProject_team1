@@ -41,6 +41,12 @@ public class ViewController {
         return "/request/view.html";
     }
 
+    // 내가 올린 견적 요청서 상세보기 (업체, 개인수납가)
+    @GetMapping("/request/rolelist")
+    public String requestRoleList() {
+        return "/request/rolelist.html";
+    }
+
 
 
 
