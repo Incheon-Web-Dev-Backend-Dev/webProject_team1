@@ -113,7 +113,7 @@ public class MemberService {
     public MemberDto getMyInfo(){
         String memail = getSession();  // 1. 현재 세션에 저장된 회원 아이디 조회
         if( memail != null ){   // 2. 만약에 로그인상태이면
-            MemberEntity memberEntity = memberRepository.findByMemail(  memail);  // 3. 회원아이디로 엔티티 조회
+            MemberEntity memberEntity = memberRepository.findByMemail(memail);  // 3. 회원아이디로 엔티티 조회
             MemberDto memberDto = memberEntity.toDto(); // 4. entity --> dto 변환
             return memberDto;// 5. 반환
         }

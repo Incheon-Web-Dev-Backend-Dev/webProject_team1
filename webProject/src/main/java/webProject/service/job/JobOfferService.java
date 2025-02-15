@@ -34,6 +34,7 @@ public class JobOfferService {
 
     @Transactional
     public boolean jobOfferWrite(JobOfferDto jobOfferDto) {
+
         MemberDto loginDto = memberService.getMyInfo();
         if (loginDto == null){return false;}
         MemberEntity loginEntity = memberRepository.findById(loginDto.getMno()).get();
@@ -42,26 +43,12 @@ public class JobOfferService {
         jobOfferEntity.setMemberEntity(loginEntity);
         JobOfferEntity saveEntity = jobOfferRepository.save(jobOfferEntity);
 
-//        List<MultipartFile> uploadFiles = jobOfferDto.getUploadFiles();
-//        JobFileDto jobFileDto = new JobFileDto();
-//        if (uploadFiles!=null){
-//            try {
-//                for (int index = 0; index <= uploadFiles.size()-1; index++) {
-//                    String fileName = jobFileService.fileUpload(uploadFiles.get(index));
-//                    jobFileDto.setJfname(fileName);
-//                    JobFileEntity jobFileEntity = jobFileDto.toEntity();
-//                    jobFileEntity.setJobOfferEntity(jobOfferEntity);
-//                    JobFileEntity saveFileEntity = jobFileRepository.save(jobFileEntity);
-//                    if (!(saveFileEntity.getJfno() > 0)){return false;}
-//                }
-//            } catch (Exception e){System.out.println(e); return false;}
-//        }
-
         if (saveEntity.getJono() > 0){return true;}
         return false;
     }
 
     public List<JobOfferDto> jobOfferFindAll() {
+
         List<JobOfferEntity> jobOfferEntityList = jobOfferRepository.findAll();
         List<JobOfferDto> list = new ArrayList<>();
 
