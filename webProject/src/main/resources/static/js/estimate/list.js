@@ -27,7 +27,9 @@ const findAll = () => {
                 html +=`
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
+                        <a href="/estimate/view"> 
                         <h5 class="card-title">${estimate.esttitle}</h5>
+                        </a>
                         <p class="d-inline-block text-truncate" style="max-width: 158px;" class="card-text">${estimate.estcontent}</p>
                         <p class="card-text">금액: ${estimate.estcash}</p>
                         <p class="card-text">${estimate.cdate}</p>
