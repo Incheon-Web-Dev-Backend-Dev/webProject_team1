@@ -14,7 +14,6 @@ function getLoginMemailFoot(){
     .then(data => {
         console.log(data);
         let html = ''; // html 초기화
-
         if (data.role == "company") {
             html += `
                 <div class="container text-bg-secondary p-3">
