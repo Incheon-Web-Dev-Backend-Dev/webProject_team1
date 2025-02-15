@@ -28,8 +28,8 @@ const getMyInfo = () => {
         console.log(d)
         if (d.role == 'company'){
             document.querySelector('.bottomMenu').innerHTML += 
-                    `<a href="/job/write"><button type="button">글쓰기</button></a>
-                     <a href="/job/mylist"><button type="button">내가 쓴 글 보기</button></a>`
+                    `<a href="/job/write"><button class="btn btn-secondary btn-lg" type="button">글쓰기</button></a>
+                     <a href="/job/mylist"><button class="btn btn-secondary btn-lg" type="button">내가 쓴 글 보기</button></a>`
         }
     })
     .catch(e => console.log(e))

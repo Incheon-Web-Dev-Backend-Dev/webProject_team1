@@ -20,7 +20,6 @@ public class LikeEntity extends BaseTime {
     private int lno; // 좋아요 번호
 
     @Column(columnDefinition = "boolean", nullable = false)
-    @ColumnDefault("false")
     private boolean lstate; // 좋아요(지원여부) 상태 true : 지원했음, false : 지원하지않았음
 
     @ManyToOne(cascade = CascadeType.ALL)
