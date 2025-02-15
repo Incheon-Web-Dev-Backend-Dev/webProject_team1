@@ -9,7 +9,7 @@ import java.util.UUID;
 @Service
 public class MemberFileService {
 
-    String uploadPath = "D:\\프로젝트\\webProject\\build\\resources\\main\\static\\img\\";
+    String uploadPath = "C:\\Users\\rmsgh\\OneDrive\\Desktop\\프로젝트1\\webProject\\build\\resources\\main\\static\\img\\";
 
     public String fileUpload(MultipartFile multipartFile){
         String uuid = UUID.randomUUID().toString();

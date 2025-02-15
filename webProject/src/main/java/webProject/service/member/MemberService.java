@@ -24,38 +24,45 @@ public class MemberService {
     @Transactional
     //1. 회원가입
     public boolean signup(MemberDto memberDto){
-        MemberEntity memberEntity = memberDto.toEntity();
-        MemberEntity saveEntity = memberRepository.save(memberEntity);
+        try {
+            // 회원 정보 저장
+            MemberEntity memberEntity = memberDto.toEntity();
+            MemberEntity saveEntity = memberRepository.save(memberEntity);
 
-        List<MultipartFile> uploadFiles = memberDto.getUploadFile();
-        MemberFileDto memberFileDto = new MemberFileDto();
-        if (uploadFiles!=null){
-            try {
-                for (int index = 0; index <= uploadFiles.size()-1; index++) {
-                    String fileName = memberFileService.fileUpload(uploadFiles.get(index));
+            if (saveEntity.getMno() <= 0) return false;
+
+            // 파일 저장 (여러 개)
+            List<MultipartFile> uploadFiles = memberDto.getUploadFile();
+            if (uploadFiles != null) {
+                for (MultipartFile file : uploadFiles) {
+                    String fileName = memberFileService.fileUpload(file);
+
+                    MemberFileDto memberFileDto = new MemberFileDto();
                     memberFileDto.setMfname(fileName);
+
                     MemberFileEntity memberFileEntity = memberFileDto.toEntity();
                     memberFileEntity.setMemberEntity(memberEntity);
-                    MemberFileEntity saveFileEntity = memberFileRepository.save(memberFileEntity);
-                    if (!(saveFileEntity.getMfno() > 0)){return false;}
+                    memberFileRepository.save(memberFileEntity);
                 }
-            } catch (Exception e){System.out.println(e); return false;}
-        }
-        MultipartFile uploadFile = memberDto.getUploadFile2();
-        MemberFileDto memberFileDto1 = new MemberFileDto();
-        if (uploadFile != null){
-            String filename2 = memberFileService.fileUpload(uploadFile);
-            memberFileDto1.setMfname(filename2);
-            MemberFileEntity memberFileEntity = memberFileDto1.toEntity();
-            memberFileEntity.setMemberEntity(memberEntity);
-            MemberFileEntity saveFileEntity = memberFileRepository.save(memberFileEntity);
-            if (!(saveFileEntity.getMfno() > 0 )) {return false;}
-        }else {memberFileDto1.setMfname( "default.jpg");}
+            }
 
-        
-        if (saveEntity.getMno() > 0){
+            // 프로필 사진 저장
+            MultipartFile uploadFile = memberDto.getProfile();
+            MemberFileDto profileFileDto = new MemberFileDto();
+            if (uploadFile != null) {
+                String filename2 = memberFileService.fileUpload(uploadFile);
+                profileFileDto.setProfile(filename2);
+            } else {
+                profileFileDto.setProfile("default.jpg");
+            }
+
+            MemberFileEntity profileFileEntity = profileFileDto.toEntity();
+            profileFileEntity.setMemberEntity(memberEntity);
+            memberFileRepository.save(profileFileEntity);
+
             return true;
-        }else {
+        } catch (Exception e) {
+            System.out.println("회원 가입 중 오류 발생: " + e.getMessage());
             return false;
         }
     }
