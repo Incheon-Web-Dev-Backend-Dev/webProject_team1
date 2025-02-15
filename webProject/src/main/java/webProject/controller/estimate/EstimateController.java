@@ -28,9 +28,10 @@ public class EstimateController {
     public EstimateDto estimateFind(@RequestParam int eno) {
         return estimateService.estimateFind(eno);
     }
+
     // 현재 로그인된 회원이 작성한 견적글 목록 조회
-    @GetMapping("/estimate/myfind.do")
-    public List<EstimateDto> estimateMyFind(@RequestParam int eno){
+    @GetMapping("/estimate/writefind.do")
+    public List<EstimateDto> estimateMyWriteFind(@RequestParam int eno){
         return estimateService.estimateMyFind(eno);
     }
 

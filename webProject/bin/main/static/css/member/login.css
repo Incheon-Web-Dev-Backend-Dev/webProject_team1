@@ -1,220 +1,143 @@
-/* 전체 요소의 box-sizing을 border-box로 설정 */
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+@font-face {
+  font-family: 'NanumSquareNeoBold';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot);
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.ttf) format("truetype");
 }
 
-/* HTML의 세로 스크롤을 항상 표시 */
-html {
-  overflow-y: scroll;
+/* body 설정: flexbox로 레이아웃 정렬, 여백 및 패딩 초기화 */
+/* .role 안의 ul을 flexbox로 설정 */
+.role ul {
+  display: flex; /* 자식 요소들을 한 줄로 배치 */
+  justify-content: space-around; /* 아이템들 사이에 균등한 간격 */
+  padding: 0; /* 기본 여백 제거 */
+  margin: 0; /* 기본 여백 제거 */
 }
 
-/* 기본 body 배경색과 폰트 설정 */
-body {
-  background: #c1bdba;
-  font-family: "Titillium Web", sans-serif;
+/* li 항목들을 기본적으로 수평 배치 */
+.role li {
+  list-style: none; /* 기본 리스트 스타일 제거 */
 }
 
-/* 링크 스타일 */
-a {
-  text-decoration: none;
-  color: #1ab188;
-  transition: 0.5s ease;
+/* role section */
+/* role 안의 ul을 flexbox로 설정 */
+.role ul {
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
 }
 
-/* 링크 hover 시 색상 변경 */
-a:hover {
-  color: #179e7d;
+/* li 항목들을 기본적으로 수평 배치 */
+.role li {
+  list-style: none;
+}
+
+/* 버튼 기본 스타일 */
+.role-btn {
+  padding: 10px 20px;
+  margin-bottom: 14px;
+  font-size: 16px;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 버튼 hover 스타일 */
+.role-btn:hover {
+  background-color: #1ab188;
+  color: #fff;
+}
+
+/* 눌린 상태(Active) 버튼 스타일 */
+.role-btn.active {
+  background-color: #1ab188;
+  color: #fff;
+}
+/*role section end*/
+
+/* 버튼 hover 스타일 */
+.role button:hover {
+  background-color: #179e7d; /* 호버 시 배경색 */
+}
+
+/* 메인 콘텐츠 영역 스타일 */
+.mainContent {
+  width: 600px !important; /* 콘텐츠 영역 너비 설정 */
+  margin-top: 100px;    /* 헤더 높이만큼 여백 */
+  margin-bottom: 80px; /* 푸터 높이만큼 여백 */
+  padding: 20px; /* 내부 여백 설정 */
+  overflow-y: auto; /* 세로 스크롤 가능하도록 설정 */
 }
 
 /* 폼 스타일 */
 .form {
-  background: rgba(19, 35, 47, 0.9);
-  padding: 40px;
-  max-width: 600px;
-  margin: 40px auto;
-  border-radius: 4px;
-  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
-}
-
-/* 탭 그룹 스타일 */
-.tab-group {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 40px 0;
-}
-
-/* 탭 그룹 후속 처리 */
-.tab-group:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* 각 탭 스타일 */
-.tab-group li a {
-  display: block;
-  text-decoration: none;
-  padding: 15px;
-  background: rgba(160, 179, 176, 0.25);
-  color: #a0b3b0;
-  font-size: 20px;
-  float: left;
-  width: 33%;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.5s ease;
-}
-
-/* 탭 hover 시 색상 변경 */
-.tab-group li a:hover {
-  background: #179e7d;
-  color: #ffffff;
-}
-
-/* 활성화된 탭 스타일 */
-.tab-group .active a {
-  background: #1ab188;
-  color: #ffffff;
-}
-
-/* 마지막 탭 콘텐츠 숨김 처리 */
-.tab-content > div:last-child {
-  display: none;
+  display: flex;
+  justify-content: center;
+  background: #E6D5B8; /* 배경 색상 설정 */
+  padding: 40px; /* 폼 내부 여백 설정 */
+  max-width: 450px; /* 폼 최대 너비 설정 */
+  margin: 40px auto; /* 폼을 수평 가운데 정렬 */
+  border-radius: 4px; /* 폼의 모서리 둥글게 설정 */
+  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3); /* 그림자 효과 설정 */
 }
 
 /* 제목 스타일 */
-h1 {
-  text-align: center;
-  color: #ffffff;
-  font-weight: 300;
-  margin: 0 0 40px;
-}
-
-/* 라벨 스타일 */
-label {
-  position: absolute;
-  transform: translateY(6px);
-  left: 13px;
-  color: rgba(255, 255, 255, 0.5);
-  transition: all 0.25s ease;
-  -webkit-backface-visibility: hidden;
-  pointer-events: none;
-  font-size: 22px;
-}
-
-/* 필수 항목 표시 스타일 */
-label .req {
-  margin: 2px;
-  color: #1ab188;
-}
-
-/* 활성화된 라벨 스타일 */
-label.active {
-  transform: translateY(50px);
-  left: 2px;
-  font-size: 14px;
-}
-
-/* 활성화된 라벨에서 필수 항목 표시 숨김 처리 */
-label.active .req {
-  opacity: 0;
-}
-
-/* 강조된 라벨 스타일 */
-label.highlight {
-  color: #ffffff;
-}
-
-/* 입력 필드와 텍스트 영역 스타일 */
-input,
-textarea {
-  font-size: 22px;
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: 5px 10px;
-  background: none;
-  background-image: none;
-  border: 1px solid #a0b3b0;
-  color: #ffffff;
-  border-radius: 0;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-/* 입력 필드 및 텍스트 영역 포커스 시 스타일 */
-input:focus,
-textarea:focus {
-  outline: 0;
-  border-color: #1ab188;
-}
-
-/* 텍스트 영역 스타일 */
-textarea {
-  border: 2px solid #a0b3b0;
-  resize: vertical;
-}
-
-/* 필드 랩 스타일 */
-.field-wrap {
-  position: relative;
-  margin-bottom: 40px;
-}
-
-/* 상단 행의 clearfix 처리 */
-.top-row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* 상단 행 내 각 요소 스타일 */
-.top-row > div {
-  float: left;
-  width: 48%;
-  margin-right: 4%;
-}
-
-/* 마지막 요소의 마진 0 처리 */
-.top-row > div:last-child {
-  margin: 0;
+h3 {
+  text-align: center; /* 제목을 가운데 정렬 */
+  color: #ffffff; /* 제목 색상 설정 */
+  font-family: NanumSquareNeoBold;
+  font-weight: 300; /* 제목 폰트 두께 설정 */
+  margin: 0 0 40px; /* 제목 아래에 40px 여백 설정 */
 }
 
 /* 버튼 스타일 */
 .button {
-  border: 0;
-  outline: none;
-  border-radius: 0;
-  padding: 15px 0;
-  font-size: 2rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  background: #1ab188;
-  color: #ffffff;
-  transition: all 0.5s ease;
-  -webkit-appearance: none;
+  border: 0; /* 버튼의 테두리 제거 */
+  outline: none; /* 버튼의 외곽선 제거 */
+  border-radius: 0; /* 버튼의 테두리 둥글게 하지 않기 */
+  padding: 15px 0; /* 버튼 내부 여백 설정 */
+  font-size: 14px; /* 버튼 글자 크기 설정 */
+  font-weight: 600; /* 버튼 글자 두께 설정 */
+  text-transform: uppercase; /* 버튼 글자를 모두 대문자로 설정 */
+  letter-spacing: 0.1em; /* 버튼 글자 간격 설정 */
+  background: #D4A373; /* 버튼 배경 색상 설정 */
+  color: #ffffff; /* 버튼 글자 색상 설정 */
+  transition: all 0.5s ease; /* 모든 변화에 대해 트랜지션 설정 */
+  -webkit-appearance: none; /* 브라우저 기본 스타일 제거 */
 }
 
 /* 버튼 hover 및 focus 시 색상 변경 */
 .button:hover,
 .button:focus {
-  background: #179e7d;
+  background: brown; /* hover 또는 focus 상태에서 배경 색상 변경 */
 }
 
-/* 버튼 블록 스타일 */
+/* 버튼 블록 스타일: 버튼을 가로로 꽉 채우기 */
 .button-block {
   display: block;
   width: 100%;
 }
 
-/* 비밀번호 찾기 링크 스타일 */
-.forgot {
-  margin-top: -20px;
-  text-align: right;
+.forgot-container {
+  display: flex; /* flexbox 사용 */
+  justify-content: space-between; /* 왼쪽 끝과 오른쪽 끝에 배치 */
+  width: 100%; /* 부모 요소의 너비를 100%로 설정 */
+  margin-top: -20px; /* 상단 여백 설정 */
 }
-
-p {
-  margin-bottom: 40px;
+#signup{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+#forgotpw{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+/* 각 링크의 추가 스타일 */
+#signup a, #forgotpw a {
+  color: #000; /* 원하는 색상으로 설정 (예: 검정색) */
 }

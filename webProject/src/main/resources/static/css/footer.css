@@ -30,9 +30,12 @@
     text-align: center;
     color: black; /* 기본 텍스트 색상은 흰색 */
     text-decoration: none; /* 텍스트 밑줄 제거 */
-    font-size: 15px; /* 기본 텍스트 크기 */
     cursor: pointer; /* 버튼에 마우스를 올리면 클릭할 수 있는 모양으로 변경 */
     transition: all 0.3s ease; /* 모든 속성에 부드러운 애니메이션 효과 적용 */
+}
+/* 텍스트 크기 조정 안 하기 */
+.footer-btn span {
+    font-size: 17px; /* 텍스트 크기는 별도로 설정 */
 }
 
 .btn-icon {
@@ -66,6 +69,16 @@
 body {
     margin-bottom: 60px; /* 본문 아래에 푸터 높이만큼의 여백 추가 */
 }
+
+/* 특정 아이콘 크기 조정 */
+.fa-sheet-plastic {
+    font-size: 24px; /* 원하는 크기로 설정 */
+}
+
+.fa-person-circle-question{
+    font-size: 24px;
+}
+
 
 /* 반응형 스타일 추가 */
 @media screen and (max-width: 500px) {

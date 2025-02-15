@@ -36,7 +36,7 @@ const requestFindAll = () => {
                             </div>
                             <div class="card-link">
                                 <span> 들어온 견적서 </span>
-                                <a href="/estimate/findall?reqno=${list.reqno}" class="card-link">${list.estimateCount}건 </a>
+                                <a href="/estimate/list?reqno=${list.reqno}" class="card-link">${list.estimateCount}건 </a>
                             </div>
                         </div>
                     </div>
