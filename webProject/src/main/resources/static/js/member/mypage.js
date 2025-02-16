@@ -11,6 +11,7 @@ const getmyInfo = () => {
             document.querySelector('.mnameInput').value = data.mname;
             document.querySelector('.mphoneInput').value = data.mphone;
             document.querySelector('.maddrInput').value = data.maddr;
+        
         }
     }).catch(e => {console.log(e)})
 }

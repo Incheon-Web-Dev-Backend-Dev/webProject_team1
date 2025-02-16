@@ -29,8 +29,13 @@ public class EstimateController {
         return estimateService.estimateFind(estno);
     }
 
-    @GetMapping("/estimate/mywrote")
+    @GetMapping("/estimate/mywrote.do")
     public List<EstimateDto> estimateMyWrote(){
         return estimateService.estimateMyWrote();
+    }
+
+    @DeleteMapping("/estimeate/delete")
+    public boolean estimateDelete (@RequestParam int estno) {
+        return estimateService.estimateDelete(estno);
     }
 }

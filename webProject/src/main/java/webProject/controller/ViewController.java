@@ -41,12 +41,6 @@ public class ViewController {
         return "/request/view.html";
     }
 
-    // 내가 올린 견적 요청서 상세보기 (업체, 개인수납가)
-    @GetMapping("/request/rolelist")
-    public String requestRoleList() {
-        return "/request/rolelist.html";
-    }
-
 
 
 
@@ -54,9 +48,7 @@ public class ViewController {
     //============================Estimate============================
     // 견적서 쓰기 (업체 / 개인수납가)
     @GetMapping("/estimate/write")
-    public String estimateWrite(){
-        return "/estimate/write.html";
-    }
+    public String estimateWrite(){return "/estimate/write.html";}
 
 
     // 요청서에 해당하는 견적서 전체 출력 (일반 의뢰인이 올린)
@@ -66,6 +58,10 @@ public class ViewController {
     // 견적서 상세 조회
     @GetMapping("/estimate/view")
     public String estimateFind() {return "/estimate/view.html";}
+
+    // 내가 작성한 견적서 전체 출력 (업체, 수납가)
+    @GetMapping("/estimate/mywrote")
+    public String estimateMyWrote(){return "/estimate/mywrote";}
 
 
 

@@ -15,6 +15,11 @@ const estView = () => {
         const estviewForm = document.querySelector(".estviewForm"); // 데이터를 넣을 곳
         let html = `
             <div class="estviewForm">
+                <h6>작성자 이름</h6>
+                <div class="form-floating mb-3">
+                    <div class="form-control estcashInput" style="background-color: #f8f9fa; padding: 10px;">
+                        ${data.mname}
+                    </div>
                 <h6>견적 제목</h6>
                 <div class="form-floating mb-3">
                     <div class="form-control esttitleInput" style="background-color: #f8f9fa; padding: 10px;">
@@ -33,7 +38,17 @@ const estView = () => {
                         ${data.estcash}
                     </div>
                 </div>    
-                <span>작성 시간 : </span> ${data.cdate}                
+                <span>작성 시간 : </span> ${data.cdate}
+                
+                <div class="card-link receivedEstimates">
+                ${loginMemberInfo.role !== "requester" ? //업체랑 개인활동자만 보이게
+                    `<a href="/request/view?reqno=${data.reqno}" class="btn btn-primary" style="color: white;">해당 요청글 보기</a>` 
+                    : ''}
+                
+                <div class="card-link receivedEstimates">
+                ${loginMemberInfo.role !== "requester" ?  //삭제
+                    `<a onclick="estDelete()" class="btn btn-primary" style="color: white;">견적글 삭제하기</a>` 
+                    : ''}
             </div>
         `;
         // 결과를 HTML 요소에 삽입
@@ -43,6 +58,9 @@ const estView = () => {
         console.log(e);
     });
 }
-
 // 호출
 estView();
+
+const estDelete = () => {
+    
+}

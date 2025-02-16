@@ -23,13 +23,13 @@ function getLoginMemailFoot(){
                                 <i class="fa-solid fa-sheet-plastic btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">작성한 구인글</span>
                             </a>
+                            <a href="/estimate/mywrote" class="footer-btn">
+                                <i class="fa-solid fa-phone-volume btn-icon"></i> <!-- 아이콘 -->
+                                <span class="btn-text">작성한 견적글</span>
+                            </a>
                             <a href="/request/list" class="footer-btn">
                                 <i class="fa-solid fa-person-circle-question btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">요청글</span>
-                            </a>
-                            <a href="/help/main" class="footer-btn">
-                                <i class="fa-solid fa-phone-volume btn-icon"></i> <!-- 아이콘 -->
-                                <span class="btn-text">고객 센터</span>
                             </a>
                             <a href="/member/mypage" class="footer-btn">
                                 <i class="fa-solid fa-user btn-icon"></i> <!-- 아이콘 -->
@@ -46,15 +46,15 @@ function getLoginMemailFoot(){
                         <div class="footer-buttons">
                             <a href="/job/list" class="footer-btn">
                                 <i class="fa-solid fa-people-line btn-icon"></i> <!-- 아이콘 -->
-                                <span class="btn-text">구인글 목록</span>
+                                <span class="btn-text">구인글</span>
                             </a>
                             <a href="/request/list" class="footer-btn">
                                 <i class="fa-solid fa-person-circle-question btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">요청글</span>
                             </a>
-                            <a href="/help/main" class="footer-btn">
+                            <a href="/estimate/mywrote" class="footer-btn">
                                 <i class="fa-solid fa-phone-volume btn-icon"></i> <!-- 아이콘 -->
-                                <span class="btn-text">고객 센터</span>
+                                <span class="btn-text">내가 쓴 견적</span>
                             </a>
                             <a href="/member/mypage" class="footer-btn">
                                 <i class="fa-solid fa-user btn-icon"></i> <!-- 아이콘 -->

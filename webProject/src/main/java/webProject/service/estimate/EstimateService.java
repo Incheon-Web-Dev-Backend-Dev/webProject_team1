@@ -96,4 +96,13 @@ public class EstimateService {
         });
         return estimateDtoList;
     }
+
+    // 견적글 삭제하기
+    public boolean estimateDelete (int estno) {
+        // 현재 로그인된 세션 객체 조회
+        MemberDto loginDto = memberService.getMyInfo();
+        if(loginDto == null){ System.out.println("login error"); return false;}
+        estimateRepository.deleteById(estno);
+        return false;
+    }
 }
