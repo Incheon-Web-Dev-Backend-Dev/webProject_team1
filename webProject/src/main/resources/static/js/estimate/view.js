@@ -62,5 +62,5 @@ const estView = () => {
 estView();
 
 const estDelete = () => {
-    
+    // 아직 백에서 안돼요
 }

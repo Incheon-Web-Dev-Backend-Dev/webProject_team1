@@ -1,8 +1,8 @@
 package webProject.service.estimate;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import webProject.model.dto.estimate.EstimateDto;
 import webProject.model.dto.member.MemberDto;
 import webProject.model.entity.estimate.EstimateEntity;
@@ -11,6 +11,7 @@ import webProject.model.entity.request.RequestEntity;
 import webProject.model.repository.estimate.EstimateRepository;
 import webProject.model.repository.member.MemberRepository;
 import webProject.model.repository.request.RequestRepository;
+import webProject.model.repository.review.ReviewRepository;
 import webProject.service.member.MemberService;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class EstimateService {
     @Autowired private RequestEntity requestEntity;
     @Autowired private MemberRepository memberRepository;
     @Autowired private RequestRepository requestRepository;
+    @Autowired private ReviewRepository reviewRepository;
 
     // 견적글 쓰기
     public boolean estimateWrite(EstimateDto estimateDto){
@@ -98,11 +100,15 @@ public class EstimateService {
     }
 
     // 견적글 삭제하기
+    @Transactional
     public boolean estimateDelete (int estno) {
         // 현재 로그인된 세션 객체 조회
         MemberDto loginDto = memberService.getMyInfo();
         if(loginDto == null){ System.out.println("login error"); return false;}
+        // 먼저 Review에서 ServiceEstimate과의 관계를 끊음
+        //reviewRepository.unlinkEstimate(estno);
+        //reviewRepository.flush();
         estimateRepository.deleteById(estno);
-        return false;
+        return true;
     }
 }

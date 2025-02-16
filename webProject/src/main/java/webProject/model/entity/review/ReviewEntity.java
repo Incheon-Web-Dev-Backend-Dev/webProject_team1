@@ -36,7 +36,7 @@ public class ReviewEntity extends BaseTime {
     @JoinColumn(name= "reqno")
     private RequestEntity requestEntity;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name= "estno")
     private EstimateEntity estimateEntity;
 
