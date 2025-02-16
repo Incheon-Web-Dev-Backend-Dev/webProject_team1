@@ -41,11 +41,17 @@ public class ViewController {
         return "/request/view.html";
     }
 
+    // 내가 올린 견적 요청서 상세보기 (업체, 개인수납가)
+    @GetMapping("/request/rolelist")
+    public String requestRoleList() {
+        return "/request/rolelist.html";
+    }
 
 
 
 
 
+    //============================Estimate============================
     // 견적서 쓰기 (업체 / 개인수납가)
     @GetMapping("/estimate/write")
     public String estimateWrite(){
@@ -55,9 +61,11 @@ public class ViewController {
 
     // 요청서에 해당하는 견적서 전체 출력 (일반 의뢰인이 올린)
     @GetMapping("/estimate/list")
-    public String estimateFindAll(){
-        return "/estimate/list.html";
-    }
+    public String estimateFindAll(){return "/estimate/list.html";}
+
+    // 견적서 상세 조회
+    @GetMapping("/estimate/view")
+    public String estimateFind() {return "/estimate/view.html";}
 
 
 
@@ -86,4 +94,19 @@ public class ViewController {
     @GetMapping("/job/update")
     public String jobUpdate(){return "/job/update.html";}
 
+    //============================ My page ============================
+    // 1. Master m.p )( 2. Company m.p )( 3. Requester m.p
+    @GetMapping("/mypage/mastermp")
+    public String masterMyPage(){
+        return "/mypage/mastermp.html";
+    }
+
+    @GetMapping("/mypage/companymp")
+    public String companyMyPage(){return "/mypage/companymp.html";}
+
+    @GetMapping("/mypage/requestermp")
+    public String requesterMyPage(){return "/mypage/requestermp.html";}
+    // 고객센터
+    @GetMapping("/help/main")
+    public String helpMainPage(){return "/help/main.html";}
 }

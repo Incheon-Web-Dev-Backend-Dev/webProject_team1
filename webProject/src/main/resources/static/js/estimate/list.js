@@ -5,7 +5,7 @@ console.log("findAll.js open")
 console.log( new URL(location.href))
 // 현재 페이지의 URL 쿼리스트링 정보 속성 반환
 console.log( new URL(location.href).searchParams)
-// 현재 페이지의 URL 쿼리스트링 속성 중 'cno' 속성값 반환
+// 현재 페이지의 URL 쿼리스트링 속성 중 'eno' 속성값 반환
 console.log( new URL(location.href).searchParams.get('reqno'))
 
 // 요청글에 대한 전체 견적 조회 함수
@@ -27,7 +27,9 @@ const findAll = () => {
                 html +=`
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
+                        <a href="/estimate/view?estno=${estimate.estno}"> 
                         <h5 class="card-title">${estimate.esttitle}</h5>
+                        </a>
                         <p class="d-inline-block text-truncate" style="max-width: 158px;" class="card-text">${estimate.estcontent}</p>
                         <p class="card-text">금액: ${estimate.estcash}</p>
                         <p class="card-text">${estimate.cdate}</p>

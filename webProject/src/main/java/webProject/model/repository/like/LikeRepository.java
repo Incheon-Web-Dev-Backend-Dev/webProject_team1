@@ -13,6 +13,6 @@ public interface LikeRepository extends JpaRepository<LikeEntity, Integer> {
     @Query( value = "delete from like_job where jono = :jono;" , nativeQuery = true)
     boolean deleteByQuery(@Param("jono") int jono);
 
-
-
+    @Query( value = "select * from like_job where mno = :mno and jono = :jono;", nativeQuery = true )
+    LikeEntity findLike(int mno, int jono);
 }
