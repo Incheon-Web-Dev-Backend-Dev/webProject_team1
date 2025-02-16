@@ -14,7 +14,6 @@ public class MemberController {
    //1. 회원가입
     @PostMapping("/member/signup.do")
     public boolean signup(MemberDto memberDto){
-
         return memberService.signup(memberDto);
     }
     //2. 로그인
@@ -45,11 +44,15 @@ public class MemberController {
     public boolean myDelete(){
         return memberService.myDelete();
     }
-
     //7. 회원정보 수정
     @PutMapping("/member/update.do")
     public boolean myUpdate( @RequestBody MemberDto memberDto ){
         return memberService.myUpdate( memberDto );
     }
-
+    //8. 이메일 중복 확인
+    @GetMapping("/member/checkemail.do")
+    public boolean isEmailDuplicate(@RequestParam String email) {
+        // 이메일 중복 확인 로직
+        return memberService.isEmailDuplicate(email);
+    }
 }

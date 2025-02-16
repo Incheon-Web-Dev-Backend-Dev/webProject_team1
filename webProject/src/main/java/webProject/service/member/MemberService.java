@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import webProject.model.dto.member.MemberDto;
 import webProject.model.dto.member.MemberFileDto;
@@ -148,4 +150,8 @@ public class MemberService {
     }
 
 
+    public boolean isEmailDuplicate(String email) {
+        // 이메일 중복 확인 로직
+        return memberRepository.existsByMemail(email);
+    }
 }
