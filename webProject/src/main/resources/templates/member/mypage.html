@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/member/mypage.css'>
+
+</head>
+<body>
+    <div th:replace="~{ /header.html :: header }"></div>
+
+    <!-- 전체 페이지  -->
+    <div class="allContainer">
+        
+        <div class="wrapper">
+            <div class="sidebar">
+                <div class="profile-image">
+                    <img src="/img/default.png">
+                </div>
+                <button name="update">내 정보 수정</button>
+                <button name="changepw">비밀번호 변경</button>
+                <button name="delete" onclick="onDelete()">계정 탈퇴</button>
+            </div>
+            <div class="container">
+                <div class="profile-header">반갑습니다 :)</div>
+                <div class="profile-info">
+                    <div class="info-group">
+                        <div class="memail">
+                            <label>이메일</label>
+                            <input type="text" class="form-control memailInput" value="qwe@naver.com" readonly>
+                        </div>
+                        <div class="mname">
+                            <label>이름</label>
+                            <input type="text" class="form-control mnameInput" value="선근호" readonly>
+                        </div>
+                        <div class="mphone">
+                            <label>전화번호</label>
+                            <input type="text" class="form-control mphoneInput" value="010-1111-1111" readonly>
+                        </div>
+                        <div class="maddr">
+                            <label>주소</label>
+                            <input type="text" class="form-control maddrInput" value="인천광역시 어디구" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div> <!--Container end-->
+
+
+    <div th:replace="~{ /footer.html :: footer }"></div>
+
+    <script src="/js/member/mypage.js"></script>
+</body>
+</html>

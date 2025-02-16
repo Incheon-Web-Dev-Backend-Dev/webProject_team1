@@ -29,10 +29,8 @@ public class EstimateController {
         return estimateService.estimateFind(estno);
     }
 
-    // 현재 로그인된 회원이 작성한 견적글 목록 조회
-    @GetMapping("/estimate/writefind.do")
-    public List<EstimateDto> estimateMyWriteFind(@RequestParam int estno){
-        return estimateService.estimateMyFind(estno);
+    @GetMapping("/estimate/mywrote")
+    public List<EstimateDto> estimateMyWrote(){
+        return estimateService.estimateMyWrote();
     }
-
 }
