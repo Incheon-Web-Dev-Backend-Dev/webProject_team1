@@ -83,9 +83,17 @@ public class EstimateService {
             System.out.println("값 없음");
         }return null;
     }
-    // 현재 로그인된 회원이 작성한 견적글 개별 조회
-    public List<EstimateDto> estimateMyFind(int estno){
-        return null;
+    // 현재 로그인된 회원의 작성항 견적글 천제 조회
+    public List<EstimateDto> estimateMyWrote(){
+        // 로그인된 회원 아이디 가져오기
+        String loginid = memberService.getSession();
+        MemberEntity memberEntity = memberRepository.findByMemail(loginid);
+        List<EstimateEntity> estimateEntityList = estimateRepository.findByMemberEntity(memberEntity);
+        List<EstimateDto> estimateDtoList = new ArrayList<>();
+        estimateEntityList.forEach(entity -> {
+            EstimateDto estimateDto = entity.toESDto();
+            estimateDtoList.add(estimateDto);
+        });
+        return estimateDtoList;
     }
-
 }

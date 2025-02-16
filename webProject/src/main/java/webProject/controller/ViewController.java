@@ -95,17 +95,8 @@ public class ViewController {
     public String jobUpdate(){return "/job/update.html";}
 
     //============================ My page ============================
-    // 1. Master m.p )( 2. Company m.p )( 3. Requester m.p
-    @GetMapping("/mypage/mastermp")
-    public String masterMyPage(){
-        return "/mypage/mastermp.html";
-    }
-
-    @GetMapping("/mypage/companymp")
-    public String companyMyPage(){return "/mypage/companymp.html";}
-
-    @GetMapping("/mypage/requestermp")
-    public String requesterMyPage(){return "/mypage/requestermp.html";}
+    @GetMapping("/member/mypage")
+    public String masterMyPage(){return "/member/mypage.html";}
     // 고객센터
     @GetMapping("/help/main")
     public String helpMainPage(){return "/help/main.html";}
