@@ -20,24 +20,36 @@
             
            
             <div class="mb-3">
-                <label for="basic-url" class="form-label">정리/수납 견적 요청서 제목</label>
-                <p class="rtitlebox">제목</p>
-                <label for="basic-url" class="form-label">작성 날짜</label>
-                <p class="rcdate">요청서 작성 날짜/시간</p>
-                <label for="basic-url" class="form-label">정리/수납 견적 요청 상대</label>
-                <p class="rrolebox">요청상대</p>
-                <label for="basic-url" class="form-label">정리/수납 요청 공간</label>
-                <p class="rspacebox">요청공간</p>
-                <label for="basic-url" class="form-label">정리/수납 요청 지역</label>
-                <p class="rbigareabox">시/도</p>
-                <p class="rsmallareabox">시/군/구</p>
-                <label for="basic-url" class="form-label">정리/수납 자세한 요청 내용</label>
-                <p class="rcontentbox">내용</p>
+                <div class="rtitlesection">
+                    <label for="basic-url" class="form-label">정리/수납 견적 요청서 제목</label>
+                    <p class="form-control rtitlebox">제목</p>
+                </div>
+                <div class="rwritesection">
+                    <label for="basic-url" class="form-label">작성 날짜</label>
+                    <p class="form-control rcdate">요청서 작성 날짜/시간</p>
+                </div>
+                <div class="rrolesection">
+                    <label for="basic-url" class="form-label">정리/수납 견적 요청 상대</label>
+                    <p class="form-control rrolebox">요청상대</p>
+                </div>
+                <div class="rspacesection">
+                    <label for="basic-url" class="form-label">정리/수납 요청 공간</label>
+                    <p class="form-control rspacebox">요청공간</p>
+                </div>
+                <div class="rareasection">
+                    <label for="basic-url" class="form-label">정리/수납 요청 지역</label>
+                    <div class="rareaInputsection">
+                        <p class="form-control rbigareabox">시/도</p>
+                        <p class="form-control rsmallareabox">시/군/구</p>
+                    </div>
+                </div>
+                <div class="rcontentsection">
+                    <label for="basic-url" class="form-label">정리/수납 자세한 요청 내용</label>
+                    <p class="form-control rcontentbox"></p>
+                </div>
             </div>
 
-             <!--견적쓰기 임시버튼(임준수)-->
-             <button><a href="/estimate/write" class="btn btn-primary">견적쓰기임시버튼</a></button>
-
+            <div class="uploadBtnBox"></div>
         
 
     </div>

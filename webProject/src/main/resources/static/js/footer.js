@@ -23,7 +23,7 @@ function getLoginMemailFoot(){
                                 <i class="fa-solid fa-sheet-plastic btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">작성한 구인글</span>
                             </a>
-                            <a href="/request/rolelist" class="footer-btn">
+                            <a href="/request/list" class="footer-btn">
                                 <i class="fa-solid fa-person-circle-question btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">요청글</span>
                             </a>
@@ -31,7 +31,7 @@ function getLoginMemailFoot(){
                                 <i class="fa-solid fa-phone-volume btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">고객 센터</span>
                             </a>
-                            <a href="/mypage/companymp" class="footer-btn">
+                            <a href="/member/mypage" class="footer-btn">
                                 <i class="fa-solid fa-user btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">마이페이지</span>
                             </a>
@@ -48,7 +48,7 @@ function getLoginMemailFoot(){
                                 <i class="fa-solid fa-people-line btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">구인글 목록</span>
                             </a>
-                            <a href="/request/rolelist" class="footer-btn">
+                            <a href="/request/list" class="footer-btn">
                                 <i class="fa-solid fa-person-circle-question btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">요청글</span>
                             </a>
@@ -56,7 +56,7 @@ function getLoginMemailFoot(){
                                 <i class="fa-solid fa-phone-volume btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">고객 센터</span>
                             </a>
-                            <a href="/mypage/mastermp" class="footer-btn">
+                            <a href="/member/mypage" class="footer-btn">
                                 <i class="fa-solid fa-user btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">마이페이지</span>
                             </a>
@@ -77,11 +77,11 @@ function getLoginMemailFoot(){
                                 <i class="fa-solid fa-comments-dollar btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">고수 찾기</span>
                             </a>
-                            <a href="/help/main" class="footer-btn">
-                                <i class="fa-solid fa-phone-volume btn-icon"></i> <!-- 아이콘 -->
-                                <span class="btn-text">고객 센터</span>
+                            <a href="/request/list" class="footer-btn">
+                                <i class="fa-solid fa-envelope btn-icon"></i> <!-- 아이콘 -->
+                                <span class="btn-text">견적 보기</span>
                             </a>
-                            <a href="/mypage/requestermp" class="footer-btn">
+                            <a href="/member/mypage" class="footer-btn">
                                 <i class="fa-solid fa-user btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">마이페이지</span>
                             </a>

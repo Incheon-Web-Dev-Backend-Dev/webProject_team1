@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import webProject.model.dto.member.MemberDto;
 import webProject.model.dto.request.RequestDto;
-import webProject.model.entity.estimate.EstimateEntity;
 import webProject.model.entity.member.MemberEntity;
 import webProject.model.entity.request.RequestEntity;
 import webProject.model.repository.estimate.EstimateRepository;
@@ -14,8 +13,9 @@ import webProject.model.repository.request.RequestRepository;
 import webProject.service.estimate.EstimateService;
 import webProject.service.member.MemberService;
 
-import javax.management.relation.Role;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RequestService {
@@ -37,8 +37,16 @@ public class RequestService {
         String loginid = memberService.getSession();
         MemberEntity memberEntity = memberRepository.findByMemail(loginid);
 
-        // 2. 모든 요청서의 엔티티 조회
-        List<RequestEntity> requestEntityList = requestRepository.findByMemberEntity(memberEntity);
+        // 2.회원의 role에 따라 조회리스트 필터링
+        List<RequestEntity> requestEntityList;
+        if(memberEntity.getRole().equals("requester")) {
+            // 로그인유저가 의뢰인일 경우 본인이 작성한 요청글만 조회
+            requestEntityList = requestRepository.findByMemberEntity(memberEntity);
+        } else {
+            // 로그인유저가 업체,마스터이면 해당하는 reqrole을 가진 글만 조회
+            int reqrole = memberEntity.getRole().equals("master") ? 2 : 1 ;
+            requestEntityList = requestRepository.findByReqrole(reqrole);
+        }// if else end
 
         // 3. 조회된 회원의 요청글 엔티티를 dto로 변환
         List<RequestDto> requestDtoList = new ArrayList<>();
@@ -100,26 +108,5 @@ public class RequestService {
             return false;
         } // if-else end
     } // requestPost end
-
-    // *역할에 따른 요청서 나눠 보기* 0215 추가(임준수) + roll 이 아니구 사실 role 이라는 진실
-//    public List<RequestDto> requestFindRoll(String role) {
-//
-//        MemberDto loginDto = memberService.getMyInfo();
-//        if(loginDto == null){System.out.println("login error"); return null;}
-//        int a;
-//        if(role.equals("company")){ a = 1;}else { a= 2;}
-//        // 변수안에 있는 String 값 비교 시 변수명.equals(비교값)
-//        List<RequestEntity> requestEntityList = requestRepository.findAll();
-//
-//        List<RequestDto> requestDtoList = new ArrayList<>();
-//        requestEntityList.forEach(entity -> {
-//            if (entity.getReqrole() == a){
-//                RequestDto requestDto = entity.toDto();
-//                requestDtoList.add(requestDto);
-//            }
-//        });
-//        return requestDtoList;
-//    }
-
 
 }
