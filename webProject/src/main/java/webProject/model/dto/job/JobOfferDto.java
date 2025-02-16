@@ -21,7 +21,7 @@ public class JobOfferDto {
     private String jodistrict; // 구인하는 구
     private String cdate;
 
-    private List<LikeDto> likeDtoList;
+    private int likeCount;
     private int mno; // 회원번호 FK
     private MemberDto memberDto;
 

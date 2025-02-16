@@ -1,20 +1,25 @@
+
 const jobFindAll = () => {
     fetch('/joboffer/findall.do',{method : 'GET'})
     .then(r => r.json())
     .then(d => {
-        const list = document.querySelector('tbody')
-        let HTML = ``
-        
-        for (let index = 0; index <= d.length-1; index++){
-            let joboffer = d[index]
-            HTML += `<tr>
-                        <td> ${joboffer.jono}</td>
-                        <td> <a href="/job/view?jono=${joboffer.jono}"> ${joboffer.jotitle} </a> </td>
-                        <td> ${joboffer.memberDto.mname}</td>
-                        <td> ${joboffer.cdate}</td>
-                    </tr>`
+        if(d != null){
+            const list = document.querySelector('tbody')
+            let HTML = ``
+            
+            for (let index = 0; index <= d.length-1; index++){
+                let joboffer = d[index]
+                HTML += `<tr>
+                            <td> ${joboffer.jono}</td>
+                            <td> ${joboffer.joservice}</td>
+                            <td class="jotitle ${joboffer.jostate? 'success' : ''}"> <a href="/job/view?jono=${joboffer.jono}"> ${joboffer.jotitle} </a> </td>
+                            <td> ${joboffer.memberDto.mname}</td>
+                            <td> ${joboffer.cdate}</td>
+                        </tr>`
+            }
+            list.innerHTML = HTML;   
         }
-        list.innerHTML = HTML;   
+        else{document.querySelector('.table').innerHTML = '작성된 구인글이 없습니다.'}
     })
     .catch(e => console.log(e))
 };

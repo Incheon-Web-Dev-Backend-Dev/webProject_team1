@@ -37,7 +37,7 @@ public class JobOfferController {
 
     // 구인글 삭제
     @DeleteMapping("/joboffer/delete.do")
-    public boolean jobOfferDelete(@RequestParam int jono){return jobOfferService.jobOfferDelete(jono);}
+    public boolean jobOfferDelete(@RequestParam int jono){return jobOfferService.   jobOfferDelete(jono);}
 
     // 내가 쓴 구인글 조회
     @GetMapping("/joboffer/mylist.do")
