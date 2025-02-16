@@ -30,3 +30,8 @@ body {
     flex-direction: column;
 }
 
+.rareaInputsection {
+    display: flex;
+    flex-direction: row;
+}
+

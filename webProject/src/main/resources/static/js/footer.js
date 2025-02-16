@@ -77,9 +77,9 @@ function getLoginMemailFoot(){
                                 <i class="fa-solid fa-comments-dollar btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">고수 찾기</span>
                             </a>
-                            <a href="/help/main" class="footer-btn">
-                                <i class="fa-solid fa-phone-volume btn-icon"></i> <!-- 아이콘 -->
-                                <span class="btn-text">고객 센터</span>
+                            <a href="/request/list" class="footer-btn">
+                                <i class="fa-solid fa-envelope btn-icon"></i> <!-- 아이콘 -->
+                                <span class="btn-text">견적 보기</span>
                             </a>
                             <a href="/member/mypage" class="footer-btn">
                                 <i class="fa-solid fa-user btn-icon"></i> <!-- 아이콘 -->
