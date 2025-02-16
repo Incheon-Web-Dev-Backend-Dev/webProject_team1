@@ -14,32 +14,44 @@
     <!-- 전체 페이지  -->
     <div class="allContainer">
         
-        <h2> 개인수납가 마이페이지 </h2>
-        
-        <!-- mastermpFrom ST  -->
-        <div class="mastermpForm">
-            <div class="circle-wrapper">
-                <div id="circle">
-                    <img src="/img/default.png">
+        <div class="wrapper">
+            <div class="sidebar">
+                <div class="profile-image">img</div>
+                <button>마이페이지 수정하기</button>
+                <button>비밀번호 변경하기</button>
+                <button class="delete-account">계정 탈퇴하기</button>
+            </div>
+            <div class="container">
+                <div class="profile-header">000님 반갑습니다 :)</div>
+                <div class="profile-info">
+                    <div class="info-group">
+                        <div class="info-item">
+                            <label>이메일</label>
+                            <input type="text" value="qwe@naver.com" readonly>
+                        </div>
+                        <div class="info-item">
+                            <label>자격번호</label>
+                            <input type="text" value="20230405-000043" readonly>
+                        </div>
+                    </div>
+                    <div class="info-group">
+                        <div class="info-item">
+                            <label>휴대폰</label>
+                            <input type="text" value="010-1111-1111" readonly>
+                        </div>
+                        <div class="info-item">
+                            <label>주소</label>
+                            <input type="text" value="경기도 00시 00동 00아파트" readonly>
+                        </div>
+                    </div>
+                    <div class="info-group">
+                        <label>최근경력사항</label>
+                        <textarea readonly>2024년 경기 00시 00동 근무</textarea>
+                    </div>
                 </div>
             </div>
+        </div>
         
-            <div class="form-wrapper">
-                <div class="form-floating mb-3">
-                    <textarea class="memailInput" readonly></textarea>
-                </div>
-                
-                <div class="form-floating mb-3">
-                    <textarea class="mnameInput" readonly></textarea>
-                </div>
-                
-                <div class="form-floating mb-3">
-                    <textarea class="estcashInput" readonly></textarea>
-                </div>
-            </div>            
-        </div> <!--mastermpForm end-->
-        
-
     </div> <!--Container end-->
 
 
