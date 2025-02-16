@@ -104,8 +104,8 @@ public class ViewController {
     @GetMapping("/mypage/companymp")
     public String companyMyPage(){return "/mypage/companymp.html";}
 
-    @GetMapping("/mypage/requestmp")
-    public String requesterMyPage(){return "/mypage/requestmp.html";}
+    @GetMapping("/mypage/requestermp")
+    public String requesterMyPage(){return "/mypage/requestermp.html";}
     // 고객센터
     @GetMapping("/help/main")
     public String helpMainPage(){return "/help/main.html";}

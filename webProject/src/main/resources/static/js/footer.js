@@ -14,7 +14,6 @@ function getLoginMemailFoot(){
     .then(data => {
         console.log(data);
         let html = ''; // html 초기화
-
         if (data.role == "company") {
             html += `
                 <div class="container text-bg-secondary p-3">
@@ -82,7 +81,7 @@ function getLoginMemailFoot(){
                                 <i class="fa-solid fa-phone-volume btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">고객 센터</span>
                             </a>
-                            <a href="/mypage/requestmp" class="footer-btn">
+                            <a href="/mypage/requestermp" class="footer-btn">
                                 <i class="fa-solid fa-user btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">마이페이지</span>
                             </a>
