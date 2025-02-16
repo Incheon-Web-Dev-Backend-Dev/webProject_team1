@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import webProject.model.dto.member.MemberDto;
 import webProject.model.dto.request.RequestDto;
+import webProject.model.entity.estimate.EstimateEntity;
 import webProject.model.entity.member.MemberEntity;
 import webProject.model.entity.request.RequestEntity;
 import webProject.model.repository.estimate.EstimateRepository;
@@ -14,9 +15,7 @@ import webProject.service.estimate.EstimateService;
 import webProject.service.member.MemberService;
 
 import javax.management.relation.Role;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class RequestService {
@@ -58,18 +57,18 @@ public class RequestService {
     // 현재 로그인된 회윈의 요청글 개별조회
     public RequestDto requestFind(int reqno) {
 
-        // 1. 조회할 특정 요청글의 번호 매개변수 reqno의 엔티티를 조회한다.
-        Optional< RequestEntity > optional = requestRepository.findById( reqno );
-        // 조회된 엔티티 여부에 따라 true/false 반환
-        if(optional.isPresent() ) {
-            RequestEntity requestEntity = optional.get(); // optional 엔티티 꺼내고
-            RequestDto requestDto = requestEntity.toDto(); // 엔티티를 Dto 변환
+       // 1. 조회할 요청글의 매개변수 reqno, 요청글의 엔티티를 조회
+        Optional< RequestEntity> optional = requestRepository.findById(reqno);
 
-            // 게시글에 댓글 조회한것처럼 요청글에 견적서 들어오면 견적서 제목, 가격, 내용 보여주기
-            //->
+        // 2. 조회할 엔티티의 여부를 받아오기
+        if(optional.isPresent()) {
+            RequestEntity requestEntity = optional.get();
+            RequestDto requestDto = requestEntity.toDto();
 
+            // 엔티티가 있으면 반환
             return requestDto;
         }// if end
+
         return null;
     }// requestFind end
 

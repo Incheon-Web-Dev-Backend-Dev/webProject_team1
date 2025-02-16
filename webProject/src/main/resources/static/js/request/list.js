@@ -30,9 +30,8 @@ const requestFindAll = () => {
                         <div class="card-content cardbox">
                             <div>
                                 <h6 class="card-subtitle mb-2 text-body-secondary">${list.reqdatetime}</h6>
-                                <h5 class="card-title">${list.reqtitle}</h5>
-                                <!--견적쓰기 임시버튼(임준수)-->
-                                <button><a href="/estimate/write" class="btn btn-primary">견적쓰기임시버튼</a></button>
+                                <h5 class="card-title"><a href="/request/view?reqno=${list.reqno}">${list.reqtitle}</a></h5>
+                               
                             </div>
                             <div class="card-link">
                                 <span> 들어온 견적서 </span>
