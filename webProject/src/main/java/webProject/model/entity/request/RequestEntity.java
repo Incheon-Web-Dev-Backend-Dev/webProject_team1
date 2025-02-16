@@ -37,7 +37,7 @@ public class RequestEntity extends BaseTime {
     private String reqsmallarea;
 
     @Column(columnDefinition = "int", nullable = false)
-    private int reqroll;
+    private int reqrole;
 
     @Column(columnDefinition = "boolean")
     @ColumnDefault("false")
@@ -58,7 +58,7 @@ public class RequestEntity extends BaseTime {
                 .reqbigarea(this.reqbigarea)
                 .reqsmallarea(this.reqsmallarea)
                 .reqstate(this.reqstate)
-                .reqroll(this.reqroll)
+                .reqrole(this.reqrole)
                 .mno(this.memberEntity.getMno())
                 .reqdatetime(this.getCdate().toString())
                 .build();

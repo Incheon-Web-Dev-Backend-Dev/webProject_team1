@@ -47,6 +47,7 @@ document
         throw new Error("회원가입 실패");
       })
       .then((data) => {
+        data.uploadfile = null;
         alert("회원가입이 완료되었습니다!"); // 성공 메시지
         location.href = "/";
         // 필요에 따라 리다이렉션 또는 다음 단계 처리

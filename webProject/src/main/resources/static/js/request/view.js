@@ -15,7 +15,7 @@ const onRequestFind = () => {
             console.log(data);
             document.querySelector('.rtitlebox').innerHTML = data.reqtitle; 
             document.querySelector('.rcdate').innerHTML = data.reqdatetime;
-            document.querySelector('.rrollbox').innerHTML = data.reqroll == '1'? "업체(2인 이상)" : "개인 (1인)";
+            document.querySelector('.rrolebox').innerHTML = data.reqrole == '1'? "업체(2인 이상)" : "개인 (1인)";
             document.querySelector('.rspacebox').innerHTML = data.reqspace;
             document.querySelector('.rbigareabox').innerHTML = data.reqbigarea;
             document.querySelector('.rsmallareabox').innerHTML = data.reqsmallarea;

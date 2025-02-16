@@ -102,24 +102,24 @@ public class RequestService {
     } // requestPost end
 
     // *역할에 따른 요청서 나눠 보기* 0215 추가(임준수) + roll 이 아니구 사실 role 이라는 진실
-    public List<RequestDto> requestFindRoll(String role) {
-
-        MemberDto loginDto = memberService.getMyInfo();
-        if(loginDto == null){System.out.println("login error"); return null;}
-        int a;
-        if(role.equals("company")){ a = 1;}else { a= 2;}
-        // 변수안에 있는 String 값 비교 시 변수명.equals(비교값)
-        List<RequestEntity> requestEntityList = requestRepository.findAll();
-
-        List<RequestDto> requestDtoList = new ArrayList<>();
-        requestEntityList.forEach(entity -> {
-            if (entity.getReqroll() == a){
-                RequestDto requestDto = entity.toDto();
-                requestDtoList.add(requestDto);
-            }
-        });
-        return requestDtoList;
-    }
+//    public List<RequestDto> requestFindRoll(String role) {
+//
+//        MemberDto loginDto = memberService.getMyInfo();
+//        if(loginDto == null){System.out.println("login error"); return null;}
+//        int a;
+//        if(role.equals("company")){ a = 1;}else { a= 2;}
+//        // 변수안에 있는 String 값 비교 시 변수명.equals(비교값)
+//        List<RequestEntity> requestEntityList = requestRepository.findAll();
+//
+//        List<RequestDto> requestDtoList = new ArrayList<>();
+//        requestEntityList.forEach(entity -> {
+//            if (entity.getReqrole() == a){
+//                RequestDto requestDto = entity.toDto();
+//                requestDtoList.add(requestDto);
+//            }
+//        });
+//        return requestDtoList;
+//    }
 
 
 }

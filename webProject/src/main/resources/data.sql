@@ -15,7 +15,7 @@ VALUES
 (4, 'profile4.jpg', NOW(), NOW()),
 (5, 'profile5.jpg', NOW(), NOW());
 
-INSERT INTO service_request (mno, reqtitle, reqcontent, reqspace, reqbigarea, reqsmallarea, reqstate, reqroll, cdate, udate)
+INSERT INTO service_request (mno, reqtitle, reqcontent, reqspace, reqbigarea, reqsmallarea, reqstate, reqrole, cdate, udate)
 VALUES
 (1, '욕실 리모델링', '욕실 전체 리모델링 견적 요청합니다', '욕실', '서울시', '강남구', true, 1, NOW(), NOW()),
 (2, '주방 싱크대 교체', '주방 싱크대 교체 견적 문의', '주방', '서울시', '서초구', true,  1, NOW(), NOW()),

@@ -13,5 +13,5 @@ public interface RequestRepository extends JpaRepository<RequestEntity, Integer>
     List<RequestEntity> findByMemberEntity_Role(String role);
 
     // 2. 역할에 따른 요청글 목록 조회
-    List<RequestEntity> findByReqroll(int reqroll);
+    List<RequestEntity> findByReqrole(int reqrole);
 }
