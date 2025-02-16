@@ -151,7 +151,7 @@ public class MemberService {
 
 
     public boolean isEmailDuplicate(String email) {
-        // 이메일 중복 확인 로직
+        // 이메일이 존재하면 true 반환, 존재하지 않으면 false 반환
         return memberRepository.existsByMemail(email);
     }
 }

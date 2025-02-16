@@ -72,6 +72,38 @@ document.getElementById("mpwdConfirm").addEventListener("input", function () {
     confirmMessage.style.color = "red";
   }
 });
+// 이메일 중복 검사 함수
+function checkEmailDuplicate() {
+  const email = document.getElementById("memail").value;
+  const emailErrorMessage = document.getElementById("emailErrorMessage");
+
+  // 이메일이 비어있으면 중복 검사를 진행하지 않음
+  if (email === "") {
+    emailErrorMessage.textContent = "";
+    return;
+  }
+
+  // 중복 검사 요청 (fetch)
+  fetch(`/member/checkemail.do?email=${encodeURIComponent(email)}`)
+    .then((response) => response.json()) // JSON 응답 처리
+    .then((data) => {
+      if (data) {
+        emailErrorMessage.textContent = "❌ 이미 사용 중인 이메일입니다.";
+        emailErrorMessage.style.color = "red";
+      } else {
+        emailErrorMessage.textContent = "✅ 사용 가능한 이메일입니다.";
+        emailErrorMessage.style.color = "green";
+      }
+    })
+    .catch((error) => {
+      console.error("이메일 중복 검사 오류:", error);
+      emailErrorMessage.textContent = "❌ 중복 검사에 실패했습니다. 다시 시도해 주세요.";
+      emailErrorMessage.style.color = "red";
+    });
+}
+
+// 버튼 클릭 시 중복 검사 호출
+document.getElementById("checkEmailBtn").addEventListener("click", checkEmailDuplicate);
 
 // 회원가입 폼 제출 시 유효성 검사 및 서버 요청
 document
