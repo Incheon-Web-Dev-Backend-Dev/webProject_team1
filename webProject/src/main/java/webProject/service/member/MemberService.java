@@ -12,8 +12,14 @@ import webProject.model.dto.member.MemberDto;
 import webProject.model.dto.member.MemberFileDto;
 import webProject.model.entity.member.MemberEntity;
 import webProject.model.entity.member.MemberFileEntity;
+import webProject.model.repository.estimate.EstimateRepository;
+import webProject.model.repository.job.JobFileRepository;
+import webProject.model.repository.job.JobOfferRepository;
+import webProject.model.repository.like.LikeRepository;
 import webProject.model.repository.member.MemberFileRepository;
 import webProject.model.repository.member.MemberRepository;
+import webProject.model.repository.request.RequestRepository;
+import webProject.model.repository.review.ReviewRepository;
 
 import java.util.List;
 
@@ -23,6 +29,19 @@ public class MemberService {
     @Autowired MemberFileService memberFileService;
     @Autowired
     MemberFileRepository memberFileRepository;
+    @Autowired
+    ReviewRepository reviewRepository;
+    @Autowired
+    EstimateRepository estimateRepository;
+    @Autowired
+    JobOfferRepository jobOfferRepository;
+    @Autowired
+    RequestRepository requestRepository;
+    @Autowired
+    LikeRepository likeRepository;
+
+
+
     @Transactional
     //1. 회원가입
     public boolean signup(MemberDto memberDto){
@@ -122,6 +141,7 @@ public class MemberService {
         return null; // * 비로그인상태이면
     }
     // 현재 로그인된 회원 탈퇴
+    @Transactional
     public boolean myDelete( ){
         String memail = getSession(); // 1. 현재 세션에 저장된 회원 아이디 조회
         if( memail != null ){// 2. 만약에 로그인상태이면
@@ -136,6 +156,29 @@ public class MemberService {
         }
         return false; // * 비로그인상태이면
     }
+
+    // 유지명 회원퇄퇴 Test
+    @Transactional
+    public boolean deleteMember(int mno) {
+        // 1. mno가 참조된곳에 모두 Null로 변경
+        estimateRepository.unlinkMember(mno);
+        reviewRepository.unlinkMember(mno);
+        likeRepository.unlinkMember(mno);
+        requestRepository.unlinkMember(mno);
+        jobOfferRepository.unlinkMember(mno);
+
+        // 2. 회원파일도 삭제
+        memberFileRepository.deleteByMemberEntity_Mno(mno);
+
+        // 3. 회원 삭제
+        memberRepository.deleteById(mno);
+
+        return true;
+    }
+
+
+
+
     // 현재 로그인된 회원 정보 수정 , mname 닉네임 , memail 이메일
     @Transactional
     public boolean myUpdate( MemberDto memberDto ){

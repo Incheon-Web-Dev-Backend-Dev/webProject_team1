@@ -55,4 +55,11 @@ public class MemberController {
         // 이메일 중복 확인 로직
         return memberService.isEmailDuplicate(email);
     }
+
+
+    // 지명 Test - talend에서 true 받아옴. 근호씨 쓰세요
+    @DeleteMapping("/member/deleteJM.do")
+    public boolean deleteMember(int mno){
+        return memberService.deleteMember(mno);
+    }
 }

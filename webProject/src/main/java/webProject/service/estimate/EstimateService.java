@@ -103,12 +103,25 @@ public class EstimateService {
     @Transactional
     public boolean estimateDelete (int estno) {
         // 현재 로그인된 세션 객체 조회
-        MemberDto loginDto = memberService.getMyInfo();
-        if(loginDto == null){ System.out.println("login error"); return false;}
-        // 먼저 Review에서 ServiceEstimate과의 관계를 끊음
-        //reviewRepository.unlinkEstimate(estno);
-        //reviewRepository.flush();
-        estimateRepository.deleteById(estno);
-        return true;
+//        MemberDto loginDto = memberService.getMyInfo();
+//        if(loginDto == null){ System.out.println("login error"); return false;}
+//        // 먼저 Review에서 ServiceEstimate과의 관계를 끊음
+//        reviewRepository.unlinkEstimate(estno);
+//        reviewRepository.flush();
+//        estimateRepository.deleteById(estno);
+//        return true;
+        try {
+            // 1. 리뷰와의 관계 해제
+            reviewRepository.unlinkEstimate(estno);
+
+            // 2. 견적서 삭제
+            estimateRepository.deleteById(estno);
+
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 }

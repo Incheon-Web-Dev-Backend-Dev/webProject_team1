@@ -44,8 +44,8 @@ public class RequestEntity extends BaseTime {
     private boolean reqstate;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name= "mno")
+    @ManyToOne
+    @JoinColumn(name= "mno", nullable = true)
     private MemberEntity memberEntity;
 
     public RequestDto toDto(){

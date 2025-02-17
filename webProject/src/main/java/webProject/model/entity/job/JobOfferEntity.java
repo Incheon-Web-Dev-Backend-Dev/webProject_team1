@@ -44,8 +44,8 @@ public class JobOfferEntity extends BaseTime {
 
 
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "mno")
+    @ManyToOne
+    @JoinColumn(name = "mno", nullable = true)
     @ToString.Exclude
     private MemberEntity memberEntity; // 회원번호 FK
 

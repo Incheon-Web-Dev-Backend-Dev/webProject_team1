@@ -8,9 +8,9 @@ import webProject.model.repository.review.ReviewRepository;
 @Service
 public class ReviewService {
     @Autowired private ReviewRepository reviewRepository;
-    //@Transactional
-    //public void unlinkEstimateFromReview(Integer estno) {
+    @Transactional
+    public void unlinkEstimateFromReview(Integer estno) {
         // EstimateEntity와 연결된 ReviewEntity에서 관계를 끊음
-        //reviewRepository.unlinkEstimate(estno);
-    //}
+        reviewRepository.unlinkEstimate(estno);
+    }
 }

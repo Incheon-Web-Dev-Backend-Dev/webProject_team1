@@ -96,13 +96,13 @@ VALUES
 (4, 4, true,  3, NOW(), NOW()),
 (5, 5, true, 5,  NOW(), NOW());
 
-INSERT INTO review (revno, revcontent, revstar, mno, reqno, estno, cdate, udate)
+INSERT INTO review (revno, revcontent, revstar, mno, estno, cdate, udate)
 VALUES
-(1, "청소 너무 잘됬네요!", 4, 2, 1, 2, NOW(), NOW()),
-(2, "서비스가 조금 부족했어요.", 3, 3, 2, 1, NOW(), NOW()),
-(3, "금방 확실하게 끝내주셨어요.", 5, 4, 3, 2, NOW(), NOW()),
-(4, "가격이 비싸서 그런지 꼼꼼하게 잘 봐주시네요 ", 5, 5, 4, 3, NOW(), NOW()),
-(5, "서비스가 조금 부족했어요.", 2, 6, 5, 1, NOW(), NOW());
+(1, "청소 너무 잘됬네요!", 4, 2, 2, NOW(), NOW()),
+(2, "서비스가 조금 부족했어요.", 3, 3, 1, NOW(), NOW()),
+(3, "금방 확실하게 끝내주셨어요.", 5, 4, 2, NOW(), NOW()),
+(4, "가격이 비싸서 그런지 꼼꼼하게 잘 봐주시네요 ", 5, 5, 3, NOW(), NOW()),
+(5, "서비스가 조금 부족했어요.", 2, 6, 1, NOW(), NOW());
 
 
 INSERT INTO revfile (revfname, revno, cdate, udate)

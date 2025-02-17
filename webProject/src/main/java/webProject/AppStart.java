@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaAuditing
-//@EnableJpaRepositories(basePackages = "webProject.model.repository")
+@EnableJpaRepositories(basePackages = "webProject.model.repository")
 public class AppStart {
     public static void main(String[] args) {
         SpringApplication.run(AppStart.class);
