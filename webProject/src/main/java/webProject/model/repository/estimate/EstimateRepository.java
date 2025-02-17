@@ -23,5 +23,4 @@ public interface EstimateRepository extends JpaRepository<EstimateEntity, Intege
     @Query("UPDATE EstimateEntity e SET e.memberEntity = null WHERE e.memberEntity.mno = :mno")
     void unlinkMember(Integer mno);
 
-    // estimste 견적서삭제시 참조되어있는 Reqno null 값으로 업데이트하는 기능추가
 }

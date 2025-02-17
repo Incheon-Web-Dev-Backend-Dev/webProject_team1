@@ -24,6 +24,7 @@ const findAll = () => {
             const estCardContent = document.querySelector(".estFindAllCardBox");
             let html = ``;
             data.forEach(estimate =>{
+                if(estimate.mno>0){
                 html +=`
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
@@ -36,6 +37,7 @@ const findAll = () => {
                     </div>
                 </div>
                 `;
+                }
             })
             estCardContent.innerHTML = html;
         })

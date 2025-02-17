@@ -6,11 +6,15 @@ import org.springframework.transaction.annotation.Transactional;
 import webProject.model.dto.estimate.EstimateDto;
 import webProject.model.dto.member.MemberDto;
 import webProject.model.entity.estimate.EstimateEntity;
+import webProject.model.entity.like.LikeEntity;
 import webProject.model.entity.member.MemberEntity;
 import webProject.model.entity.request.RequestEntity;
+import webProject.model.entity.review.ReviewEntity;
+import webProject.model.entity.review.ReviewFileEntity;
 import webProject.model.repository.estimate.EstimateRepository;
 import webProject.model.repository.member.MemberRepository;
 import webProject.model.repository.request.RequestRepository;
+import webProject.model.repository.review.ReviewFileRepository;
 import webProject.model.repository.review.ReviewRepository;
 import webProject.service.member.MemberService;
 
@@ -26,6 +30,7 @@ public class EstimateService {
     @Autowired private MemberRepository memberRepository;
     @Autowired private RequestRepository requestRepository;
     @Autowired private ReviewRepository reviewRepository;
+    @Autowired private ReviewFileRepository reviewFileRepository;
 
     // 견적글 쓰기
     public boolean estimateWrite(EstimateDto estimateDto){
@@ -62,8 +67,22 @@ public class EstimateService {
         List<EstimateDto> estimateDtoList =new ArrayList<>();
         estimateEntityList.forEach(entity -> {
             if(entity.getRequestEntity().getReqno() == reqno ) {
-                EstimateDto estimateDto = entity.toESDto();
-                estimateDtoList.add(estimateDto);
+                try {
+                    EstimateDto estimateDto = entity.toESDto();
+                    estimateDtoList.add(estimateDto);
+                }catch (NullPointerException e){
+                    System.out.println(e);
+                    EstimateDto estimateDto = EstimateDto.builder()
+                            .estno(entity.getEstno())
+                            .mno(0)
+                            .mname("탈퇴한 회원입니다.")
+                            .esttitle(entity.getEsttitle())
+                            .estcontent(entity.getEstcontent())
+                            .estcash(entity.getEstcash())
+                            .eststate(entity.isEststate())
+                            .build();
+                    estimateDtoList.add(estimateDto);
+                }
             }
         });
         return estimateDtoList;
@@ -102,19 +121,27 @@ public class EstimateService {
     // 견적글 삭제하기
     @Transactional
     public boolean estimateDelete (int estno) {
-        // 현재 로그인된 세션 객체 조회
-//        MemberDto loginDto = memberService.getMyInfo();
-//        if(loginDto == null){ System.out.println("login error"); return false;}
-//        // 먼저 Review에서 ServiceEstimate과의 관계를 끊음
-//        reviewRepository.unlinkEstimate(estno);
-//        reviewRepository.flush();
-//        estimateRepository.deleteById(estno);
-//        return true;
-        try {
-            // 1. 리뷰와의 관계 해제
-            reviewRepository.unlinkEstimate(estno);
+         //현재 로그인된 세션 객체 조회
+        MemberDto loginDto = memberService.getMyInfo();
+        if(loginDto == null){ System.out.println("login error"); return false;}
 
-            // 2. 견적서 삭제
+        try {
+            List<ReviewEntity> reviewEntityList = reviewRepository.findAll();
+            List<ReviewFileEntity> reviewFileEntityList = reviewFileRepository.findAll();
+            reviewEntityList.forEach(entity -> {
+                if (entity.getEstimateEntity().getEstno()==estno){
+                    reviewRepository.delete(entity);
+                }
+            });
+            reviewFileEntityList.forEach(entity->{
+                if(entity.getReviewEntity().getEstimateEntity().getEstno() == estno){
+                    reviewFileRepository.delete(entity);
+                }
+            });
+
+//            // 1. 리뷰와의 관계 해제
+//            reviewRepository.unlinkEstimate(estno);
+            // 3. 견적서 삭제
             estimateRepository.deleteById(estno);
 
             return true;
