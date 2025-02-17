@@ -1,9 +1,9 @@
 
+
 // 내가 올린 견적요청서 리스트 조회 함수
 const requestFindAll = () => {
     console.log("견적요청서 전체조회 함수 실행");
-
-    fetch('/request/findall.do', {method: 'GET'})
+        fetch('/request/findall.do', {method: 'GET'})
         .then( r => {
             if (!r.ok) {
                 throw new Error(`HTTP error! status: ${r.status}`);
@@ -18,36 +18,42 @@ const requestFindAll = () => {
 
             // 1. html을 출력할 구역 가져오기 
             const reqCardContent = document.querySelector(".reqListCardBox");
-
+            
             // 2. 출력할 html을 저장하는 변수 선언 
             let html = ``;
 
             // 3. 응답 자료를 반복문을 이용하여 하나씩 순회해서 html 누적으로 더해서 출력하기 
             data.forEach ( list => {
                 html += `
-                <div class="card" style="width: 32rem;">
-                    <div class="card-body">
-                        <div class="card-content cardbox">
-                            <div>
-                                <h6 class="card-subtitle mb-2 text-body-secondary">${list.reqdatetime}</h6>
-                                <h5 class="card-title">${list.reqtitle}</h5>
-                                <!--견적쓰기 임시버튼(임준수)-->
-                                <button><a href="/estimate/write" class="btn btn-primary">견적쓰기임시버튼</a></button>
+                
+                    <div class="card" style="width: 32rem;">
+                        <div class="card-body">
+                            <div class="card-content cardbox">
+                                <div>
+                                    <h6 class="card-subtitle mb-2 text-body-secondary">${list.reqdatetime}</h6>
+                                    <h5 class="card-title"><a href="/request/view?reqno=${list.reqno}">${list.reqtitle}</a></h5>
+                                
                             </div>
-                            <div class="card-link">
-                                <span> 들어온 견적서 </span>
-                                <a href="/estimate/list?reqno=${list.reqno}" class="card-link">${list.estimateCount}건 </a>
+                                <div class="card-link receivedEstimates">
+                                 ${loginMemberInfo.role === "requester" ? 
+                                    `<span>들어온 견적서</span>
+                                    <a href="/estimate/list?reqno=${list.reqno}" class="card-link">${list.estimateCount}건</a>`
+                                    : ''
+                        }
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                `
+                    </div>               
+                
+                `                           
+                
             }) // forEach end
 
             // 4. 반복문 종료후 html 변수에 누적된 구역 출력하기
             reqCardContent.innerHTML = html;
         })
         .catch (e => {console.log(e)})
+   
 } // f end
 
 // 페이지 실행되면 자동으로 함수 실행

@@ -38,3 +38,7 @@ body {
     resize: none; /* 크기 조정 비활성화 */
     width: 280px;
 }
+
+a{
+    margin-top: 5px;
+}

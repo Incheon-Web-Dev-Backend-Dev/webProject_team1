@@ -14,7 +14,6 @@ function getLoginMemailFoot(){
     .then(data => {
         console.log(data);
         let html = ''; // html 초기화
-
         if (data.role == "company") {
             html += `
                 <div class="container text-bg-secondary p-3">
@@ -24,15 +23,15 @@ function getLoginMemailFoot(){
                                 <i class="fa-solid fa-sheet-plastic btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">작성한 구인글</span>
                             </a>
+                            <a href="/estimate/mywrote" class="footer-btn">
+                                <i class="fa-solid fa-phone-volume btn-icon"></i> <!-- 아이콘 -->
+                                <span class="btn-text">작성한 견적글</span>
+                            </a>
                             <a href="/request/list" class="footer-btn">
                                 <i class="fa-solid fa-person-circle-question btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">요청글</span>
                             </a>
-                            <a href="/help/main" class="footer-btn">
-                                <i class="fa-solid fa-phone-volume btn-icon"></i> <!-- 아이콘 -->
-                                <span class="btn-text">고객 센터</span>
-                            </a>
-                            <a href="/mypage/mastermp" class="footer-btn">
+                            <a href="/member/mypage" class="footer-btn">
                                 <i class="fa-solid fa-user btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">마이페이지</span>
                             </a>
@@ -47,17 +46,17 @@ function getLoginMemailFoot(){
                         <div class="footer-buttons">
                             <a href="/job/list" class="footer-btn">
                                 <i class="fa-solid fa-people-line btn-icon"></i> <!-- 아이콘 -->
-                                <span class="btn-text">구인글 목록</span>
+                                <span class="btn-text">구인글</span>
                             </a>
                             <a href="/request/list" class="footer-btn">
                                 <i class="fa-solid fa-person-circle-question btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">요청글</span>
                             </a>
-                            <a href="/help/main" class="footer-btn">
+                            <a href="/estimate/mywrote" class="footer-btn">
                                 <i class="fa-solid fa-phone-volume btn-icon"></i> <!-- 아이콘 -->
-                                <span class="btn-text">고객 센터</span>
+                                <span class="btn-text">내가 쓴 견적</span>
                             </a>
-                            <a href="/mypage/mastermp" class="footer-btn">
+                            <a href="/member/mypage" class="footer-btn">
                                 <i class="fa-solid fa-user btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">마이페이지</span>
                             </a>
@@ -78,11 +77,11 @@ function getLoginMemailFoot(){
                                 <i class="fa-solid fa-comments-dollar btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">고수 찾기</span>
                             </a>
-                            <a href="/help/main" class="footer-btn">
-                                <i class="fa-solid fa-phone-volume btn-icon"></i> <!-- 아이콘 -->
-                                <span class="btn-text">고객 센터</span>
+                            <a href="/request/list" class="footer-btn">
+                                <i class="fa-solid fa-envelope btn-icon"></i> <!-- 아이콘 -->
+                                <span class="btn-text">견적 보기</span>
                             </a>
-                            <a href="/mypage/requestmp" class="footer-btn">
+                            <a href="/member/mypage" class="footer-btn">
                                 <i class="fa-solid fa-user btn-icon"></i> <!-- 아이콘 -->
                                 <span class="btn-text">마이페이지</span>
                             </a>

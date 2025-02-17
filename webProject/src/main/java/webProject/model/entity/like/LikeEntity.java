@@ -22,8 +22,8 @@ public class LikeEntity extends BaseTime {
     @Column(columnDefinition = "boolean", nullable = false)
     private boolean lstate; // 좋아요(지원여부) 상태 true : 지원했음, false : 지원하지않았음
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "mno") // 누가 눌렀는지
+    @ManyToOne
+    @JoinColumn(name = "mno", nullable = true) // 누가 눌렀는지
     private MemberEntity memberEntity;
 
     @ManyToOne(cascade = CascadeType.ALL)

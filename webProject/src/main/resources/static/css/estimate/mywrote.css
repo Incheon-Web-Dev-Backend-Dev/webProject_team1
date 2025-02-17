@@ -1,0 +1,50 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.allContainer {
+    width: 600px;
+    margin-top: 100px;    /* 헤더 높이만큼 여백 */
+    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
+    padding: 20px;
+    overflow-y: auto;
+}
+.requestList {
+    width: 600px;
+    margin-top: 100px;    /* 헤더 높이만큼 여백 */
+    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.mywroteHeader{
+    margin-top: 50px;
+    padding: 20px;
+}
+
+.estListCardBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    
+}
+
+.card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cardbox {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

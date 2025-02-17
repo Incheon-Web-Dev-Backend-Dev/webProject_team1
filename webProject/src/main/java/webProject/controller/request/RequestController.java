@@ -23,6 +23,7 @@ public class RequestController {
     // 현재 로그인된 회윈의 요청글 개별조회
     @GetMapping("/find.do")
     public RequestDto requestFind(@RequestParam int reqno) {
+        System.out.println("요청된 글번호: " + reqno);
         return requestService.requestFind(reqno);
     }
 
