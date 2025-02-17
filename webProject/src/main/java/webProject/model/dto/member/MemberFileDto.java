@@ -12,17 +12,15 @@ import webProject.model.entity.member.MemberFileEntity;
 @NoArgsConstructor
 public class MemberFileDto {
     private int mfno; //가입파일번호
-    private String mfname; // 첨부파일이름
+    private String mfname; //파일이름
     private String profile; //프로필파일이름
     private String cdate; // 파일생성일
-
-
 
     public MemberFileEntity toEntity(){
         return MemberFileEntity.builder()
                 .mfno(this.mfno)
                 .mfname(this.mfname)
-                .mprofilename(this.profile)
+                .profilename(this.profile)
                 .build();
     }
 }

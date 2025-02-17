@@ -41,8 +41,8 @@ public class MemberController {
     }
     //6. 회원 탈퇴
     @DeleteMapping("/member/delete.do")
-    public boolean myDelete(){
-        return memberService.myDelete();
+    public boolean deleteMember(){
+        return memberService.deleteMember();
     }
     //7. 회원정보 수정
     @PutMapping("/member/update.do")
@@ -51,15 +51,8 @@ public class MemberController {
     }
     //8. 이메일 중복 확인
     @GetMapping("/member/checkemail.do")
-    public boolean isEmailDuplicate(@RequestParam String email) {
-        // 이메일 중복 확인 로직
+    public boolean isEmailDuplicate(@RequestParam String email) {// 이메일 중복 확인 로직
         return memberService.isEmailDuplicate(email);
     }
 
-
-    // 지명 Test - talend에서 true 받아옴. 근호씨 쓰세요
-    @DeleteMapping("/member/deleteJM.do")
-    public boolean deleteMember(int mno){
-        return memberService.deleteMember(mno);
-    }
 }

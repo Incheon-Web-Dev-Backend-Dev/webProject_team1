@@ -24,7 +24,23 @@ const getmyInfo = () => {
             document.querySelector('.mnameInput').value = data.mname;
             document.querySelector('.mphoneInput').value = data.mphone;
             document.querySelector('.maddrInput').value = data.maddr;
+
+
         }
     }).catch(e => {console.log(e)})
 }
 getmyInfo(); //info.html 이 열릴때 내정보 보기
+
+// [2] 마이페이지 에서 (로그인된)회원탈퇴 요청하기
+const onDelete = ( ) => {
+    // * 예/아니요 형식으로 탈퇴 여부를 묻고 아니요 이면 탈퇴를 중지한다.
+    let result = confirm('정말 탈퇴 하실건가요?');
+    if( result == false ) { return; }
+    // 1. fetch 이용한 회월탈퇴 서비스 요청 과 응답 받기
+    fetch( '/member/delete.do' , { method : "DELETE"} )
+    .then( response => response.json() )
+    .then( data => {
+        if( data == true ){ alert('탈퇴 성공'); location.href='/'; }
+        else{ alert('탈퇴 실패'); }
+    }).catch( e => { console.log(e); })
+} // f enmd
