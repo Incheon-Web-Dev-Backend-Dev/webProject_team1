@@ -26,6 +26,7 @@ public class RequestDto {
     private long estimateCount; // 요청글에 들어오는 견적서 수
 
     private int mno; // 요청서 작성한 회원번호
+    private String mname; // 요청서 작성한 회원이름
 
     public RequestEntity toEntity() {
         return RequestEntity.builder()

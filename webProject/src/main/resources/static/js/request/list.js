@@ -24,28 +24,30 @@ const requestFindAll = () => {
 
             // 3. 응답 자료를 반복문을 이용하여 하나씩 순회해서 html 누적으로 더해서 출력하기 
             data.forEach ( list => {
-                html += `
-                
-                    <div class="card" style="width: 32rem;">
-                        <div class="card-body">
-                            <div class="card-content cardbox">
-                                <div>
-                                    <h6 class="card-subtitle mb-2 text-body-secondary">${list.reqdatetime}</h6>
-                                    <h5 class="card-title"><a href="/request/view?reqno=${list.reqno}">${list.reqtitle}</a></h5>
-                                
-                            </div>
-                                <div class="card-link receivedEstimates">
-                                 ${loginMemberInfo.role === "requester" ? 
-                                    `<span>들어온 견적서</span>
-                                    <a href="/estimate/list?reqno=${list.reqno}" class="card-link">${list.estimateCount}건</a>`
-                                    : ''
-                        }
+                // 탈퇴한 회원의 견적서는 보여주지 않기위해 조건 설정
+                if(list.mno > 0){
+                    html += `
+                    
+                        <div class="card" style="width: 32rem;">
+                            <div class="card-body">
+                                <div class="card-content cardbox">
+                                    <div>
+                                        <h6 class="card-subtitle mb-2 text-body-secondary">${list.reqdatetime}</h6>
+                                        <h5 class="card-title"><a href="/request/view?reqno=${list.reqno}">${list.reqtitle}</a></h5>
+                                    
+                                </div>
+                                    <div class="card-link receivedEstimates">
+                                     ${loginMemberInfo.role === "requester" ? 
+                                        `<span>들어온 견적서</span>
+                                        <a href="/estimate/list?reqno=${list.reqno}" class="card-link">${list.estimateCount}건</a>`
+                                        : ''
+                            }
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>               
-                
-                `                           
+                        </div>               
+                    `                           
+                }
                 
             }) // forEach end
 
