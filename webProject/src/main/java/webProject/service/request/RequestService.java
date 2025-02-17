@@ -37,8 +37,16 @@ public class RequestService {
         String loginid = memberService.getSession();
         MemberEntity memberEntity = memberRepository.findByMemail(loginid);
 
-        // 2. 모든 요청서의 엔티티 조회
-        List<RequestEntity> requestEntityList = requestRepository.findByMemberEntity(memberEntity);
+        // 2.회원의 role에 따라 조회리스트 필터링
+        List<RequestEntity> requestEntityList;
+        if(memberEntity.getRole().equals("requester")) {
+            // 로그인유저가 의뢰인일 경우 본인이 작성한 요청글만 조회
+            requestEntityList = requestRepository.findByMemberEntity(memberEntity);
+        } else {
+            // 로그인유저가 업체,마스터이면 해당하는 reqrole을 가진 글만 조회
+            int reqrole = memberEntity.getRole().equals("master") ? 2 : 1 ;
+            requestEntityList = requestRepository.findByReqrole(reqrole);
+        }// if else end
 
         // 3. 조회된 회원의 요청글 엔티티를 dto로 변환
         List<RequestDto> requestDtoList = new ArrayList<>();
@@ -57,18 +65,18 @@ public class RequestService {
     // 현재 로그인된 회윈의 요청글 개별조회
     public RequestDto requestFind(int reqno) {
 
-        // 1. 조회할 특정 요청글의 번호 매개변수 reqno의 엔티티를 조회한다.
-        Optional< RequestEntity > optional = requestRepository.findById( reqno );
-        // 조회된 엔티티 여부에 따라 true/false 반환
-        if(optional.isPresent() ) {
-            RequestEntity requestEntity = optional.get(); // optional 엔티티 꺼내고
-            RequestDto requestDto = requestEntity.toDto(); // 엔티티를 Dto 변환
+       // 1. 조회할 요청글의 매개변수 reqno, 요청글의 엔티티를 조회
+        Optional< RequestEntity> optional = requestRepository.findById(reqno);
 
-            // 게시글에 댓글 조회한것처럼 요청글에 견적서 들어오면 견적서 제목, 가격, 내용 보여주기
-            //->
+        // 2. 조회할 엔티티의 여부를 받아오기
+        if(optional.isPresent()) {
+            RequestEntity requestEntity = optional.get();
+            RequestDto requestDto = requestEntity.toDto();
 
+            // 엔티티가 있으면 반환
             return requestDto;
         }// if end
+
         return null;
     }// requestFind end
 
@@ -100,4 +108,5 @@ public class RequestService {
             return false;
         } // if-else end
     } // requestPost end
+
 }

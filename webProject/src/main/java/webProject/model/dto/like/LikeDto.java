@@ -8,6 +8,7 @@ import webProject.model.entity.like.LikeEntity;
 @Getter@Setter@Builder@ToString
 public class LikeDto {
     private int lno;
+    private boolean lstate; //좋아요(구직지원) 상태
     private int mno;
     private int jono;
     private String cdate;
@@ -18,6 +19,7 @@ public class LikeDto {
     public LikeEntity toLEntity(){
         return LikeEntity.builder()
                 .lno(this.lno)
+                .lstate(this.lstate)
                 .build();
     }
 }

@@ -51,18 +51,52 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+const updateView = () => {
+    // 이전 페이지의 URL을 가져옵니다.
+    const referrerUrl = document.referrer;
+
+    // URLSearchParams를 사용하여 쿼리 파라미터를 추출합니다.
+    const referrerParams = new URLSearchParams(new URL(referrerUrl).search);
+
+    // jono 파라미터 값을 가져옵니다.
+    const jono = referrerParams.get('jono');
+
+    // 결과를 출력합니다.
+    console.log("이전 페이지 URL : " + referrerUrl);
+    console.log('이전 페이지의 jono: ' + jono);  // 이제 정상적으로 'jono' 값을 출력합니다.
+
+    fetch(`/joboffer/find.do?jono=${jono}`,{method : 'GET'})
+    .then(r => r.json())
+    .then(d => {
+        console.log(d);
+        document.querySelector('.jotitleValue').value = `${d.jotitle}`;
+        document.querySelector('.joserviceValue').innerHTML += `<option selected>${d.joservice}</option>`;
+        document.querySelector('.jocityValue').innerHTML += `<option selected>${d.jocity}</option>`;
+        document.querySelector('.jodistrictValue').innerHTML += `<option selected>${d.jodistrict}</option>`;
+        $('#summernote').summernote('code', `${d.jocontent}`);
+    })
+    .catch(console.log(e))
+}
+
+updateView();
+
 function jobUpdate(){
+    // 이전 페이지의 URL을 가져옵니다.
+    const referrerUrl = document.referrer;
+
+    // URLSearchParams를 사용하여 쿼리 파라미터를 추출합니다.
+    const referrerParams = new URLSearchParams(new URL(referrerUrl).search);
+    
+    // jono 파라미터 값을 가져옵니다.
+    const jono = referrerParams.get('jono');
 
     let jotitleValue = document.querySelector('.jotitleValue');
-    let joserviceValue = document.querySelector('.joserviceValue');
-    let jocityValue = document.querySelector('.jocityValue');
-    let jodistrictValue = document.querySelector('.jodistrictValue');
+    let joservice = $("select[id=joserviceSelect] option:selected").text();   // 선택된 option의 value 값이 아닌 그에 해당하는 text를 받아옴
+    let jocity = $("select[id=jocitySelect] option:selected").text();         // 선택된 option의 value 값이 아닌 그에 해당하는 text를 받아옴
+    let jodistrict = $("select[id=jodistrictSelect] option:selected").text(); // 선택된 option의 value 값이 아닌 그에 해당하는 text를 받아옴
     let jocontentValue = document.querySelector('.jocontentValue');
 
     let jotitle = jotitleValue.value;
-    let joservice = joserviceValue.value;
-    let jocity = jocityValue.value;
-    let jodistrict = jodistrictValue.value;
     let jocontent = jocontentValue.value;
 
     // 3. 유효성 검사
@@ -87,6 +121,7 @@ function jobUpdate(){
 
     // 4. 입력받은 값들 서버에 보낼 객체 만들기
     const jobofferDto = {
+        jono : jono,
         jotitle : jotitle,
         joservice : joservice,
         jocity : jocity,
@@ -96,23 +131,23 @@ function jobUpdate(){
 
     // 5. fetch
     const option = {
-        method : 'POST',
+        method : 'PUT',
         headers : { 'Content-Type' : 'application/json' },
         body : JSON.stringify( jobofferDto )
     }
     
-    let result = confirm('구인글을 올리시겠습니까?');
+    let result = confirm('수정 하시겠습니까?');
     if( result == false ) { return; }
 
-    fetch('/joboffer/write.do', option)
+    fetch('/joboffer/update.do', option)
         .then(r=> r.json())
         .then(data =>{
             console.log(data)
             if( data == true ){
-                alert("구인글 업로드 성공")
+                alert("수정 성공")
                 location.href='/'; // 요청서 개별 조회 페이지 만들면 링크 수정하기 
             } else {
-                alert("구인글 업로드 실패")
+                alert("수정 실패")
             }
         })
         .catch(e=> {console.log(e)})

@@ -2,6 +2,7 @@ package webProject.service.estimate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import webProject.model.dto.estimate.EstimateDto;
 import webProject.model.dto.member.MemberDto;
 import webProject.model.entity.estimate.EstimateEntity;
@@ -10,10 +11,12 @@ import webProject.model.entity.request.RequestEntity;
 import webProject.model.repository.estimate.EstimateRepository;
 import webProject.model.repository.member.MemberRepository;
 import webProject.model.repository.request.RequestRepository;
+import webProject.model.repository.review.ReviewRepository;
 import webProject.service.member.MemberService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EstimateService {
@@ -22,6 +25,7 @@ public class EstimateService {
     @Autowired private RequestEntity requestEntity;
     @Autowired private MemberRepository memberRepository;
     @Autowired private RequestRepository requestRepository;
+    @Autowired private ReviewRepository reviewRepository;
 
     // 견적글 쓰기
     public boolean estimateWrite(EstimateDto estimateDto){
@@ -52,24 +56,72 @@ public class EstimateService {
         // 현재 로그인된 세션 객체 조회
         MemberDto loginDto = memberService.getMyInfo();
         if(loginDto == null){ System.out.println("login error"); return null; }
+        // 모든 견적글 엔티티 조회
         List<EstimateEntity> estimateEntityList = estimateRepository.findAll();
+        // 모든 견적 저장할 DTO 선언
         List<EstimateDto> estimateDtoList =new ArrayList<>();
         estimateEntityList.forEach(entity -> {
             if(entity.getRequestEntity().getReqno() == reqno ) {
                 EstimateDto estimateDto = entity.toESDto();
                 estimateDtoList.add(estimateDto);
-            } else {
-
             }
         });
         return estimateDtoList;
     }
+    @Transactional
     // 견적글 개별 조회
-    public EstimateDto estimateFind(int eno){
-        return null;
+    public EstimateDto estimateFind(int estno){
+        // 현재 로그인된 세션 객체 조회
+        MemberDto loginDto = memberService.getMyInfo();
+        if(loginDto == null){ System.out.println("login error"); return null; }
+        // 조회할 특정 견적글 번호 엔티티를 조회
+        Optional<EstimateEntity> optional = estimateRepository.findById(estno);
+        // 만약 조회된 엔티티가 있다면 꺼내서 -> DTO 로
+        if (optional.isPresent()){
+            EstimateEntity estimateEntity = optional.get();
+            EstimateDto estimateDto = estimateEntity.toESDto();
+            return estimateDto;
+        } {
+            System.out.println("값 없음");
+        }return null;
     }
-    // 현재 로그인된 회원이 작성한 견적글 개별 조회
-    public List<EstimateDto> estimateMyFind(int eno){
-        return null;
+    // 현재 로그인된 회원의 작성항 견적글 천제 조회
+    public List<EstimateDto> estimateMyWrote(){
+        // 로그인된 회원 아이디 가져오기
+        String loginid = memberService.getSession();
+        MemberEntity memberEntity = memberRepository.findByMemail(loginid);
+        List<EstimateEntity> estimateEntityList = estimateRepository.findByMemberEntity(memberEntity);
+        List<EstimateDto> estimateDtoList = new ArrayList<>();
+        estimateEntityList.forEach(entity -> {
+            EstimateDto estimateDto = entity.toESDto();
+            estimateDtoList.add(estimateDto);
+        });
+        return estimateDtoList;
+    }
+
+    // 견적글 삭제하기
+    @Transactional
+    public boolean estimateDelete (int estno) {
+        // 현재 로그인된 세션 객체 조회
+//        MemberDto loginDto = memberService.getMyInfo();
+//        if(loginDto == null){ System.out.println("login error"); return false;}
+//        // 먼저 Review에서 ServiceEstimate과의 관계를 끊음
+//        reviewRepository.unlinkEstimate(estno);
+//        reviewRepository.flush();
+//        estimateRepository.deleteById(estno);
+//        return true;
+        try {
+            // 1. 리뷰와의 관계 해제
+            reviewRepository.unlinkEstimate(estno);
+
+            // 2. 견적서 삭제
+            estimateRepository.deleteById(estno);
+
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 }

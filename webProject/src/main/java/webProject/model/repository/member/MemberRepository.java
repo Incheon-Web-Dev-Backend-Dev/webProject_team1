@@ -8,6 +8,6 @@ public interface MemberRepository extends JpaRepository<MemberEntity,Integer> {
     boolean existsByMemailAndMpwd( String memail , String mpwd );
 
     MemberEntity findByMemail( String memail );
-
-
+    // 이메일 중복 확인 쿼리
+    boolean existsByMemail(String memail);
 }

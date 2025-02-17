@@ -1,10 +1,15 @@
+
+body {
+    margin-bottom: 60px; /* 본문 아래에 푸터 높이만큼의 여백 추가 */
+}
 .text-bg-secondary {
     background-color: #D4A373 !important;
     position: fixed;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 600px;
+    max-width: 600px;
+    min-width: 600px !important;
     padding: 10px 0;
     z-index: 1000;
 }
@@ -14,7 +19,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 600px;
+    min-width: 600px;
     margin: 0 auto; /* 화면 중앙 정렬 */
     padding: 0; /* 불필요한 여백 제거 */
     overflow: hidden; /* 초과되는 요소 숨김 */
@@ -30,9 +35,12 @@
     text-align: center;
     color: black; /* 기본 텍스트 색상은 흰색 */
     text-decoration: none; /* 텍스트 밑줄 제거 */
-    font-size: 15px; /* 기본 텍스트 크기 */
     cursor: pointer; /* 버튼에 마우스를 올리면 클릭할 수 있는 모양으로 변경 */
     transition: all 0.3s ease; /* 모든 속성에 부드러운 애니메이션 효과 적용 */
+}
+/* 텍스트 크기 조정 안 하기 */
+.footer-btn span {
+    font-size: 17px; /* 텍스트 크기는 별도로 설정 */
 }
 
 .btn-icon {
@@ -63,42 +71,16 @@
 }
 /* 클릭 시 효과 끝 */
 
-body {
-    margin-bottom: 60px; /* 본문 아래에 푸터 높이만큼의 여백 추가 */
+
+
+/* 특정 아이콘 크기 조정 */
+.fa-sheet-plastic {
+    font-size: 24px; /* 원하는 크기로 설정 */
 }
+
+.fa-person-circle-question{
+    font-size: 24px;
+}
+
 
 /* 반응형 스타일 추가 */
-@media screen and (max-width: 500px) {
-    .footer-buttons {
-        justify-content: center; /* 작은 화면에서는 중앙 정렬 */
-    }
-    .footer-btn {
-        flex: 1 1 35%; /* 버튼 크기를 조금 더 크게 조정 */
-        max-width: 100px; /* 최대 크기 줄임 */
-    }
-    .btn-icon {
-        width: 30px; /* 아이콘 크기를 줄임 */
-        height: 30px;
-    }
-    .footer-btn span {
-        font-size: 20px; /* 텍스트 크기를 줄임 */
-    }
-}
-
-@media screen and (max-width: 420px) {
-    .footer-buttons {
-        justify-content: center !important; /* 작은 화면에서는 중앙 정렬 */
-        align-items: center;
-    }
-    .footer-btn {
-        flex: 1 1 25%; 
-        max-width:80px; /* 최대 크기 제한 해제 */
-    }
-    .btn-icon {
-        width: 23px; /* 아이콘 크기를 더 줄임 */
-        height: 23px;
-    }
-    .footer-btn span {
-        font-size: 13px; /* 텍스트 크기를 더 줄임 */
-    }
-}

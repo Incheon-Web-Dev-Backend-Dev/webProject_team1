@@ -57,6 +57,7 @@ const onRequestPost = () => {
 
     // 1. input dom 가져오기
     let reqtitleValue = document.querySelector('.reqtitleValue'); console.log(reqtitleValue);
+    let reqrollValue = document.querySelector('input[name="reqroll"]:checked'); console.log('reqrollValue', reqrollValue);
     let reqspaceValue = document.querySelector('.reqspaceValue'); console.log(reqspaceValue);
     let reqbigareaValue = document.querySelector('.reqbigareaValue'); console.log(reqbigareaValue);
     let reqsmallareaValue = document.querySelector('.reqsmallareaValue'); console.log(reqsmallareaValue);
@@ -64,6 +65,7 @@ const onRequestPost = () => {
 
     // 2. dom의 value 가져오기
     let reqtitle = reqtitleValue.value; console.log(reqtitle);
+    let reqroll = reqrollValue ? reqrollValue.value : 0; console.log('reqroll',reqroll);
     let reqspace = reqspaceValue.value; console.log(reqspace);
     let reqbigarea = reqbigareaValue.value; console.log(reqbigarea);
     let reqsmallarea = reqsmallareaValue.value; console.log(reqsmallarea);
@@ -73,6 +75,9 @@ const onRequestPost = () => {
     // 모든 요소는 필수선택 조건이어야 한다.
     if(reqtitle.trim() === '') {
         alert('제목을 입력해주세요.');
+        return false;
+    } else if(reqroll == 0 ) {
+        alert('정리/수납 요청 상대를 선택해주세요.')
         return false;
     } else if(reqspace === '선택하기') {
         alert('정리/수납 요청 공간을 선택해주세요.');
@@ -92,6 +97,7 @@ const onRequestPost = () => {
     // 4. 입력받은 값들 서버에 보낼 객체 만들기
     const requestDto = {
         reqtitle : reqtitle,
+        reqroll : reqroll,
         reqspace : reqspace,
         reqbigarea : reqbigarea,
         reqsmallarea : reqsmallarea,

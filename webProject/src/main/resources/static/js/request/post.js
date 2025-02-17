@@ -51,12 +51,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
 // 견적서 요청서 작성 함수
 const onRequestPost = () => {
 
     // 1. input dom 가져오기
     let reqtitleValue = document.querySelector('.reqtitleValue'); console.log(reqtitleValue);
+    let reqroleValue = document.querySelector('input[name="reqrole"]:checked'); console.log('reqroleValue', reqroleValue);
     let reqspaceValue = document.querySelector('.reqspaceValue'); console.log(reqspaceValue);
     let reqbigareaValue = document.querySelector('.reqbigareaValue'); console.log(reqbigareaValue);
     let reqsmallareaValue = document.querySelector('.reqsmallareaValue'); console.log(reqsmallareaValue);
@@ -64,6 +64,7 @@ const onRequestPost = () => {
 
     // 2. dom의 value 가져오기
     let reqtitle = reqtitleValue.value; console.log(reqtitle);
+    let reqrole = reqroleValue ? reqroleValue.value : 0; console.log('reqrole',reqrole);
     let reqspace = reqspaceValue.value; console.log(reqspace);
     let reqbigarea = reqbigareaValue.value; console.log(reqbigarea);
     let reqsmallarea = reqsmallareaValue.value; console.log(reqsmallarea);
@@ -73,6 +74,9 @@ const onRequestPost = () => {
     // 모든 요소는 필수선택 조건이어야 한다.
     if(reqtitle.trim() === '') {
         alert('제목을 입력해주세요.');
+        return false;
+    } else if(reqrole == 0 ) {
+        alert('정리/수납 요청 상대를 선택해주세요.')
         return false;
     } else if(reqspace === '선택하기') {
         alert('정리/수납 요청 공간을 선택해주세요.');
@@ -92,6 +96,7 @@ const onRequestPost = () => {
     // 4. 입력받은 값들 서버에 보낼 객체 만들기
     const requestDto = {
         reqtitle : reqtitle,
+        reqrole : reqrole,
         reqspace : reqspace,
         reqbigarea : reqbigarea,
         reqsmallarea : reqsmallarea,
@@ -105,17 +110,22 @@ const onRequestPost = () => {
         body : JSON.stringify( requestDto )
     }
 
-    fetch('/request/post.do', option)
+    const isUploadBtn = confirm("요청서를 올리시겠습니까?");
+
+    if( isUploadBtn == true) {
+        fetch('/request/post.do', option)
         .then(r=> r.json())
         .then(data =>{
             console.log(data)
             if( data == true ){
-                confirm('요청서를 올리시겠습니까?')
-                alert("요청서 업로드 성공")
-                location.href='/'; // 요청서 개별 조회 페이지 만들면 링크 수정하기 
+                alert("요청서 업로드 성공");
+                location.href=`/request/list`; 
             } else {
                 alert("요청서 업로드 실패")
             }
         })
         .catch(e=> {console.log(e)})
+    } else return ;
+
+
 }

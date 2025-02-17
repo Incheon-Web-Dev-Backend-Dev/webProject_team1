@@ -36,13 +36,16 @@ public class RequestEntity extends BaseTime {
     @Column(columnDefinition = "varchar(30)", nullable = false)
     private String reqsmallarea;
 
+    @Column(columnDefinition = "int", nullable = false)
+    private int reqrole;
+
     @Column(columnDefinition = "boolean")
     @ColumnDefault("false")
     private boolean reqstate;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name= "mno")
+    @ManyToOne
+    @JoinColumn(name= "mno", nullable = true)
     private MemberEntity memberEntity;
 
     public RequestDto toDto(){
@@ -55,6 +58,7 @@ public class RequestEntity extends BaseTime {
                 .reqbigarea(this.reqbigarea)
                 .reqsmallarea(this.reqsmallarea)
                 .reqstate(this.reqstate)
+                .reqrole(this.reqrole)
                 .mno(this.memberEntity.getMno())
                 .reqdatetime(this.getCdate().toString())
                 .build();

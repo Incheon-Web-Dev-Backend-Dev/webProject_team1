@@ -3,13 +3,21 @@ package webProject.model.repository.like;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import webProject.model.entity.like.LikeEntity;
 
 @Repository
 public interface LikeRepository extends JpaRepository<LikeEntity, Integer> {
 
-    @Modifying
     @Query( value = "delete from like_job where jono = :jono;" , nativeQuery = true)
-    void deleteByJono(int jono);
+    boolean deleteByQuery(@Param("jono") int jono);
+
+    @Query( value = "select * from like_job where mno = :mno and jono = :jono;", nativeQuery = true )
+    LikeEntity findLike(int mno, int jono);
+
+    // 회원탈퇴할 때 LikeENtity에 mno값이 Null 로 업데이트 되게 처리
+    @Modifying
+    @Query("UPDATE LikeEntity l SET l.memberEntity = null WHERE l.memberEntity.mno = :mno")
+    void unlinkMember(Integer mno);
 }

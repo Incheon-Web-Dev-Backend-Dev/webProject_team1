@@ -16,8 +16,8 @@ console.log('이전 페이지의 reqno: ' + reqno);  // 이제 정상적으로 '
 // 1. 견적서 올리기
 const onEstimateWrite = () => {
     // 요청글 상세페이지 아직 안만들어져서 임시 주석, reqno 임의값 설정
-    //const reqno = referrerParams.get('reqno'); 
-    const reqno = 10;
+    const reqno = referrerParams.get('reqno'); 
+    
     // 1. input dom 가져오기
     let esttitleValue = document.querySelector('.esttitleValue')
     let estcontentValue = document.querySelector('.estcontentValue')

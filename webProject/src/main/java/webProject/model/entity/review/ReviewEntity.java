@@ -28,16 +28,16 @@ public class ReviewEntity extends BaseTime {
     @Column(columnDefinition = "int", nullable = false)
     private int revstar;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name= "mno")
+    @ManyToOne
+    @JoinColumn(name= "mno", nullable = true)
     private MemberEntity memberEntity;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name= "reqno")
-    private RequestEntity requestEntity;
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name= "reqno")
+//    private RequestEntity requestEntity;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name= "estno")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name= "estno", nullable = true)
     private EstimateEntity estimateEntity;
 
     public ReviewDto toDto() {
@@ -47,7 +47,7 @@ public class ReviewEntity extends BaseTime {
                 .revcdate(this.getCdate().toString())
                 .requdate(this.getUdate().toString())
                 .mno(this.memberEntity.getMno())
-                .reqno(this.requestEntity.getReqno())
+                //.reqno(this.requestEntity.getReqno())
                 .estno(this.estimateEntity.getEstno())
                 .build();
     }

@@ -34,18 +34,34 @@ public class ViewController {
         return "/request/list.html";
     }
 
+
+    // 내가 올린 견적 요청서 상세보기 (일반 의뢰인)
+    @GetMapping("/request/view")
+    public String requestView() {
+        return "/request/view.html";
+    }
+
+
+
+
+
+    //============================Estimate============================
     // 견적서 쓰기 (업체 / 개인수납가)
     @GetMapping("/estimate/write")
-    public String estimateWrite(){
-        return "/estimate/write.html";
-    }
+    public String estimateWrite(){return "/estimate/write.html";}
 
 
     // 요청서에 해당하는 견적서 전체 출력 (일반 의뢰인이 올린)
     @GetMapping("/estimate/list")
-    public String estimateFindAll(){
-        return "/estimate/list.html";
-    }
+    public String estimateFindAll(){return "/estimate/list.html";}
+
+    // 견적서 상세 조회
+    @GetMapping("/estimate/view")
+    public String estimateFind() {return "/estimate/view.html";}
+
+    // 내가 작성한 견적서 전체 출력 (업체, 수납가)
+    @GetMapping("/estimate/mywrote")
+    public String estimateMyWrote(){return "/estimate/mywrote";}
 
 
 
@@ -74,4 +90,10 @@ public class ViewController {
     @GetMapping("/job/update")
     public String jobUpdate(){return "/job/update.html";}
 
+    //============================ My page ============================
+    @GetMapping("/member/mypage")
+    public String masterMyPage(){return "/member/mypage.html";}
+    // 고객센터
+    @GetMapping("/help/main")
+    public String helpMainPage(){return "/help/main.html";}
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/request/view.css">
+</head>
+<body>
+
+    <div th:replace="~{ /header.html :: header }"></div>
+
+    <!-- view 페이지 전체 -->
+    <div class="requestView">
+
+        <h2>견적요청서 상세 조회</h2> 
+
+         <!-- 상세내용 view -->
+        <div class="reqViewContent">
+            
+           
+            <div class="mb-3">
+                <div class="rtitlesection">
+                    <label for="basic-url" class="form-label">정리/수납 견적 요청서 제목</label>
+                    <p class="form-control rtitlebox">제목</p>
+                </div>
+                <div class="rwritesection">
+                    <label for="basic-url" class="form-label">작성 날짜</label>
+                    <p class="form-control rcdate">요청서 작성 날짜/시간</p>
+                </div>
+                <div class="rrolesection">
+                    <label for="basic-url" class="form-label">정리/수납 견적 요청 상대</label>
+                    <p class="form-control rrolebox">요청상대</p>
+                </div>
+                <div class="rspacesection">
+                    <label for="basic-url" class="form-label">정리/수납 요청 공간</label>
+                    <p class="form-control rspacebox">요청공간</p>
+                </div>
+                <div class="rareasection">
+                    <label for="basic-url" class="form-label">정리/수납 요청 지역</label>
+                    <div class="rareaInputsection">
+                        <p class="form-control rbigareabox">시/도</p>
+                        <p class="form-control rsmallareabox">시/군/구</p>
+                    </div>
+                </div>
+                <div class="rcontentsection">
+                    <label for="basic-url" class="form-label">정리/수납 자세한 요청 내용</label>
+                    <p class="form-control rcontentbox"></p>
+                </div>
+            </div>
+
+            <div class="uploadBtnBox"></div>
+        
+
+    </div>
+
+
+
+    <div th:replace="~{ /footer.html :: footer }"></div>
+
+
+
+    <script src="/js/request/view.js"></script>
+    
+</body>
+</html>
