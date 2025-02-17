@@ -4,7 +4,6 @@ $(document).ready(function () {
   $(".role-btn").click(function () {
     // 모든 버튼에서 active 클래스 제거
     $(".role-btn").removeClass("active");
-
     // 클릭된 버튼에만 active 클래스 추가
     $(this).addClass("active");
   });
@@ -35,7 +34,6 @@ const onLogin = () => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(loginDto),
   };
-
   fetch("/member/login.do", option)
     .then((response) => response.json())
     .then((data) => {
