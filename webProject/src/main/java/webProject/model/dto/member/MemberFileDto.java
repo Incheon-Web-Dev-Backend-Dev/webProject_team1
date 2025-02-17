@@ -13,6 +13,7 @@ import webProject.model.entity.member.MemberFileEntity;
 public class MemberFileDto {
     private int mfno; //가입파일번호
     private String mfname; //파일이름
+    private String mfname2; //파일이름2
     private String cdate; // 파일생성일
 
 
@@ -21,6 +22,7 @@ public class MemberFileDto {
         return MemberFileEntity.builder()
                 .mfno(this.mfno)
                 .mfname(this.mfname)
+                .profilename(this.mfname2)
                 .build();
     }
 }

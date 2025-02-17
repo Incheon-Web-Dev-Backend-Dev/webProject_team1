@@ -42,15 +42,14 @@ public class MemberService {
             } catch (Exception e){System.out.println(e); return false;}
         }
         MultipartFile uploadFile = memberDto.getUploadFile2();
-        MemberFileDto memberFileDto1 = new MemberFileDto();
         if (uploadFile != null){
             String filename2 = memberFileService.fileUpload(uploadFile);
-            memberFileDto1.setMfname(filename2);
-            MemberFileEntity memberFileEntity = memberFileDto1.toEntity();
+            memberFileDto.setMfname2(filename2);
+            MemberFileEntity memberFileEntity = memberFileDto.toEntity();
             memberFileEntity.setMemberEntity(memberEntity);
             MemberFileEntity saveFileEntity = memberFileRepository.save(memberFileEntity);
             if (!(saveFileEntity.getMfno() > 0 )) {return false;}
-        }else {memberFileDto1.setMfname( "default.jpg");}
+        }else {memberFileDto.setMfname2( "default.jpg");}
 
         
         if (saveEntity.getMno() > 0){

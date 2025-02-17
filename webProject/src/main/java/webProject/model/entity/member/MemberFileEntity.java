@@ -22,8 +22,10 @@ public class MemberFileEntity extends BaseTime {
     @Unsigned
     private int mfno; //가입파일번호
 
-    @Column(columnDefinition = "varchar(50)")
+    @Column(columnDefinition = "varchar(255)")
     private String mfname; //파일이름
+    @Column(columnDefinition = "varchar(255)")
+    private String profilename; //파일이름
 
     @ManyToOne  // FK
     @JoinColumn(name = "mno")
@@ -33,7 +35,10 @@ public class MemberFileEntity extends BaseTime {
         return MemberFileDto.builder()
                 .mfno(this.mfno)
                 .mfname(this.mfname)
+                .mfname2(this.profilename)
                 .cdate(this.getCdate().toString())
                 .build();
     }
 }
+a3438dcf-158f-467f-b915-1980f4e5694c-mainbanner3.jpg
+6fcd4b2d-84b4-4902-b132-a0c879e4fd94-default.jpg
