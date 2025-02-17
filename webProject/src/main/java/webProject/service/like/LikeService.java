@@ -65,10 +65,10 @@ public class LikeService {
         // 전체 지원자 리스트 출력
         List<LikeEntity> likeEntityList = likeRepository.findLikeMaster(jono);
         List<MemberDto> list = new ArrayList<>();
+
         for (int index = 0; index <= likeEntityList.size()-1; index++){
             MemberEntity memberEntity = memberRepository.findById(likeEntityList.get(index).getMemberEntity().getMno()).get();
             list.add(memberEntity.toDto());
-            return list;
         }
         return list;
     }

@@ -14,7 +14,7 @@ function mylist(){
                 HTML += `<tr>
                             <td> ${joboffer.jono}</td>
                             <td> ${joboffer.joservice}</td>                            
-                            <td> <a href="/job/view?jono=${joboffer.jono}"> ${joboffer.jotitle} </a> </td>
+                            <td class="jotitle ${joboffer.jostate? 'success' : ''}"> <a href="/job/view?jono=${joboffer.jono}"> ${joboffer.jotitle} </a> </td>
                             <td> ${joboffer.memberDto.mname}</td>
                             <td> ${joboffer.cdate}</td>
                         </tr>`

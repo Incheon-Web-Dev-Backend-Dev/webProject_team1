@@ -19,13 +19,12 @@ public interface LikeRepository extends JpaRepository<LikeEntity, Integer> {
     @Query( value = "select * from like_job where mno = :mno and jono = :jono;", nativeQuery = true )
     LikeEntity findLike(int mno, int jono);
 
-<<<<<<< HEAD
+
     @Query( value = "select * from like_job where lstate = true and jono = :jono;", nativeQuery = true )
     List<LikeEntity> findLikeMaster(int jono);
-=======
+
     // 회원탈퇴할 때 LikeENtity에 mno값이 Null 로 업데이트 되게 처리
     @Modifying
     @Query("UPDATE LikeEntity l SET l.memberEntity = null WHERE l.memberEntity.mno = :mno")
     void unlinkMember(Integer mno);
->>>>>>> 9de46a957f09dd0b0d8e717d55ecba7a09b9d9b4
 }

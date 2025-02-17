@@ -45,7 +45,7 @@ const jobFind = (mno, role) => {
          <button class="btn btn-secondary btn-lg" type="button" onclick="offerDelete()">삭제</button></a>`
         }
         // 로그인한 유저의 role이 master일 때 좋아요 버튼 출력을 위해 likeFind() 함수 호출
-        if(role == 'master'){
+        if(role == 'master' && d.jostate == false){
             likeFind(mno, jono);
         }
     }

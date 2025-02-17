@@ -104,7 +104,6 @@ public class JobOfferService {
 //        likeRepository.deleteByQuery(jono);
         jobOfferRepository.deleteById(jono);
 
-
         return true;
     }
 
