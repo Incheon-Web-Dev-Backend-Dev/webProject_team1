@@ -13,6 +13,7 @@ const estView = () => {
         console.log(data);
         // HTML로 표시할 부분을 만들어서 그곳에 넣을 것
         const estviewForm = document.querySelector(".estviewForm"); // 데이터를 넣을 곳
+        if(estimate.mno>0){
         let html = `
             <div class="estviewForm">
                 <h6>작성자 이름</h6>
@@ -53,6 +54,7 @@ const estView = () => {
         `;
         // 결과를 HTML 요소에 삽입
         estviewForm.innerHTML = html;
+                }
     })
     .catch(e => {
         console.log(e);

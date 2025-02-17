@@ -51,13 +51,30 @@ public class RequestService {
         // 3. 조회된 회원의 요청글 엔티티를 dto로 변환
         List<RequestDto> requestDtoList = new ArrayList<>();
         requestEntityList.forEach( entity -> {
-            RequestDto requestDto = entity.toDto();
-
-            // 각 요청글의 견적서 수를 계산하여 DTO에 설정
-            requestDto.setEstimateCount(estimateRepository.countByRequestEntity_Reqno(entity.getReqno()));
-            requestDtoList.add( requestDto );
+            // 탈퇴한 회원의 글이 포함되어있으면 NulLpointExcettion 예외에 대한 처리 로직 추가
+            try{
+                RequestDto requestDto = entity.toDto();
+                // 각 요청글의 견적서 수를 계산하여 DTO에 설정
+                requestDto.setEstimateCount(estimateRepository.countByRequestEntity_Reqno(entity.getReqno()));
+                requestDtoList.add( requestDto );
+            } catch (NullPointerException e){
+                System.out.println("회원의 요청글 전체조회에서 예외처리");
+                RequestDto requestDto = RequestDto.builder()
+                        .reqno(entity.getReqno())
+                        .mno(0)
+                        .mname("탈퇴한 회원입니다.")
+                        .reqtitle(entity.getReqtitle())
+                        .reqcontent(entity.getReqcontent())
+                        .reqspace(entity.getReqspace())
+                        .reqbigarea(entity.getReqbigarea())
+                        .reqsmallarea(entity.getReqsmallarea())
+                        .reqstate(entity.isReqstate())
+                        .reqrole(entity.getReqrole())
+                        .build();
+                requestDto.setEstimateCount(estimateRepository.countByRequestEntity_Reqno(entity.getReqno()));
+                requestDtoList.add(requestDto);
+            }
         });
-
         return requestDtoList;
     }
 

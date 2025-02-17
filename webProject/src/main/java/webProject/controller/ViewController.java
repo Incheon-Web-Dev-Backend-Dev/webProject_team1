@@ -84,11 +84,17 @@ public class ViewController {
         return "/job/view.html";
     }
 
+    // 내가 쓴 구인글 리스트(업체)
     @GetMapping("/job/mylist")
     public String jobMylist(){return "/job/mylist.html";}
 
+    // 구인글 수정(업체)
     @GetMapping("/job/update")
     public String jobUpdate(){return "/job/update.html";}
+
+    // 지원자 리스트 보기(업체)
+    @GetMapping("/job/like")
+    public String jobLike(){return "/job/like.html";}
 
     //============================ My page ============================
     @GetMapping("/member/mypage")

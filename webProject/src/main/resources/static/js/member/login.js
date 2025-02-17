@@ -1,4 +1,4 @@
-// login 때 역할 버튼 js
+    // login 때 역할 버튼 js
 $(document).ready(function () {
   // 버튼 클릭 시 active 클래스를 토글
   $(".role-btn").click(function () {

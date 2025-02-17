@@ -21,17 +21,14 @@ import java.util.Optional;
 @Service
 public class JobOfferService {
 
-    @Autowired
-    private JobFileService jobFileService;
-    @Autowired
-    private JobOfferRepository jobOfferRepository;
-    @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private MemberService memberService;
-    @Autowired
-    private LikeRepository likeRepository;
+    @Autowired private JobFileService jobFileService;
+    @Autowired private JobOfferRepository jobOfferRepository;
+    @Autowired private MemberRepository memberRepository;
+    @Autowired private MemberService memberService;
+    @Autowired private LikeRepository likeRepository;
 
+
+    // 구인글 작성
     @Transactional
     public boolean jobOfferWrite(JobOfferDto jobOfferDto) {
 
@@ -47,6 +44,7 @@ public class JobOfferService {
         return false;
     }
 
+    // 구인글 전체 조회
     public List<JobOfferDto> jobOfferFindAll() {
 
         List<JobOfferEntity> jobOfferEntityList = jobOfferRepository.findAll();
@@ -59,16 +57,20 @@ public class JobOfferService {
         return list;
     }
 
+    // 구인글 개별 조회
     public JobOfferDto jobOfferFind(int jono) {
         Optional<JobOfferEntity> optionalList = jobOfferRepository.findById(jono);
+        List<LikeEntity> likeEntityList = likeRepository.findLikeMaster(jono);
         if (optionalList.isPresent()){
             JobOfferEntity jobOfferEntity = optionalList.get();
             JobOfferDto jobOfferDto = jobOfferEntity.toDto();
+            jobOfferDto.setLikeCount(likeEntityList.size());
             return jobOfferDto;
         }
         return null;
     }
 
+    // 구인글 내용 수정
     @Transactional
     public boolean jobOfferUpdate(JobOfferDto jobOfferDto) {
         JobOfferEntity updateEntity = jobOfferRepository.findById(jobOfferDto.getJono()).get();
@@ -80,6 +82,7 @@ public class JobOfferService {
         return true;
     }
 
+    // 구인글 마감상태 수정
     @Transactional
     public boolean jobStateUpdate(int jono) {
         JobOfferEntity entity = jobOfferRepository.findById(jono).get();
@@ -87,6 +90,7 @@ public class JobOfferService {
         return true;
     }
 
+    // 구인글 삭제
     @Transactional
     public boolean jobOfferDelete(int jono) {
 
@@ -100,10 +104,10 @@ public class JobOfferService {
 //        likeRepository.deleteByQuery(jono);
         jobOfferRepository.deleteById(jono);
 
-
         return true;
     }
 
+    // 내가 쓴 구인글 조회
     public List<JobOfferDto> jobOfferMyList() {
         String mid = memberService.getSession();
         MemberEntity loginEntity = memberRepository.findByMemail(mid);
