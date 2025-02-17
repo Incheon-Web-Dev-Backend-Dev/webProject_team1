@@ -4,65 +4,6 @@
   src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.ttf) format("truetype");
 }
 
-/* body 설정: flexbox로 레이아웃 정렬, 여백 및 패딩 초기화 */
-/* .role 안의 ul을 flexbox로 설정 */
-.role ul {
-  display: flex; /* 자식 요소들을 한 줄로 배치 */
-  justify-content: space-around; /* 아이템들 사이에 균등한 간격 */
-  padding: 0; /* 기본 여백 제거 */
-  margin: 0; /* 기본 여백 제거 */
-}
-
-/* li 항목들을 기본적으로 수평 배치 */
-.role li {
-  list-style: none; /* 기본 리스트 스타일 제거 */
-}
-
-/* role section */
-/* role 안의 ul을 flexbox로 설정 */
-.role ul {
-  display: flex;
-  justify-content: space-around;
-  padding: 0;
-  margin: 0;
-}
-
-/* li 항목들을 기본적으로 수평 배치 */
-.role li {
-  list-style: none;
-}
-
-/* 버튼 기본 스타일 */
-.role-btn {
-  padding: 10px 20px;
-  margin-bottom: 14px;
-  font-size: 16px;
-  background: #333;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* 버튼 hover 스타일 */
-.role-btn:hover {
-  background-color: #1ab188;
-  color: #fff;
-}
-
-/* 눌린 상태(Active) 버튼 스타일 */
-.role-btn.active {
-  background-color: #1ab188;
-  color: #fff;
-}
-/*role section end*/
-
-/* 버튼 hover 스타일 */
-.role button:hover {
-  background-color: #179e7d; /* 호버 시 배경색 */
-}
-
 /* 메인 콘텐츠 영역 스타일 */
 .mainContent {
   width: 600px !important; /* 콘텐츠 영역 너비 설정 */

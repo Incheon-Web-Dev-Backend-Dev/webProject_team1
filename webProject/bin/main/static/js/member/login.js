@@ -1,4 +1,4 @@
-// login 때 역할 버튼 js
+    // login 때 역할 버튼 js
 $(document).ready(function () {
   // 버튼 클릭 시 active 클래스를 토글
   $(".role-btn").click(function () {
@@ -27,7 +27,6 @@ const onLogin = () => {
 
   // 객체화 - 추후 role 추가
   let loginDto = { memail: memail, mpwd: mpwd };
-  console.log(loginDto);
 
   // fetch
   const option = {
