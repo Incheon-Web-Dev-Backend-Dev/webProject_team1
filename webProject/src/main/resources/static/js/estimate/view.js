@@ -13,7 +13,7 @@ const estView = () => {
         console.log(data);
         // HTML로 표시할 부분을 만들어서 그곳에 넣을 것
         const estviewForm = document.querySelector(".estviewForm"); // 데이터를 넣을 곳
-        if(estimate.mno>0){
+        if(data.mno>0){
         let html = `
             <div class="estviewForm">
                 <h6>작성자 이름</h6>
@@ -49,6 +49,11 @@ const estView = () => {
                 <div class="card-link receivedEstimates">
                 ${loginMemberInfo.role !== "requester" ?  //삭제
                     `<a onclick="estDelete()" class="btn btn-primary" style="color: white;">견적글 삭제하기</a>` 
+                    : ''}
+            </div>
+            <div class="card-link receivedEstimates">
+                ${loginMemberInfo.role == "requester" ?  // 견적 선택하기
+                    `<a onclick="estDelete()" class="btn btn-primary" style="color: white;">견적글 체택하기</a>` 
                     : ''}
             </div>
         `;
