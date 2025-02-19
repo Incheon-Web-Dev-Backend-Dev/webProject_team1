@@ -8,7 +8,7 @@ body {
 
 .estimateContainer {
     width: 600px;
-    margin-top: 60px;    /* 헤더 높이만큼 여백 */
+    margin-top: 100px;    /* 헤더 높이만큼 여백 */
     margin-bottom: 80px; /* 푸터 높이만큼 여백 */
     padding: 20px;
     overflow-y: auto;

@@ -172,7 +172,14 @@ public boolean myUpdate(MemberDto memberDto) {
     }
     return false;
 }
-
+public boolean chechpwd(String mpwd){
+    String memail = getSession();  // 1. 현재 세션에 저장된 회원 아이디 조회
+    if (memail != null) {   // 2. 만약에 로그인상태이면
+        MemberEntity memberEntity = memberRepository.findByMemail(memail);  // 3. 회원아이디로 엔티티 조회
+        if (memberEntity.getMpwd() == mpwd)return true;
+    }
+    return false;
+}
 
 public boolean isEmailDuplicate(String email) {
     // 이메일이 존재하면 true 반환, 존재하지 않으면 false 반환

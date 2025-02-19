@@ -27,7 +27,6 @@ const onLogin = () => {
 
   // 객체화 - 추후 role 추가
   let loginDto = { memail: memail, mpwd: mpwd };
-  console.log(loginDto);
 
   // fetch
   const option = {
