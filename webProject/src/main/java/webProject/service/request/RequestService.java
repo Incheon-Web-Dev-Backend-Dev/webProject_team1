@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import webProject.model.dto.member.MemberDto;
 import webProject.model.dto.request.RequestDto;
-import webProject.model.entity.estimate.EstimateEntity;
 import webProject.model.entity.member.MemberEntity;
 import webProject.model.entity.request.RequestEntity;
 import webProject.model.repository.estimate.EstimateRepository;
@@ -14,8 +13,11 @@ import webProject.model.repository.request.RequestRepository;
 import webProject.service.estimate.EstimateService;
 import webProject.service.member.MemberService;
 
-import javax.management.relation.Role;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RequestService {
@@ -37,19 +39,44 @@ public class RequestService {
         String loginid = memberService.getSession();
         MemberEntity memberEntity = memberRepository.findByMemail(loginid);
 
-        // 2. 모든 요청서의 엔티티 조회
-        List<RequestEntity> requestEntityList = requestRepository.findByMemberEntity(memberEntity);
+        // 2.회원의 role에 따라 조회리스트 필터링
+        List<RequestEntity> requestEntityList;
+        if(memberEntity.getRole().equals("requester")) {
+            // 로그인유저가 의뢰인일 경우 본인이 작성한 요청글만 조회
+            requestEntityList = requestRepository.findByMemberEntity(memberEntity);
+        } else {
+            // 로그인유저가 업체,마스터이면 해당하는 reqrole을 가진 글만 조회
+            int reqrole = memberEntity.getRole().equals("master") ? 2 : 1 ;
+            requestEntityList = requestRepository.findByReqrole(reqrole);
+        }// if else end
 
         // 3. 조회된 회원의 요청글 엔티티를 dto로 변환
         List<RequestDto> requestDtoList = new ArrayList<>();
         requestEntityList.forEach( entity -> {
-            RequestDto requestDto = entity.toDto();
-
-            // 각 요청글의 견적서 수를 계산하여 DTO에 설정
-            requestDto.setEstimateCount(estimateRepository.countByRequestEntity_Reqno(entity.getReqno()));
-            requestDtoList.add( requestDto );
+            // 탈퇴한 회원의 글이 포함되어있으면 NulLpointExcettion 예외에 대한 처리 로직 추가
+            try{
+                RequestDto requestDto = entity.toDto();
+                // 각 요청글의 견적서 수를 계산하여 DTO에 설정
+                requestDto.setEstimateCount(estimateRepository.countByRequestEntity_Reqno(entity.getReqno()));
+                requestDtoList.add( requestDto );
+            } catch (NullPointerException e){
+                System.out.println("회원의 요청글 전체조회에서 예외처리");
+                RequestDto requestDto = RequestDto.builder()
+                        .reqno(entity.getReqno())
+                        .mno(0)
+                        .mname("탈퇴한 회원입니다.")
+                        .reqtitle(entity.getReqtitle())
+                        .reqcontent(entity.getReqcontent())
+                        .reqspace(entity.getReqspace())
+                        .reqbigarea(entity.getReqbigarea())
+                        .reqsmallarea(entity.getReqsmallarea())
+                        .reqstate(entity.isReqstate())
+                        .reqrole(entity.getReqrole())
+                        .build();
+                requestDto.setEstimateCount(estimateRepository.countByRequestEntity_Reqno(entity.getReqno()));
+                requestDtoList.add(requestDto);
+            }
         });
-
         return requestDtoList;
     }
 
@@ -63,14 +90,24 @@ public class RequestService {
         // 2. 조회할 엔티티의 여부를 받아오기
         if(optional.isPresent()) {
             RequestEntity requestEntity = optional.get();
-            RequestDto requestDto = requestEntity.toDto();
+
+            // 마감기한이 지났는지 여부 확인 (채택은 estimate에서 처리됨)
+            if(requestEntity.isReqstate() && requestEntity.isDeadlineReached()) {
+                // reqstate가 true(활성화)이고 deaeline이 true(7일이 지났는지)인지 확인
+                // 즉, 요청글이 아직 활성화 상태인데 deaeline이 7일이 지난 글을 찾는 조건문
+                requestEntity.setReqstate(false); //마감 처리
+                requestRepository.save(requestEntity);
+            }// if end
 
             // 엔티티가 있으면 반환
-            return requestDto;
+            return requestEntity.toDto();
         }// if end
 
         return null;
     }// requestFind end
+
+
+
 
     // 견적 요청글 작성
     @Transactional
@@ -100,26 +137,5 @@ public class RequestService {
             return false;
         } // if-else end
     } // requestPost end
-
-    // *역할에 따른 요청서 나눠 보기* 0215 추가(임준수) + roll 이 아니구 사실 role 이라는 진실
-    public List<RequestDto> requestFindRoll(String role) {
-
-        MemberDto loginDto = memberService.getMyInfo();
-        if(loginDto == null){System.out.println("login error"); return null;}
-        int a;
-        if(role.equals("company")){ a = 1;}else { a= 2;}
-        // 변수안에 있는 String 값 비교 시 변수명.equals(비교값)
-        List<RequestEntity> requestEntityList = requestRepository.findAll();
-
-        List<RequestDto> requestDtoList = new ArrayList<>();
-        requestEntityList.forEach(entity -> {
-            if (entity.getReqroll() == a){
-                RequestDto requestDto = entity.toDto();
-                requestDtoList.add(requestDto);
-            }
-        });
-        return requestDtoList;
-    }
-
 
 }

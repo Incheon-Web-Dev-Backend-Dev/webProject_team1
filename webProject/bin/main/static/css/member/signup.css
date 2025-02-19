@@ -38,3 +38,9 @@ body {
 .role-box:hover {
     background-color: #e9ecef;
 }
+/* 버튼에 hover 시 효과 */
+#checkEmailBtn:hover {
+  background-color: #0d6efd;
+  color: white;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

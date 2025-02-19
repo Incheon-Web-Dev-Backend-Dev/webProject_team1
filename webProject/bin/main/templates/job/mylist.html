@@ -8,12 +8,13 @@
 <body>
 <div th:replace="~{/header.html :: header}"></div>
 
-<div class="jobofferlist">
+<div class="myofferlist">
   <table class="table">
     <thead>
 
     <tr>
-      <th>번호</th>
+      <th>번호</th>      
+      <th>서비스</th>
       <th>제목</th>
       <th>작성자</th>
       <th>작성일</th>
@@ -25,8 +26,8 @@
   </table>
 
   <div class="bottomMenu">
-    <input class="searchInput"><button type="button">검색</button>
-    <a href="/job/write"><button type="button">글쓰기</button></a>
+    <input class="searchInput"><button class="btn btn-secondary btn-lg" type="button">검색</button>
+    <a href="/job/write"><button class="btn btn-secondary btn-lg" type="button">글쓰기</button></a>
   </div>
 </div>
 <div th:replace="~{/footer.html :: footer}"></div>

@@ -20,12 +20,14 @@ public class RequestDto {
     private String reqspace;
     private String reqbigarea;
     private String reqsmallarea;
-    private boolean reqstate;
-    private int reqroll; // 요청하고싶은 상대 정보 1:업체, 2:개인(전문가)
+    private boolean reqstate; // 요청서 상태 (true: 활성화 되어있음(마감은안됨), false: 비활성화(마감됨))
+    private int reqrole; // 요청하고싶은 상대 정보 1:업체, 2:개인(전문가)
     private String reqdatetime;
     private long estimateCount; // 요청글에 들어오는 견적서 수
+    private String deadLineTime; // 요청서 마감시간
 
     private int mno; // 요청서 작성한 회원번호
+    private String mname; // 요청서 작성한 회원이름
 
     public RequestEntity toEntity() {
         return RequestEntity.builder()
@@ -37,7 +39,7 @@ public class RequestDto {
                 .reqbigarea(this.reqbigarea)
                 .reqsmallarea(this.reqsmallarea)
                 .reqstate(this.reqstate)
-                .reqroll(this.reqroll)
+                .reqrole(this.reqrole)
                 .build();
     }
 

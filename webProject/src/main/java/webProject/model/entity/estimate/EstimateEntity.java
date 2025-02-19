@@ -31,12 +31,12 @@ public class EstimateEntity extends BaseTime {
     @ColumnDefault("false")
     private boolean eststate; // 견적 체택 상태
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "mno") // 요청자 회원번호
+    @ManyToOne
+    @JoinColumn(name = "mno", nullable = true) // 요청자 회원번호
     private MemberEntity memberEntity;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "reqno") // 요청서 번호
+    @ManyToOne
+    @JoinColumn(name = "reqno", nullable = true) // 요청서 번호
     private RequestEntity requestEntity;
 
     public EstimateDto toESDto(){

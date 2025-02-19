@@ -9,6 +9,9 @@ import webProject.model.dto.request.RequestDto;
 import webProject.model.entity.BaseTime;
 import webProject.model.entity.member.MemberEntity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Entity
 @Getter @Setter @ToString @Builder
 @NoArgsConstructor @AllArgsConstructor
@@ -37,16 +40,31 @@ public class RequestEntity extends BaseTime {
     private String reqsmallarea;
 
     @Column(columnDefinition = "int", nullable = false)
-    private int reqroll;
+    private int reqrole;
 
     @Column(columnDefinition = "boolean")
-    @ColumnDefault("false")
+    @ColumnDefault("true")
     private boolean reqstate;
 
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name= "mno")
+    @ManyToOne
+    @JoinColumn(name= "mno", nullable = true)
     private MemberEntity memberEntity;
+
+    // 1. 요청서 마감처리에 관한 함수
+    public boolean isDeadlineReached() {
+        // 마감기한(요청글 작성 후 7일) 이 지난 경우
+        LocalDateTime deadline = this.getCdate().plusDays(7);
+        // deadline을 지나면 true반환, 이전이면 false 반환
+        return LocalDateTime.now().isAfter(deadline);
+    }
+
+    // 2. 요청서 마감시간 계산에 관한 함수
+    public String calculatedDeadline() {
+        LocalDateTime deadline = this.getCdate().plusDays(7);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return deadline.format(formatter);
+    }
+
 
     public RequestDto toDto(){
         return RequestDto.builder()
@@ -57,9 +75,11 @@ public class RequestEntity extends BaseTime {
                 .reqspace(this.reqspace)
                 .reqbigarea(this.reqbigarea)
                 .reqsmallarea(this.reqsmallarea)
-                .reqstate(this.reqstate)
-                .reqroll(this.reqroll)
+                .reqstate(this.reqstate || this.isDeadlineReached()) //채택 되거나 요청글기한이 마감되거나
+                .reqrole(this.reqrole)
+                .deadLineTime(this.calculatedDeadline())
                 .mno(this.memberEntity.getMno())
+                .mname(this.memberEntity.getMname())
                 .reqdatetime(this.getCdate().toString())
                 .build();
 

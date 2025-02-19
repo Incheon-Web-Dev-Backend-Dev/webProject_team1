@@ -149,6 +149,9 @@ document
         throw new Error("회원가입 실패");
       })
       .then((data) => {
+
+        // 필요에 따라 리다이렉션 또는 다음 단계 처리
+        data.uploadfile = null;
         alert("🎉 회원가입이 완료되었습니다! 환영합니다."); // 성공 메시지
         location.href = "/"; // 메인 페이지로 리다이렉션
       })

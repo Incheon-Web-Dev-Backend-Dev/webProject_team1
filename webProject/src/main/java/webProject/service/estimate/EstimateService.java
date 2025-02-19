@@ -1,16 +1,21 @@
 package webProject.service.estimate;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import webProject.model.dto.estimate.EstimateDto;
 import webProject.model.dto.member.MemberDto;
 import webProject.model.entity.estimate.EstimateEntity;
+import webProject.model.entity.like.LikeEntity;
 import webProject.model.entity.member.MemberEntity;
 import webProject.model.entity.request.RequestEntity;
+import webProject.model.entity.review.ReviewEntity;
+import webProject.model.entity.review.ReviewFileEntity;
 import webProject.model.repository.estimate.EstimateRepository;
 import webProject.model.repository.member.MemberRepository;
 import webProject.model.repository.request.RequestRepository;
+import webProject.model.repository.review.ReviewFileRepository;
+import webProject.model.repository.review.ReviewRepository;
 import webProject.service.member.MemberService;
 
 import java.util.ArrayList;
@@ -24,6 +29,8 @@ public class EstimateService {
     @Autowired private RequestEntity requestEntity;
     @Autowired private MemberRepository memberRepository;
     @Autowired private RequestRepository requestRepository;
+    @Autowired private ReviewRepository reviewRepository;
+    @Autowired private ReviewFileRepository reviewFileRepository;
 
     // 견적글 쓰기
     public boolean estimateWrite(EstimateDto estimateDto){
@@ -60,12 +67,28 @@ public class EstimateService {
         List<EstimateDto> estimateDtoList =new ArrayList<>();
         estimateEntityList.forEach(entity -> {
             if(entity.getRequestEntity().getReqno() == reqno ) {
-                EstimateDto estimateDto = entity.toESDto();
-                estimateDtoList.add(estimateDto);
+                try {
+                    EstimateDto estimateDto = entity.toESDto();
+                    estimateDtoList.add(estimateDto);
+                }catch (NullPointerException e){
+                    System.out.println(e);
+                    EstimateDto estimateDto = EstimateDto.builder()
+                            .estno(entity.getEstno())
+                            .mno(0)
+                            .mname("탈퇴한 회원입니다.")
+                            .esttitle(entity.getEsttitle())
+                            .estcontent(entity.getEstcontent())
+                            .estcash(entity.getEstcash())
+                            .eststate(entity.isEststate())
+                            .build();
+                    estimateDtoList.add(estimateDto);
+                }
             }
         });
         return estimateDtoList;
     }
+
+
     @Transactional
     // 견적글 개별 조회
     public EstimateDto estimateFind(int estno){
@@ -83,9 +106,79 @@ public class EstimateService {
             System.out.println("값 없음");
         }return null;
     }
-    // 현재 로그인된 회원이 작성한 견적글 개별 조회
-    public List<EstimateDto> estimateMyFind(int estno){
-        return null;
+
+    // 견적글 채택 여부 함수
+    @Transactional
+    public boolean selectEstimate(int estno) {
+
+        // 1. 견적서 엔티티 조회
+        Optional<EstimateEntity> optionalEstimate = estimateRepository.findById(estno);
+
+        // 2. 견적서개 존재하면
+        if(optionalEstimate.isPresent()) {
+            EstimateEntity estEntity = optionalEstimate.get();
+            RequestEntity reqEntity  = estEntity.getRequestEntity();
+
+            // 이미 마감된 요청글인지 여부 확인
+            if(reqEntity.isDeadlineReached() || !reqEntity.isReqstate()) {
+                return false;// 마감되었거나 채택 된 글이면 false반환
+            } // if end
+
+            // 견적서 채택 및 요청글 마감처리
+            estEntity.setEststate(true); // 견적글 채택됨
+            reqEntity.setReqstate(false); // 요청글 마감됨
+            return true;
+        } // if end
+        return false;
+    }// selectEstimate end
+
+
+
+    // 현재 로그인된 회원의 작성항 견적글 천제 조회
+    public List<EstimateDto> estimateMyWrote(){
+        // 로그인된 회원 아이디 가져오기
+        String loginid = memberService.getSession();
+        MemberEntity memberEntity = memberRepository.findByMemail(loginid);
+        List<EstimateEntity> estimateEntityList = estimateRepository.findByMemberEntity(memberEntity);
+        List<EstimateDto> estimateDtoList = new ArrayList<>();
+        estimateEntityList.forEach(entity -> {
+            EstimateDto estimateDto = entity.toESDto();
+            estimateDtoList.add(estimateDto);
+        });
+        return estimateDtoList;
     }
 
+    // 견적글 삭제하기
+    @Transactional
+    public boolean estimateDelete (int estno) {
+         //현재 로그인된 세션 객체 조회
+        MemberDto loginDto = memberService.getMyInfo();
+        if(loginDto == null){ System.out.println("login error"); return false;}
+
+        try {
+            List<ReviewEntity> reviewEntityList = reviewRepository.findAll();
+            List<ReviewFileEntity> reviewFileEntityList = reviewFileRepository.findAll();
+            reviewEntityList.forEach(entity -> {
+                if (entity.getEstimateEntity().getEstno()==estno){
+                    reviewRepository.delete(entity);
+                }
+            });
+            reviewFileEntityList.forEach(entity->{
+                if(entity.getReviewEntity().getEstimateEntity().getEstno() == estno){
+                    reviewFileRepository.delete(entity);
+                }
+            });
+
+//            // 1. 리뷰와의 관계 해제
+//            reviewRepository.unlinkEstimate(estno);
+            // 3. 견적서 삭제
+            estimateRepository.deleteById(estno);
+
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
 }
