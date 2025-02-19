@@ -1,11 +1,11 @@
-INSERT INTO member (memail, mpwd, mname, mphone, maddr, role, cdate, udate)
+INSERT INTO member (memail, mpwd, mname, mphone, maddr, role, isapproved, cdate, udate)
 VALUES
-('dmlfhlwk@gmail.com', '1234', '김철수', '010-1234-5678', '서울시 강남구', 'requester', NOW(), NOW()),
-('djqcp@gmail.com', '1234', '주식회사 인테리어', '010-9876-5432', '서울시 서초구', 'company', NOW(), NOW()),
-('aktmxj@gmail.com', '1234', '이민수', '010-5555-1234', '서울시 송파구', 'master', NOW(), NOW()),
-('company2@gmail.com', 'passwordabc', '행복한 리모델링', '010-4444-8888', '서울시 강동구', 'company', NOW(), NOW()),
-('expert2@gmail.com', 'passworddef', '정현우', '010-7777-9999', '서울시 마포구', 'master', NOW(), NOW()),
-('admin@goguma.com', 'admin1234', '관리자', '010-6666-8888', '서울시 강서구', 'admin', NOW(), NOW());
+('dmlfhlwk@gmail.com', '1234', '김철수', '010-1234-5678', '서울시 강남구', 'requester', true, NOW(), NOW()),
+('djqcp@gmail.com', '1234', '주식회사 인테리어', '010-9876-5432', '서울시 서초구', 'company', true,  NOW(), NOW()),
+('aktmxj@gmail.com', '1234', '이민수', '010-5555-1234', '서울시 송파구', 'master', true,  NOW(), NOW()),
+('company2@gmail.com', 'passwordabc', '행복한 리모델링', '010-4444-8888', '서울시 강동구', 'company', true,  NOW(), NOW()),
+('expert2@gmail.com', 'passworddef', '정현우', '010-7777-9999', '서울시 마포구', 'master', true,  NOW(), NOW()),
+('admin@goguma.com', 'admin1234', '관리자', '010-6666-8888', '서울시 강서구', 'admin', true,  NOW(), NOW());
 
 INSERT INTO memberfile (mno, mfname, cdate, udate)
 VALUES
@@ -41,13 +41,6 @@ VALUES
 (4, '신발 정리 도움요청', '4인 가족의 신발이 현관에 너무 많이 쌓여있어요. 계절별로 신발을 구분하고, 관리가 필요한 신발들도 많습니다. 신발 정리와 보관 방법을 전문가와 상담하고 싶습니다.', '기타', '서울시', '중구',true, 1,   NOW(), NOW()),
 (5, '서재 책장 정리', '책장에 책이 너무 많이 쌓여있어요. 읽은 책, 읽을 책, 보관할 책 등을 분류하고 정리하고 싶습니다. 책 정리와 함께 앞으로의 관리 방법도 조언 부탁드립니다.', '서재', '서울시', '종로구', true, 1,  NOW(), NOW());
 
-INSERT INTO reqfile (reqno, reqfname, cdate, udate)
-VALUES
-(1, 'request1_image.jpg', NOW(), NOW()),
-(2, 'request2_image.jpg', NOW(), NOW()),
-(3, 'request3_image.jpg', NOW(), NOW()),
-(4, 'request4_image.jpg', NOW(), NOW()),
-(5, 'request5_image.jpg', NOW(), NOW());
 
 INSERT INTO service_estimate (mno, reqno, esttitle, estcontent, estcash, eststate, cdate, udate)
 VALUES
