@@ -20,6 +20,7 @@ public class MemberDto {
     private String mphone;//회원핸드폰번호
     private String maddr;//회원주소
     private String role;//회원구분
+    private boolean isapproved; //회원가입 혀가여부
     private String cdate;
     private String udate;
     private List<MultipartFile> uploadFile;
@@ -34,6 +35,7 @@ public class MemberDto {
                 .mname(this.mname)
                 .mphone(this.mphone)
                 .maddr(this.maddr)
+                .isapproved(this.isapproved)
                 .role(this.role)
                 .build();
     }
