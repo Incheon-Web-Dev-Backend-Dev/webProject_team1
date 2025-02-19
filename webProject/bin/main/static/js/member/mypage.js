@@ -31,7 +31,10 @@ const getmyInfo = () => {
 }
 getmyInfo(); //info.html 이 열릴때 내정보 보기
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> a1ed1e5da4e836dea96a2392a13dc475796b0997
 // [2] 마이페이지 에서 (로그인된)회원탈퇴 요청하기
 const onDelete = ( ) => {
     // * 예/아니요 형식으로 탈퇴 여부를 묻고 아니요 이면 탈퇴를 중지한다.
@@ -44,6 +47,10 @@ const onDelete = ( ) => {
         if( data == true ){ alert('탈퇴 성공'); location.href='/'; }
         else{ alert('탈퇴 실패'); }
     }).catch( e => { console.log(e); })
+<<<<<<< HEAD
 } // f enmd
 
 
+=======
+} // f enmd
+>>>>>>> a1ed1e5da4e836dea96a2392a13dc475796b0997
