@@ -19,7 +19,7 @@ public class EstimateController {
     public boolean estimateWrite(@RequestBody EstimateDto estimateDto){
          return estimateService.estimateWrite(estimateDto);
     }
-    // 견적서 전체 보기
+    // 요청서에 대한 견적서 전체 보기
     @GetMapping("/estimate/findall.do")
     public List<EstimateDto> estimateFindAll(@RequestParam int reqno){
         return estimateService.estimateFindAll(reqno);
@@ -29,6 +29,7 @@ public class EstimateController {
     public EstimateDto estimateFind(@RequestParam int estno) {
         return estimateService.estimateFind(estno);
     }
+<<<<<<< HEAD
 
     // 견적글 채택여부
     @PostMapping("/estimate/select.do")
@@ -36,11 +37,14 @@ public class EstimateController {
         return estimateService.selectEstimate(estno);
     }
 
+=======
+    // 로그인 회원 작성한 견적글 전체 보기
+>>>>>>> 6a4cc3d49128bbf41054e0ef62afc644e223dbc4
     @GetMapping("/estimate/mywrote.do")
     public List<EstimateDto> estimateMyWrote(){
         return estimateService.estimateMyWrote();
     }
-
+    // 견적글 삭제
     @DeleteMapping("/estimeate/delete")
     public boolean estimateDelete (@RequestParam int estno) {
         return estimateService.estimateDelete(estno);
