@@ -13,6 +13,8 @@ import webProject.model.repository.request.RequestRepository;
 import webProject.service.estimate.EstimateService;
 import webProject.service.member.MemberService;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -88,14 +90,24 @@ public class RequestService {
         // 2. 조회할 엔티티의 여부를 받아오기
         if(optional.isPresent()) {
             RequestEntity requestEntity = optional.get();
-            RequestDto requestDto = requestEntity.toDto();
+
+            // 마감기한이 지났는지 여부 확인 (채택은 estimate에서 처리됨)
+            if(requestEntity.isReqstate() && requestEntity.isDeadlineReached()) {
+                // reqstate가 true(활성화)이고 deaeline이 true(7일이 지났는지)인지 확인
+                // 즉, 요청글이 아직 활성화 상태인데 deaeline이 7일이 지난 글을 찾는 조건문
+                requestEntity.setReqstate(false); //마감 처리
+                requestRepository.save(requestEntity);
+            }// if end
 
             // 엔티티가 있으면 반환
-            return requestDto;
+            return requestEntity.toDto();
         }// if end
 
         return null;
     }// requestFind end
+
+
+
 
     // 견적 요청글 작성
     @Transactional

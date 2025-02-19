@@ -87,6 +87,8 @@ public class EstimateService {
         });
         return estimateDtoList;
     }
+
+
     @Transactional
     // 견적글 개별 조회
     public EstimateDto estimateFind(int estno){
@@ -104,6 +106,34 @@ public class EstimateService {
             System.out.println("값 없음");
         }return null;
     }
+
+    // 견적글 채택 여부 함수
+    @Transactional
+    public boolean selectEstimate(int estno) {
+
+        // 1. 견적서 엔티티 조회
+        Optional<EstimateEntity> optionalEstimate = estimateRepository.findById(estno);
+
+        // 2. 견적서개 존재하면
+        if(optionalEstimate.isPresent()) {
+            EstimateEntity estEntity = optionalEstimate.get();
+            RequestEntity reqEntity  = estEntity.getRequestEntity();
+
+            // 이미 마감된 요청글인지 여부 확인
+            if(reqEntity.isDeadlineReached() || !reqEntity.isReqstate()) {
+                return false;// 마감되었거나 채택 된 글이면 false반환
+            } // if end
+
+            // 견적서 채택 및 요청글 마감처리
+            estEntity.setEststate(true); // 견적글 채택됨
+            reqEntity.setReqstate(false); // 요청글 마감됨
+            return true;
+        } // if end
+        return false;
+    }// selectEstimate end
+
+
+
     // 현재 로그인된 회원의 작성항 견적글 천제 조회
     public List<EstimateDto> estimateMyWrote(){
         // 로그인된 회원 아이디 가져오기

@@ -1,6 +1,7 @@
 package webProject.controller.estimate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import webProject.model.dto.estimate.EstimateDto;
 import webProject.model.dto.member.MemberDto;
@@ -27,6 +28,12 @@ public class EstimateController {
     @GetMapping("/estimate/find.do")
     public EstimateDto estimateFind(@RequestParam int estno) {
         return estimateService.estimateFind(estno);
+    }
+
+    // 견적글 채택여부
+    @PostMapping("/estimate/select.do")
+    public boolean selectEstimate(@RequestParam int estno) {
+        return estimateService.selectEstimate(estno);
     }
 
     @GetMapping("/estimate/mywrote.do")
