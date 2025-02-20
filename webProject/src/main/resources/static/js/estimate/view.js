@@ -68,6 +68,20 @@ const estView = () => {
 // 호출
 estView();
 
+
 const estDelete = () => {
-    // 아직 백에서 안돼요
+
+    const estno = new URL( location.href ).searchParams.get('estno')
+    console.log(estno);
+
+    let result = confirm("게시물을 삭제 하실건가요?")
+    if(result == false){return};
+    
+    fetch(`/estimate/delete?estno=${estno}` , {method : "DELETE"})
+    .then(r=>r.json())
+    .then(d=>{console.log(d);
+        if(d == true){alert("삭제가 완료되었습니다"); window.location.href = "/estimate/mywrote";
+        }
+    })
+    .catch(e=>{console.log(e);})
 }
