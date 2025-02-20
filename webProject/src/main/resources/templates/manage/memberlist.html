@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Member List</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+</head>
+<body>
+    <div th:replace="~{/mheader1 :: mheader1}"></div>
+    <div class="container">
+        <h3> 가입 회원 조회 </h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>순번</th><th>이메일(ID)</th><th>이름</th><th>주소</th>
+                    <th>전화번호</th><th>구분</th><th>승인여부</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <script src='/js/manage/memberlist.js'></script>
+</body>
+</html>

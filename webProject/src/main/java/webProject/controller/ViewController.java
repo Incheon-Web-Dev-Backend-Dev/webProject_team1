@@ -103,7 +103,13 @@ public class ViewController {
     @GetMapping("/help/main")
     public String helpMainPage(){return "/help/main.html";}
 
+    //============================ My page ============================
     // 관리자 페이지(메인)
-    @GetMapping("/managesudal/main")
-    public String manageMainPage(){return "/managesudal/main.html";}
+    @GetMapping("/manage/main")
+    public String manageMainPage(){return "/manage/main.html";}
+
+    // 관리자 페이지 - 회원조회
+    @GetMapping("/manage/memberlist")
+    public String manageList(){return "/manage/memberlist.html";}
+
 }
