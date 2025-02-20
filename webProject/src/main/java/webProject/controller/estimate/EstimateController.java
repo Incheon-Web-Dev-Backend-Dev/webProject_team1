@@ -42,6 +42,7 @@ public class EstimateController {
     public List<EstimateDto> estimateMyWrote(){
         return estimateService.estimateMyWrote();
     }
+
     // 견적글 삭제
     @DeleteMapping("/estimate/delete")
     public boolean estimateDelete (@RequestParam int estno) {
