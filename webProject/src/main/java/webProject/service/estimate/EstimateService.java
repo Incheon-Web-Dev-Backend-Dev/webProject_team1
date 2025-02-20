@@ -80,6 +80,7 @@ public class EstimateService {
                             .estcontent(entity.getEstcontent())
                             .estcash(entity.getEstcash())
                             .eststate(entity.isEststate())
+                            .reqstate(entity.getRequestEntity().isReqstate())
                             .build();
                     estimateDtoList.add(estimateDto);
                 }

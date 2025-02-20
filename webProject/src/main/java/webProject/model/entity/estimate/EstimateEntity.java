@@ -29,7 +29,7 @@ public class EstimateEntity extends BaseTime {
 
     @Column( columnDefinition = "boolean")
     @ColumnDefault("false")
-    private boolean eststate; // 견적 체택 상태
+    private boolean eststate; // 견적 채택 상태 ture: 채택 , false : 미채택
 
     @ManyToOne
     @JoinColumn(name = "mno", nullable = true) // 요청자 회원번호
@@ -48,6 +48,7 @@ public class EstimateEntity extends BaseTime {
                 .eststate(this.eststate)
                 .mno(this.memberEntity.getMno())
                 .reqno(this.requestEntity.getReqno())
+                .reqstate(this.requestEntity.isReqstate())
                 .memail(this.memberEntity.getMemail())
                 .mname(this.memberEntity.getMname())
                 .cdate(this.getCdate().toString())

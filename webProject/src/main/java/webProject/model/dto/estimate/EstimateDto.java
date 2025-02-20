@@ -15,6 +15,7 @@ public class EstimateDto {
     private String memail;
     private String mname;
     private int reqno;
+    private boolean reqstate;
     private String cdate;
     private String udate;
 
