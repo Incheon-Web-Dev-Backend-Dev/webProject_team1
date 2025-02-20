@@ -105,7 +105,6 @@ const estView = () => {
 estView();
 
 
-<<<<<<< HEAD
 const estDelete = () => {
 
     const estno = new URL( location.href ).searchParams.get('estno')
@@ -121,7 +120,10 @@ const estDelete = () => {
         }
     })
     .catch(e=>{console.log(e);})
-=======
+
+}
+
+
 // 견적 채택하는 함수
 const estimateSelect = () => {
     console.log('estimate select onClick');
@@ -149,5 +151,4 @@ const estimateSelect = () => {
             } // if-else end
         })
         .catch( e => console.log(e))
->>>>>>> jimyung
 }
