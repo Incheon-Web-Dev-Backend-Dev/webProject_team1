@@ -13,12 +13,12 @@ const onRequestFind = () => {
             console.log(data);
             console.log("로그인회원정보", loginMemberInfo);
 
-            // 2). 버튼 조건부 출력할 html을 저장하고 출력할 구역도 가져오기
+            // 1). 버튼 조건부 출력할 html을 저장하고 출력할 구역도 가져오기
             let html = ``;
             const uploadBtnBox = document.querySelector(".uploadBtnBox");
 
 
-            // 3). 글의 내용을 받아와서 그대로 출력
+            // 2). 글의 내용을 받아와서 그대로 출력
             document.querySelector('.rtitlebox').innerHTML = data.reqtitle; 
             document.querySelector('.rcdate').innerHTML = data.reqdatetime;
             document.querySelector('.rrolebox').innerHTML = data.reqrole == '1'? "업체(2인 이상)" : "개인 (1인)";
@@ -26,11 +26,13 @@ const onRequestFind = () => {
             document.querySelector('.rbigareabox').innerHTML = data.reqbigarea;
             document.querySelector('.rsmallareabox').innerHTML = data.reqsmallarea;
             document.querySelector('.rcontentbox').innerHTML = data.reqcontent;
+            document.querySelector('.rdeadlinebox').innerHTML = data.deadLineTime; // 요청글 마감시간
+            
 
 
             console.log("data.reqrole", data.reqrole);
 
-            // 4). 유저 정보(role)에 따라서 button 보이기 여부
+            // 3). 유저 정보(role)에 따라서 button 보이기 여부
             if(loginMemberInfo.role === "master" || loginMemberInfo.role === "company"){
                 html += `
                     <button class="onUploadEstimateBtn()"><a href="/estimate/write" class="btn btn-primary">이 요청글에 견적서 올리기</a></button>
