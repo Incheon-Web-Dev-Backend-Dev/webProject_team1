@@ -102,4 +102,8 @@ public class ViewController {
     // 고객센터
     @GetMapping("/help/main")
     public String helpMainPage(){return "/help/main.html";}
+
+    // 관리자 페이지(메인)
+    @GetMapping("/managesunapdalin/main")
+    public String manageMainPage(){return "/managesunapdalin/main.html";}
 }
