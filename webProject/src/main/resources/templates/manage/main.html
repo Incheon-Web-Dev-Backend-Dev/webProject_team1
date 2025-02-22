@@ -5,13 +5,33 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>수납의 달인 관리자페이지</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/manage/main.css'>
 </head>
 <body>
-    
-    <div th:replace="~{/mheader1 :: mheader1}"></div>
-    <div></div>
 
+    <div th:replace="~{/mheader1 :: mheader1}"></div>
+
+    <div class="container">
+            <div class="wrap">
+                <div class="left">
+                    <div class="leftup"> 
+                        <h6>가입 회원 비율</h6>
+                        <div>
+                            <canvas id="myChart"></canvas>
+                        </div>                          
+                    </div>
+                    <div class="leftdown"> 
+                        <h1>왼쪽 아래</h1>
+                    </div>
+                </div>
+                <div class="right">
+                    <h1>오른쪽 구역</h1>
+                    <p>이곳에 오른쪽 구역의 내용이 들어갑니다.</p>
+                </div>
+            </div>    
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src='/js/manage/mindex.js'></script>
 </body>
 </html>
