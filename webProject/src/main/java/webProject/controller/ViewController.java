@@ -103,7 +103,11 @@ public class ViewController {
     @GetMapping("/help/main")
     public String helpMainPage(){return "/help/main.html";}
 
-    //============================ My page ============================
+    //============================ Admin ============================
+    // 관리자 로그인(첫 창)
+    @GetMapping("/manage/adminlogin")
+    public String loginAdmin(){return "/manage/adminlogin.html";}
+
     // 관리자 페이지(메인)
     @GetMapping("/manage/main")
     public String manageMainPage(){return "/manage/main.html";}
@@ -111,5 +115,4 @@ public class ViewController {
     // 관리자 페이지 - 회원조회
     @GetMapping("/manage/memberlist")
     public String manageList(){return "/manage/memberlist.html";}
-
 }

@@ -75,7 +75,7 @@ public class MemberService {
                 String filename2 = memberFileService.fileUpload(uploadFile);
                 profileFileDto.setProfile(filename2);
             } else {
-                profileFileDto.setProfile("default.jpg");
+                profileFileDto.setProfile("default.png");
             }
 
             MemberFileEntity profileFileEntity = profileFileDto.toEntity();
