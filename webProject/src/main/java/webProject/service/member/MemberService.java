@@ -97,6 +97,7 @@ public boolean setSession(String memail) {
     return true;
 }
 
+// 로그인 함수
 @Transactional // 트랜잭션
 public boolean login(MemberDto memberDto) {
     boolean result = memberRepository.existsByMemailAndMpwd(memberDto.getMemail(), memberDto.getMpwd());

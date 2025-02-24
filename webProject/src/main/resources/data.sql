@@ -5,7 +5,7 @@ VALUES
 ('aktmxj@gmail.com', '1234', '이민수', '010-5555-1234', '서울시 송파구', 'master', true,  NOW(), NOW()),
 ('company2@gmail.com', 'passwordabc', '행복한 리모델링', '010-4444-8888', '서울시 강동구', 'company', true,  NOW(), NOW()),
 ('expert2@gmail.com', 'passworddef', '정현우', '010-7777-9999', '서울시 마포구', 'master', true,  NOW(), NOW()),
-('admin.com', 'admin1234', '관리자', '010-6666-8888', '서울시 강서구', 'admin', true,  NOW(), NOW());
+('admin@gmail.com', 'admin1234', '관리자', '010-6666-8888', '서울시 강서구', 'admin', true,  NOW(), NOW());
 
 INSERT INTO memberfile (mno, mfname, cdate, udate)
 VALUES
