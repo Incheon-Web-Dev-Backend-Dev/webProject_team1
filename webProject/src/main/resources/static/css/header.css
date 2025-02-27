@@ -1,10 +1,10 @@
 @font-face {
-    font-family: 'NanumSquareNeoBold';
-    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot);
-    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.ttf) format("truetype");
-  }
+    font-family: 'NanumSquareNeo';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.ttf) format("truetype");
+}
 *{
-    font-family: NanumSquareNeoBold ;
+    font-family: NanumSquareNeo ;
 }
 body {
     display: flex;
@@ -25,7 +25,6 @@ body {
     transform: translateX(-50%);
     z-index: 1000;
     padding: 10px 20px;  /* 좌우 여백 추가 */
-    font-family: 'NanumSquareNeo'; /* 폰트 추가 */
     }
 
 .logoNav {
@@ -51,7 +50,6 @@ body {
 .authNav li a {
     text-decoration: none;  /* 밑줄 제거 */
     color: black;  /* 글자색 검정으로 */
-    font-family: 'NanumSquareNeo';  /* 폰트 통일 */
 }
 
 /* 호버 효과 (선택사항) */

@@ -2,16 +2,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0;
-    padding: 0;
 }
 
 .estimateContainer {
     width: 600px;
-    margin-top: 100px;    /* 헤더 높이만큼 여백 */
-    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
-    padding: 20px;
+    padding: 100px 20px;
     overflow-y: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
 }
 
 .estallviewContent {
@@ -20,6 +17,12 @@ body {
     margin-bottom: 80px; /* 푸터 높이만큼 여백 */
     padding: 20px;
     overflow-y: auto;
+}
+
+.card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .showBox {
@@ -39,11 +42,4 @@ body {
     justify-content: center; /* 중앙 정렬 */
     max-width: 600px;    /* 최대 너비 제한 */
 }
-
-.card {
-    width: calc(50% - 10px); /* 한 줄에 두 개씩 배치 */
-    min-width: 250px;  /* 최소 크기 설정 */
-    max-width: 280px;  /* 카드 크기 제한 */
-}
-
 
