@@ -2,6 +2,7 @@ package webProject.controller.manage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import webProject.model.dto.member.MemberDto;
 import webProject.service.manage.ManageService;
@@ -15,6 +16,11 @@ public class ManageController {
     @GetMapping("/manage/memberlist.do")
     public List<MemberDto> memberList(){
         return manageService.memberList();
+    }
+
+    @GetMapping("/manage/memberview.do")
+    public MemberDto memberView(@RequestParam int mno){
+        return manageService.memberView(mno);
     }
 
 }

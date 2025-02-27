@@ -1,0 +1,31 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.allContainer {
+    width: 600px;
+    margin-top: 100px;    /* 헤더 높이만큼 여백 */
+    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
+    padding: 20px;
+    overflow-y: auto;
+}
+.first{
+    text-align: center;
+    padding-top: 77px;
+}
+#title {
+    font-weight: bold;
+    font-size: 13px;
+}
+p{
+    font-size:13px;
+    color: red;
+}
+.t{
+    font-weight: bold;
+    font-size: 13px;
+}

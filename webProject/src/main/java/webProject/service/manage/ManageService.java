@@ -9,6 +9,7 @@ import webProject.model.repository.member.MemberRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ManageService {
@@ -23,5 +24,15 @@ public class ManageService {
             memberDtoList.add(member.toDto()); // MemberEntity를 MemberDto로 변환하여 추가
         });
         return memberDtoList;
+    }
+    // 회원 정보 출력
+    public MemberDto memberView(int mno){
+        Optional<MemberEntity> optional = memberRepository.findById(mno);
+        if(optional.isPresent()){
+            MemberEntity memberEntity = optional.get();
+            MemberDto memberDto = memberEntity.toDto();
+            return memberDto;
+        }
+        return null;
     }
 }

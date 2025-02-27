@@ -98,7 +98,12 @@ public class ViewController {
 
     //============================ My page ============================
     @GetMapping("/member/mypage")
-    public String masterMyPage(){return "/member/mypage.html";}
+    public String MyPage(){return "/member/mypage.html";}
+
+    @GetMapping("/member/deleteinfo")
+    public String memberDeleteInfo(){return "/member/deleteinfo.html";}
+
+
     // 고객센터
     @GetMapping("/help/main")
     public String helpMainPage(){return "/help/main.html";}

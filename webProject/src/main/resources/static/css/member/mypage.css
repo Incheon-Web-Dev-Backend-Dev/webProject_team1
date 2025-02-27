@@ -54,7 +54,7 @@ body {
     object-fit: cover; /* 이미지가 원에 맞게 잘리도록 */
 }
 
-.sidebar button {
+.sidebar .button {
     width: 100%;
     padding: 10px;
     margin-bottom: 17px;
@@ -64,9 +64,11 @@ body {
     background-color: #d4a373 !important;
     cursor: pointer;
     font-size: 17px;
+    text-align: center;
+    text-decoration: none; /* 밑줄 없애기 */
 }
 
-.sidebar button:hover {
+.sidebar .button:hover {
     background-color: #b68c5a; /* 호버 시 색상 변경 */
 }
 

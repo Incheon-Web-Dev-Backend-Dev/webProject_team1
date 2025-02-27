@@ -14,7 +14,7 @@ fetch("/manage/memberlist.do", { method: "GET" })
                 }
                 html += `<tr>
                     <td>${obj.mno}</td>
-                    <td><a onclick="showOffCanvas('${obj.memail}')">${obj.memail}</a></td>
+                    <td><a onclick="showOffCanvas('${obj.mno}')">${obj.memail}</a></td>
                     <td>${obj.mname}</td>
                     <td>${obj.maddr}</td>
                     <td>${obj.mphone}</td>
@@ -31,12 +31,23 @@ fetch("/manage/memberlist.do", { method: "GET" })
 }
 listm();
 
-function showOffCanvas(email) {
-    // 이메일을 받은 후 필요한 처리를 할 수 있음 (예: 이메일을 offcanvas에 표시)
-    const offCanvasBody = document.querySelector('.offcanvas-body');
-    offCanvasBody.innerHTML = `<p>이메일: ${email}</p>`
-
-    // 오프캔버스 열기
-    const offCanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasScrolling'));
-    offCanvas.show();
+const showOffCanvas = (mno) => {
+    fetch(`/manage/memberview.do?mno=${mno}`, { method: 'GET' })
+        .then(response => response.json())
+        .then(data => {
+            const offcanvasBody = document.querySelector('.offcanvas-body');
+            let html = `
+                <p><strong>회원코드:</strong> ${data.mno}</p>
+                <p><strong>이름:</strong> ${data.mname}</p>
+                <p><strong>주소:</strong> ${data.maddr}</p>
+                <p><strong>전화번호:</strong> ${data.mphone}</p>
+                <p><strong>역할:</strong> ${data.role}</p>
+                <p><strong>승인여부:</strong> ${data.isapproved}</p>
+                `;
+                offcanvasBody.innerHTML = html;
+                // Bootstrap Offcanvas 초기화 및 표시
+            var myOffcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasScrolling'));
+            myOffcanvas.show();
+        })
+        .catch(error => console.error('Error fetching patient details:', error));
 }

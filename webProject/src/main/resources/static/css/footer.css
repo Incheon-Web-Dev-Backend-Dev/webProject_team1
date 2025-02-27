@@ -1,9 +1,10 @@
 
 body {
     margin-bottom: 60px; /* 본문 아래에 푸터 높이만큼의 여백 추가 */
+    border-radius: 20px;
 }
 .text-bg-secondary {
-    background-color: #D4A373 !important;
+    background-color: #D9D9D9 !important;
     position: fixed;
     bottom: 0;
     left: 50%;

@@ -9,7 +9,7 @@ body {
 
 .headerAll {
     width: 600px;
-    background-color: #A8B5A2;
+    background-color: #D9D9D9;
     display: flex;
     justify-content: space-between;
     align-items: center;  /* 세로 중앙 정렬 추가 */
