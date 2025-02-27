@@ -46,14 +46,19 @@ body {
     margin: 0;
     padding: 0;
 }
-
+.blank{
+    padding-bottom: 100px;
+}
 .mainContent {
     width: 600px !important;
-    margin-top: 60px;    /* 헤더 높이만큼 여백 */
-    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
+    margin-top: 0px;    /* 헤더 높이만큼 여백 */
+    margin-bottom: 0px; /* 푸터 높이만큼 여백 */
     overflow-y: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
 }
-
+.container{
+    padding-top: 100px;
+}
 .cardBox {
     display: flex;
     justify-content: center;
@@ -89,11 +94,12 @@ body {
     align-items: center; /* 아이콘을 세로로 중앙 정렬 */
     width: 109px; /* 원의 크기 */
     height: 109px; /* 원의 크기 */
-    background-color: #A8B5A2; /* 원 색상 */
+    background-color: #5e9ce2; /* 원 색상 */
     border-radius: 50%; /* 원 형태로 만듦 */
     font-size: 38px; /* 아이콘 크기 */
     margin-top: 48px;
     margin-bottom: 2px;
+    color: white;
 }
 #adtitle {
     margin-top: 10px; /* 아이콘과 텍스트 사이 간격 */
@@ -101,7 +107,7 @@ body {
     font-size: 15px; /* 텍스트 크기 */
     font-weight: bold;
     font-family:NanumSquareNeoExtraBold;
-    color: coral;
+    color: black;
 }
 #adcon {
     margin-top: 2px; /* 제목과 텍스트 사이 간격 */

@@ -1,9 +1,31 @@
-/* signup.css */
-
+@font-face {
+    font-family: 'NanumSquareNeo';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.ttf) format("truetype");
+}
+@font-face {
+    font-family: 'NanumSquareNeoBold';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.ttf) format("truetype");
+}
+* {
+   font-family: NanumSquareNeo;
+}
+.mb-3{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 body {
     background-color: #f8f9fa;
 }
-
+text-center{
+    margin-top: 50px;
+    font-weight: bold; 
+    font-family: NanumSquareNeoBold;
+}
+.form-label{
+    font-weight: bold;
+}
 .container {
     max-width: 600px !important; /* 최대 너비 600px */
     margin: auto;
@@ -16,13 +38,15 @@ body {
 .role-container {
     display: flex;
     justify-content: space-between;
+    margin-top: 30px;
     margin-bottom: 20px;
 }
 
 .role-box {
     flex: 1;
     margin: 0 10px;
-    padding: 10px; /* 패딩 조정하여 높이 줄이기 */
+    padding: auto;
+    justify-content: center;
     text-align: center;
     border: 1px solid #ced4da;
     border-radius: 8px;
@@ -37,6 +61,10 @@ body {
 
 .role-box:hover {
     background-color: #e9ecef;
+}
+#checkEmailBtn{
+    margin-top: 3px;
+    margin-bottom: 10px;
 }
 /* 버튼에 hover 시 효과 */
 #checkEmailBtn:hover {

@@ -1,10 +1,9 @@
-
 body {
-    margin-bottom: 60px; /* 본문 아래에 푸터 높이만큼의 여백 추가 */
-    border-radius: 20px;
+    margin-bottom: 0px; /* 본문 아래에 푸터 높이만큼의 여백 추가 */
+    border-radius: 0px;
 }
 .text-bg-secondary {
-    background-color: #D9D9D9 !important;
+    background-color: white !important;
     position: fixed;
     bottom: 0;
     left: 50%;
@@ -13,9 +12,7 @@ body {
     min-width: 600px !important;
     padding: 10px 0;
     z-index: 1000;
-}
-
-
+    }
 .footer-buttons {
     display: flex;
     justify-content: center;
@@ -34,7 +31,7 @@ body {
     max-width: 120px;
     margin: 5px;
     text-align: center;
-    color: black; /* 기본 텍스트 색상은 흰색 */
+    color: #5e9ce2; /* 기본 텍스트 색상은 흰색 */
     text-decoration: none; /* 텍스트 밑줄 제거 */
     cursor: pointer; /* 버튼에 마우스를 올리면 클릭할 수 있는 모양으로 변경 */
     transition: all 0.3s ease; /* 모든 속성에 부드러운 애니메이션 효과 적용 */
@@ -48,6 +45,7 @@ body {
     font-size: 24px;
     margin-bottom: 5px; /* 아이콘과 텍스트 사이 간격 추가 */
     transition: transform 0.3s ease; /* 아이콘에 부드러운 애니메이션 추가 */
+    color: #5e9ce2;
 }
 
 /* 클릭 시 효과 */

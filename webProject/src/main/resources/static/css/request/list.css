@@ -7,6 +7,7 @@
 /* 모든 폰트 웹 폰트로 변경 */
 * {
     font-family: 'NanumSquareNeo';
+
 }
 
 body {
@@ -24,7 +25,6 @@ body {
     padding: 20px;
     overflow-y: auto;
 }
-
 
 .reqstlistHeader{
     margin-top: 50px;
@@ -54,14 +54,10 @@ body {
     align-items: center;
 }
 
-
-
 /* 썸머노트 에디터 너비 조정 */
 .note-editor {
     width: 100% !important;
 }
-
-
 
 /* 반응형 처리 */
 @media screen and (max-width: 600px) {
@@ -71,3 +67,8 @@ body {
     }
 }
 
+/* a 태그 스타일 변경 */
+a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: black; /* 텍스트 색상 검은색 */
+}

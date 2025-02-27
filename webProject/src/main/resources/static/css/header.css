@@ -1,15 +1,21 @@
+@font-face {
+    font-family: 'NanumSquareNeoBold';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.ttf) format("truetype");
+  }
+*{
+    font-family: NanumSquareNeoBold ;
+}
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
 }
-
-
 .headerAll {
     width: 600px;
-    background-color: #D9D9D9;
+    background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;  /* 세로 중앙 정렬 추가 */
@@ -19,7 +25,8 @@ body {
     transform: translateX(-50%);
     z-index: 1000;
     padding: 10px 20px;  /* 좌우 여백 추가 */
-}
+    font-family: 'NanumSquareNeo'; /* 폰트 추가 */
+    }
 
 .logoNav {
     width: auto;  
