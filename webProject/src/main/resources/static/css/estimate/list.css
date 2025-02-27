@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'NanumSquareNeoExtraBold';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -11,18 +17,22 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
 }
 
-.estallviewContent {
-    width: 600px;
-    margin-top: 60px;    /* 헤더 높이만큼 여백 */
-    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
+.estimateFindAllHeader{
     padding: 20px;
-    overflow-y: auto;
+    text-align: center;
 }
 
 .card-body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.card-title-content{
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .showBox {
@@ -33,6 +43,12 @@ body {
 .reqstpostHeader{
     margin-top: 50px;
     padding: 20px;
+}
+
+.estFindAllCardBox .card .card-title a{
+    text-decoration: none;
+    color: #5e9ce2;
+    font-family: NanumSquareNeoExtraBold;
 }
 
 .estFindAllCardBox {

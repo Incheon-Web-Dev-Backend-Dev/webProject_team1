@@ -52,13 +52,14 @@ const findAll = () => {
                 html +=`
                 <div class="card" style="width: 32rem; ${getCardStyle(estimate)}">
                     <div class="card-body">
-                        <a href="/estimate/view?estno=${estimate.estno}"> 
-                        <h5 class="card-title">${estimate.esttitle}</h5>
-                        </a>
-                        <p class="d-inline-block text-truncate" style="max-width: 158px;" class="card-text">${estimate.estcontent}</p>
-                        <p class="card-text">금액: ${estimate.estcash}</p>
-                        <p class="card-text">${estimate.cdate}</p>
-                        <h4><span class="badge ${getBadgeClass(estimate)}">${getBadgeText(estimate)}</span></h4>
+                        <div class="card-title-content">
+                            <h5 class="card-title"><a href="/estimate/view?estno=${estimate.estno}">${estimate.esttitle}</a></h5>
+                            <p class="card-text">${estimate.estcontent}</p>
+                            <h4><span class="badge ${getBadgeClass(estimate)}">${getBadgeText(estimate)}</span></h4>
+                        </div>
+                        <div>
+                            <p class="card-text">금액: ${estimate.estcash}</p>
+                        </div>
                     </div>
                 </div>
                 `;

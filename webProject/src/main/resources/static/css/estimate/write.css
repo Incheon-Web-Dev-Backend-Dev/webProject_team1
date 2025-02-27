@@ -1,17 +1,26 @@
+@font-face {
+    font-family: 'NanumSquareNeoExtraBold';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
+}
+
+
 body {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: 0;
-    padding: 0;
+
+}
+
+.estimateWriteHeader{
+    padding: 20px;
+    text-align: center;
 }
 
 .estimateContainer {
     width: 600px;
-    margin-top: 100px;    /* 헤더 높이만큼 여백 */
-    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
-    padding: 20px;
+    padding: 100px 20px;
     overflow-y: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
 }
 
 .estimateBox {
@@ -37,6 +46,24 @@ body {
 
 .cash{
     margin-top: 30px;
+}
+
+.form-label{
+    color: #5e9ce2;
+    font-family: NanumSquareNeoExtraBold;
+}
+
+.estimatePostBtn{
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.estimateBox .btn-primary {
+    background-color: #88B3E4 !important;
+    color: white;
+    border: none; 
 }
 
 /* 반응형 처리 */

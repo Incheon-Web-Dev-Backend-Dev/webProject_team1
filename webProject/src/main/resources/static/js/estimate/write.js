@@ -92,7 +92,7 @@ const appendAlert = (message, type) => {
 
   const wrapper = document.createElement('div');
   wrapper.innerHTML = [
-    `<div class="alert alert-${type} alert-dismissible" role="alert" style="font-size:13px; background-color:#D4A373; color: white;">`,
+    `<div class="alert alert-${type} alert-dismissible" role="alert" style="font-size:13px; background-color:#88B3E4; color: white;">`,
     `   <div>${message}</div>`,
     '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
     '</div>'
