@@ -53,7 +53,7 @@ h3 {
 /* 버튼 hover 및 focus 시 색상 변경 */
 .button:hover,
 .button:focus {
-  background: brown; /* hover 또는 focus 상태에서 배경 색상 변경 */
+  background: #398ceb; /* hover 또는 focus 상태에서 배경 색상 변경 */
 }
 
 /* 버튼 블록 스타일: 버튼을 가로로 꽉 채우기 */

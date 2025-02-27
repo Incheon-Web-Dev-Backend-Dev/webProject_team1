@@ -10,11 +10,11 @@ const getmyInfo = () => {
         if(data != ''){ // 응답 결과가 존재하면
             let profileHeader = '';
             if (data.role === "company") {
-                profileHeader = `<div class="profileheader">든든한 업체 ${data.mname}&#128147;</div>`;
+                profileHeader = `<div class="profileheader">든든한 업체 ${data.mname}🏢</div>`;
             } else if (data.role === "master") {
-                profileHeader = `<div class="profileheader">숨은 고수 ${data.mname}님&#128147;</div>`;
+                profileHeader = `<div class="profileheader">열혈 숨은 고수 ${data.mname}님🔥</div>`;
             } else if (data.role === "requester") {
-                profileHeader = `<div class="profileheader">반갑습니다 ${data.mname}님&#128147;</div>`;
+                profileHeader = `<div class="profileheader">반갑습니다. ${data.mname}님😁</div>`;
             }
 
             // 프로필 헤더가 표시될 곳을 찾아서 내용 삽입
