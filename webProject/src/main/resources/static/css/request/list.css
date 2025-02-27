@@ -4,6 +4,11 @@
     src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.ttf) format("truetype");
 }
 
+@font-face {
+    font-family: 'NanumSquareNeoExtraBold';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
+}
 /* 모든 폰트 웹 폰트로 변경 */
 * {
     font-family: 'NanumSquareNeo';
@@ -54,6 +59,17 @@ body {
     align-items: center;
 }
 
+.reqListCardBox .card .card-title a{
+    text-decoration: none;
+    color: #5e9ce2;
+    font-family: NanumSquareNeoExtraBold;
+}
+
+.reqListCardBox .card .card-link a{
+    text-decoration: none;
+    color: #5e9ce2;
+    font-family: NanumSquareNeoExtraBold;
+}
 
 
 /* 썸머노트 에디터 너비 조정 */
