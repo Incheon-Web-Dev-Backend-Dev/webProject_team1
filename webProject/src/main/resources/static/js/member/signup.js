@@ -1,40 +1,88 @@
-function selectRole(role, event) {
-  document.getElementById("selectedRole").value = role;
+// 사업자등록번호 실시간 유효성 검사
+      const checkBusinessRegNumber = () => {
+        const businessRegNumberInput = document.querySelector('#businessRegNumber');
+        const businessRegNumber = businessRegNumberInput.value;
 
-  // 모든 역할 박스의 배경색 초기화
-  document.querySelectorAll(".role-box").forEach((box) => {
-    box.style.backgroundColor = "";
-  });
+        // 사업자등록번호가 비어있으면 검사를 중지
+        if (!businessRegNumber) {
+          document.querySelector('#businessRegNumberResult').textContent = '';
+          return;
+        }
 
-  // 선택된 박스 강조
-  event.currentTarget.style.backgroundColor = "#e0e0e0";
+        // 1. 요청 자료 만들기 (사업자번호에 '-' 있을 경우, '-' 제거)
+        const data = { "b_no": [businessRegNumber.replaceAll('-', '')] };
 
-  // 파일 업로드 관련 요소 가져오기
-  const fileUploadField = document.querySelector('input[name="uploadFile"]').closest(".mb-3");
-  const profileUploadField = document.querySelector('input[name="profile"]').closest(".mb-3");
-  const fileUploadLabel = document.querySelector('label[for="mfile"]'); // 파일 업로드 필드의 라벨
+        // 2. API URL 및 서비스 키
+        const url = 'https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=';
+        const serviceKey = '%2F95Bygi6tZzHEY3%2FNPjymiClQUmbL3Eox3lMEIk4hRKAXsX0owCEksZAUNh4YznGonviQ6yaWTZrmeIup6Kw7w%3D%3D';
 
-  if (role === "requester") {
-    fileUploadField.style.display = "none"; // 일반 파일 업로드 숨김
-    profileUploadField.style.display = "block"; // 프로필 사진 업로드만 표시
-  } else {
-    fileUploadField.style.display = "block";
-    profileUploadField.style.display = "block";
+        // 3. fetch를 사용한 API 요청
+        const option = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        };
 
-    if (role === "company") {
-      fileUploadLabel.textContent = "업체 관련 사진 첨부"; // 업체 선택 시 라벨 변경
-    } else if (role === "master") {
-      fileUploadLabel.textContent = "수료증, 범죄사실증명서류 첨부"; // 전문가 선택 시 라벨 변경
-    }
-  }
-}
+        fetch(url + serviceKey, option)
+          .then((response) => response.json())
+          .then((responseData) => {
+            const resultArea = document.querySelector('#businessRegNumberResult');
+            if (responseData.data && responseData.data.length > 0) {
+              // 사업자등록증이 유효한 경우
+              resultArea.textContent = '✅ 유효한 사업자등록번호입니다.';
+              resultArea.style.color = 'green';
+            } else {
+              // 유효하지 않은 사업자등록증 번호인 경우
+              resultArea.textContent = '❌ 유효하지 않은 사업자등록번호입니다.';
+              resultArea.style.color = 'red';
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            const resultArea = document.querySelector('#businessRegNumberResult');
+            resultArea.textContent = '❌ 사업자등록번호 확인에 실패했습니다. 다시 시도해 주세요.';
+            resultArea.style.color = 'red';
+          });
+      };
 
-// 페이지 로드 시 파일 업로드 필드 및 비밀번호 확인창 비활성화
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelector('input[name="uploadFile"]').closest(".mb-3").style.display = "none";
-  document.querySelector('input[name="profile"]').closest(".mb-3").style.display = "none";
-  document.getElementById("mpwdConfirm").disabled = true; // 비밀번호 확인창 비활성화
-});
+      // 역할 선택에 따른 동작
+      function selectRole(role, event) {
+        document.getElementById("selectedRole").value = role;
+
+        // 모든 역할 박스의 배경색 초기화
+        document.querySelectorAll(".role-box").forEach((box) => {
+          box.style.backgroundColor = "";
+        });
+
+        // 선택된 박스 강조
+        event.currentTarget.style.backgroundColor = "#e0e0e0";
+
+        // 파일 업로드 관련 요소 가져오기
+        const fileUploadField = document.querySelector('input[name="uploadFile"]').closest(".mb-3");
+        const profileUploadField = document.querySelector('input[name="profile"]').closest(".mb-3");
+        const fileUploadLabel = document.querySelector('label[for="mfile"]'); // 파일 업로드 필드의 라벨
+
+        // 사업자등록증 입력란 가져오기
+        const businessRegNumberContainer = document.getElementById("businessRegNumberContainer");
+
+        if (role === "requester") {
+          fileUploadField.style.display = "none"; // 일반 파일 업로드 숨김
+          profileUploadField.style.display = "block"; // 프로필 사진 업로드만 표시
+          businessRegNumberContainer.style.display = "none"; // 사업자등록증 입력란 숨김
+        } else {
+          fileUploadField.style.display = "block";
+          profileUploadField.style.display = "block";
+          businessRegNumberContainer.style.display = "none"; // 기본적으로 사업자등록증 입력란 숨김
+
+          if (role === "company") {
+            fileUploadLabel.textContent = "업체 관련 사진 첨부"; // 업체 선택 시 라벨 변경
+            businessRegNumberContainer.style.display = "block"; // 업체 선택 시 사업자등록증 번호 입력란 보이기
+          } else if (role === "master") {
+            fileUploadLabel.textContent = "수료증, 범죄사실증명서류 첨부"; // 전문가 선택 시 라벨 변경
+          }
+        }
+      }
+
 
 // 비밀번호 유효성 검사
 document.getElementById("mpwd").addEventListener("input", function () {
@@ -160,3 +208,4 @@ document
         alert("❌ 회원가입에 실패했습니다. 다시 시도해 주세요."); // 실패 메시지
       });
   });
+
