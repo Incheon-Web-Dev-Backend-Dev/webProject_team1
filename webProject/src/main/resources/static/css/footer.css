@@ -51,13 +51,11 @@ body {
 /* 클릭 시 효과 */
 .footer-btn:active {
     transform: scale(0.95); /* 버튼이 살짝 눌리는 효과 */
-    background-color: #a9824a; /* 배경색 더 어둡게 */
     box-shadow: 0 2px 5px burlywood(0, 188, 212, 0.3); /* 클릭 시 그림자 효과를 줄여서 눌린 느낌 추가 */
-    color: white;
+    color: #5e9ce2;
     border-radius: 12px;
 }
 .footer-btn:hover {
-    color: white;
     transform: scale(1.05);
 }
 

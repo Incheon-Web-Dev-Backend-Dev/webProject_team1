@@ -19,21 +19,18 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0;
-    padding: 0;
 }
 
 .requestList {
     width: 600px;
-    margin-top: 100px;    /* 헤더 높이만큼 여백 */
-    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
-    padding: 20px;
+    padding: 100px 20px;
     overflow-y: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
 }
 
 .reqstlistHeader{
-    margin-top: 50px;
     padding: 20px;
+    text-align: center;
 }
 
 .reqListCardBox {
@@ -59,8 +56,6 @@ body {
     align-items: center;
 }
 
-<<<<<<< HEAD
-=======
 .reqListCardBox .card .card-title a{
     text-decoration: none;
     color: #5e9ce2;
@@ -74,7 +69,6 @@ body {
 }
 
 
->>>>>>> jimyung
 /* 썸머노트 에디터 너비 조정 */
 .note-editor {
     width: 100% !important;

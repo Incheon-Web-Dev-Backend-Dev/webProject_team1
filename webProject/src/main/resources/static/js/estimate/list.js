@@ -50,7 +50,7 @@ const findAll = () => {
             data.forEach(estimate =>{
                 if(estimate.mno>0){
                 html +=`
-                <div class="card" style="width: 18rem; ${getCardStyle(estimate)}">
+                <div class="card" style="width: 32rem; ${getCardStyle(estimate)}">
                     <div class="card-body">
                         <a href="/estimate/view?estno=${estimate.estno}"> 
                         <h5 class="card-title">${estimate.esttitle}</h5>
