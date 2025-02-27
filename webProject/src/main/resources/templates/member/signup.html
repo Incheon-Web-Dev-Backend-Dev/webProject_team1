@@ -43,6 +43,20 @@
           <i class="bi bi-check-circle"></i> 이메일 중복 확인
         </button>
         <div id="emailErrorMessage"></div>
+        <!-- 사업자등록증 번호 (업체 선택시 표시될 입력란) -->
+        <div id="businessRegNumberContainer" class="mb-3" style="display: none;">
+          <label for="businessRegNumber" class="form-label">사업자등록증 번호</label>
+          <input
+                  type="text"
+                  class="form-control"
+                  id="businessRegNumber"
+                  name="businessRegNumber"
+                  placeholder="사업자등록증 번호를 입력하세요"
+                  oninput="checkBusinessRegNumber()"
+          />
+          <div id="businessRegNumberResult" class="form-text"></div>
+        </div>
+
         <div class="mb-3">
           <label for="mpwd" class="form-label">비밀번호</label>
           <input
