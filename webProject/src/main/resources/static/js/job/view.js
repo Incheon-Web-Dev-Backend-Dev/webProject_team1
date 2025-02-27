@@ -23,10 +23,10 @@ const jobFind = (mno, role) => {
         document.querySelector('.jotitle').innerHTML = d.jotitle;
         
         if(d.jostate == true){
-            document.querySelector('.jostate').innerHTML = '마감';
-            document.querySelector('.jostate').style.color = 'red';
+            document.querySelector('.jostate').innerHTML = '지원마감❌';
+            document.querySelector('.jostate').style.color = 'coral';
             } else {
-                document.querySelector('.jostate').innerHTML = '모집 중';
+                document.querySelector('.jostate').innerHTML = '지원가능⭕';
                 document.querySelector('.jostate').style.color = 'blue';
             };
         
@@ -39,10 +39,10 @@ const jobFind = (mno, role) => {
         if(mno == d.memberDto.mno){
         // 만약 로그인한 memail 과 글작성자의 memail이 같으면 마감상태변경/수정/삭제 버튼 출력
         document.querySelector('.bottomMenu').innerHTML += 
-        `<a href="/job/like" class="card-link">${d.likeCount}명 지원 중</a><br/>
-         <button class="btn btn-secondary btn-lg" type="button" onclick="stateUpdate()">마감상태 변경</button>
-         <a href="/job/update"><button class="btn btn-secondary btn-lg" type="button">수정</button></a>
-         <button class="btn btn-secondary btn-lg" type="button" onclick="offerDelete()">삭제</button></a>`
+        `<a href="/job/like" class="card-link">지원자 : ${d.likeCount}명</a><br/>
+         <button class="buttonsel" type="button" onclick="stateUpdate()">마감상태 변경</button>
+         <a href="/job/update"><button class="buttonsel" type="button">수정</button></a>
+         <button class="buttonsel" btn-lg" type="button" onclick="offerDelete()">삭제</button></a>`
         }
         // 로그인한 유저의 role이 master일 때 좋아요 버튼 출력을 위해 likeFind() 함수 호출
         if(role == 'master' && d.jostate == false){
@@ -101,17 +101,17 @@ const likeFind = (mno, jono) => {
         if (d == 0){
             // 한번도 지원한적이 없으면 likePost() 함수를 호출하는 좋아요 버튼 출력 -> DB에 한번도 저장이 안된 경우
             document.querySelector('.bottomMenu').innerHTML +=
-            `<button class="btn btn-secondary btn-lg like" onclick="likePost()" type="button">지원하기</button>`;
+            `<button class="buttonsel btn-lg like" onclick="likePost()" type="button">지원하기</button>`;
         } 
         if (d == 1){
             // 한번 지원했다가 취소했던 구인글인 경우 likePost()가 아닌 likeUpdate()로 신청 여부만 변경 -> 이전에 DB에 저장이 한번 됐던 경우
             document.querySelector('.bottomMenu').innerHTML +=
-            `<button class="btn btn-secondary btn-lg like" onclick="likeUpdate()" type="button">지원하기</button>`;
+            `<button class="buttonsel btn-lg like" onclick="likeUpdate()" type="button">지원하기</button>`;
         }
         if (d == 2){
             // 지원한 구인글인 경우 버튼 이름을 '눌렀음'으로 변경하여 내가 지원했는지 구별가능하며 likeUpdate()로 지원취소 가능
             document.querySelector('.bottomMenu').innerHTML +=
-            `<button class="btn btn-secondary btn-lg like" onclick="likeUpdate()" type="button">지원 중</button>`;
+            `<button class="buttonsel btn-lg like" onclick="likeUpdate()" type="button">지원 중</button>`;
         }
     })
     .catch(e => console.log(e))
