@@ -82,6 +82,7 @@ body {
     justify-content: center; /* 원들을 가로로 정렬 */
     align-items: center; /* 세로로 중앙 정렬 */
     text-align: center; /* 텍스트 중앙 정렬 */
+    margin-bottom: 88px;
 } 
 .icon-container {
     display: flex; /* 원과 텍스트를 세로로 배치 */

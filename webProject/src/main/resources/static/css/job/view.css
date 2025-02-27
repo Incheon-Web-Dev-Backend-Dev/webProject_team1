@@ -1,28 +1,104 @@
-.viewBox {
-    width: 600px;
-    margin-top: 100px;    /* 헤더 높이만큼 여백 */
-    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
-    padding: 20px;
-    overflow-y: auto;
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
-.likeContainer {
-    width: 600px;
-    margin-top: 100px;    /* 헤더 높이만큼 여백 */
-    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
-    padding: 20px;
-    overflow-y: auto;
-}
-
-.jotitle{
-    font-size: 40px;
-    font-weight: bold;
-}
-
 .jobofferContent {
     width: 600px;
-    margin-top: 100px;    /* 헤더 높이만큼 여백 */
-    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
-    padding: 20px;
+    padding: 100px 20px;
     overflow-y: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
+}
+.jobofviewHeader{
+    padding: 20px;
+    text-align: center;
+}
+.viewBox {
+    justify-content: center;
+}
+.content {
+    padding: 10px;
+}
+.content-header{
+    border-bottom: 1px solid #ccc; /* 아래쪽에 선 추가 */
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+.jotitle {
+    display: inline-block; /* 제목을 나란히 배치 */
+    font-size: 25px;
+    font-weight: bold;
+    color: #222;
+    margin-right: 10px; /* 제목과 상태 사이 간격을 추가 */
+}
+.jostate {
+    display: inline-block; /* 제목을 나란히 배치 */
+    font-size: 12px;
+    color: #666;
+}
+
+.writerInfo {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #777;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid #ccc; /* 위쪽에 선 추가 */
+    border-bottom: 1px solid #ccc; /* 아래쪽에 선 추가 */
+    margin-top: 20px;
+}
+
+label {
+    display: inline; /* 기본적으로 inline 요소로 설정되어 있으나 명시적으로 설정 */
+    margin-right: 5px; /* 간격을 조금 주기 */
+}
+.mnamebox,
+.maddrbox,
+.mphonebox,
+.cdatebox {
+    display: inline; /* inline 속성으로 나란히 배치 */
+    font-size: 14px;
+    color: #555;
+    font-weight: normal;
+}
+
+.bottomMenu {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+}
+.jostate{
+    font-weight: bold;
+}
+.card-link{
+    text-decoration: none;
+    font-weight: bold;
+    color:black ;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/*------------버튼--------------*/
+.button-container {
+    display: flex;         /* flexbox 사용 */
+    gap: 10px;             /* 버튼들 간의 간격 설정 */
+    flex-wrap: wrap;       /* 버튼이 공간에 맞게 줄 바꿈되도록 설정 (화면 크기에 따라 자동으로 줄 바꿈) */
+}
+
+.buttonsel {
+    padding: 10px;
+    background-color: #88B3E4;  /* 기본 배경 색상 */
+    color: white;  /* 글자 색상 하얀색 */
+    border: none;  /* 테두리 없음 */
+    border-radius: 5px;  /* 선택 사항: 테두리 둥글게 */
+    font-size: 17px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;  /* 링크의 밑줄 제거 */
+    flex: 1 1 auto;       /* 자동 크기 조정: 최소 크기를 1로 설정하고, 필요시 확장하도록 설정 */
+}
+
+.buttonsel:hover {
+    background-color: #5e9ce2;  /* 클릭 시 배경 색상 */
 }

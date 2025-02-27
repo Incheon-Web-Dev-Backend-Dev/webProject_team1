@@ -12,7 +12,7 @@ function login() {
         method : "POST",
         headers : {"Content-Type":"application/json"},
         body : JSON.stringify(loginDto),
-    };min
+    };
     fetch("/member/login.do", option)
         .then(response => response.json())
         .then(data=> {
