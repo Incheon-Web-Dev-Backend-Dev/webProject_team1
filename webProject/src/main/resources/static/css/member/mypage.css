@@ -16,7 +16,6 @@ body {
     padding: 20px;
     overflow-y: auto;
 }
-
 .wrapper {
     display: flex;
     width: 100%; 
@@ -24,6 +23,9 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.info{
+    margin-top: 20px;
 }
 
 /* 사이드바 스타일 */

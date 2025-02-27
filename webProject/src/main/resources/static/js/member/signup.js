@@ -7,7 +7,7 @@ function selectRole(role, event) {
   });
 
   // 선택된 박스 강조
-  event.currentTarget.style.backgroundColor = "#e0e0e0";
+  event.currentTarget.style.backgroundColor = "#5e9ce2";
 
   // 파일 업로드 관련 요소 가져오기
   const fileUploadField = document.querySelector('input[name="uploadFile"]').closest(".mb-3");
@@ -22,9 +22,9 @@ function selectRole(role, event) {
     profileUploadField.style.display = "block";
 
     if (role === "company") {
-      fileUploadLabel.textContent = "업체 관련 사진 첨부"; // 업체 선택 시 라벨 변경
+      fileUploadLabel.textContent = "업체 관련 사진 첨부💾;"; // 업체 선택 시 라벨 변경
     } else if (role === "master") {
-      fileUploadLabel.textContent = "수료증, 범죄사실증명서류 첨부"; // 전문가 선택 시 라벨 변경
+      fileUploadLabel.textContent = "수료증, 범죄사실증명서류 첨부💾;"; // 전문가 선택 시 라벨 변경
     }
   }
 }
