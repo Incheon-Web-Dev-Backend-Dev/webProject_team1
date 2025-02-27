@@ -35,7 +35,7 @@ const onRequestFind = () => {
             // 3). 유저 정보(role)에 따라서 button 보이기 여부
             if(loginMemberInfo.role === "master" || loginMemberInfo.role === "company"){
                 html += `
-                    <button class="onUploadEstimateBtn()"><a href="/estimate/write" class="btn btn-primary">이 요청글에 견적서 올리기</a></button>
+                    <button class="btn btn-primary"><a href="/estimate/write">이 요청글에 견적서 올리기</a></button>
                 `
             }// if end
 
