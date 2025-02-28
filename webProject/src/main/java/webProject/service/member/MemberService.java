@@ -5,15 +5,12 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import webProject.model.dto.member.MemberDto;
 import webProject.model.dto.member.MemberFileDto;
 import webProject.model.entity.member.MemberEntity;
 import webProject.model.entity.member.MemberFileEntity;
 import webProject.model.repository.estimate.EstimateRepository;
-import webProject.model.repository.job.JobFileRepository;
 import webProject.model.repository.job.JobOfferRepository;
 import webProject.model.repository.like.LikeRepository;
 import webProject.model.repository.member.MemberFileRepository;
@@ -71,16 +68,18 @@ public class MemberService {
             // 프로필 사진 저장
             MultipartFile uploadFile = memberDto.getProfile();
             MemberFileDto profileFileDto = new MemberFileDto();
-            if (uploadFile != null) {
+            if (uploadFile.isEmpty()) {
+                profileFileDto.setProfile("default.jpg");
+            } else {
                 String filename2 = memberFileService.fileUpload(uploadFile);
                 profileFileDto.setProfile(filename2);
-            } else {
-                profileFileDto.setProfile("default.jpg");
             }
 
             MemberFileEntity profileFileEntity = profileFileDto.toEntity();
+            System.out.println(profileFileDto);
             profileFileEntity.setMemberEntity(memberEntity);
             memberFileRepository.save(profileFileEntity);
+            System.out.println(profileFileEntity);
 
             return true;
         } catch(Exception e){System.out.println(e);return false;}
