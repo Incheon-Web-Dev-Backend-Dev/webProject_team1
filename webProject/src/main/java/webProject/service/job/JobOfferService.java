@@ -2,13 +2,17 @@ package webProject.service.job;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import webProject.model.dto.job.JobOfferDto;
+import webProject.model.dto.job.JobPageDto;
 import webProject.model.dto.member.MemberDto;
 import webProject.model.entity.job.JobOfferEntity;
 import webProject.model.entity.like.LikeEntity;
 import webProject.model.entity.member.MemberEntity;
-import webProject.model.repository.job.JobFileRepository;
 import webProject.model.repository.job.JobOfferRepository;
 import webProject.model.repository.like.LikeRepository;
 import webProject.model.repository.member.MemberRepository;
@@ -21,7 +25,6 @@ import java.util.Optional;
 @Service
 public class JobOfferService {
 
-    @Autowired private JobFileService jobFileService;
     @Autowired private JobOfferRepository jobOfferRepository;
     @Autowired private MemberRepository memberRepository;
     @Autowired private MemberService memberService;
@@ -45,16 +48,32 @@ public class JobOfferService {
     }
 
     // 구인글 전체 조회
-    public List<JobOfferDto> jobOfferFindAll() {
-
-        List<JobOfferEntity> jobOfferEntityList = jobOfferRepository.findAll();
+    public JobPageDto jobOfferFindAll(String joservice, String jocity, String jodistrict, int page, String key, String keyword) {
+//
+//        List<JobOfferEntity> jobOfferEntityList = jobOfferRepository.findAll();
+//        List<JobOfferDto> list = new ArrayList<>();
+//
+//        jobOfferEntityList.forEach(jobOfferEntity -> {
+//            JobOfferDto jobOfferDto = jobOfferEntity.toDto();
+//            list.add(jobOfferDto);
+//        });
+//        return list;
+        Pageable pageable = PageRequest.of( page-1,3, Sort.by(Sort.Direction.DESC,"jono")); //
+        Page<JobOfferEntity> jobOfferEntityList = jobOfferRepository.findBySearch(joservice,jocity,jodistrict,key,keyword,pageable);
         List<JobOfferDto> list = new ArrayList<>();
-
         jobOfferEntityList.forEach(jobOfferEntity -> {
             JobOfferDto jobOfferDto = jobOfferEntity.toDto();
             list.add(jobOfferDto);
         });
-        return list;
+        int totalPage = jobOfferEntityList.getTotalPages();
+        long totalCount = jobOfferEntityList.getTotalElements();
+        int btnSize = 5;
+        int startBtn = ((page-1)/btnSize)*btnSize+1;
+        int endBtn = startBtn+(btnSize-1);
+        if (endBtn>=totalPage) endBtn = totalPage;
+        JobPageDto pageDto = JobPageDto.builder().page(page).totalpage(totalPage).totalcount(totalCount).startbtn(startBtn).endbtn(endBtn).data(list).build();
+        System.out.println(pageDto);
+        return pageDto;
     }
 
     // 구인글 개별 조회

@@ -11,7 +11,6 @@
   <div class="jobofferlist">
     <table class="table">
       <thead>
-
         <tr>
           <th>번호</th>
           <th>서비스</th>
@@ -26,10 +25,80 @@
     </table>
 
     <div class="bottomMenu">
-      <!--<input class="searchInput"><button class="btn btn-secondary btn-lg" type="button">검색</button>-->
+      <!-- jospace input section -->
+      <div class="mb-3">
+        <label for="basic-url" class="form-label">정리/수납 공간</label>
+        <div class="input-group">
+          <select class="form-select joserviceValue" id="inputGroupSelect01" aria-label="Example select with button addon">
+            <option selected>선택하기</option>
+            <option value="1">주방</option>
+            <option value="2">안방</option>
+            <option value="3">자녀방</option>
+            <option value="4">거실</option>
+            <option value="5">서재</option>
+            <option value="6">사무실</option>
+            <option value="7">기타</option>
+          </select>
+        </div>
+        <div class="form-text" id="basic-addon4">기타를 선택할 경우 아래 요청 내용에 작업 요청공간을 자세하게 작성해주세요.</div>
+      </div> <!-- jospace end -->
+
+      <!-- jocity input section -->
+      <div class="mb-3">
+        <label for="basic-url" class="form-label">정리/수납 지역</label>
+        <div class="input-group">
+          <select class="form-select jocityValue" id="inputGroupSelect02" aria-label="Example select with button addon">
+            <option selected>선택하기</option>
+            <option value="1">서울특별시</option>
+            <option value="2">경기도</option>
+            <option value="3">충청북도</option>
+            <option value="4">충청남도</option>
+            <option value="5">전라남도</option>
+            <option value="6">경상북도</option>
+            <option value="7">경상남도</option>
+            <option value="8">부산광역시</option>
+            <option value="9">인천광역시</option>
+            <option value="10">대구광역시</option>
+            <option value="11">광주광역시</option>
+            <option value="12">울산광역시</option>
+            <option value="13">세종특별자치시</option>
+            <option value="14">강원특별자치도</option>
+            <option value="15">전북특별자치도</option>
+            <option value="16">제주특별자치도</option>
+          </select>
+          <select class="form-select jodistrictValue" id="inputGroupSelect03" aria-label="Example select with button addon">
+            <option selected>선택하기</option>
+          </select>
+        </div>
+      </div>  <!-- jocity end -->
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination pagebox">
+  
+        </ul>
+      </nav>
+
+      <!--검색창-->
+      <div class="row">  <!--row : 부트스트랩 css, 하위요소들 가로배치-->
+        <div class="col-auto"> <!--col-auto : 부트스트랩 css, 해당요소 가로사이즈 자동-->
+          <select class="form-select key"> <!--form-select : 부트스트랩 css, 목록상자 꾸미기-->
+            <option value="jotitle">제목</option>
+            <option value="jocontent">내용</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-auto">
+        <input type="text" class="form-control keyword"> <!--form-control : 입력상자 꾸미기-->
+      </div>
+      <div class="col-auto">
+        <button onclick="onSearch()" type="button" class="btn btn-primary">검색</button> <!--btn btn-primary : 버튼 꾸미기-->
+      </div>
+
     </div>
   </div>
   <div th:replace="~{/footer.html :: footer}"></div>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="/js/job/list.js"></script>
+
 </body>
 </html>

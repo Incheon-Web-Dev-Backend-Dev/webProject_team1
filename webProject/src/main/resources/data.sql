@@ -73,14 +73,6 @@ VALUES
 (4, 4, 1, '인천시', '주방 설비 공사', '부평구', '설비공사', '설비 기술자 구함', NOW(), NOW()),
 (5, 5, 1, '서울시', '페인트 도색', '마포구', '도색작업', '페인트 작업자 구인', NOW(), NOW());
 
---INSERT INTO jobfile (jono, jfname, cdate, udate)
---VALUES
---(1, 'job1_image.jpg', NOW(), NOW()),
---(2, 'job2_image.jpg', NOW(), NOW()),
---(3, 'job3_image.jpg', NOW(), NOW()),
---(4, 'job4_image.jpg', NOW(), NOW()),
---(5, 'job5_image.jpg', NOW(), NOW());
-
 INSERT INTO like_job (jono, lno, lstate, mno, cdate, udate)
 VALUES
 (1, 1, true,  2, NOW(), NOW()),
