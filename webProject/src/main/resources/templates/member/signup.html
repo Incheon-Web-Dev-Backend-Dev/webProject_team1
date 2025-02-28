@@ -1,142 +1,168 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>회원가입</title>
-    <link rel="stylesheet" href="/css/member/signup.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script src="/js/member/signup.js" defer></script>
-  </head>
-  <body>
-    <div class="container mt-5">
-      <h2 class="text-center">회원가입</h2>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>회원가입</title>
+  <link rel="stylesheet" href="/css/member/signup.css" />
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+  />
+  <script src="/js/member/signup.js" defer></script>
+</head>
+<body>
+<div class="container mt-5">
+  <h2 class="text-center">회원가입</h2>
 
-      <!-- 역할 선택 박스 -->
-      <div class="role-container mb-4">
-        <div class="role-box companybtn" onclick="selectRole('company', event)">
-          <h5>업체</h5>
-        </div>
-        <div class="role-box masterbtn" onclick="selectRole('master', event)">
-          <h5>정리수납 전문가</h5>
-        </div>
-        <div class="role-box requesterbtn" onclick="selectRole('requester', event)">
-          <h5>개인의뢰인</h5>
-        </div>
-      </div>
-
-      <form id="signupForm" class="mt-4">
-        <div class="mb-3">
-          <label for="memail" class="form-label">이메일</label>
-          <input
-            type="email"
-            class="form-control"
-            id="memail"
-            name="memail"
-            required
-          />
-        </div>
-        <button type="button" class="btn btn-outline-primary" id="checkEmailBtn">
-          <i class="bi bi-check-circle"></i> 이메일 중복 확인
-        </button>
-        <div id="emailErrorMessage"></div>
-        <!-- 사업자등록증 번호 (업체 선택시 표시될 입력란) -->
-        <div id="businessRegNumberContainer" class="mb-3" style="display: none;">
-          <label for="businessRegNumber" class="form-label">사업자등록증 번호</label>
-          <input
-                  type="text"
-                  class="form-control"
-                  id="businessRegNumber"
-                  name="businessRegNumber"
-                  placeholder="사업자등록증 번호를 입력하세요"
-                  oninput="checkBusinessRegNumber()"
-          />
-          <div id="businessRegNumberResult" class="form-text"></div>
-        </div>
-
-        <div class="mb-3">
-          <label for="mpwd" class="form-label">비밀번호</label>
-          <input
-            type="password"
-            class="form-control"
-            id="mpwd"
-            name="mpwd"
-            required
-          />
-          <small id="pwdHelp" class="form-text text-muted"
-            >비밀번호는 영어와 숫자를 포함하고, 8~20자 이내여야 합니다.</small
-          >
-        </div>
-        <div class="mb-3">
-          <label for="mpwdConfirm" class="form-label">비밀번호 확인</label>
-          <input
-            type="password"
-            class="form-control"
-            id="mpwdConfirm"
-            name="mpwdConfirm"
-            required
-          />
-          <div id="confirmMessage" class="form-text"></div>
-        </div>
-        <div class="mb-3">
-          <label for="mname" class="form-label">이름</label>
-          <input
-            type="text"
-            class="form-control"
-            id="mname"
-            name="mname"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="mphone" class="form-label">전화번호</label>
-          <input
-            type="tel"
-            class="form-control"
-            id="mphone"
-            name="mphone"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="maddr" class="form-label">주소</label>
-          <input
-            type="text"
-            class="form-control"
-            id="maddr"
-            name="maddr"
-            required
-          />
-        </div>
-        <div class="mb-3"> <!-- type="file" * multiple * 1개초과 하는 파일 받을때  -->
-          <label for="mfile" class="form-label">파일 첨부</label>
-          <input
-            type="file"
-            multiple
-            class="form-control"
-            id="mfile"
-            name="uploadFile"
-          />
-        </div>
-
-        <div class="mb-3">
-          <label for="mfile" class="form-label">프로필사진💾</label>
-          <input
-            type="file"
-            class="form-control"
-            id="mfile"
-            name="profile"
-          />
-        </div>
-
-        <input type="hidden" id="selectedRole" name="role" />
-
-        <button type="button" class="joinbtn">가입하기</button>
-      </form>
+  <!-- 역할 선택 박스 -->
+  <div class="role-container mb-4">
+    <div class="role-box companybtn" onclick="selectRole('company', event)">
+      <h5>업체</h5>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+    <div class="role-box masterbtn" onclick="selectRole('master', event)">
+      <h5>정리수납 전문가</h5>
+    </div>
+    <div class="role-box requesterbtn" onclick="selectRole('requester', event)">
+      <h5>개인의뢰인</h5>
+    </div>
+  </div>
+
+  <form id="signupForm" class="mt-4">
+    <div class="mb-3">
+      <label for="memail" class="form-label">이메일</label>
+      <input
+              type="email"
+              class="form-control"
+              id="memail"
+              name="memail"
+              required
+      />
+    </div>
+    <button type="button" class="btn btn-outline-primary" id="checkEmailBtn">
+      <i class="bi bi-check-circle"></i> 이메일 중복 확인
+    </button>
+    <div id="emailErrorMessage"></div>
+
+    <!-- 사업자등록증 번호 (업체 선택시 표시될 입력란) -->
+    <div id="businessRegNumberContainer" class="mb-3" style="display: none;">
+      <label for="businessRegNumber" class="form-label">사업자등록증 번호</label>
+      <input
+              type="text"
+              class="form-control"
+              id="businessRegNumber"
+              name="businessRegNumber"
+              placeholder="사업자등록증 번호를 입력하세요"
+              oninput="checkBusinessRegNumber()"
+      />
+      <div id="businessRegNumberResult" class="form-text"></div>
+    </div>
+
+    <!-- 대표자 성명 -->
+    <div id="ceoNameContainer" class="mb-3" style="display: none;">
+      <label for="ceoName" class="form-label">대표자 성명</label>
+      <input
+              type="text"
+              class="form-control"
+              id="ceoName"
+              name="ceoName"
+              placeholder="대표자 성명을 입력하세요"
+      />
+    </div>
+
+    <!-- 개업일자 -->
+    <div id="businessStartDateContainer" class="mb-3" style="display: none;">
+      <label for="businessStartDate" class="form-label">개업일자</label>
+      <input
+              type="date"
+              class="form-control"
+              id="businessStartDate"
+              name="businessStartDate"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="mpwd" class="form-label">비밀번호</label>
+      <input
+              type="password"
+              class="form-control"
+              id="mpwd"
+              name="mpwd"
+              required
+      />
+      <small id="pwdHelp" class="form-text text-muted"
+      >비밀번호는 영어와 숫자를 포함하고, 8~20자 이내여야 합니다.</small
+      >
+    </div>
+    <div class="mb-3">
+      <label for="mpwdConfirm" class="form-label">비밀번호 확인</label>
+      <input
+              type="password"
+              class="form-control"
+              id="mpwdConfirm"
+              name="mpwdConfirm"
+              required
+      />
+      <div id="confirmMessage" class="form-text"></div>
+    </div>
+    <div class="mb-3">
+      <label for="mname" class="form-label">이름</label>
+      <input
+              type="text"
+              class="form-control"
+              id="mname"
+              name="mname"
+              required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="mphone" class="form-label">전화번호</label>
+      <input
+              type="tel"
+              class="form-control"
+              id="mphone"
+              name="mphone"
+              required
+      />
+    </div>
+    <div class="mb-3">
+      <input type="text" id="postcode" placeholder="우편번호">
+      <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+      <input type="text" id="address" name="maddr" placeholder="주소"><br>
+      <input type="text" id="detailAddress" placeholder="상세주소">
+      <input type="text" id="extraAddress" placeholder="참고항목">
+      <div id="map" style="width:300px;height:300px;margin-top:10px;display:none;"></div> <!-- 지도 -->
+    </div>
+
+    <div class="mb-3">
+      <label for="mfile" class="form-label">파일 첨부</label>
+      <input
+              type="file"
+              multiple
+              class="form-control"
+              id="mfile"
+              name="uploadFile"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="mfile" class="form-label">프로필사진💾</label>
+      <input
+              type="file"
+              class="form-control"
+              id="mfile"
+              name="profile"
+      />
+    </div>
+
+    <input type="hidden" id="selectedRole" name="role" />
+
+    <button type="submit" class="joinbtn">가입하기</button>
+  </form>
+</div>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bac15d3b0060abb950e7c8f7891432ac&libraries=services"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+</body>
 </html>

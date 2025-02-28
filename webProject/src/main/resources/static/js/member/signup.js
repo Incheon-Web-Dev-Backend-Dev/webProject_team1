@@ -1,51 +1,60 @@
 // 사업자등록번호 실시간 유효성 검사
-      const checkBusinessRegNumber = () => {
-        const businessRegNumberInput = document.querySelector('#businessRegNumber');
-        const businessRegNumber = businessRegNumberInput.value;
+const checkBusinessRegNumber = () => {
+  const businessRegNumberInput = document.querySelector('#businessRegNumber');
+  const businessRegNumber = businessRegNumberInput.value;
 
-        // 사업자등록번호가 비어있으면 검사를 중지
-        if (!businessRegNumber) {
-          document.querySelector('#businessRegNumberResult').textContent = '';
-          return;
-        }
+  // 사업자등록번호가 비어있으면 검사를 중지
+  if (!businessRegNumber) {
+    document.querySelector('#businessRegNumberResult').textContent = '';
+    return;
+  }
 
-        // 선택된 박스 강조
-        event.currentTarget.style.backgroundColor = "#5e9ce2";
-        // 1. 요청 자료 만들기 (사업자번호에 '-' 있을 경우, '-' 제거)
-        const data = { "b_no": [businessRegNumber.replaceAll('-', '')] };
+  // 선택된 박스 강조
+  event.currentTarget.style.backgroundColor = "#5e9ce2";
 
-        // 2. API URL 및 서비스 키
-        const url = 'https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=';
-        const serviceKey = '%2F95Bygi6tZzHEY3%2FNPjymiClQUmbL3Eox3lMEIk4hRKAXsX0owCEksZAUNh4YznGonviQ6yaWTZrmeIup6Kw7w%3D%3D';
+  // 1. 요청 자료 만들기 (사업자번호에 '-' 있을 경우, '-' 제거)
+  const data = { "b_no": [businessRegNumber.replaceAll('-', '')] };
 
-        // 3. fetch를 사용한 API 요청
-        const option = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        };
+  // 2. API URL 및 서비스 키
+  const url = 'https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=';
+  const serviceKey = '%2F95Bygi6tZzHEY3%2FNPjymiClQUmbL3Eox3lMEIk4hRKAXsX0owCEksZAUNh4YznGonviQ6yaWTZrmeIup6Kw7w%3D%3D';
 
-        fetch(url + serviceKey, option)
-          .then((response) => response.json())
-          .then((responseData) => {
-            const resultArea = document.querySelector('#businessRegNumberResult');
-            if (responseData.data && responseData.data.length > 0) {
-              // 사업자등록증이 유효한 경우
-              resultArea.textContent = '✅ 유효한 사업자등록번호입니다.';
-              resultArea.style.color = 'green';
-            } else {
-              // 유효하지 않은 사업자등록증 번호인 경우
-              resultArea.textContent = '❌ 유효하지 않은 사업자등록번호입니다.';
-              resultArea.style.color = 'red';
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-            const resultArea = document.querySelector('#businessRegNumberResult');
-            resultArea.textContent = '❌ 사업자등록번호 확인에 실패했습니다. 다시 시도해 주세요.';
-            resultArea.style.color = 'red';
-          });
-      };
+  // 3. fetch를 사용한 API 요청
+  const option = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  };
+
+  // 4. fetch 요청 후 응답 처리
+  fetch(url + serviceKey, option)
+    .then(response => response.json())
+    .then((responseData) => {
+      const resultArea = document.querySelector('#businessRegNumberResult');
+
+      // status_code가 "OK"이고, match_cnt가 1 이상이면 사업자번호 일치
+      if (responseData.status_code === "OK" && responseData.match_cnt > 0 && responseData.data.length > 0) {
+        // 사업자등록증이 유효한 경우
+        const validData = responseData.data[0]; // 첫 번째 데이터가 유효한 사업자정보
+        resultArea.textContent = `✅ 유효한 사업자등록번호입니다.`;
+        resultArea.style.color = 'green';
+      } else if (responseData.status_code === "OK" && responseData.match_cnt === 0) {
+        // 일치하는 사업자등록번호가 없을 경우
+        resultArea.textContent = '❌ 일치하는 사업자등록번호가 없습니다.';
+        resultArea.style.color = 'red';
+      } else {
+        // 응답에 오류가 있거나 데이터가 없는 경우
+        resultArea.textContent = '❌ 사업자등록번호 확인에 실패했습니다. 다시 시도해 주세요.';
+        resultArea.style.color = 'red';
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      const resultArea = document.querySelector('#businessRegNumberResult');
+      resultArea.textContent = '❌ 사업자등록번호 확인에 실패했습니다. 다시 시도해 주세요.';
+      resultArea.style.color = 'red';
+    });
+};
 
       // 역할 선택에 따른 동작
       function selectRole(role, event) {
@@ -84,6 +93,85 @@
           }
         }
       }
+
+function execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 기본적으로 주소를 변수에 담음
+            var addr = '';
+            var extraAddr = '';
+
+            // 사용자가 선택한 주소 타입에 따라 주소를 가져옴
+            if (data.userSelectedType === 'R') { // 도로명 주소
+                addr = data.roadAddress;
+            } else { // 지번 주소
+                addr = data.jibunAddress;
+            }
+
+            // 도로명 주소일 경우 참고항목 추가
+            if (data.userSelectedType === 'R') {
+                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                    extraAddr += data.bname;
+                }
+                if (data.buildingName !== '' && data.apartment === 'Y') {
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                if (extraAddr !== '') {
+                    extraAddr = ' (' + extraAddr + ')';
+                }
+                document.getElementById("extraAddress").value = extraAddr; // 참고항목 입력
+            } else {
+                document.getElementById("extraAddress").value = ''; // 지번 주소인 경우 참고항목 비우기
+            }
+
+            // 우편번호와 주소를 해당 필드에 넣기
+            document.getElementById('postcode').value = data.zonecode; // 우편번호
+            document.getElementById("address").value = addr; // 주소 입력
+
+            // 상세주소는 빈 칸으로 두고 포커스를 상세주소 입력란으로 이동
+            document.getElementById("detailAddress").value = ''; // 상세주소는 자동 입력되지 않음
+            document.getElementById("detailAddress").focus(); // 상세주소 필드로 포커스 이동
+
+            // 디버깅을 위한 로그 출력
+            console.log("우편번호: " + data.zonecode);
+            console.log("주소: " + addr);
+            console.log("참고 주소: " + extraAddr);
+
+            // 지도 표시
+            var mapContainer = document.getElementById('map');
+            if (mapContainer) {
+                mapContainer.style.display = "block"; // 지도 표시를 위해 강제로 보이게 설정
+            }
+
+            var mapOption = {
+                center: new daum.maps.LatLng(37.537187, 127.005476), // 기본 위치
+                level: 5 // 확대 레벨
+            };
+
+            // 지도 객체 생성
+            var map = new daum.maps.Map(mapContainer, mapOption);
+            var geocoder = new daum.maps.services.Geocoder();
+            var marker = new daum.maps.Marker({
+                position: new daum.maps.LatLng(37.537187, 127.005476), // 기본 위치
+                map: map
+            });
+
+            // 주소로 좌표 변환 후 지도에 표시
+            geocoder.addressSearch(data.address, function(results, status) {
+                if (status === daum.maps.services.Status.OK) {
+                    var result = results[0]; // 첫 번째 결과 사용
+                    var coords = new daum.maps.LatLng(result.y, result.x);
+
+                    // 지도 중심을 변환된 좌표로 변경
+                    map.setCenter(coords);
+                    marker.setPosition(coords); // 마커를 변환된 좌표로 이동
+                }
+            });
+        }
+    }).open();
+}
+
+
 
 
 // 비밀번호 유효성 검사
@@ -156,8 +244,7 @@ function checkEmailDuplicate() {
 document.getElementById("checkEmailBtn").addEventListener("click", checkEmailDuplicate);
 
 // 회원가입 폼 제출 시 유효성 검사 및 서버 요청
-document
-  .getElementById("signupForm")
+document.getElementById("signupForm")
   .addEventListener("submit", function (event) {
     event.preventDefault(); // 기본 제출 방지 (fetch로 직접 처리할 것이므로)
 
