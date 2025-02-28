@@ -52,7 +52,7 @@ public class MemberService {
 
             // 파일 저장 (여러 개)
             List<MultipartFile> uploadFiles = memberDto.getUploadFile();
-            if (uploadFiles != null) {
+            if (!uploadFiles.isEmpty()) {
                 for (MultipartFile file : uploadFiles) {
                     String fileName = memberFileService.fileUpload(file);
 
@@ -68,9 +68,8 @@ public class MemberService {
             // 프로필 사진 저장
             MultipartFile uploadFile = memberDto.getProfile();
             MemberFileDto profileFileDto = new MemberFileDto();
-            if (uploadFile.isEmpty()) {
-                profileFileDto.setProfile("default.jpg");
-            } else {
+
+            if (!uploadFile.isEmpty()) {
                 String filename2 = memberFileService.fileUpload(uploadFile);
                 profileFileDto.setProfile(filename2);
             }
@@ -172,6 +171,7 @@ public boolean myUpdate(MemberDto memberDto) {
     }
     return false;
 }
+
 public boolean chechpwd(String mpwd){
     String memail = getSession();  // 1. 현재 세션에 저장된 회원 아이디 조회
     if (memail != null) {   // 2. 만약에 로그인상태이면

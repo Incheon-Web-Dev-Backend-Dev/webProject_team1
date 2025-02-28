@@ -1,50 +1,52 @@
-@font-face {
+ @font-face {
     font-family: 'NanumSquareNeo';
     src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot);
-    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.ttf) format("truetype");
-}
-@font-face {
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot?#iefix) format("embedded-opentype"),
+      url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff) format("woff"),
+      url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.ttf) format("truetype");
+  }
+  @font-face {
     font-family: 'NanumSquareNeoBold';
     src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot);
-    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.ttf) format("truetype");
-}
-* {
-   font-family: NanumSquareNeo;
-}
-.mb-3{
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot?#iefix) format("embedded-opentype"),
+      url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff"),
+      url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.ttf) format("truetype");
+  }
+  * {
+    font-family: NanumSquareNeo;
+  }
+  .mb-3 {
     margin-top: 20px;
     margin-bottom: 20px;
-}
-body {
+  }
+  body {
     background-color: #f8f9fa;
-}
-text-center{
+  }
+  .text-center {
     margin-top: 50px;
-    font-weight: bold; 
-    font-family: NanumSquareNeoBold;
-}
-.form-label{
     font-weight: bold;
-}
-.container {
-    max-width: 600px !important; /* 최대 너비 600px */
+    font-family: NanumSquareNeoBold;
+  }
+  .form-label {
+    font-weight: bold;
+  }
+  .container {
+    max-width: 600px !important;
     margin: auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-.role-container {
+  }
+  .role-container {
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
     margin-bottom: 20px;
-}
-.role-box{
+  }
+  .role-box {
     color: white;
-    background-color: #88B3E4;
-}
-.role-box {
+    background-color: #88b3e4;
     flex: 1;
     margin: 0 10px;
     padding: auto;
@@ -54,39 +56,42 @@ text-center{
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
-    font-size: 14px; /* 폰트 크기 줄이기 */
-    display: flex; /* Flexbox 사용 */
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
-    height: 60px; /* 고정 높이 설정 */
-}
-
-.role-box:hover {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+  }
+  .role-box:hover {
     background-color: #5e9ce2;
-}
-.joinbtn {
+  }
+  .joinbtn {
     display: flex;
     justify-content: center;
-    align-items: center; /* 세로로도 중앙 정렬 */
+    align-items: center;
     text-align: center;
     background-color: #5e9ce2;
-    color: white; /* 글자 색을 흰색으로 설정 */
-    width: 350px; /* 길이를 350px로 설정 */
-    height: 50px; /* 버튼 높이 설정 (필요시 조정) */
-    border: none; /* 테두리 없음 */
-    border-radius: 5px; /* 버튼 모서리를 둥글게 설정 (필요시 조정) */
-    margin: 0 auto; /* 화면 중앙 정렬 */
+    color: white;
+    width: 350px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    margin: 0 auto;
     margin-top: 35px;
-}
-
-
-#checkEmailBtn{
+  }
+  #checkEmailBtn {
     margin-top: 3px;
     margin-bottom: 10px;
-}
-/* 버튼에 hover 시 효과 */
-#checkEmailBtn:hover {
-  background-color: #5e9ce2;
-  color: white;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+  }
+  /* 버튼에 hover 시 효과 */
+  #checkEmailBtn:hover {
+    background-color: #5e9ce2;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .form-control {
+    padding: 0.75rem 1.25rem;
+  }
+  .form-control.mt-2 {
+    margin-top: 10px;
+  }
