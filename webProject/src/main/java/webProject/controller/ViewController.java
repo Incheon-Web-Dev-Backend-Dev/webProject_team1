@@ -22,27 +22,30 @@ public class ViewController {
     public String login(){return "/member/login.html";}
 
     // ============== Request(유지명) =========================
-    // 견적 요청서 쓰기 (일반 의뢰인)
+    // 견적 요청서 쓰기 페이지 (일반 의뢰인)
     @GetMapping("/request/post")
     public String requestPost() {
         return "/request/post.html";
     }
 
-    // 내가 올린 견적 요청서 리스트 (일반 의뢰인)
+    // 내가 올린 견적 요청서 리스트 페이지 (일반 의뢰인)
     @GetMapping("/request/list")
     public String requestList() {
         return "/request/list.html";
     }
 
 
-    // 내가 올린 견적 요청서 상세보기 (일반 의뢰인)
+    // 내가 올린 견적 요청서 상세보기 페이지 (일반 의뢰인)
     @GetMapping("/request/view")
     public String requestView() {
         return "/request/view.html";
     }
 
 
-
+    // ============= Review(유지명) =========================
+    // 리뷰 작성하기 페이지 (일반 의뢰인)
+    @GetMapping("/review/write")
+    public String reviewWrite() { return "/review/write.html";}
 
 
     //============================Estimate============================

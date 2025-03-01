@@ -1,4 +1,10 @@
 
+@font-face {
+    font-family: 'NanumSquareNeoExtraBold';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -35,9 +41,24 @@ body {
     color: white;
 }
 
-.receivedEstimates .btnBox{
+.receivedEstimates{
+    width: 150px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    margin: 0px auto;
+}
+
+.receivedEstimates .btn{
+    width: 150px;
+}
+
+.form-label{
+    color: #5e9ce2;
+    font-family: NanumSquareNeoExtraBold;
+}
+
+.form-control {
+    margin-bottom: 10px;
 }
 
 

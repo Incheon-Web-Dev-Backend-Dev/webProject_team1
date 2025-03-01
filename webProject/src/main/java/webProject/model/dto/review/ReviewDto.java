@@ -20,7 +20,6 @@ public class ReviewDto {
 
     //fk
     private int mno; // 이용후기 작성하는 회원번호
-   //private int reqno; // 이용후기 작성되는 요청서 번호
     private int estno; // 이용후기 작성되는 견적서 번호
 
     public ReviewEntity toEntity() {

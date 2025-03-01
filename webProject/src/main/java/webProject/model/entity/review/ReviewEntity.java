@@ -32,9 +32,6 @@ public class ReviewEntity extends BaseTime {
     @JoinColumn(name= "mno", nullable = true)
     private MemberEntity memberEntity;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name= "reqno")
-//    private RequestEntity requestEntity;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name= "estno", nullable = true)
@@ -47,7 +44,6 @@ public class ReviewEntity extends BaseTime {
                 .revcdate(this.getCdate().toString())
                 .requdate(this.getUdate().toString())
                 .mno(this.memberEntity.getMno())
-                //.reqno(this.requestEntity.getReqno())
                 .estno(this.estimateEntity.getEstno())
                 .build();
     }
