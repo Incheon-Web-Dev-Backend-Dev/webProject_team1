@@ -88,9 +88,9 @@ const estView = () => {
                     ${getBtnText(data)}
                     </a>`
                 : ''}
-            </div>
-            <div>
-                <button type="button" class="btn btn-primary"><a href='/estimate/list?reqno=${data.reqno}' style='color: white;' >목록</a></button>
+                <div class="btnBox">
+                    <button type="button" class="btn btn-primary"><a href='/estimate/list?reqno=${data.reqno}' style='color: white;' >목록</a></button>
+                </div>
             </div>
         `;
         // 결과를 HTML 요소에 삽입
