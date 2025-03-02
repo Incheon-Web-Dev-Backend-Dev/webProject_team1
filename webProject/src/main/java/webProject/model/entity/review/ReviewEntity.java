@@ -2,12 +2,13 @@ package webProject.model.entity.review;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
+import webProject.model.converter.StringListConverter;
 import webProject.model.dto.review.ReviewDto;
 import webProject.model.entity.BaseTime;
 import webProject.model.entity.estimate.EstimateEntity;
 import webProject.model.entity.member.MemberEntity;
-import webProject.model.entity.request.RequestEntity;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,6 +29,10 @@ public class ReviewEntity extends BaseTime {
     @Column(columnDefinition = "int", nullable = false)
     private int revstar;
 
+    @Column(columnDefinition = "varchar(255)")
+    @Convert(converter = StringListConverter.class)
+    private List<String> revimg;
+
     @ManyToOne
     @JoinColumn(name= "mno", nullable = true)
     private MemberEntity memberEntity;
@@ -43,6 +48,7 @@ public class ReviewEntity extends BaseTime {
                 .revcontent(this.revcontent)
                 .revcdate(this.getCdate().toString())
                 .requdate(this.getUdate().toString())
+                .revimg(this.revimg)
                 .mno(this.memberEntity.getMno())
                 .estno(this.estimateEntity.getEstno())
                 .build();

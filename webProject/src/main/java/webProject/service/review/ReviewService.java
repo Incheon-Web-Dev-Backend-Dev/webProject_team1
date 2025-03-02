@@ -13,6 +13,7 @@ import webProject.model.repository.member.MemberRepository;
 import webProject.model.repository.review.ReviewRepository;
 import webProject.service.member.MemberService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,9 +23,20 @@ public class ReviewService {
     @Autowired private EstimateRepository estimateRepository;
 
     @Autowired private MemberService memberService;
+    @Autowired private ReviewFileService reviewFileService;
 
     // 1. 리뷰 작성하기
+    @Transactional
     public boolean reviewWrite(ReviewDto reviewDto){
+
+        // 리뷰 사진 첨부파일 존재하면 업로드 진행
+        if(reviewDto.getUploadReviewFile() == null || reviewDto.getUploadReviewFile().isEmpty()) { // 업로드 파일이 없으면
+            reviewDto.setRevimg(null); // null 대입
+        } else { // 리뷰 파일 존재하면 업로드 처리
+            List<String> reviewFileNames = reviewFileService.reviewFileUpload(reviewDto.getUploadReviewFile());
+            reviewDto.setRevimg(reviewFileNames);
+        }
+
         ReviewEntity reviewEntity = reviewDto.toEntity();
         // 1. 로그인 세션객체 조회
         MemberDto loginDto = memberService.getMyInfo();

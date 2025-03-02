@@ -11,7 +11,14 @@
     <div th:replace="~{ /header.html :: header }"></div>
 
     <div class="reviewWrite">
-        <h2 class="reviewWriteHeader">리뷰 작성하기</h2>
+        <h2 class="reviewWriteHeader">이용후기 작성하기</h2>
+
+        <div class="writeBox">
+            <div class="mb-3">
+                <label for="basic-url" class="form-label">이용후기 내용</label>
+                <input type="text" class="form-control">
+            </div>
+        </div>
     </div>
 
     <div th:replace="~{ /footer.html :: footer }"></div>
