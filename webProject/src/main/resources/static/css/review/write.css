@@ -15,3 +15,22 @@ body {
     padding: 20px;
     text-align: center;
 }
+
+.reviewStar{
+    display: flex;
+    flex-direction: row;
+}
+
+.star {
+    font-size : 20spx;
+    color: #ffd500;
+}
+
+.star.active {
+    color: #ffd500;
+    text-shadow: 0 0 5px #ffd500;
+}
+
+.form-control {
+    margin: 10px 0px;
+}

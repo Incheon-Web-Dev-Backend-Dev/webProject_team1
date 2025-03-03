@@ -21,6 +21,17 @@ public class ReviewFileService {
             return null;
         }// if end
 
+        // 디렉토리 존재 여부 확인 및 생성
+        File directory = new File(uploadReviewFilePath);
+        if (!directory.exists()) {
+            boolean created = directory.mkdirs(); // 경로의 모든 디렉토리 생성
+            if (!created) {
+                System.out.println("Failed to create directory: " + uploadReviewFilePath);
+                return null;
+            }
+            System.out.println("Directory created: " + uploadReviewFilePath);
+        }
+
         // 2. 업로드할 파일의을 담아둘 객체 생성하고 반복문으로 업로드
         List<String> reviewFileNames = new ArrayList<>();
         for(int i = 0; i < multipartFiles.size() ; i++) {
@@ -36,7 +47,7 @@ public class ReviewFileService {
             // 4. 업로드 경로와 파일명 조합
             // uuid 구분을 위해 하이픈은 모두 언더바로 변경
             String reviewFileName = uuid + "-" + file.getOriginalFilename().replaceAll("-","_");
-            String uploadReviewFile = uploadReviewFilePath +reviewFileName + reviewFileName;
+            String uploadReviewFile = uploadReviewFilePath +reviewFileName;
 
             // 5. 조합된 경로로 file 클래스 객체 생성
             File saveFile = new File(uploadReviewFile);

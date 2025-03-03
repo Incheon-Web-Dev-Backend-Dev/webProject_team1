@@ -3,10 +3,7 @@ package webProject.controller.review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import webProject.model.dto.review.ReviewDto;
 import webProject.service.review.ReviewService;
 
@@ -20,7 +17,7 @@ public class ReviewController {
     // REST API 형식에 맞게 컨트롤러에서는 ResponseEntity<?> 로 반환타입을 변경한다ㅣ.
     // HTTP 샅태에 따라 필요한 메시지로 반환해줘야 함
     @PostMapping("/write.do")
-    public ResponseEntity<?> reviewWrite(@RequestBody ReviewDto reviewDto){
+    public ResponseEntity<?> reviewWrite(@ModelAttribute ReviewDto reviewDto){
         try{
             boolean result = reviewService.reviewWrite(reviewDto);
             if(result) {

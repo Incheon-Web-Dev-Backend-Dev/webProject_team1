@@ -22,7 +22,7 @@ public class ReviewDto {
     private String revcdate; //후기 작성 시간
     private String requdate; //후기 수정 시간
 
-    private List<MultipartFile> uploadReviewFile; // 업로드 파일 객체
+    private List<MultipartFile> uploadReviewFiles; // 업로드 파일 객체
 
     //fk
     private int mno; // 이용후기 작성하는 회원번호

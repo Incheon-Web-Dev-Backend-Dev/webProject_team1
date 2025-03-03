@@ -30,10 +30,10 @@ public class ReviewService {
     public boolean reviewWrite(ReviewDto reviewDto){
 
         // 리뷰 사진 첨부파일 존재하면 업로드 진행
-        if(reviewDto.getUploadReviewFile() == null || reviewDto.getUploadReviewFile().isEmpty()) { // 업로드 파일이 없으면
+        if(reviewDto.getUploadReviewFiles() == null || reviewDto.getUploadReviewFiles().isEmpty()) { // 업로드 파일이 없으면
             reviewDto.setRevimg(null); // null 대입
         } else { // 리뷰 파일 존재하면 업로드 처리
-            List<String> reviewFileNames = reviewFileService.reviewFileUpload(reviewDto.getUploadReviewFile());
+            List<String> reviewFileNames = reviewFileService.reviewFileUpload(reviewDto.getUploadReviewFiles());
             reviewDto.setRevimg(reviewFileNames);
         }
 

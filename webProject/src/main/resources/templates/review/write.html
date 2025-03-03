@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>리뷰 작성하기</title>
+    <!-- 폰트어썸 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/review/write.css">
 </head>
 <body>
@@ -11,17 +13,50 @@
     <div th:replace="~{ /header.html :: header }"></div>
 
     <div class="reviewWrite">
+        <!-- 페이지 제목 -->
         <h2 class="reviewWriteHeader">이용후기 작성하기</h2>
 
-        <div class="writeBox">
+        <!-- 후기 작성하기 영역 -->
+        <form class="writeBox">
+            
+            <div class="mb-3 reviewStar">
+                <div>
+                    <label for="basic-url" class="form-label">별점</label>
+                </div>
+                <div class="star-rating">
+                    <i class="fa-star star" data-rating="1"></i>
+                    <i class="fa-star star" data-rating="2"></i>
+                    <i class="fa-star star" data-rating="3"></i>
+                    <i class="fa-star star" data-rating="4"></i>
+                    <i class="fa-star star" data-rating="5"></i>
+                    <!-- 실제 별점 값을 저장할 hidden input -->
+                    <input type="hidden" name="revstar" id="revstar" value="0">
+                </div>
+            </div>
+
             <div class="mb-3">
                 <label for="basic-url" class="form-label">이용후기 내용</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" style="height: 300px;">
             </div>
+
+            <div class="mb-3">
+                <label for="basic-url" class="form-label">이용후기 사진 첨부</label>
+                <input type="file" class="form-control" name="uploadReviewFiles" id="inputGroupFile01">
+                <input type="file" class="form-control" name="uploadReviewFiles" id="inputGroupFile02">
+                <input type="file" class="form-control" name="uploadReviewFiles" id="inputGroupFile03">
+            </div>
+
+        </form>
+
+        <!-- 후기 작성 버튼 영역 -->
+        <div class="writeBtn">
+            <button type="button" class="btn btn-primary" onclick="onWriteBtn()">작성하기</button>
         </div>
     </div>
 
     <div th:replace="~{ /footer.html :: footer }"></div>
+
+    <script src="/js/review/write.js"></script>
     
 </body>
 </html>
