@@ -1,44 +1,65 @@
-@font-face {
-    font-family: 'NanumSquareNeo';
-    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot);
-    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.ttf) format("truetype");
-}
 
 @font-face {
-    font-family: 'NanumSquareNeoBold';
-    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot);
-    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.ttf) format("truetype");
+    font-family: 'NanumSquareNeoExtraBold';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
 }
 
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0;
-    padding: 0;
 }
+
 
 .estimateContainer {
     width: 600px;
-    margin-top: 100px;    /* 헤더 높이만큼 여백 */
-    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
-    padding: 20px;
+    padding: 100px 20px;
     overflow-y: auto;
-}
-.estviewForm .esttitleInput {
-    resize: none;   /* 크기 조정 비활성화 */
-    height: 150px;  /* 높이 150px */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
 }
 
-.estviewForm .estcontentInput{
-    resize: none; /* 크기 조정 비활성화 */
+
+.estimateViewHeader{
+    padding: 20px;
+    text-align: center;
 }
 
-.estviewForm .estcashInput{
-    resize: none; /* 크기 조정 비활성화 */
-    width: 280px;
+.btn-primary {
+    background-color: #88B3E4 !important;
+    border: none !important;
+    color: white;
+    margin: 5px;
 }
 
-a{
-    margin-top: 5px;
+.btn-primary a{
+    text-decoration: none;
 }
+
+.btn-primary:hover {
+    background-color: #72a6e1 !important;
+    color: white;
+}
+
+.receivedEstimates{
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    margin: 0px auto;
+}
+
+.receivedEstimates .btn{
+    width: 150px;
+}
+
+.form-label{
+    color: #5e9ce2;
+    font-family: NanumSquareNeoExtraBold;
+}
+
+.form-control {
+    margin-bottom: 10px;
+}
+
+
+
