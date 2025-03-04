@@ -31,13 +31,16 @@ public class RequestEntity extends BaseTime {
     private String reqcontent;
 
     @Column(columnDefinition = "varchar(30)", nullable = false)
-    private String reqspace;
+    private String reqspace; // 정리 수납 위치(ex 방, 거실 등)
 
-    @Column(columnDefinition = "varchar(30)", nullable = false)
-    private String reqbigarea;
+    @Column(columnDefinition = "varchar(255)", nullable = false) // address 추가
+    private String raddress; // 주소
 
-    @Column(columnDefinition = "varchar(30)", nullable = false)
-    private String reqsmallarea;
+    @Column(columnDefinition = "double", nullable = false)
+    private double latitude; // 위도
+
+    @Column(columnDefinition = "double", nullable = false)
+    private double longitude; // 경도
 
     @Column(columnDefinition = "int", nullable = false)
     private int reqrole;
@@ -73,8 +76,9 @@ public class RequestEntity extends BaseTime {
                 .reqspace(this.reqspace)
                 .reqtitle(this.reqtitle)
                 .reqspace(this.reqspace)
-                .reqbigarea(this.reqbigarea)
-                .reqsmallarea(this.reqsmallarea)
+                .raddress(this.raddress)
+                .latitude(this.latitude)
+                .longitude(this.longitude)
                 .reqstate(this.reqstate || this.isDeadlineReached()) //채택 되거나 요청글기한이 마감되거나
                 .reqrole(this.reqrole)
                 .deadLineTime(this.calculatedDeadline())

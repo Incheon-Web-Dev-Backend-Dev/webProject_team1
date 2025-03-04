@@ -17,9 +17,10 @@ public class RequestDto {
     private int reqno;
     private String reqtitle;
     private String reqcontent;
-    private String reqspace;
-    private String reqbigarea;
-    private String reqsmallarea;
+    private String reqspace;// 정리 수납 위치(ex 방, 거실 등)
+    private String raddress; // 주소
+    private double latitude; // 위도
+    private double longitude; // 경도
     private boolean reqstate; // 요청서 상태 (true: 활성화 되어있음(마감은안됨), false: 비활성화(마감됨))
     private int reqrole; // 요청하고싶은 상대 정보 1:업체, 2:개인(전문가)
     private String reqdatetime;
@@ -35,9 +36,9 @@ public class RequestDto {
                 .reqcontent(this.reqcontent)
                 .reqtitle(this.reqtitle)
                 .reqspace(this.reqspace)
-                .reqspace(this.reqspace)
-                .reqbigarea(this.reqbigarea)
-                .reqsmallarea(this.reqsmallarea)
+                .raddress(this.raddress)
+                .latitude(this.latitude)
+                .longitude(this.longitude)
                 .reqstate(this.reqstate)
                 .reqrole(this.reqrole)
                 .build();
