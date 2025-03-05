@@ -43,30 +43,33 @@ const estView = () => {
         if(data.mno>0){
         let html = `
             <div class="estviewForm">
-                <h6>작성자 이름</h6>
-                <div class="form-floating mb-3">
+                <div>
+                    <label for="basic-url" class="form-label">작성자 이름</label>
                     <div class="form-control estcashInput" style="background-color: #f8f9fa; padding: 10px;">
                         ${data.mname}
                     </div>
-                <h6>견적 제목</h6>
-                <div class="form-floating mb-3">
+                </div>
+                <div>
+                    <label for="basic-url" class="form-label">견적 제목</label>
                     <div class="form-control esttitleInput" style="background-color: #f8f9fa; padding: 10px;">
                         ${data.esttitle}
                     </div>
                 </div>
-                <h6>견적 내용</h6>
-                <div class="form-floating mb-3">
+                <div>
+                    <label for="basic-url" class="form-label">견적 내용</label>
                     <div class="form-control estcontentInput" style="background-color: #f8f9fa; padding: 10px;">
                         ${data.estcontent}
                     </div>
                 </div>
-                <h6>견적 금액</h6>
-                <div class="form-floating mb-3">
+                <div>
+                    <label for="basic-url" class="form-label">견적 금액</label>
                     <div class="form-control estcashInput" style="background-color: #f8f9fa; padding: 10px;">
                         ${data.estcash}
                     </div>
-                </div>    
-                <span>작성 시간 : </span> ${data.cdate}
+                </div>
+                <div class="mb-3">
+                    <span>작성 시간 : </span> ${data.cdate}
+                </div>   
                 
                 <div class="card-link receivedEstimates">
                 ${loginMemberInfo.role !== "requester" ? //업체랑 개인활동자만 보이게
@@ -88,9 +91,9 @@ const estView = () => {
                     ${getBtnText(data)}
                     </a>`
                 : ''}
-            </div>
-            <div>
-                <button type="button" class="btn btn-primary"><a href='/estimate/list?reqno=${data.reqno}' style='color: white;' >목록</a></button>
+                <div class="btnBox">
+                    <button type="button" class="btn btn-primary"><a href='/estimate/list?reqno=${data.reqno}' style='color: white;' >목록</a></button>
+                </div>
             </div>
         `;
         // 결과를 HTML 요소에 삽입

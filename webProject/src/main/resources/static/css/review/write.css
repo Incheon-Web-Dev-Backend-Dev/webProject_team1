@@ -1,0 +1,36 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reviewWrite {
+    width: 600px;
+    padding: 100px 20px;
+    overflow-y: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
+}
+
+.reviewWriteHeader{
+    padding: 20px;
+    text-align: center;
+}
+
+.reviewStar{
+    display: flex;
+    flex-direction: row;
+}
+
+.star {
+    font-size : 20spx;
+    color: #ffd500;
+}
+
+.star.active {
+    color: #ffd500;
+    text-shadow: 0 0 5px #ffd500;
+}
+
+.form-control {
+    margin: 10px 0px;
+}
