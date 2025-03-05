@@ -274,6 +274,11 @@ document.getElementById("signupForm")
 
     // 서버에 회원가입 요청
     const formData = new FormData(event.target); // 폼 데이터 생성
+    const address = document.querySelector('#address').value;
+    const detailAddress = document.querySelector('#detailAddress').value;
+    
+    const maddr = address + detailAddress;
+    formData.append('maddr',maddr)
 
     fetch("/member/signup.do", {
       method: "POST",
