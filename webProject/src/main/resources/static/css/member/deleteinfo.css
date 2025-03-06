@@ -8,14 +8,14 @@ body {
 
 .allContainer {
     width: 600px;
-    margin-top: 100px;    /* 헤더 높이만큼 여백 */
-    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
+    margin-top: 30px;    /* 헤더 높이만큼 여백 */
+    padding-bottom: 30px; /* 푸터 높이만큼 여백 */
     padding: 20px;
-    overflow-y: auto;
+    overflow-y: 1;
 }
 .first{
     text-align: center;
-    padding-top: 77px;
+    padding-top: 80px;
 }
 #title {
     font-weight: bold;

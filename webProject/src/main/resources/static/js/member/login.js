@@ -8,7 +8,14 @@ $(document).ready(function () {
     $(this).addClass("active");
   });
 });
-
+// [3-2] 만약에 입력상자에서 엔터 키 를 눌렀을때 함수실행// onkeyup : 키보드 키를 누르고 떼었을때 이벤트
+const enterKey = ( ) => {
+    // 만약에 엔터 키를 눌렀을떄
+    if( window.event.keyCode == 13 ){// C[대문자] 키보드 각 키들은 code 번호가 존재한다. 참조 :
+        // 13 == Enter key
+        onLogin();
+    }
+}
 const onLogin = () => {
   // Input Dom 가져오기
   let memailInput = document.querySelector(".memailInput");
