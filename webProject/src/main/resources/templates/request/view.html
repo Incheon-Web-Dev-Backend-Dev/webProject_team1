@@ -39,9 +39,9 @@
                 <div class="rareasection">
                     <label for="basic-url" class="form-label">정리/수납 요청 지역</label>
                     <div class="rareaInputsection">
-                        <p class="form-control rbigareabox">시/도</p>
-                        <p class="form-control rsmallareabox">시/군/구</p>
+                        <p class="form-control raddress"></p>
                     </div>
+                    <div id="map" style="width:500px;height:400px;"></div>
                 </div>
                 <div class="rcontentsection">
                     <label for="basic-url" class="form-label">정리/수납 자세한 요청 내용</label>
@@ -63,7 +63,7 @@
     <div th:replace="~{ /footer.html :: footer }"></div>
 
 
-
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=188d696add98c977851d949c4e296649"></script>
     <script src="/js/request/view.js"></script>
     
 </body>

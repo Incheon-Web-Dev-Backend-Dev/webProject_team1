@@ -1,5 +1,6 @@
 package webProject.service.kakao;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,7 +13,8 @@ public class KakaoAddressService {
 
     // 카카오 API URL
     private static final String KAKAO_API_URL = "https://dapi.kakao.com/v2/local/search/address.json";
-    private static final String KAKAO_API_KEY = "1148775feaf91d8f856e2ffdb96474af";  // 여기에 실제 REST API 키를 넣으세요
+    @Value("${kakao.api.key}")
+    private String KAKAO_API_KEY;  // 여기에 실제 REST API 키를 넣으세요
 
     public double[] getCoordinatesFromAddress(String address) {
         // 주소에 대한 요청을 보낼 URL을 생성
