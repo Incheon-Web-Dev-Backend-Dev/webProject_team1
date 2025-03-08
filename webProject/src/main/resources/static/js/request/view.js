@@ -21,7 +21,7 @@ const onRequestFind = () => {
             // 1). 버튼 조건부 출력할 html을 저장하고 출력할 구역도 가져오기
             let html = ``;
             const uploadBtnBox = document.querySelector(".uploadBtnBox");
-
+            
 
 
             // 2). 글의 내용을 받아와서 그대로 출력
