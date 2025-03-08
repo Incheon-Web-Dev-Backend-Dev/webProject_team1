@@ -41,33 +41,38 @@ public class ReviewService {
         }
         // 1. 엔티티 꺼내기
         MemberEntity memberEntity = optionalMember.get();
+        reviewEntity.setMemberEntity(memberEntity);
 
         // 2. 작성될 리뷰의 견적서 번호를 가져옴
         EstimateEntity estimateEntity = estimateRepository.findById(reviewDto.getEstno()).get();
         reviewEntity.setEstimateEntity(estimateEntity);
 
+        // 3. 리뷰 엔티티 저장
         ReviewEntity saveReviewEntity = reviewRepository.save(reviewEntity);
-        if(saveReviewEntity.getRevno() > 0 ){// 리뷰 작성을 성공했으면
-            saveReviewEntity.setMemberEntity( memberEntity);
 
-            // 1. 하나씩 업로드 서비스에 업로드 요청
-            reviewDto.getUploadReviewFiles().forEach((file) -> {
-                // 2. 하나씩 업로드 된 파일명 반환받기
-                String fileName = reviewFileService.reviewFileUpload(file);
-                if( fileName != null) {
-                    // 3. 하나씩 업로드된 파일명으로 리뷰파일 엔티티 생성
-                    ReviewFileEntity reviewFileEntity = ReviewFileEntity.builder()
-                            .reviewEntity( saveReviewEntity)
-                            .revfname(fileName)
-                            .build();
-                    // 4. 엔티티 영속성
-                    reviewFileRepository.save( reviewFileEntity );
-                }
-            });
+        // 4. 파일 처리
+        if(saveReviewEntity.getRevno() > 0 ){// 리뷰 작성을 성공했으면
+            if(reviewDto.getUploadReviewFiles() != null && !reviewDto.getUploadReviewFiles().isEmpty()) {
+
+                // 1. 하나씩 업로드 서비스에 업로드 요청
+                reviewDto.getUploadReviewFiles().forEach((file) -> {
+                    // 2. 하나씩 업로드 된 파일명 반환받기
+                    String fileName = reviewFileService.reviewFileUpload(file);
+                    if( fileName != null) {
+                        // 3. 하나씩 업로드된 파일명으로 리뷰파일 엔티티 생성
+                        ReviewFileEntity reviewFileEntity = ReviewFileEntity.builder()
+                                .reviewEntity( saveReviewEntity)
+                                .revfname(fileName)
+                                .build();
+                        reviewFileRepository.save( reviewFileEntity );
+                        System.out.println("review file upload service . fileName" + fileName);
+                    }
+                });// foreach end
+            }
             return true;
         } else {
             return false;
-        }
+        }// if-else end
 
 //
 //        // 리뷰 사진 첨부파일 존재하면 업로드 진행

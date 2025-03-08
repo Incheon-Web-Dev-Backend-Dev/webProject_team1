@@ -23,9 +23,11 @@ public class ReviewDto {
     private String requdate; //후기 수정 시간
 
     // 게시물 파일 이름 저장 필드
+    @Builder.Default
     private List<String> revimgList = new ArrayList<>(); // 이용후기 사진
 
     // 등록용 파일 저장 필드
+    @Builder.Default
     private List<MultipartFile> uploadReviewFiles = new ArrayList<>(); // 업로드 파일 객체
 
     //fk

@@ -1,5 +1,6 @@
 package webProject.model.entity.review;
 
+import com.beust.ah.A;
 import jakarta.persistence.*;
 import lombok.*;
 import webProject.model.dto.review.ReviewDto;
@@ -53,9 +54,10 @@ public class ReviewEntity extends BaseTime {
                 .requdate(this.getUdate().toString())
                 .mno(this.memberEntity.getMno())
                 .estno(this.estimateEntity.getEstno())
-                .revimgList(this.reviewFileEntityList.stream().map(
-                        (imgEntity) -> {return imgEntity.getRevfname();}
-                        ).collect(Collectors.toList() )
+                .revimgList(
+                        this.reviewFileEntityList.stream().map(
+                                (imgEntity) -> {return imgEntity.getRevfname(); }
+                                ).collect(Collectors.toList())
                 )
                 .build();
     }
