@@ -15,7 +15,6 @@ import webProject.model.repository.review.ReviewFileRepository;
 import webProject.model.repository.review.ReviewRepository;
 import webProject.service.member.MemberService;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -74,53 +73,27 @@ public class ReviewService {
             return false;
         }// if-else end
 
-//
-//        // 리뷰 사진 첨부파일 존재하면 업로드 진행
-//        if(reviewDto.getUploadReviewFiles() == null || reviewDto.getUploadReviewFiles().isEmpty()) { // 업로드 파일이 없으면
-//            reviewDto.setRevimg(null); // null 대입
-//        } else { // 리뷰 파일 존재하면 업로드 처리
-//            List<String> reviewFileNames = reviewFileService.reviewFileUpload(reviewDto.getUploadReviewFiles());
-//            reviewDto.setRevimg(reviewFileNames);
-//        }
-//
-//        ReviewEntity reviewEntity = reviewDto.toEntity();
-//        // 1. 로그인 세션객체 조회
-//        MemberDto loginDto = memberService.getMyInfo();
-//        if(loginDto == null) {
-//            System.out.println("login error");
-//            return false;
-//        }
-//        int loginMno = loginDto.getMno();
-//
-//        // 2. 회원 존재 여부 확인
-//        Optional<MemberEntity> optionalMember = memberRepository.findById(loginMno);
-//        if(!optionalMember.isPresent()) {
-//            System.out.println("회원을 찾을 수 없습니다: " + loginMno);
-//            return false;
-//        }
-//        MemberEntity loginEntity = optionalMember.get();
-//        reviewEntity.setMemberEntity(loginEntity);
-//
-//        // 3. 견적서 존재 여부 확인
-//        Optional<EstimateEntity> optionalEstimate = estimateRepository.findById(reviewDto.getEstno());
-//        if(!optionalEstimate.isPresent()) {
-//            System.out.println("견적서를 찾을 수 없습니다: " + reviewDto.getEstno());
-//            return false;
-//        }
-//
-//        // 4. 리뷰 객체에 견적서 설정
-//        EstimateEntity estimateEntity = optionalEstimate.get();
-//        reviewEntity.setEstimateEntity(estimateEntity);
-//
-//        ReviewEntity saveEntity = reviewRepository.save(reviewEntity);
-//        if(saveEntity.getRevno() > 0 ) {
-//            return true;
-//        } else {
-//            return false;
-//        } // if-else end
-    }
+    }// reviewWrite end
+
+    public ReviewDto reviewView(int revno){
+        // 1. 조회할 리뷰 revno, 리뷰글의 엔티티를 조회
+        Optional<ReviewEntity> optional = reviewRepository.findById(revno);
+
+        // 2. 조회할 엔티티의 여부 받아오기
+        if(optional.isPresent()) {
+            ReviewEntity reviewEntity = optional.get();
+            reviewRepository.save(reviewEntity);
+            // 엔티티가 있으면 반환
+            return reviewEntity.toDto();
+        }// if end
+        //없으면 null 반환
+        return null;
+    }// review view end
+
+    // 2. 리뷰 상세조회
 
 
+    // estimate가 삭제될 때 매핑 관계를 끊는 메서드
     @Transactional
     public void unlinkEstimateFromReview(Integer estno) {
         // EstimateEntity와 연결된 ReviewEntity에서 관계를 끊음

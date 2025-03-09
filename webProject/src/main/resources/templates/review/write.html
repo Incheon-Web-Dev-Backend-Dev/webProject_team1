@@ -36,7 +36,7 @@
 
             <div class="mb-3">
                 <label for="basic-url" class="form-label">이용후기 내용</label>
-                <input type="text" class="form-control" style="height: 300px;">
+                <input type="text" class="form-control" name="revcontent" style="height: 300px;">
             </div>
 
             <div class="mb-3">
@@ -45,6 +45,9 @@
                 <input type="file" class="form-control" name="uploadReviewFiles" id="inputGroupFile02">
                 <input type="file" class="form-control" name="uploadReviewFiles" id="inputGroupFile03">
             </div>
+
+            <!-- 견적서 번호를 저장할 hidden input 추가 -->
+            <input type="hidden" id="estno" name="estno">
 
         </form>
 
