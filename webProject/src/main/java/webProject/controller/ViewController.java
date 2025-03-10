@@ -1,12 +1,13 @@
 package webProject.controller;
 
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ViewController {
-    //메인
     @GetMapping("")
     public String index() {
         return "/index.html";
@@ -24,9 +25,7 @@ public class ViewController {
     // ============== Request(유지명) =========================
     // 견적 요청서 쓰기 페이지 (일반 의뢰인)
     @GetMapping("/request/post")
-    public String requestPost() {
-        return "/request/post.html";
-    }
+    public String requestPost() {return "/request/post.html";}
 
     // 내가 올린 견적 요청서 리스트 페이지 (일반 의뢰인)
     @GetMapping("/request/list")
