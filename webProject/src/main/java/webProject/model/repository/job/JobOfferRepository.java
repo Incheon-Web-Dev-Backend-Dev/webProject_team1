@@ -21,6 +21,8 @@ public interface JobOfferRepository extends JpaRepository<JobOfferEntity, Intege
     @Query("UPDATE JobOfferEntity j SET j.memberEntity = null WHERE j.memberEntity.mno = :mno")
     void unlinkMember(Integer mno);
 
+    @Query(value = "select * from joboffer", nativeQuery = true)
+    Page<JobOfferEntity> findByAll(Pageable pageable);
 
     // 페이징 및 검색 ( service / 지역 설정해서 검색 가능하게 하고 싶음 )
 //    @Query(value = "select * from joboffer where" +
@@ -30,16 +32,20 @@ public interface JobOfferRepository extends JpaRepository<JobOfferEntity, Intege
 //            " if(jodistrict = 'jodistrict', jodistrict like %:jodistrict%," +
 //            " if(:key = 'jotitle', jotitle like %:keyword%," +
 //            " if(:key = 'jocontent', jocontent like %:keyword%, true)))", nativeQuery = true)
-    @Query(value = "SELECT * FROM joboffer " +
-            "WHERE if (:keyword='',true," +
-            "    (:joservice IS NULL OR joservice LIKE %:joservice%) AND" +
-            "    (:jocity IS NULL OR jocity LIKE %:jocity%) AND" +
-            "    (:jodistrict IS NULL OR jodistrict LIKE %:jodistrict%) AND" +
-            "    (:key IS NULL OR :key = 'jotitle' AND jotitle LIKE %:keyword% " +
-            "    OR :key = 'jocontent' AND jocontent LIKE %:keyword% " +
-            "    OR :key = ''))",
+    @Query(value = "select * from joboffer where 1=1 and " +
+            "if(:keyword = '', true, " +
+            "if(:key = 'jotitle', jotitle like %:keyword%, " +
+            "if(:key = 'jocontent', jocontent like %:keyword%, true)))",
             nativeQuery = true)
-    Page<JobOfferEntity> findBySearch(String joservice, String jocity, String jodistrict, String key, String keyword, Pageable pageable);
+    Page<JobOfferEntity> findBySearch(String key, String keyword, Pageable pageable);
+
+
+    @Query(value = "select * from joboffer where mno = :mno and " +
+            " if(:keyword = '', true," +
+            " if(:key = 'jotitle', jotitle like %:keyword%," +
+            " if(:key = 'jocontent', jocontent like %:keyword%, true)))",
+            nativeQuery = true)
+    Page<JobOfferEntity> findByMy(int mno, String key, String keyword, Pageable pageable);
 // if 조건이 실행 되었을 때 가정
 // SQL IF 조건문 : if(조건,참,거짓)
 // SQL IF 조건문 중첩 : if(조건1, 참1, if(조건2, 참2, if(조건3, 참3 , 그외거짓)))

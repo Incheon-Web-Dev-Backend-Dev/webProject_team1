@@ -19,14 +19,13 @@ public class JobOfferController {
     public boolean jobOfferWrite(@RequestBody JobOfferDto jobOfferDto){return jobOfferService.jobOfferWrite(jobOfferDto);}
 
     // 구인글 전체 조회
-    //@GetMapping("/joboffer/findall.do")
-    //public List<JobOfferDto> jobOfferFindAll(){return jobOfferService.jobOfferFindAll();}
+//    @GetMapping("/joboffer/findall.do")
+//    public List<JobOfferDto> jobOfferFindAll(){return jobOfferService.jobOfferFindAll();}
 
     // 구인글 전체 조회 + 페이징/검색
     @GetMapping("/joboffer/findall.do")
-    public JobPageDto jobOfferFindAll(@RequestParam String joservice, @RequestParam String jocity, @RequestParam String jodistrict,
-                                      @RequestParam int page, @RequestParam String key, @RequestParam String keyword) {
-        return jobOfferService.jobOfferFindAll(joservice,jocity,jodistrict,page, key, keyword);}
+    public JobPageDto jobOfferFindSearch(@RequestParam int page, @RequestParam String key, @RequestParam String keyword) {
+        return jobOfferService.jobOfferFindSearch(page, key, keyword);}
 
     // 구인글 개별 조회
     @GetMapping("/joboffer/find.do")
@@ -46,5 +45,7 @@ public class JobOfferController {
 
     // 내가 쓴 구인글 조회
     @GetMapping("/joboffer/mylist.do")
-    public List<JobOfferDto> jobOfferMyList(){return jobOfferService.jobOfferMyList();}
+//    public List<JobOfferDto> jobOfferMyList(){return jobOfferService.jobOfferMyList();}
+    public JobPageDto jobofferMyList(@RequestParam int page, @RequestParam String key, @RequestParam String keyword){
+        return jobOfferService.jobOfferMyList(page,key,keyword);}
 }

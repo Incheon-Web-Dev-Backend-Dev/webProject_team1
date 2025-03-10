@@ -47,8 +47,8 @@ public class JobOfferService {
         return false;
     }
 
-    // 구인글 전체 조회
-    public JobPageDto jobOfferFindAll(String joservice, String jocity, String jodistrict, int page, String key, String keyword) {
+//    // 구인글 전체 조회
+//    public List<JobOfferDto> jobOfferFindAll() {
 //
 //        List<JobOfferEntity> jobOfferEntityList = jobOfferRepository.findAll();
 //        List<JobOfferDto> list = new ArrayList<>();
@@ -58,21 +58,29 @@ public class JobOfferService {
 //            list.add(jobOfferDto);
 //        });
 //        return list;
-        Pageable pageable = PageRequest.of( page-1,3, Sort.by(Sort.Direction.DESC,"jono")); //
-        Page<JobOfferEntity> jobOfferEntityList = jobOfferRepository.findBySearch(joservice,jocity,jodistrict,key,keyword,pageable);
+//    }
+
+    // 구인글 전체 조회 검색o
+    public JobPageDto jobOfferFindSearch(int page, String key, String keyword){
+        Pageable pageable = PageRequest.of(page-1,3,Sort.by(Sort.Direction.DESC,"jono"));
+
+        System.out.println("page = " + page + ", key = " + key + ", keyword = " + keyword);
+        
+        Page<JobOfferEntity> jobOfferEntityList = jobOfferRepository.findBySearch(key,keyword,pageable);
+
+        System.out.println("jobOfferEntityList = " + jobOfferEntityList);
         List<JobOfferDto> list = new ArrayList<>();
         jobOfferEntityList.forEach(jobOfferEntity -> {
-            JobOfferDto jobOfferDto = jobOfferEntity.toDto();
-            list.add(jobOfferDto);
-        });
+                JobOfferDto jobOfferDto = jobOfferEntity.toDto();
+                list.add(jobOfferDto);
+            });
         int totalPage = jobOfferEntityList.getTotalPages();
         long totalCount = jobOfferEntityList.getTotalElements();
-        int btnSize = 5;
+        int btnSize = 3;
         int startBtn = ((page-1)/btnSize)*btnSize+1;
         int endBtn = startBtn+(btnSize-1);
         if (endBtn>=totalPage) endBtn = totalPage;
         JobPageDto pageDto = JobPageDto.builder().page(page).totalpage(totalPage).totalcount(totalCount).startbtn(startBtn).endbtn(endBtn).data(list).build();
-        System.out.println(pageDto);
         return pageDto;
     }
 
@@ -96,8 +104,10 @@ public class JobOfferService {
         updateEntity.setJotitle(jobOfferDto.getJotitle());
         updateEntity.setJocontent(jobOfferDto.getJocontent());
         updateEntity.setJoservice(jobOfferDto.getJoservice());
-        updateEntity.setJocity(jobOfferDto.getJocity());
-        updateEntity.setJodistrict(jobOfferDto.getJodistrict());
+        updateEntity.setJoaddr(jobOfferDto.getJoaddr());
+        updateEntity.setDetailaddr(jobOfferDto.getDetailaddr());
+        updateEntity.setLongitude(jobOfferDto.getLongitude());
+        updateEntity.setLatitude(jobOfferDto.getLatitude());
         return true;
     }
 
@@ -127,15 +137,24 @@ public class JobOfferService {
     }
 
     // 내가 쓴 구인글 조회
-    public List<JobOfferDto> jobOfferMyList() {
+    public JobPageDto jobOfferMyList(int page, String key, String keyword) {
         String mid = memberService.getSession();
         MemberEntity loginEntity = memberRepository.findByMemail(mid);
-        List<JobOfferEntity> jobOfferEntityList = jobOfferRepository.findByMemberEntity_Mno(loginEntity.getMno());
+
+        Pageable pageable = PageRequest.of(page-1,3,Sort.by(Sort.Direction.DESC,"jono"));
+        Page<JobOfferEntity> jobOfferEntityList = jobOfferRepository.findByMy(loginEntity.getMno(),key,keyword,pageable);
         List<JobOfferDto> list = new ArrayList<>();
         jobOfferEntityList.forEach(jobOfferEntity -> {
             JobOfferDto jobOfferDto = jobOfferEntity.toDto();
             list.add(jobOfferDto);
         });
-        return list;
+        int totalPage = jobOfferEntityList.getTotalPages();
+        long totalCount = jobOfferEntityList.getTotalElements();
+        int btnSize = 3;
+        int startBtn = ((page-1)/btnSize)*btnSize+1;
+        int endBtn = startBtn+(btnSize-1);
+        if (endBtn>=totalPage) endBtn = totalPage;
+        JobPageDto pageDto = JobPageDto.builder().page(page).totalpage(totalPage).totalcount(totalCount).startbtn(startBtn).endbtn(endBtn).data(list).build();
+        return pageDto;
     }
 }

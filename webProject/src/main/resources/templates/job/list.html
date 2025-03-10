@@ -8,96 +8,69 @@
 <body>
   <div th:replace="~{/header.html :: header}"></div>
   
-  <div class="jobofferlist">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>번호</th>
-          <th>서비스</th>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>작성일</th>
-        </tr>
-      </thead>
-      <tbody>
+  <div class="listPage">
+    
 
-      </tbody>
-    </table>
+    <div><a href="/job/map">지도로 보기</a></div>
 
+
+    <div class="jobofferlist">
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>서비스</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
+
+    <!--페이징버튼/company회원 버튼-->
     <div class="bottomMenu">
-      <!-- jospace input section -->
-      <div class="mb-3">
-        <label for="basic-url" class="form-label">정리/수납 공간</label>
-        <div class="input-group">
-          <select class="form-select joserviceValue" id="inputGroupSelect01" aria-label="Example select with button addon">
-            <option selected>선택하기</option>
-            <option value="1">주방</option>
-            <option value="2">안방</option>
-            <option value="3">자녀방</option>
-            <option value="4">거실</option>
-            <option value="5">서재</option>
-            <option value="6">사무실</option>
-            <option value="7">기타</option>
-          </select>
-        </div>
-        <div class="form-text" id="basic-addon4">기타를 선택할 경우 아래 요청 내용에 작업 요청공간을 자세하게 작성해주세요.</div>
-      </div> <!-- jospace end -->
-
-      <!-- jocity input section -->
-      <div class="mb-3">
-        <label for="basic-url" class="form-label">정리/수납 지역</label>
-        <div class="input-group">
-          <select class="form-select jocityValue" id="inputGroupSelect02" aria-label="Example select with button addon">
-            <option selected>선택하기</option>
-            <option value="1">서울특별시</option>
-            <option value="2">경기도</option>
-            <option value="3">충청북도</option>
-            <option value="4">충청남도</option>
-            <option value="5">전라남도</option>
-            <option value="6">경상북도</option>
-            <option value="7">경상남도</option>
-            <option value="8">부산광역시</option>
-            <option value="9">인천광역시</option>
-            <option value="10">대구광역시</option>
-            <option value="11">광주광역시</option>
-            <option value="12">울산광역시</option>
-            <option value="13">세종특별자치시</option>
-            <option value="14">강원특별자치도</option>
-            <option value="15">전북특별자치도</option>
-            <option value="16">제주특별자치도</option>
-          </select>
-          <select class="form-select jodistrictValue" id="inputGroupSelect03" aria-label="Example select with button addon">
-            <option selected>선택하기</option>
-          </select>
-        </div>
-      </div>  <!-- jocity end -->
-
-      <nav aria-label="Page navigation example">
+      <div> 
+        <nav aria-label="Page navigation example">
         <ul class="pagination pagebox">
   
         </ul>
-      </nav>
-
-      <!--검색창-->
-      <div class="row">  <!--row : 부트스트랩 css, 하위요소들 가로배치-->
-        <div class="col-auto"> <!--col-auto : 부트스트랩 css, 해당요소 가로사이즈 자동-->
-          <select class="form-select key"> <!--form-select : 부트스트랩 css, 목록상자 꾸미기-->
-            <option value="jotitle">제목</option>
-            <option value="jocontent">내용</option>
-          </select>
-        </div>
+        </nav>
       </div>
-      <div class="col-auto">
-        <input type="text" class="form-control keyword"> <!--form-control : 입력상자 꾸미기-->
-      </div>
-      <div class="col-auto">
-        <button onclick="onSearch()" type="button" class="btn btn-primary">검색</button> <!--btn btn-primary : 버튼 꾸미기-->
-      </div>
-
+      <!--company일 경우 추가될 버튼-->
+      <div class="companyButton"></div>
     </div>
-  </div>
+    
+    <div class="row">
+      <!-- col-12 col-sm-auto : 각 요소를 자동 크기 조정하면서, 모바일부터 넓은 화면까지 잘 배치 -->
+    
+      <!-- 검색key select -->
+      <div class="col-auto">
+        <select class="form-select key">
+          <option value="jotitle">제목</option>
+          <option value="jocontent">내용</option>
+        </select>
+      </div>
+    
+      <!-- 검색 keyword 입력 필드 -->
+      <div class="col-auto">
+        <input type="text" class="form-control keyword" placeholder="검색어 입력">
+      </div>
+    
+      <!-- 검색 버튼 -->
+      <div class="col-auto">
+        <button onclick="onSearch()" type="button" class="btn btn-primary">검색</button>
+      </div>
+    </div>
+
+  </div> <!--listPage end-->
   <div th:replace="~{/footer.html :: footer}"></div>
-  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="/js/job/list.js"></script>
 
 </body>

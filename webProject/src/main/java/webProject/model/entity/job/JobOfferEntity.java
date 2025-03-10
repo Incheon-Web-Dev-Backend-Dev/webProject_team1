@@ -35,14 +35,23 @@ public class JobOfferEntity extends BaseTime {
     @Column(columnDefinition = "varchar(255)", nullable = false)
     private String joservice; // 구인하는 서비스
 
-    @Column(columnDefinition = "varchar(255)", nullable = false)
-    private String jocity; // 구인하는 시
+//    @Column(columnDefinition = "varchar(255)", nullable = false)
+//    private String jocity; // 구인하는 시
+//
+//    @Column(columnDefinition = "varchar(255)", nullable = false)
+//    private String jodistrict; // 구인하는 구
 
     @Column(columnDefinition = "varchar(255)", nullable = false)
-    private String jodistrict; // 구인하는 구
+    private String joaddr; // 구인하는 주소  -> 위도 경도 찍는 주소
 
+    @Column(columnDefinition = "varchar(255)")
+    private String detailaddr; // 세부 주소
 
+    @Column(columnDefinition = "double", nullable = false)
+    private double longitude;
 
+    @Column(columnDefinition = "double", nullable = false)
+    private double latitude;
 
     @ManyToOne
     @JoinColumn(name = "mno", nullable = true)
@@ -59,7 +68,8 @@ public class JobOfferEntity extends BaseTime {
         return JobOfferDto.builder().jono(this.jono)
                 .jotitle(this.jotitle).jocontent(this.jocontent)
                 .jostate(this.jostate).joservice(this.joservice)
-                .jocity(this.jocity).jodistrict(this.jodistrict)
+                .joaddr(this.joaddr).detailaddr(this.detailaddr)
+                .longitude(this.longitude).latitude(this.latitude)
                 .cdate(this.getCdate().toString())
                 .mno(memberEntity.getMno())
                 .memberDto(memberEntity.toDto()).build();
