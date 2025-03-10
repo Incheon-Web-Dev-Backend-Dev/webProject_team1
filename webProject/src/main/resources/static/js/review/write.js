@@ -78,6 +78,15 @@ const onWriteBtn = () => {
         alert('별점을 선택해주세요.');
         return;
     }
+    
+    // estno는 입력칸이 없으므로 파라미터에서 값을 가져와 넣어줌
+    const urlParams = new URLSearchParams(window.location.search);
+    const estno = urlParams.get('estno');
+    // hidden input에 estno 값 설정
+    if(estno) {
+        document.getElementById('estno').value = estno;
+    }
+
 
     // 1. 전송할 form dom 객체를 가져옴
     const writeForm = document.querySelector(".writeBox");
@@ -85,7 +94,10 @@ const onWriteBtn = () => {
 
     // 2. form dom 객체를 byte로 변환
     const writeFormData = new FormData(writeForm);
-    console.log(writeFormData);
+    console.log('폼 데이터 내용');
+    for (let pair of writeFormData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+    }
 
     // 3. multipart-form 형식의 fetch 설정
     const option = {
@@ -96,13 +108,13 @@ const onWriteBtn = () => {
     const isUploadBtn = confirm("이용 후기를 올리시겠습니까?");
     if(isUploadBtn == true){
         fetch("/review/write.do", option)
-            .then(response => response.json())
+            .then(response => response.text())
             .then(data => {
-                if(data == true) {
+                if(data === "review.write status OK" || data.includes("OK") || data === "true" || data === true) {  // 백에서 반환받는 body값
                     alert("이용후기 작성 완료")
                     // review.view 로 경로이동하기
                 } else {
-                    alert("이요후기 작성 식패")
+                    alert("이용후기 작성 실패")
                 }// if-else end
             })
             .catch(error => {console.log(error)})

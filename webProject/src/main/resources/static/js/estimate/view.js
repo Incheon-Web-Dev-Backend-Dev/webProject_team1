@@ -92,6 +92,7 @@ const estView = () => {
                     </a>`
                 : ''}
                 <div class="btnBox">
+                ${data.eststate ? `<button type="button" class="btn btn-primary" onclick="location.href='/review/write?estno=${data.estno}'">(완료)리뷰작성 페이지 보내기</button>` : ''}
                     <button type="button" class="btn btn-primary"><a href='/estimate/list?reqno=${data.reqno}' style='color: white;' >목록</a></button>
                 </div>
             </div>

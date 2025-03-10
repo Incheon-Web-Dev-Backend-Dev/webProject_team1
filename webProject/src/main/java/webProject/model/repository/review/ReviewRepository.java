@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import webProject.model.entity.review.ReviewEntity;
+import webProject.model.entity.review.ReviewFileEntity;
+
+import java.util.List;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<ReviewEntity, Integer> {

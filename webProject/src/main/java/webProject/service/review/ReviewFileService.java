@@ -4,8 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -15,55 +13,31 @@ public class ReviewFileService {
     String uploadReviewFilePath = "/Users/jimyung/webProject_team1/build/resources/main/static/img/review/";
 
     // 1. 업로드 합수
-    public List<String> reviewFileUpload(List<MultipartFile> multipartFiles){
-        // 1. 업로드할 파일이 없으면 null 로 반환
-        if(multipartFiles == null || multipartFiles.isEmpty()) {
+    public String reviewFileUpload(MultipartFile multipartFiles){
+        // 1. 매개변수로 MultipartFile 타입 객체를 받는다. 클라이언트가 보낸 첨부파일이 들어있는 객체
+        System.out.println(multipartFiles.getOriginalFilename()); // 첨부파일의 파일명을 반환하는 함수
+        System.out.println(multipartFiles.getName()); // 첨부파일의 속성명을 반환하는 함수
+        System.out.println(multipartFiles.getSize()); // 첨부파일의 용량을 반환하는 함수 (byte)
+        System.out.println(multipartFiles.isEmpty()); // 첨부파일의 존재여부를 반환하는 함수
+
+
+        // 1. 파일 이름을 식별 가능한 Uuid와 조합
+        String uuid = UUID.randomUUID().toString();
+
+        // 2. 조합
+        String filename = uuid + "_" + multipartFiles.getOriginalFilename().replaceAll("_","-");
+        // 3. 조합된 경로로 file 클래스 객체 만들기
+        File file = new File(uploadReviewFilePath + filename);
+
+        // 4. 업로드하기(지정된 경로 transferTo)
+        try {
+            multipartFiles.transferTo(file);
+            System.out.println("리뷰이미지 업로드 성공");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             return null;
-        }// if end
-
-        // 디렉토리 존재 여부 확인 및 생성
-        File directory = new File(uploadReviewFilePath);
-        if (!directory.exists()) {
-            boolean created = directory.mkdirs(); // 경로의 모든 디렉토리 생성
-            if (!created) {
-                System.out.println("Failed to create directory: " + uploadReviewFilePath);
-                return null;
-            }
-            System.out.println("Directory created: " + uploadReviewFilePath);
         }
-
-        // 2. 업로드할 파일의을 담아둘 객체 생성하고 반복문으로 업로드
-        List<String> reviewFileNames = new ArrayList<>();
-        for(int i = 0; i < multipartFiles.size() ; i++) {
-            MultipartFile file = multipartFiles.get(i);
-            if(file == null || file.isEmpty()) {
-                continue;
-            }// if end
-            System.out.println(file.getOriginalFilename()); // 첨부파일명 확인
-
-            // 3. UUID 생성
-            String uuid = UUID.randomUUID().toString();
-
-            // 4. 업로드 경로와 파일명 조합
-            // uuid 구분을 위해 하이픈은 모두 언더바로 변경
-            String reviewFileName = uuid + "-" + file.getOriginalFilename().replaceAll("-","_");
-            String uploadReviewFile = uploadReviewFilePath +reviewFileName;
-
-            // 5. 조합된 경로로 file 클래스 객체 생성
-            File saveFile = new File(uploadReviewFile);
-
-            // 6. 지정된 경로로 업로드하기
-            try{
-                file.transferTo(saveFile);
-                reviewFileNames.add(reviewFileName); // 업로드 성공한 파일명만 리스트에 추가
-            } catch (Exception e) {
-                System.out.println("reviewFile upload fail" + e.getMessage());
-                return null;
-            }// try-catch end
-
-        } // for end
-
-        return reviewFileNames;
+        return filename;
 
     }// reviewFileUpload f end
 
