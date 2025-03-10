@@ -47,22 +47,22 @@ public class JobOfferService {
         return false;
     }
 
-//    // 구인글 전체 조회
-//    public List<JobOfferDto> jobOfferFindAll() {
-//
-//        List<JobOfferEntity> jobOfferEntityList = jobOfferRepository.findAll();
-//        List<JobOfferDto> list = new ArrayList<>();
-//
-//        jobOfferEntityList.forEach(jobOfferEntity -> {
-//            JobOfferDto jobOfferDto = jobOfferEntity.toDto();
-//            list.add(jobOfferDto);
-//        });
-//        return list;
-//    }
+    // 구인글 전체 조회 - 지도 표시용
+    public List<JobOfferDto> jobOfferMap() {
+
+        List<JobOfferEntity> jobOfferEntityList = jobOfferRepository.findAll();
+        List<JobOfferDto> list = new ArrayList<>();
+
+        jobOfferEntityList.forEach(jobOfferEntity -> {
+            JobOfferDto jobOfferDto = jobOfferEntity.toDto();
+            list.add(jobOfferDto);
+        });
+        return list;
+    }
 
     // 구인글 전체 조회 검색o
     public JobPageDto jobOfferFindSearch(int page, String key, String keyword){
-        Pageable pageable = PageRequest.of(page-1,3,Sort.by(Sort.Direction.DESC,"jono"));
+        Pageable pageable = PageRequest.of(page-1,5,Sort.by(Sort.Direction.DESC,"jono"));
 
         System.out.println("page = " + page + ", key = " + key + ", keyword = " + keyword);
         
