@@ -47,7 +47,7 @@ public class MemberService {
             // 회원 정보 저장
             MemberEntity memberEntity = memberDto.toEntity();
             MemberEntity saveEntity = memberRepository.save(memberEntity);
-
+            System.out.println(memberDto);
             if (saveEntity.getMno() <= 0) return false;
 
             // 파일 저장 (여러 개)

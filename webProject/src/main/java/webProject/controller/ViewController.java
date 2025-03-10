@@ -98,6 +98,10 @@ public class ViewController {
     @GetMapping("/job/like")
     public String jobLike(){return "/job/like.html";}
 
+    // 지도 api
+    @GetMapping("/job/map")
+    public String jobMap(){return "/job/map.html";}
+
     //============================ My page ============================
     @GetMapping("/member/mypage")
     public String MyPage(){return "/member/mypage.html";}

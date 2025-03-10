@@ -1,4 +1,11 @@
-.jobofferlist,.myofferlist {
+
+@font-face {
+    font-family: 'NanumSquareNeoExtraBold';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
+}
+
+.listPage {
     width: 600px;
     margin-top: 100px;    /* 헤더 높이만큼 여백 */
     margin-bottom: 80px; /* 푸터 높이만큼 여백 */
@@ -22,4 +29,31 @@ a {
 .success > a{
     /* 상위선택자A > 하위선택자B : A선택자 바로 하위에 B선택자를 선택 */
     color: gray;
+}
+
+.bottomMenu{
+    display: flex;
+    justify-content: space-between;
+}
+
+.companyButton .btn {
+    background-color: #88B3E4 !important;
+    color: white;
+    border: none;
+}
+
+.companyButton .btn:hover {
+    background-color: #72a6e1 !important;
+    color: white;
+}
+
+.row .btn {
+    background-color: #88B3E4 !important;
+    color: white;
+    border: none;
+}
+
+.row .btn:hover {
+    background-color: #72a6e1 !important;
+    color: white;
 }
