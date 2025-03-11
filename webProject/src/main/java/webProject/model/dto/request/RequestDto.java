@@ -26,6 +26,7 @@ public class RequestDto {
     private String reqdatetime;
     private long estimateCount; // 요청글에 들어오는 견적서 수
     private String deadLineTime; // 요청서 마감시간
+    private double distance; // == 사용자 위치에 따른 거리 필드 / db 저장할게 아니므로 엔티티는 생략
 
     private int mno; // 요청서 작성한 회원번호
     private String mname; // 요청서 작성한 회원이름

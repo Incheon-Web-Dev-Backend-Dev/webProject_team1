@@ -1,5 +1,9 @@
 package webProject.controller.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import webProject.model.dto.request.RequestDto;
@@ -33,5 +37,27 @@ public class RequestController {
         return requestService.requestPost(requestDto);
     }
 
+    // ========== 위치에 따른 요청서 ==========
 
+    // 요청글 보는 사용자 현재 위치 받기
+    @PostMapping("/location")
+    public void setUserLocation(@RequestBody LocationRequest userLocation) {
+        requestService.setUserLocation(userLocation.getLatitude(), userLocation.getLongtitude());
+    }
+
+    // GET 요청으로 거리 계산된 요청서 리스트 가져오기
+    @GetMapping("/near")
+    public List<RequestDto> getNearRequests() {
+        // 거리 계산 후 가까운 요청서 리스트 반환
+        return requestService.getNearRequests();
+    }
+} // class End
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+class LocationRequest {
+    private double latitude;
+    private double longtitude;
 }

@@ -51,7 +51,7 @@ const requestFindAll = () => {
                 const topButtonContainer = document.querySelector("#topButtonContainer");
                 topButtonContainer.innerHTML = `
                     <button id="showMapButton" class="top-button">지도로 보기</button>
-                    <button id="imHereButton" class="top-button" ><i class="fa-solid fa-compass"></i></button>
+                    <button id="imHereButton" class="top-button" onclick="nowLocation()" ><i class="fa-solid fa-compass"></i></button>
                 `;
                 
                 // "지도로 보기" 버튼 클릭 시 오프캔버스 열기 또는 닫기
@@ -78,9 +78,97 @@ const requestFindAll = () => {
         })
         .catch(e => { console.log(e) });
 }
-
 // 페이지 실행되면 자동으로 함수 실행
 requestFindAll();
+
+//========== 현재 위치 기반 가까운 대로 List 출력 ==========
+function nowLocation() {
+    // 사용자의 현재 위치를 가져오는 코드
+    navigator.geolocation.getCurrentPosition(function(position) {
+        const userLatitude = position.coords.latitude; 
+        const userLongitude = position.coords.longitude;
+
+        console.log(userLatitude, userLongitude);
+
+        // 위치 정보를 백엔드로 전달
+        fetch('/request/location', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                latitude: userLatitude,
+                longitude: userLongitude
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // 백엔드에서 받은 거리순 리스트 처리
+            displayRequests(data);
+        })
+        .catch(error => console.error('Error:', error));
+
+        // 두 번째 fetch 요청에 위치 정보 추가하여 서버에 요청
+        fetch(`/request/near?latitude=${userLatitude}&longitude=${userLongitude}`, {
+            method: 'GET',
+        })
+        .then(response => {
+            // 응답이 정상인지 확인
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            // 응답 본문이 비어있는지 확인
+            if (response.status === 204) {  // 204 No Content
+                throw new Error('No content returned from server');
+            }
+
+            return response.json();  // 정상 응답인 경우 JSON 파싱
+        })
+        .then(data => {
+            // 요청 결과 응답 자료 확인
+            console.log(data);
+
+            // 1. html을 출력할 구역 가져오기 
+            const reqCardContent = document.querySelector(".reqListCardBox");
+
+            // 2. 출력할 html을 저장하는 변수 선언 
+            let html = ``;
+
+            // 3. 응답 자료를 반복문을 이용하여 하나씩 순회해서 html 누적으로 더해서 출력하기 
+            data.forEach(list => {
+                // 탈퇴한 회원의 요청서는 보여주지 않기 위해 조건 설정
+                if (list.mno > 0) {
+                    html += `
+                        <div class="card" style="width: 32rem;">
+                            <div class="card-body">
+                                <div class="card-content cardbox">
+                                    <div>
+                                        <h6 class="card-subtitle mb-2 text-body-secondary">${list.reqdatetime}</h6>
+                                        <h5 class="card-title">
+                                            <a href="/request/view?reqno=${list.reqno}">${list.reqtitle}</a>
+                                        </h5>
+                                        <p class="card-text">${list.reqcontent}</p>
+                                        <p class="card-text">요청서 위치: ${list.raddress} - 거리: ${list.distance.toFixed(2)} km</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            // 4. html 내용물을 해당 div에 삽입
+            reqCardContent.innerHTML = html;
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+    });
+}
+
+
+
 
 
 
@@ -116,7 +204,7 @@ function initMap() {
                 map.setCenter(currentPosition);  // 지도 중심을 현재 위치로 변경
 
                 const markerImage = new kakao.maps.MarkerImage(
-                    '/resources/img/custom_marker.png',  // FontAwesome 아이콘을 이미지로 바꿔서 URL 넣기
+                    '/img/custom_marker.png',  // FontAwesome 아이콘을 이미지로 바꿔서 URL 넣기
                     new kakao.maps.Size(40, 40),  // 이미지 크기
                     {
                         offset: new kakao.maps.Point(20, 40)  // 이미지의 중심을 설정

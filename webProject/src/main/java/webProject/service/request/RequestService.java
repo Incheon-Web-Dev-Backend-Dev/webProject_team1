@@ -15,12 +15,12 @@ import webProject.service.kakao.KakaoAddressService;
 import webProject.service.member.MemberService;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class RequestService {
-
     @Autowired
     private RequestRepository requestRepository;
     @Autowired
@@ -79,7 +79,6 @@ public class RequestService {
         return requestDtoList;
     }
 
-
     // 현재 로그인된 회윈의 요청글 개별조회
     public RequestDto requestFind(int reqno) {
 
@@ -124,28 +123,90 @@ public class RequestService {
             requestEntity.setLongitude(coordinates[1]);  // 경도
             requestEntity.setRaddress(address);  // 주소 저장
         }
-            // -2. 견적서 작성자는 현재 로그인된 회원이므로 세션에서 현재 로그인된 회원번호를 조회
-            MemberDto loginDto = memberService.getMyInfo();
-            // 로그인된 상태가 아니면 글쓰기 종료
-            if (loginDto == null) return false;
+        // -2. 견적서 작성자는 현재 로그인된 회원이므로 세션에서 현재 로그인된 회원번호를 조회
+        MemberDto loginDto = memberService.getMyInfo();
+        // 로그인된 상태가 아니면 글쓰기 종료
+        if (loginDto == null) return false;
 
-            // 로그인된 상태이면 회원번호를 조회
-            int loginMno = loginDto.getMno();
-            // 로그인된 회원 엔티티를 요청서 엔티티에 대입한다.
-            MemberEntity loginEntity = memberRepository.findById(loginMno).get();
-            requestEntity.setMemberEntity(loginEntity);
+        // 로그인된 상태이면 회원번호를 조회
+        int loginMno = loginDto.getMno();
+        // 로그인된 회원 엔티티를 요청서 엔티티에 대입한다.
+        MemberEntity loginEntity = memberRepository.findById(loginMno).get();
+        requestEntity.setMemberEntity(loginEntity);
 
-            // 2. 엔티티 저장
-            RequestEntity saveRequestEntity = requestRepository.save(requestEntity);
+        // 2. 엔티티 저장
+        RequestEntity saveRequestEntity = requestRepository.save(requestEntity);
 
-            // 게시글 등록 여부에 따라 true/false 반환
-            if (saveRequestEntity.getReqno() > 0) {
-                return true;
-            } else {
-                return false;
-            } // if-else end
-        } // requestPost end
+        // 게시글 등록 여부에 따라 true/false 반환
+        if (saveRequestEntity.getReqno() > 0) {
+            return true;
+        } else {
+            return false;
+        } // if-else end
+    } // requestPost end
 
+    // ========== 위치에 따른 거리계산 및 출력 ==========
+    private double userLatitude;
+    private double userLongtitude;
+
+    // 사용자 위치 설정, (post)로 받은 위치 정보
+    public void setUserLocation(double latitude, double longtitude) {
+        this.userLatitude = latitude;
+        this.userLongtitude = longtitude;
+    }
+
+    // 거리 계산 된 요청서 리스트 반환 메서드(GET 요청시 호출)
+    public List<RequestDto> getNearRequests() {
+        // 로그인 된 유저 정보 가져오기
+        String loginid = memberService.getSession();
+        MemberEntity memberEntity = memberRepository.findByMemail(loginid);
+
+        List<RequestEntity> requestEntityList = requestRepository.findAll();
+
+        // 예외 처리 1: 회원 정보가 null일 경우 처리
+        if (memberEntity == null) {
+            throw new IllegalArgumentException("회원 정보가 제공되지 않았습니다.");
+        }
+        // 예외 처리 2: 회원의 역할에 따른 필터링
+        if (memberEntity.getRole().equals("requester")) {
+            // 로그인유저가 의뢰인일 경우 본인이 작성한 요청글만 조회
+            requestEntityList = requestRepository.findByMemberEntity(memberEntity);
+        } else if (memberEntity.getRole().equals("master") || memberEntity.getRole().equals("company")) {
+            // 로그인유저가 업체나 마스터일 경우 해당하는 reqrole을 가진 글만 조회
+            int reqrole = memberEntity.getRole().equals("master") ? 2 : 1;
+            requestEntityList = requestRepository.findByReqrole(reqrole);
+        } else {
+            throw new IllegalArgumentException("잘못된 역할 정보입니다.");
+        }
+        // 예외 처리 3: 요청서 목록이 없을 경우 처리
+        if (requestEntityList.isEmpty()) {
+            throw new RuntimeException("조회할 요청서가 없습니다.");
+        }
+        System.out.println("requestEntityList => " + requestEntityList);
+        List<RequestDto> nearbyRequestList = new ArrayList<>();
+        requestEntityList.forEach(requestEntity -> {
+            double distance = calculateDistance(userLatitude, userLongtitude, requestEntity.getLatitude(), requestEntity.getLongitude());
+
+            RequestDto requestDto = requestEntity.toDto();
+            requestDto.setDistance(distance);
+            nearbyRequestList.add(requestDto);
+        });
+        nearbyRequestList.sort(Comparator.comparingDouble(RequestDto::getDistance));
+
+        return nearbyRequestList;
+    }
+
+    private double calculateDistance(double lat1, double lon1, double lat2, double lon2){
+        final int R = 6371;
+
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) +
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        return R * c;
+    }
 }
-
 
