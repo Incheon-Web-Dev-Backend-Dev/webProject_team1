@@ -14,7 +14,7 @@ const jobMap = () => {
 				var map = new kakao.maps.Map(mapContainer, mapOption); 
 
 				d.forEach(joboffer => {
-
+				if (joboffer.jostate == false){
 				// 지도에 마커를 생성하고 표시한다
 				var marker = new kakao.maps.Marker({
 					position: new kakao.maps.LatLng(`${joboffer.latitude}`, `${joboffer.longitude}`), // 마커의 좌표
@@ -28,13 +28,14 @@ const jobMap = () => {
 
 				// 인포윈도우를 지도에 표시한다
 				infowindow.open(map, marker);
-				
+
 				// 마커에 클릭 이벤트를 등록한다 (우클릭 : rightclick)
 				kakao.maps.event.addListener(marker, 'click', function() {
 					let result = confirm('해당 공고를 보시겠습니까?')
 					if (result == false){return;}
 					if (result == true){location.href=`/job/view?jono=${joboffer.jono}`}
 				});
+			}
 			});
 		})
 		.catch(e => console.log(e))
