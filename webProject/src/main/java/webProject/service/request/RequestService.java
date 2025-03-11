@@ -147,12 +147,12 @@ public class RequestService {
 
     // ========== 위치에 따른 거리계산 및 출력 ==========
     private double userLatitude;
-    private double userLongtitude;
+    private double userLongitude;
 
     // 사용자 위치 설정, (post)로 받은 위치 정보
     public void setUserLocation(double latitude, double longtitude) {
         this.userLatitude = latitude;
-        this.userLongtitude = longtitude;
+        this.userLongitude = longtitude;
     }
 
     // 거리 계산 된 요청서 리스트 반환 메서드(GET 요청시 호출)
@@ -185,7 +185,7 @@ public class RequestService {
         System.out.println("requestEntityList => " + requestEntityList);
         List<RequestDto> nearbyRequestList = new ArrayList<>();
         requestEntityList.forEach(requestEntity -> {
-            double distance = calculateDistance(userLatitude, userLongtitude, requestEntity.getLatitude(), requestEntity.getLongitude());
+            double distance = calculateDistance(userLatitude, userLongitude, requestEntity.getLatitude(), requestEntity.getLongitude());
 
             RequestDto requestDto = requestEntity.toDto();
             requestDto.setDistance(distance);
@@ -196,17 +196,26 @@ public class RequestService {
         return nearbyRequestList;
     }
 
-    private double calculateDistance(double lat1, double lon1, double lat2, double lon2){
-        final int R = 6371;
+    private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        final int R = 6371;  // 지구 반지름 (단위: km)
 
+        // 위도, 경도 차이를 라디안으로 변환
         double latDistance = Math.toRadians(lat2 - lat1);
         double lonDistance = Math.toRadians(lon2 - lon1);
+        System.out.println(lat2);
+        System.out.println(lat1);
+        System.out.println(lon2);
+        System.out.println(lon1);
 
+        // Haversine 공식
         double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) +
-                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+                        Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-        return R * c;
+        // 실제 거리 계산
+        return R * c;  // 단위: km
     }
+
 }
 

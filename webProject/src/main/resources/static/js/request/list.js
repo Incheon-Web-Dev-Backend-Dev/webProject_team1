@@ -103,7 +103,6 @@ function nowLocation() {
         })
         .then(response => response.json())
         .then(data => {
-            // 백엔드에서 받은 거리순 리스트 처리
             displayRequests(data);
         })
         .catch(error => console.error('Error:', error));

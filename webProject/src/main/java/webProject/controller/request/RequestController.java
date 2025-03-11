@@ -42,7 +42,9 @@ public class RequestController {
     // 요청글 보는 사용자 현재 위치 받기
     @PostMapping("/location")
     public void setUserLocation(@RequestBody LocationRequest userLocation) {
-        requestService.setUserLocation(userLocation.getLatitude(), userLocation.getLongtitude());
+        System.out.println("Received Latitude: " + userLocation.getLatitude());
+        System.out.println("Received Longitude: " + userLocation.getLongitude());  // 여기가 0.0인지 확인
+        requestService.setUserLocation(userLocation.getLatitude(), userLocation.getLongitude());
     }
 
     // GET 요청으로 거리 계산된 요청서 리스트 가져오기
@@ -59,5 +61,5 @@ public class RequestController {
 @AllArgsConstructor
 class LocationRequest {
     private double latitude;
-    private double longtitude;
+    private double longitude;
 }
