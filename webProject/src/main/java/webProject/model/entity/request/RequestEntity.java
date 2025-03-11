@@ -47,7 +47,7 @@ public class RequestEntity extends BaseTime {
 
     @Column(columnDefinition = "boolean")
     @ColumnDefault("true")
-    private boolean reqstate;
+    private boolean reqstate = true;// 요청서 상태 (true: 활성화 되어있음(마감은안됨), false: 비활성화(마감됨))
 
     @ManyToOne
     @JoinColumn(name= "mno", nullable = true)
@@ -55,10 +55,26 @@ public class RequestEntity extends BaseTime {
 
     // 1. 요청서 마감처리에 관한 함수
     public boolean isDeadlineReached() {
-        // 마감기한(요청글 작성 후 7일) 이 지난 경우
+        // getCdate가 null인 경우 체크
+        if (this.getCdate() == null) {
+            System.out.println("요청글 생성 시간이 null입니다.");
+            return false; // 또는 기본값 설정
+        }
+
+        // 마감기한(요청글 작성 후 7일) 계산
         LocalDateTime deadline = this.getCdate().plusDays(7);
-        // deadline을 지나면 true반환, 이전이면 false 반환
-        return LocalDateTime.now().isAfter(deadline);
+        LocalDateTime now = LocalDateTime.now();
+
+        // 디버깅 로그
+        System.out.println("요청글 ID: " + this.reqno);
+        System.out.println("요청글 생성 시간: " + this.getCdate());
+        System.out.println("마감 기한: " + deadline);
+        System.out.println("현재 시간: " + now);
+        System.out.println("마감 여부: " + now.isAfter(deadline));
+        System.out.println("reqstate" + this.reqstate);
+
+        // deadline을 지나면 true 반환, 이전이면 false 반환
+        return now.isAfter(deadline);
     }
 
     // 2. 요청서 마감시간 계산에 관한 함수
@@ -79,7 +95,7 @@ public class RequestEntity extends BaseTime {
                 .raddress(this.raddress)
                 .latitude(this.latitude)
                 .longitude(this.longitude)
-                .reqstate(this.reqstate || this.isDeadlineReached()) //채택 되거나 요청글기한이 마감되거나
+                .reqstate(!this.isDeadlineReached() && this.reqstate)  //채택 되거나 요청글기한이 마감되거나
                 .reqrole(this.reqrole)
                 .deadLineTime(this.calculatedDeadline())
                 .mno(this.memberEntity.getMno())
