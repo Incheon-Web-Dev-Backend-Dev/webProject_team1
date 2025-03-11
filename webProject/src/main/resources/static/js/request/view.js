@@ -30,6 +30,45 @@ const onRequestFind = () => {
             document.querySelector('.rrolebox').innerHTML = data.reqrole == '1'? "업체(2인 이상)" : "개인 (1인)";
             document.querySelector('.rspacebox').innerHTML = data.reqspace;
             document.querySelector('.raddress').innerHTML = data.raddress;
+
+            // 2). 글의 내용을 받아와서 그대로 출력
+document.querySelector('.rtitlebox').innerHTML = data.reqtitle; 
+document.querySelector('.rcdate').innerHTML = data.reqdatetime;
+document.querySelector('.rrolebox').innerHTML = data.reqrole == '1' ? "업체(2인 이상)" : "개인 (1인)";
+document.querySelector('.raddress').innerHTML = data.raddress;
+
+// reqspace 값에 따라 공간 이름을 설정
+let spaceName = '';
+switch(data.reqspace) {
+    case '1':
+        spaceName = "주방";
+        break;
+    case '2':
+        spaceName = "안방";
+        break;
+    case '3':
+        spaceName = "자녀방";
+        break;
+    case '4':
+        spaceName = "거실";
+        break;
+    case '5':
+        spaceName = "서재";
+        break;
+    case '6':
+        spaceName = "사무실";
+        break;
+    case '7':
+        spaceName = "기타";
+        break;
+    default:
+        spaceName = "알 수 없음";  // 예외 처리를 추가할 수 있음
+        break;
+}
+
+document.querySelector('.rspacebox').innerHTML = spaceName;
+
+
             // 카카오 지도
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
                 mapOption = { 

@@ -1,10 +1,8 @@
-
-
 // 내가 올린 견적요청서 리스트 조회 함수
 const requestFindAll = () => {
     console.log("견적요청서 전체조회 함수 실행");
-        fetch('/request/findall.do', {method: 'GET'})
-        .then( r => {
+    fetch('/request/findall.do', {method: 'GET'})
+        .then(r => {
             if (!r.ok) {
                 throw new Error(`HTTP error! status: ${r.status}`);
             }
@@ -23,40 +21,146 @@ const requestFindAll = () => {
             let html = ``;
 
             // 3. 응답 자료를 반복문을 이용하여 하나씩 순회해서 html 누적으로 더해서 출력하기 
-            data.forEach ( list => {
-                // 탈퇴한 회원의 견적서는 보여주지 않기위해 조건 설정
-                if(list.mno > 0){
+            data.forEach(list => {
+                // 탈퇴한 회원의 요청서는 보여주지 않기위해 조건 설정
+                if (list.mno > 0) {
                     html += `
-                    
                         <div class="card" style="width: 32rem;">
                             <div class="card-body">
                                 <div class="card-content cardbox">
                                     <div>
                                         <h6 class="card-subtitle mb-2 text-body-secondary">${list.reqdatetime}</h6>
                                         <h5 class="card-title"><a href="/request/view?reqno=${list.reqno}">${list.reqtitle}</a></h5>
-                                    
-                                </div>
+                                    </div>
                                     <div class="card-link receivedEstimates">
-                                     ${loginMemberInfo.role === "requester" ? 
-                                        `<span>들어온 견적서</span>
-                                        <a href="/estimate/list?reqno=${list.reqno}" class="card-link">${list.estimateCount}건</a>`
-                                        : ''
-                            }
+                                        ${loginMemberInfo.role === "requester" ? 
+                                            `<span>들어온 견적서</span>
+                                             <a href="/estimate/list?reqno=${list.reqno}" class="card-link">${list.estimateCount}건</a>`
+                                            : ''
+                                        }
                                     </div>
                                 </div>
                             </div>
                         </div>               
-                    `                           
+                    `;
                 }
-                
-            }) // forEach end
+            });
 
-            // 4. 반복문 종료후 html 변수에 누적된 구역 출력하기
+            // 4. 역할이 "master" 또는 "company"일 때만 상단 버튼을 추가
+            if (loginMemberInfo.role === "master" || loginMemberInfo.role === "company") {
+                const topButtonContainer = document.querySelector("#topButtonContainer");
+                topButtonContainer.innerHTML = `
+                    <button id="showMapButton" class="top-button">지도로 보기</button>
+                    <button id="imHereButton" class="top-button" ><i class="fa-solid fa-compass"></i></button>
+                `;
+                
+                // "지도로 보기" 버튼 클릭 시 오프캔버스 열기 또는 닫기
+                const showMapButton = document.getElementById("showMapButton");
+                const offcanvasElement = document.getElementById("offcanvasScrolling");
+                const offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+
+                showMapButton.addEventListener("click", function () {
+                    if (offcanvasElement.classList.contains("show")) {
+                        // 오프캔버스가 이미 열려있다면 닫기
+                        offcanvas.hide();
+                    } else {
+                        // 오프캔버스를 열기
+                        offcanvas.show();
+
+                        // 오프캔버스가 열리면 카카오 지도 초기화
+                        initMap();
+                    }
+                });
+            }
+
+            // 5. 반복문 종료 후 html 변수에 누적된 구역 출력하기
             reqCardContent.innerHTML = html;
         })
-        .catch (e => {console.log(e)})
-   
-} // f end
+        .catch(e => { console.log(e) });
+}
 
 // 페이지 실행되면 자동으로 함수 실행
 requestFindAll();
+
+
+
+// ======== 카카오 지도 ========
+let map;  // 전역 변수로 지도 객체 선언
+
+function initMap() {
+    // 카카오 지도 API 로드 후, 지도 객체 생성
+    kakao.maps.load(function() {
+        const container = document.getElementById("map"); // 지도가 표시될 div
+        const options = {
+            center: new kakao.maps.LatLng(37.5665, 126.9780),  // 초기 위치 (서울)
+            level: 3 // 초기 줌 레벨
+        };
+
+        const map = new kakao.maps.Map(container, options); // 지도 객체 생성
+
+        // 마커 클러스터러 생성
+        var clusterer = new kakao.maps.MarkerClusterer({
+            map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+            averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+            minLevel: 8 // 클러스터 할 최소 지도 레벨 
+        });
+
+        // Geolocation API를 이용해 현재 위치 받아오기
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const lat = position.coords.latitude;  // 위도
+                const lon = position.coords.longitude; // 경도
+
+                // 현재 위치로 지도 중심 설정
+                const currentPosition = new kakao.maps.LatLng(lat, lon);
+                map.setCenter(currentPosition);  // 지도 중심을 현재 위치로 변경
+
+                const markerImage = new kakao.maps.MarkerImage(
+                    '/resources/img/custom_marker.png',  // FontAwesome 아이콘을 이미지로 바꿔서 URL 넣기
+                    new kakao.maps.Size(40, 40),  // 이미지 크기
+                    {
+                        offset: new kakao.maps.Point(20, 40)  // 이미지의 중심을 설정
+                    }
+                );
+
+                // 현재 위치 마커 생성
+                const marker = new kakao.maps.Marker({
+                    position: currentPosition,  // 현위치 좌표
+                    map: map,                   // 지도에 마커 표시
+                    title: "현재 위치",           // 마커 제목
+                    image: markerImage           // 마커에 커스텀 이미지 적용
+                });
+
+            }, function(error) {
+                // 위치 정보를 가져오지 못했을 때 처리
+                console.error("현재 위치를 가져오는 데 실패했습니다.", error);
+            });
+        } else {
+            console.error("Geolocation을 지원하지 않는 브라우저입니다.");
+        }
+
+        // API를 호출하여 데이터를 가져오기
+        fetch('/request/findall.do', { method: 'GET' })
+            .then(r => r.json())
+            .then(responseData => {
+                console.log(responseData);
+
+                // 데이터에서 마커를 만들고 클러스터에 추가
+                let markers = responseData.map(data => {
+                    const marker = new kakao.maps.Marker({
+                        position: new kakao.maps.LatLng(data.latitude, data.longitude) // DB에서 받아온 위도, 경도 사용
+                    });
+                    return marker;
+                });
+
+                // 클러스터에 마커들 추가
+                clusterer.addMarkers(markers);
+            })
+            .catch(error => {
+                console.error("좌표 데이터 가져오기 실패:", error);
+            });
+    });
+}
+
+
+

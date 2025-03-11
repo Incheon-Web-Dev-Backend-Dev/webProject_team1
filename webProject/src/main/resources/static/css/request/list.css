@@ -22,6 +22,25 @@ body {
     padding: 20px;
     text-align: center;
 }
+#topButtonContainer {
+    display: flex;               /* Flexbox 사용 */
+    justify-content: space-between; /* 양끝에 배치 */
+    align-items: center;         /* 세로 중앙 정렬 */
+}
+.top-button{
+    background-color: #5e9ce2;
+    color: #fff;
+    border-radius: 5px;
+    padding: 3px;
+    margin-left: 25px; margin-bottom: 18px; margin-right: 25px;
+    border: none;
+    transition: all 0.3s ease;  /* 버튼 상태 변화에 부드러운 애니메이션 추가 */
+}
+
+.top-button:active {
+    background-color: #4c8cbf;  /* 클릭 시 색상 변화 */
+    transform: scale(0.95);      /* 클릭 시 살짝 축소되는 효과 */
+}
 
 .reqListCardBox {
     display: flex;
@@ -57,8 +76,10 @@ body {
     color: #5e9ce2;
     font-family: NanumSquareNeoExtraBold;
 }
-
-
+/* offcanvas의 너비를 400px로 변경 */
+.custom-offcanvas-width {
+    width: 37% !important;  /* 원하는 너비 값 */
+}
 
 /* 썸머노트 에디터 너비 조정 */
 .note-editor {

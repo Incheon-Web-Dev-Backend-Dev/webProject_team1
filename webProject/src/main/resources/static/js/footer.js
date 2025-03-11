@@ -3,8 +3,7 @@ function unlogin(){
 }
 
 //  로그인 정보 요청 함수
-function getLoginMemailFoot(){
-    
+ function getLoginMemailFoot(){
 
     const option = {method : 'GET'}
     let mlogBoxFooter = document.querySelector('.mlogBoxFooter')
