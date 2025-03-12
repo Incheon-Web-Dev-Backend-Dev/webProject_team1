@@ -1,0 +1,29 @@
+
+@font-face {
+    font-family: 'NanumSquareNeoExtraBold';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
+}
+
+
+
+.likeFindAll{width: 600px;
+    margin-top: 100px;
+    margin-bottom: 80px;
+    padding: 20px;
+    overflow-y: auto;}
+
+
+.likeFindAllCardBox {
+    display: flex; /* Flexbox를 활성화 */
+    flex-wrap: wrap; /* 카드가 넘칠 때 자동으로 줄바꿈 */
+    gap: 20px; /* 카드 간의 간격 설정 */
+}
+.card-title{
+    font-weight : bolder;
+}
+
+p{
+    font-size: small;
+}
+ 

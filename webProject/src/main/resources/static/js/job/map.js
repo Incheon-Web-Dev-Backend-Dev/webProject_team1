@@ -1,5 +1,4 @@
 const jobMap = () => {
-
         fetch(`/joboffer/map.do`,{method : 'GET'})
 		.then(r => r.json())
 		.then(d => {				
@@ -14,7 +13,6 @@ const jobMap = () => {
 				var map = new kakao.maps.Map(mapContainer, mapOption); 
 
 				d.forEach(joboffer => {
-				if (joboffer.jostate == false){
 				// 지도에 마커를 생성하고 표시한다
 				var marker = new kakao.maps.Marker({
 					position: new kakao.maps.LatLng(`${joboffer.latitude}`, `${joboffer.longitude}`), // 마커의 좌표
@@ -35,7 +33,7 @@ const jobMap = () => {
 					if (result == false){return;}
 					if (result == true){location.href=`/job/view?jono=${joboffer.jono}`}
 				});
-			}
+			
 			});
 		})
 		.catch(e => console.log(e))

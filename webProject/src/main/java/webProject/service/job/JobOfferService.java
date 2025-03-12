@@ -54,8 +54,10 @@ public class JobOfferService {
         List<JobOfferDto> list = new ArrayList<>();
 
         jobOfferEntityList.forEach(jobOfferEntity -> {
-            JobOfferDto jobOfferDto = jobOfferEntity.toDto();
-            list.add(jobOfferDto);
+            if ( jobOfferEntity.isJostate()==false ){
+                JobOfferDto jobOfferDto = jobOfferEntity.toDto();
+                list.add(jobOfferDto);
+            }
         });
         return list;
     }
