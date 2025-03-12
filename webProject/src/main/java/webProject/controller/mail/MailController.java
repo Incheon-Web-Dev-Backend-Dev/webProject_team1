@@ -19,9 +19,9 @@ public class MailController {
     public ResponseEntity<?> sendMailQrcode(@RequestParam int estno){
         boolean result = mailService.sendMailQrcode(estno);
         if(result) {
-            return ResponseEntity.ok().body("sendMailQrcode ok");
+            return ResponseEntity.ok().body("{\"success\": true, \"message\": \"sendMailQrcode ok\"}");
         }else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("sendMailQrcod error");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"success\": false, \"message\": \"sendMailQrcode error\"}");
         } // if-else end
     }// sendMailQRcode
 

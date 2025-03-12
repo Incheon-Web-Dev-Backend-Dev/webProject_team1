@@ -47,7 +47,7 @@ public class RequestEntity extends BaseTime {
 
     @Column(columnDefinition = "boolean")
     @ColumnDefault("true")
-    private boolean reqstate = true;// 요청서 상태 (true: 활성화 되어있음(마감은안됨), false: 비활성화(마감됨))
+    private boolean reqstate;// 요청서 상태 (true: 활성화 되어있음(마감은안됨), false: 비활성화(마감됨))
 
     @ManyToOne
     @JoinColumn(name= "mno", nullable = true)

@@ -42,9 +42,17 @@ public class ViewController {
 
 
     // ============= Review(유지명) =========================
-    // 리뷰 작성하기 페이지 (일반 의뢰인)
+    // 리뷰 작성하기 페이지
     @GetMapping("/review/write")
     public String reviewWrite() { return "/review/write.html";}
+
+    // 리뷰 상세조회 페이지
+    @GetMapping("/review/veiw")
+    public String reviewView() {return "/review/view.html";}
+
+    // 리뷰 전체조회 페이지
+    @GetMapping("/review/list")
+    public String reviewViewAll() {return "/review/list.html";}
 
 
     //============================Estimate============================

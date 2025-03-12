@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import webProject.model.dto.review.ReviewDto;
 import webProject.service.review.ReviewService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/review")
 public class ReviewController {
@@ -41,10 +43,10 @@ public class ReviewController {
         try{
             ReviewDto result = reviewService.reviewView(revno);
             if(result.getRevno() > 0) { // 조회한 review 글의 정보가 나오면
-                // 성공 : 201 created 상태코드에 대한 반환 내용 반환
-                return ResponseEntity.status(HttpStatus.CREATED).body("review.view status OK" + result);
+                // 성공 : 200 상태코드에 대한 반환 내용 반환
+                return ResponseEntity.status(HttpStatus.OK).body("review.view status OK" + result);
             } else {
-                // 서비스 로직은 성공했지만 리뷰 등록은 실패했을 때 반환 내용
+                // 요청형식 에러 : 400 서비스 로직은 성공했지만 리뷰 등록은 실패했을 때 반환 내용
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("review.view status BAD");
             }// if- else end
         } catch(Exception e) {
@@ -52,4 +54,22 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("review.view status error" + e.getMessage());
         }// try-catch end
     }// reviewView end
+
+    // 3. 리뷰 전체조회
+    @GetMapping("/viewall.do")
+    public ResponseEntity<?> reviewViewAll(){
+        try{
+            List<ReviewDto> result = reviewService.reviewViewAll();
+            if(result == null) { // review 리스트가 없고
+                // 로그인 정보도 없으면
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("review.viewAll : please login");
+            } else if (result.isEmpty()) { // 로그인은 했지만 review 리스트가 비어있으면
+                return ResponseEntity.status(HttpStatus.OK).body("review.viewAll status OK : review list null");
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).body(result);
+            }// if-else end
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("review.viewAll status error" + e.getMessage());
+        }// try-catch end
+    }// review viewAll end
 }

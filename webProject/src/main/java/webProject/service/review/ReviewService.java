@@ -15,6 +15,8 @@ import webProject.model.repository.review.ReviewFileRepository;
 import webProject.model.repository.review.ReviewRepository;
 import webProject.service.member.MemberService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -75,6 +77,7 @@ public class ReviewService {
 
     }// reviewWrite end
 
+    // 2. 리뷰 상세조회
     public ReviewDto reviewView(int revno){
         // 1. 조회할 리뷰 revno, 리뷰글의 엔티티를 조회
         Optional<ReviewEntity> optional = reviewRepository.findById(revno);
@@ -90,7 +93,27 @@ public class ReviewService {
         return null;
     }// review view end
 
-    // 2. 리뷰 상세조회
+    // 3. 리뷰 전체조회(로그인한 모든 회원이 조회 가능)
+    public List<ReviewDto> reviewViewAll() {
+        // 1. 로그인 된 유저 정보 가져오기
+        String loginid = memberService.getSession();
+        MemberEntity memberEntity= memberRepository.findByMemail(loginid);
+
+        // 2. 로그인 유저 없으면 null 반환, 있으면 목록 출력
+        List<ReviewEntity> reviewEntityList = reviewRepository.findAll();
+        List<ReviewDto> reviewDtoList = new ArrayList<>();
+        if(memberEntity.getMno() <= 0){
+            return null;
+        } else {
+            reviewEntityList.forEach(entity -> {
+                ReviewDto reviewDto = entity.toDto();
+                reviewDtoList.add(reviewDto);
+            });// foreach end
+        }// if-else end;
+
+        // 3. 목록 반환
+        return reviewDtoList;
+    }
 
 
     // estimate가 삭제될 때 매핑 관계를 끊는 메서드
