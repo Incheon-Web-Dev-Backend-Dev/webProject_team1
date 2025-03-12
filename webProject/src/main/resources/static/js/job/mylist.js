@@ -103,3 +103,18 @@ const onSearch = ( ) => {
    
     location.href = `/job/mylist?page=1&key=${ key }&keyword=${ keyword }`
 }
+
+const getMyInfo = () => {
+    fetch('/member/myinfo.do',{method : 'GET'})
+    .then(r => r.json())
+    .then(d => {
+        console.log(d)
+        if (d.role == 'company'){
+            document.querySelector('.companyButton').innerHTML += 
+                    `<a href="/job/write"><button class="btn btn-primary" type="button">글쓰기</button></a>`
+        }
+    })
+    .catch(e => console.log(e))
+}
+
+getMyInfo();

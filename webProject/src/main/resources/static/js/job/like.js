@@ -16,10 +16,10 @@ const likeList = () => {
             let html = ``;
             d.forEach(member =>{
                 html +=`
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 15rem;">
                     <div class="card-body">
                         <h5 class="card-title">${member.mname}</h5>
-                        <p class="card-text">${member.profile}</p>
+                        <p class="card-text">${member.memail}</p>
                         <p class="card-text">${member.mphone}</p>
                         <p class="card-text">${member.maddr}</p>
                     </div>

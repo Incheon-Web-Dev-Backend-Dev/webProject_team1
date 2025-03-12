@@ -18,9 +18,9 @@ public class JobOfferController {
     @PostMapping("/joboffer/write.do")
     public boolean jobOfferWrite(@RequestBody JobOfferDto jobOfferDto){return jobOfferService.jobOfferWrite(jobOfferDto);}
 
-    // 구인글 전체 조회
-//    @GetMapping("/joboffer/findall.do")
-//    public List<JobOfferDto> jobOfferFindAll(){return jobOfferService.jobOfferFindAll();}
+    // 구인글 전체 조회 - 지도 표시용
+    @GetMapping("/joboffer/map.do")
+    public List<JobOfferDto> jobOfferMap(){return jobOfferService.jobOfferMap();}
 
     // 구인글 전체 조회 + 페이징/검색
     @GetMapping("/joboffer/findall.do")
