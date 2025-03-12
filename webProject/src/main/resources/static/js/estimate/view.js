@@ -1,11 +1,11 @@
 console.log("findAll.js open")
 
+const estno = new URL( location.href ).searchParams.get('estno')
+console.log(estno);
 
 // 견적글 상세 보기 함수
 const estView = () => {
     const option = {method:'GET'}
-    const estno = new URL( location.href ).searchParams.get('estno')
-    console.log(estno);
 
     fetch(`/estimate/find.do?estno=${estno}`, option)
     .then(r => r.json())
@@ -20,7 +20,7 @@ const estView = () => {
             return 'estimateSelect()'; // 위 조건이 아닌 경우에는 estimateSelect함수 실행
         }
         const getBtnClass = (data) => { // 버튼 색
-            if(data.estate) return 'btn-success'; // 채택된 견적서
+            if(data.eststate) return 'btn-success'; // 채택된 견적서
             if(!data.reqstate) return 'btn-secondary'; // 마감된 요청글의 견적서이면 
             return 'btn-primary'; //채택 가능한 견적서로 반환
         }
@@ -92,7 +92,7 @@ const estView = () => {
                     </a>`
                 : ''}
                 <div class="btnBox">
-                ${data.eststate ? `<button type="button" class="btn btn-primary" onclick="location.href='/review/write?estno=${data.estno}'">(완료)리뷰작성 페이지 보내기</button>` : ''}
+                ${data.eststate ? `<button type="button" class="btn btn-primary" onclick="sendReviewRequest(${data.estno})">(완료)리뷰작성 페이지 보내기</button>` : ''}
                     <button type="button" class="btn btn-primary"><a href='/estimate/list?reqno=${data.reqno}' style='color: white;' >목록</a></button>
                 </div>
             </div>
@@ -155,4 +155,31 @@ const estimateSelect = () => {
             } // if-else end
         })
         .catch( e => console.log(e))
+}
+
+// 리뷰 요청이메일 발송 함수
+const sendReviewRequest = (estno) => {
+    console.log("sendReviewRequest method on");
+
+    if(!confirm('서비스 이용자에게 리뷰 작성 안내 이메일을 발송하시겠습니까?')) return;
+
+    const option = {
+        method : 'POST',
+        headers: {'Content-Type' : 'application/json'}
+    };
+
+    fetch(`/mail/sendQRCode?estno=${estno}`, option)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result);
+            if(result) {
+                alert('리뷰 작성 안내 이메일이 성공적으로 발송되었습니다.');
+            } else {
+                alert('이메일 발송에 실패했습니다.')
+            }
+        })
+        .catch(error => {
+            console.log(error)
+            alert('이메일 발송 중 오류가 발생했습니다.')
+        })
 }

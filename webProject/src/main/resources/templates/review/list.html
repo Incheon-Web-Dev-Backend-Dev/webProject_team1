@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리뷰 전체목록</title>
+    <link rel="stylesheet" href="/css/review/list.css">
+</head>
+<body>
+    <div th:replace="~{ /header.html :: header }"></div>
+
+
+    <div class="reviewList">
+        <h4 class="reviewLisetHeader"> 서비스 이용 후기❗ </h4>
+
+         <!-- card section --> 
+         <div class="cardBox">
+            <div class="card" style="width: 16rem;">
+              <img src="/img/WebprojectLogo.png" class="card-img-top revimgList" alt="...">
+              <div class="card-body">
+              <p class="card-text revstar"></p>
+                <p class="card-text revcontent"></p>
+              </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div th:replace="~{ /footer.html :: footer }"></div>
+
+    <script src="/js/review/list.js"></script>
+</body>
+</html>

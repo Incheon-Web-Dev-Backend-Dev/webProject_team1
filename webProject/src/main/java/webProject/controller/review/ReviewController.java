@@ -1,20 +1,13 @@
 package webProject.controller.review;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import webProject.model.dto.review.ReviewDto;
 import webProject.service.review.ReviewService;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/review")
@@ -43,31 +36,6 @@ public class ReviewController {
         }// try-catch end
     }// reviewWrite end
 
-    // QR code 받기 (리뷰 작성하기 페이지로 이동하는 QR)
-    @GetMapping("/qr")
-    public ResponseEntity<byte[]> qrToReview() throws WriterException, IOException {
-
-        // QR 정보
-        int width = 200;
-        int height = 200;
-        String url = "http://localhost:8080/review/write";
-
-        // QR Code - BitMatrix : qr code 정보 생성
-        BitMatrix encode = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, width, height);
-
-        // QR Code 이미지 생성 (1회성)
-        // stream으로 Generate(1회성이 아니면 file로 작성?)
-        try{
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            MatrixToImageWriter.writeToStream(encode, "PNG", out);
-
-            return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(out.toByteArray());
-        }catch (Exception  e) {
-
-            System.out.println("review qr error" + e.getMessage());
-        }
-        return null;
-    }// qr end
 
     // 2. 리뷰 상세조회
     @GetMapping("/view.do")
@@ -75,10 +43,10 @@ public class ReviewController {
         try{
             ReviewDto result = reviewService.reviewView(revno);
             if(result.getRevno() > 0) { // 조회한 review 글의 정보가 나오면
-                // 성공 : 201 created 상태코드에 대한 반환 내용 반환
-                return ResponseEntity.status(HttpStatus.CREATED).body("review.view status OK" + result);
+                // 성공 : 200 상태코드에 대한 반환 내용 반환
+                return ResponseEntity.status(HttpStatus.OK).body("review.view status OK" + result);
             } else {
-                // 서비스 로직은 성공했지만 리뷰 등록은 실패했을 때 반환 내용
+                // 요청형식 에러 : 400 서비스 로직은 성공했지만 리뷰 등록은 실패했을 때 반환 내용
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("review.view status BAD");
             }// if- else end
         } catch(Exception e) {
@@ -86,4 +54,22 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("review.view status error" + e.getMessage());
         }// try-catch end
     }// reviewView end
+
+    // 3. 리뷰 전체조회
+    @GetMapping("/viewall.do")
+    public ResponseEntity<?> reviewViewAll(){
+        try{
+            List<ReviewDto> result = reviewService.reviewViewAll();
+            if(result == null) { // review 리스트가 없고
+                // 로그인 정보도 없으면
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("review.viewAll : please login");
+            } else if (result.isEmpty()) { // 로그인은 했지만 review 리스트가 비어있으면
+                return ResponseEntity.status(HttpStatus.OK).body("review.viewAll status OK : review list null");
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).body(result);
+            }// if-else end
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("review.viewAll status error" + e.getMessage());
+        }// try-catch end
+    }// review viewAll end
 }

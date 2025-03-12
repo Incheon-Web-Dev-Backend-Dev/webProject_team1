@@ -40,7 +40,7 @@ public class RequestDto {
                 .raddress(this.raddress)
                 .latitude(this.latitude)
                 .longitude(this.longitude)
-                .reqstate(this.reqstate)
+                .reqstate(true)
                 .reqrole(this.reqrole)
                 .build();
     }

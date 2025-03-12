@@ -5,10 +5,10 @@ VALUES
 ('dmlfhlwk1@gmail.com', '1234', '요청자일', '010-1234-2345', '인천시 부평구', 'requester', true, NOW(), NOW()),
 ('dmlfhlwk2@gmail.com', '1234', '요청자이', '010-1234-3456', '경기도 시흥시', 'requester', true, NOW(), NOW()),
 ('dmlfhlwk3@gmail.com', '1234', '요청자삼', '010-1234-4567', '인천시 남동구', 'requester', true, NOW(), NOW()),
-('dmlfhlwk4@gmail.com', '1234', '요청자사', '010-1234-5678', '인천시 부평구', 'requester', true, NOW(), NOW()),
+('jm_7516@naver.com', '1234', '요청자사', '010-1234-5678', '인천시 부평구', 'requester', true, NOW(), NOW()),
 ('dmlfhlwk5@gmail.com', '1234', '요청자오', '010-1234-6789', '인천시 남동구', 'requester', true, NOW(), NOW()),
-('dmlfhlwk6@gmail.com', '1234', '요청자육', '010-1234-7890', '경기도 부천시', 'requester', true, NOW(), NOW()),
-('dmlfhlwk7@gmail.com', '1234', '요청자칠', '010-1234-1478', '경기도 안양시', 'requester', true, NOW(), NOW()),
+('dmlfhlwk6@naver.com', '1234', '유지명', '010-7516-2042', '경기도 부천시', 'requester', true, NOW(), NOW()),
+('dmlfhlwk@naver.com', '1234', '요청자칠', '010-1234-1478', '경기도 안양시', 'requester', true, NOW(), NOW()),
 ('dmlfhlwk8@gmail.com', '1234', '요청자팔', '010-1234-2589', '서울시 금천구', 'requester', true, NOW(), NOW()),
 ('dmlfhlwk9@gmail.com', '1234', '요청자구', '010-1234-3698', '서울시 구로구', 'requester', true, NOW(), NOW()),
 ('djqcp@gmail.com', '1234', '㈜인테리어왕', '010-2345-1234', '인천시 남동구', 'company', true,  NOW(), NOW()),
@@ -21,7 +21,7 @@ VALUES
 ('aktmxj2@gmail.com', '1234', '마스터이', '010-3456-3456', '인천시 부평구', 'master', true,  NOW(), NOW()),
 ('aktmxj3@gmail.com', '1234', '마스터삼', '010-3456-4567', '경기도 시흥시', 'master', true,  NOW(), NOW()),
 ('aktmxj4@gmail.com', '1234', '마스터사', '010-3456-5678', '경기도 부천시', 'master', true,  NOW(), NOW()),
-('aktmxj5@gmail.com', '1234', '마스터오', '010-3456-6789', '인천시 부평구', 'master', true,  NOW(), NOW());
+('aktmxj5@naver.com', '1234', '마스터오', '010-3456-6789', '인천시 부평구', 'master', true,  NOW(), NOW());
 
 --INSERT INTO memberfile (mno, mfname, cdate, udate)
 --VALUES

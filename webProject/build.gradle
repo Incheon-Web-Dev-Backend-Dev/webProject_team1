@@ -37,7 +37,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.google.zxing/javase
     implementation group: 'com.google.zxing', name: 'javase', version: '3.5.3'
 
-    //implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 
 
 
