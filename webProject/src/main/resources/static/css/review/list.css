@@ -22,3 +22,8 @@ body {
     padding: 20px;
     text-align: center;
 }
+
+.revstar .fa-star {
+    font-size : 20spx;
+    color: #ffd500;
+}
