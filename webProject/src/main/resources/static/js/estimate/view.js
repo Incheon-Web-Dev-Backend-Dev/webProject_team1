@@ -108,25 +108,30 @@ const estView = () => {
 // 호출
 estView();
 
-
 const estDelete = () => {
-
-    const estno = new URL( location.href ).searchParams.get('estno')
-    console.log(estno);
-
-    let result = confirm("게시물을 삭제 하실건가요?")
-    if(result == false){return};
-    
-    fetch(`/estimate/delete?estno=${estno}` , {method : "DELETE"})
-    .then(r=>r.json())
-    .then(d=>{console.log(d);
-        if(d == true){alert("삭제가 완료되었습니다"); window.location.href = "/estimate/mywrote";
-        }
-    })
-    .catch(e=>{console.log(e);})
-
+    const estno = new URL(location.href).searchParams.get('estno');
+    console.log("Deleting estimate with estno:", estno);  // 삭제할 견적 번호 확인
+    let result = confirm("게시물을 삭제 하실건가요?");
+    if(result === false) return;
+    // DELETE 요청
+    fetch(`/estimate/delete?estno=${estno}`, { method: "DELETE" })
+        .then(response => response.text())  // text()로 응답 처리
+        .then(d => {
+            console.log("Response from server:", d);  // 서버에서 반환된 응답 확인
+            // 삭제 성공 메시지 처리
+            if (d === "Estimate Delete success.") {
+                alert("삭제 성공");  // 삭제 성공 메시지
+                window.location.href = "/estimate/mywrote";  // 페이지 이동
+            } else {
+                // 삭제 실패 시
+                alert("삭제 실패");  // 실패 메시지
+            }
+        })
+        .catch(e => {
+            console.error("Error occurred while deleting:", e);  // 오류 발생 시 콘솔에 출력
+            alert("삭제 중 오류가 발생했습니다.");
+        });
 }
-
 
 // 견적 채택하는 함수
 const estimateSelect = () => {
@@ -143,7 +148,7 @@ const estimateSelect = () => {
         headers : { 'Content-Type' : 'application/json' }
     }
     fetch(`/estimate/select.do?estno=${estno}`, option)
-        .then(r => r.json())
+        .then(r => r.text())
         .then(result => {
             console.log(result);
             if(result) {
