@@ -40,7 +40,6 @@ public class ViewController {
         return "/request/view.html";
     }
 
-
     // ============= Review(유지명) =========================
     // 리뷰 작성하기 페이지
     @GetMapping("/review/write")
@@ -54,12 +53,10 @@ public class ViewController {
     @GetMapping("/review/list")
     public String reviewViewAll() {return "/review/list.html";}
 
-
     //============================Estimate============================
     // 견적서 쓰기 (업체 / 개인수납가)
     @GetMapping("/estimate/write")
     public String estimateWrite(){return "/estimate/write.html";}
-
 
     // 요청서에 해당하는 견적서 전체 출력 (일반 의뢰인이 올린)
     @GetMapping("/estimate/list")
@@ -72,8 +69,6 @@ public class ViewController {
     // 내가 작성한 견적서 전체 출력 (업체, 수납가)
     @GetMapping("/estimate/mywrote")
     public String estimateMyWrote(){return "/estimate/mywrote";}
-
-
 
     //============================JobOffer============================
     // 구인글 쓰기(업체)
@@ -117,21 +112,4 @@ public class ViewController {
     @GetMapping("/member/deleteinfo")
     public String memberDeleteInfo(){return "/member/deleteinfo.html";}
 
-
-    // 고객센터
-    @GetMapping("/help/main")
-    public String helpMainPage(){return "/help/main.html";}
-
-    //============================ Admin ============================
-    // 관리자 로그인(첫 창)
-    @GetMapping("/manage/adminlogin")
-    public String loginAdmin(){return "/manage/adminlogin.html";}
-
-    // 관리자 페이지(메인)
-    @GetMapping("/manage/main")
-    public String manageMainPage(){return "/manage/main.html";}
-
-    // 관리자 페이지 - 회원조회
-    @GetMapping("/manage/memberlist")
-    public String manageList(){return "/manage/memberlist.html";}
 }

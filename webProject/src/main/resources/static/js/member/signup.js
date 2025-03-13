@@ -89,7 +89,7 @@ const checkBusinessRegNumber = () => {
             fileUploadLabel.textContent = "업체 관련 사진 첨부"; // 업체 선택 시 라벨 변경
             businessRegNumberContainer.style.display = "block"; // 업체 선택 시 사업자등록증 번호 입력란 보이기
           } else if (role === "master") {
-            fileUploadLabel.textContent = "수료증, 범죄사실증명서류 첨부"; // 전문가 선택 시 라벨 변경
+            fileUploadLabel.textContent = "수료증, 범죄사실증명서류 첨부💾"; // 전문가 선택 시 라벨 변경
           }
         }
       }
