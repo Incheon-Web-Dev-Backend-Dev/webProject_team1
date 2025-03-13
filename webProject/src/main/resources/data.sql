@@ -130,7 +130,7 @@ VALUES
 
 INSERT INTO revfile (revfname, revno, cdate, udate)
 VALUES
-( "UUID-안방사진 후기.jpg", 1, NOW(), NOW()),
+( "096e2c33-7793-43b6-9ee6-703d1fb17475_testimg.png", 1, NOW(), NOW()),
 ( "UUID-안방사진2 후기.jpg", 1, NOW(), NOW()),
 ( "UUID-주방사진 후기.jpg", 2, NOW(), NOW()),
 ( "UUID-주방사진2 후기.jpg", 2, NOW(), NOW()),
