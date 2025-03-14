@@ -44,9 +44,9 @@ public class ReviewController {
             ReviewDto result = reviewService.reviewView(revno);
             if(result.getRevno() > 0) { // 조회한 review 글의 정보가 나오면
                 // 성공 : 200 상태코드에 대한 반환 내용 반환
-                return ResponseEntity.status(HttpStatus.OK).body("review.view status OK" + result);
+                return ResponseEntity.status(HttpStatus.OK).body(result);
             } else {
-                // 요청형식 에러 : 400 서비스 로직은 성공했지만 리뷰 등록은 실패했을 때 반환 내용
+                // 요청형식 에러 : 400 서비스 로직은 성공했지만 리뷰 조회는 실패했을 때 반환 내용
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("review.view status BAD");
             }// if- else end
         } catch(Exception e) {
@@ -72,4 +72,15 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("review.viewAll status error" + e.getMessage());
         }// try-catch end
     }// review viewAll end
+
+    // 4. index 페이지에서 리뷰 2건만 조회(최신글 중 별점 높고 revimgfile이 존재하는 글로)
+    @GetMapping("/mainReview.do")
+    public ResponseEntity<?> mainTopReview() {
+        try{
+            List<ReviewDto> topReviews = reviewService.mainTopReview();
+            return ResponseEntity.status(HttpStatus.OK).body(topReviews);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( "mainTopReview error"+ e.getMessage());
+        } // try-catch end
+    }// mainTopReview end
 }
