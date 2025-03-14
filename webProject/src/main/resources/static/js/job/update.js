@@ -181,14 +181,15 @@ function jobUpdate(){
     if( result == false ) { return; }
 
     fetch('/joboffer/update.do', option)
-        .then(r=> r.json())
+        .then(r=> r.text())
         .then(data =>{
             console.log(data)
-            if( data == true ){
-                alert("수정 성공")
-                location.href='/'; // 요청서 개별 조회 페이지 만들면 링크 수정하기 
+            if( data === "Job offer updated successfully" ){
+                alert("수정 성공");
+                location.href=`/job/view?jono=${jono}`;
             } else {
-                alert("수정 실패")
+                alert("수정 실패");
+                location.href=`/job/view?jono=${jono}`;
             }
         })
         .catch(e=> {console.log(e)})

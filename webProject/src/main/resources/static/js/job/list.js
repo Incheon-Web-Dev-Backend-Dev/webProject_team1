@@ -57,14 +57,13 @@ const printPageNation = (d, key, keyword) => {
     // (2) 무엇을
     let html = ``
     // 이전 버튼, 현재 페이지에서 -1 차감한 페이지 이동, 만약에 0이면 1페이지로 고정
-    html += `<li class="page-item"><a class="page-link" href="/job/list?page=${page <= 1? 1 : page-1}&key=${key}&keyWord=${keyword}">Previous</a></li>`
+    html += `<li class="page-item"><a class="page-link" href="/job/list?page=${page <= 1? 1 : page-1}&key=${key}&keyword=${keyword}">Previous</a></li>`
     // 페이징 버튼, 반복무 이용하여 startbtn 부터 endbtn 까지
     for(let index = startbtn; index <= endbtn; index++){
     // 만약 현재 페이지와 버튼번호가 같다면 .active 부트스트랩 클래스 부여
-    html +=
-    `<li class="page-item"><a class="page-link ${page==index?'active' : ''}" href="/job/list?page=${index}">${index}</a></li>`}
+    html += `<li class="page-item"><a class="page-link ${page==index?'active' : ''}" href="/job/list?page=${index}&key=${key}&keyword=${keyword}">${index}</a></li>`}
     // 다음 버튼, 현재 페이지에서 +1 증가한 페이지 이동, 만약에 전체페이지수보다 크면 전체페이지 수로 고정
-    html += `<li class="page-item"><a class="page-link" href="/job/list?page=${page >= totalpage? totalpage : page+1}&key=${key}&keyWord=${keyword}">Next</a></li>`
+    html += `<li class="page-item"><a class="page-link" href="/job/list?page=${page >= totalpage? totalpage : page+1}&key=${key}&keyword=${keyword}">Next</a></li>`
     // (3) 출력
     pagebox.innerHTML = html
 }

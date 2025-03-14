@@ -154,14 +154,15 @@ function jobwrite(){
     if( result == false ) { return; }
 
     fetch('/joboffer/write.do', option)
-        .then(r=> r.json())
+        .then(r=> r.text())
         .then(data =>{
             console.log(data)
-            if( data == true ){
-                alert("구인글 업로드 성공")
-                location.href='/'; // 요청서 개별 조회 페이지 만들면 링크 수정하기 
+            if( data === "Job offer created successfully" ){
+                alert("구인글 업로드 성공");
+                location.href='/job/mylist'; // 내가 작성한 구인글로 이동 
             } else {
-                alert("구인글 업로드 실패")
+                alert("구인글 업로드 실패");
+                location.href='/job/mylist'; // 내가 작성한 구인글로 이동
             }
         })
         .catch(e=> {console.log(e)})
