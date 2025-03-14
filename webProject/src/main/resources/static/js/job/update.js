@@ -149,7 +149,10 @@ function jobUpdate(){
     } else if(joservice === '선택하기') {
         alert('정리/수납 요청 공간을 선택해주세요.');
         return false;
-    } else if(jocontent.trim() === '') {
+    } else if(joaddr.trim() === ''){
+        alert('주소를 입력해주세요')
+        return false;
+    }else if(jocontent.trim() === '') {
         alert('요청 내용을 입력해주세요.');
         return false;
     }

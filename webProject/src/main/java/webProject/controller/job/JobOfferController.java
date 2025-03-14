@@ -20,7 +20,7 @@ public class JobOfferController {
 
     // 구인글 전체 조회 - 지도 표시용
     @GetMapping("/joboffer/map.do")
-    public List<JobOfferDto> jobOfferMap(){return jobOfferService.jobOfferMap();}
+    public List<JobOfferDto> jobOfferMap(@RequestParam String joservice){return jobOfferService.jobOfferMap(joservice);}
 
     // 구인글 전체 조회 + 페이징/검색
     @GetMapping("/joboffer/findall.do")
