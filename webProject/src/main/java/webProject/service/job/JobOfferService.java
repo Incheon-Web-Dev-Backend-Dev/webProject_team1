@@ -48,16 +48,20 @@ public class JobOfferService {
     }
 
     // 구인글 전체 조회 - 지도 표시용
-    public List<JobOfferDto> jobOfferMap() {
+    public List<JobOfferDto> jobOfferMap(String joservice) {
 
         List<JobOfferEntity> jobOfferEntityList = jobOfferRepository.findAll();
         List<JobOfferDto> list = new ArrayList<>();
 
         jobOfferEntityList.forEach(jobOfferEntity -> {
-            if ( jobOfferEntity.isJostate()==false ){
+            if (!jobOfferEntity.isJostate()){
+                if ("전체".equals(joservice)){
                 JobOfferDto jobOfferDto = jobOfferEntity.toDto();
                 list.add(jobOfferDto);
-            }
+            } else if ( jobOfferEntity.getJoservice().equals(joservice) ){
+                JobOfferDto jobOfferDto = jobOfferEntity.toDto();
+                list.add(jobOfferDto);
+            }}
         });
         return list;
     }

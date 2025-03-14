@@ -32,11 +32,16 @@ const jobFind = (mno, role) => {
         
         document.querySelector('.jocontent').innerHTML = d.jocontent;
         
+        document.querySelector('.maddrbox').innerHTML = d.memberDto.maddr;
+        document.querySelector('.mphonebox').innerHTML = d.memberDto.mphone;
+        document.querySelector('.cdatebox').innerHTML = d.cdate;
+        
+        // 카카오 지도
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = { 
-            center: new kakao.maps.LatLng(`${d.latitude}`,`${d.longitude}`), // 지도의 중심좌표
+            center: new kakao.maps.LatLng(`${d.latitude}`, `${d.longitude}`), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨
-        };
+        };  
 
         var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
@@ -50,13 +55,8 @@ const jobFind = (mno, role) => {
 
         // 마커가 지도 위에 표시되도록 설정합니다
         marker.setMap(map);
+        // 카카오 지도 끝
 
-        document.querySelector('#joaddr').innerHTML = `주소 : ${d.joaddr}`;
-
-        document.querySelector('.maddrbox').innerHTML = d.memberDto.maddr;
-        document.querySelector('.mphonebox').innerHTML = d.memberDto.mphone;
-        document.querySelector('.cdatebox').innerHTML = d.cdate;
-        
         if(mno == d.memberDto.mno){
         // 만약 로그인한 memail 과 글작성자의 memail이 같으면 마감상태변경/수정/삭제 버튼 출력
         document.querySelector('.bottomMenu').innerHTML += 
@@ -82,12 +82,12 @@ const offerDelete = () => {
     if( result == false ) { return; }
 
     fetch(`/joboffer/delete.do?jono=${jono}`,{method : 'DELETE'})
-    .then(r => r.json())
+    .then(r => r.text())
     .then(d => {
         console.log(d)
-        if( d == true ){
-            alert("삭제 성공")
-            location.href='/';
+        if( d === "Job offer deleted successfully" ){
+            alert("삭제 성공");
+            location.href='/job/mylist';
         } else {'삭제 실패'}
     })
     .catch(e => {console.log(e); alert('삭제 실패')})
@@ -101,10 +101,10 @@ const stateUpdate = () => {
     if( result == false ) { return; }
     
     fetch(`/joboffer/stateupdate.do?jono=${jono}`, {method : 'PUT'})
-    .then(r => r.json())
+    .then(r => r.text())
     .then(d => {
         console.log(d)
-        if( d == true ){
+        if( d === "Job offer state updated successfully" ){
             alert("변경 성공");     window.location.reload();
         } else{'변경 실패'};    window.location.reload();
 
@@ -148,24 +148,26 @@ const likePost = () => {
         };
 
     fetch(`/like/post.do`,option)
-    .then(r => r.json())
+    .then(r => r.text())
     .then(d => {
         console.log(d);
-        if (d == true){alert('지원 했습니다.')
+        if (d === "Successfully liked the job offer."){
+            alert('지원 했습니다.');
             window.location.reload();
         } else {alert('지원 실패했습니다.')}
     })
     .catch(e => console.log(e))
 }
 
-const likeUpdate = () => {
+const likeUpdate = () => { 
     const jono = new URL(location.href).searchParams.get('jono');
     // 구직신청을 한 상태이거나, 한번 취소했던 경우 PUT 으로 재지원/지원취소 가능하게 수정
     fetch(`/like/update.do?jono=${jono}`, {method : 'PUT'})
-    .then(r => r.json())
+    .then(r => r.text())
     .then(d => {
         console.log(d);
-        if (d == true){alert('변경 했습니다.');
+        if (d === "Successfully updated like status."){
+            alert('변경 했습니다.');
             window.location.reload();
         } else {alert('변경 실패했습니다')}
     })
