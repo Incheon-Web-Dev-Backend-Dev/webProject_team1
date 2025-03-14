@@ -118,6 +118,60 @@ body {
     color: black;
 }
 
+.cardBox{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    gap: 10px;
+    padding : 0px 10px;
+}
+
+.reviewTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.revstar .fa-star {
+    font-size : 20spx;
+    color: #ffd500;
+}
+
+.card-img-top {
+    height: 250px;    
+    object-fit: cover;
+    width: 100%;      
+}
+
+.reviewTitle h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    margin: 0px;
+}
+
+
+.reviewTitle .btn {
+    background-color: #88B3E4 !important;
+    color: white;
+}
+
+
+.reviewTitle .btn:hover {
+    background-color: #72a6e1 !important;
+    color: white;
+}
+
+.reviewTitle a {
+    color: white;
+    text-decoration: none;
+}
+
+.bottomHidden{
+    margin-bottom: 100px;
+}
 
   /* 반응형 처리를 위한 미디어 쿼리 */
 @media screen and (max-width: 390px) {

@@ -35,8 +35,8 @@ const reviewFindAll = () => {
                     html += `
                         <div class="card" style="width: 16rem;">
                             ${reviewImg ? 
-                                `<img src="${reviewImg.includes('http') ? reviewImg : '/img/review/' + reviewImg}" class="card-img-top revimgList" alt="리뷰이미지"">` : 
-                                `<img src="/img/WebProjectLogo.png" class="card-img-top revimgList" alt="기본 이미지">`}
+                              `<img src="/img/review/${reviewImg}" class="card-img-top revimgList" alt="리뷰이미지" onerror="this.src='/img/WebProjectLogo.png'">` : 
+                              `<img src="/img/WebProjectLogo.png" class="card-img-top revimgList" alt="기본 이미지">`}
                             <div class="card-body">
                                 <p class="card-text revstar">${starHtml}</p>
                                 <p class="card-text revcontent"><a href="/review/view?revno=${list.revno}">${list.revcontent}</a></p>
