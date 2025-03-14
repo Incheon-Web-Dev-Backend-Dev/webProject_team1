@@ -46,7 +46,7 @@ public class ViewController {
     public String reviewWrite() { return "/review/write.html";}
 
     // 리뷰 상세조회 페이지
-    @GetMapping("/review/veiw")
+    @GetMapping("/review/view")
     public String reviewView() {return "/review/view.html";}
 
     // 리뷰 전체조회 페이지

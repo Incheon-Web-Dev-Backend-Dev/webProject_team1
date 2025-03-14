@@ -27,3 +27,16 @@ body {
     font-size : 20spx;
     color: #ffd500;
 }
+
+.cardBox{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    gap: 10px;
+}
+
+.card-img-top {
+    height: 250px;    
+    object-fit: cover;
+    width: 100%;      
+}

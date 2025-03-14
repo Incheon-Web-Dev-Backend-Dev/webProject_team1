@@ -70,42 +70,37 @@
       
       <div class="reviewSection">
         <div class="reviewTitle">
-          <h3 style="display: flex; justify-content: center;"> 서비스 이용 후기❗ </h4>
-          <button type="button" class="btn btn-light"><a href="/review/list">+</a></button>
+          <h3> 서비스 이용 후기❗ </h3>
+          <button type="button" class="btn btn-light"><a href="/review/list">리뷰 더보기 +</a></button>
         </div>
   
-        <!-- card section --> 
-        <div class="cardBox">
-          <div class="card" style="width: 16rem;">
-            <img src="/img/WebprojectLogo.png" class="card-img-top" alt="...">
-            <div class="card-body">
-            <p class="card-text">🌟🌟🌟🌟🌟🌟</p>
-              <p class="card-text">주방 정리에 최고!</p>
-              <p class="card-text">주방 정리/수납 의뢰 맡겼습니다. 혼자 엄두도 못냈는데 너무 깔끔해져서 대만족이에요. 짱짱</p>
-            </div>
+         <!-- card section --> 
+         <div class="cardBox">
           </div>
-  
-          <div class="card" style="width: 16rem;">
-            <img src="/img/WebprojectLogo.png" class="card-img-top" alt="...">
-            <div class="card-body">
-              <p class="card-text">🌟🌟🌟🌟🌟🌟</p>
-              <p class="card-text">사무실 정리에 최고!</p>
-              <p class="card-text">사무실 정리/수납 의뢰 맡겼습니다. 혼자 엄두도 못냈는데 너무 깔끔해져서 대만족이에요. 짱짱</p>
-            </div>
-          </div>
-        </div> <!-- card end -->
+
+          <div>
+            테스트용 <a href="/job/list">구인글 리스트</a>
+         </div>
+         <div class="blank"></div>
+ 
+         <!-- 하단 공백 표시 div -->
+         <div class="bottomHidden"></div>
+      </div>
       </div>
 
-        <div>
-           테스트용 <a href="/job/list">구인글 리스트</a>
-        </div>
-        <div class="blank"></div>
+
+
 
       </div> <!-- container end -->
+    </div>
+
 
   </div>
+  
    
   <div th:replace="~{ /footer.html :: footer }"></div>
+
+  <script src="/js/index.js"></script>
     
 </body>
 </html>
