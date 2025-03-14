@@ -134,6 +134,6 @@ VALUES
 ( "UUID-안방사진2 후기.jpg", 1, NOW(), NOW()),
 ( "UUID-주방사진 후기.jpg", 2, NOW(), NOW()),
 ( "UUID-주방사진2 후기.jpg", 2, NOW(), NOW()),
-( "testimg.png", 3, NOW(), NOW()),
-( "UUID-사진.png", 3, NOW(), NOW()),
-( "testimg2.png", 4, NOW(), NOW());
+( "UUID-옷장정리후기.jpg", 3, NOW(), NOW()),
+( "UUID-옷장정리후기2.jpg", 3, NOW(), NOW()),
+( "UUID-기타사진 후기.jpg", 4, NOW(), NOW());

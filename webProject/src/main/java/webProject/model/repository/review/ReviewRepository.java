@@ -1,6 +1,5 @@
 package webProject.model.repository.review;
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,12 +22,6 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Integer> {
     @Query("UPDATE ReviewEntity r SET r.memberEntity = null WHERE r.memberEntity.mno = :mno")
     void unlinkMember(Integer mno);
 
-    // 리뷰 파일이 있는 리뷰들 중 별점 높은 순, 최신순으로 정렬
-    @Query(value = "SELECT * FROM review r WHERE " +
-            "(SELECT COUNT(*) FROM revfile rf WHERE rf.revno = r.revno) > 0 " +
-            "ORDER BY r.revstar DESC, r.cdate DESC LIMIT 2",
-            nativeQuery = true)
-    List<ReviewEntity> findTopReviewsWithImages();
 
 }
 

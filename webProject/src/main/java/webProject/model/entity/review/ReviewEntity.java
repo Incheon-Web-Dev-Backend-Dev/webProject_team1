@@ -52,10 +52,8 @@ public class ReviewEntity extends BaseTime {
                 .revcontent(this.revcontent)
                 .revcdate(this.getCdate().toString())
                 .requdate(this.getUdate().toString())
-                .revstar(this.revstar)
                 .mno(this.memberEntity.getMno())
                 .estno(this.estimateEntity.getEstno())
-                .estWriterName(this.estimateEntity.getMemberEntity().getMname())
                 .revimgList(
                         this.reviewFileEntityList.stream().map(
                                 (imgEntity) -> {return imgEntity.getRevfname(); }

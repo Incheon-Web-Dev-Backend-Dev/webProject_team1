@@ -21,7 +21,6 @@ public class ReviewDto {
     private int revstar; // 이용후기 별점
     private String revcdate; //후기 작성 시간
     private String requdate; //후기 수정 시간
-    private String estWriterName; // 견적서 작성자명
 
     // 게시물 파일 이름 저장 필드
     @Builder.Default

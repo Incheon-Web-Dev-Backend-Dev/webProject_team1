@@ -45,17 +45,15 @@ body {
     color: white;
 }
 
-
-.reqpostBtn .btn:hover {
-    background-color: #72a6e1 !important;
-    color: white;
-}
-
 .form-label{
     color: #5e9ce2;
     font-family: NanumSquareNeoExtraBold;
 }
 
+.reqpostBtn .btn:hover {
+    background-color: #72a6e1 !important;
+    color: white;
+}
 
 .form-text{
     margin-bottom: 10px;

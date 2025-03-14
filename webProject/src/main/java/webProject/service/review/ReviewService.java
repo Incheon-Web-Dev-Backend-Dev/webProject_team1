@@ -95,35 +95,24 @@ public class ReviewService {
 
     // 3. 리뷰 전체조회(로그인한 모든 회원이 조회 가능)
     public List<ReviewDto> reviewViewAll() {
+        // 1. 로그인 된 유저 정보 가져오기
+        String loginid = memberService.getSession();
+        MemberEntity memberEntity= memberRepository.findByMemail(loginid);
 
         // 2. 로그인 유저 없으면 null 반환, 있으면 목록 출력
         List<ReviewEntity> reviewEntityList = reviewRepository.findAll();
         List<ReviewDto> reviewDtoList = new ArrayList<>();
-
-        reviewEntityList.forEach(entity -> {
-            ReviewDto reviewDto = entity.toDto();
-            reviewDtoList.add(reviewDto);
-        });// foreach end
+        if(memberEntity.getMno() <= 0){
+            return null;
+        } else {
+            reviewEntityList.forEach(entity -> {
+                ReviewDto reviewDto = entity.toDto();
+                reviewDtoList.add(reviewDto);
+            });// foreach end
+        }// if-else end;
 
         // 3. 목록 반환
         return reviewDtoList;
-    }
-
-
-    // 4. index에서 보여주는 review
-    public List<ReviewDto> mainTopReview() {
-        // 1. 이미지가 있고, 별점이 높은 최신 리뷰 2개 조회
-        List<ReviewEntity> topReviewEntities = reviewRepository.findTopReviewsWithImages();
-
-
-        // 2. DTO로 변환
-        List<ReviewDto> topReviewDtos = new ArrayList<>();
-        topReviewEntities.forEach(entity -> {
-            ReviewDto dto = entity.toDto();
-            topReviewDtos.add(dto);
-        });//foreach end
-
-        return topReviewDtos;
     }
 
 
