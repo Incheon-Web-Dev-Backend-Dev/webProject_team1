@@ -37,19 +37,23 @@ const reviewView = () => {
 
             // 4. 별점에 따른 아이콘 생성
             let starHtml = '';
-            for(let i = 0; i < list.revstar; i++) {
+            for(let i = 0; i < data.revstar; i++) {
                 starHtml += `<i class="fa-solid fa-star"></i>`;
             }
-            for(let i = list.revstar; i < 5; i++) {
+            for(let i = data.revstar; i < 5; i++) {
                 starHtml += `<i class="fa-regular fa-star"></i>`;
             }
+
+            console.log(revimg1);
+            console.log(revimg2);
+            console.log(revimg3);
 
             // 5. 대입
             html += `
                 <div class="revViewContent">
                     <div class="mb-3">
                         <div class="rtitlesection">
-                            <p class="form-control rtitle">${data.estWriterName}님 수납/정리 건에 대한 이용후기입니다.</p>
+                            <label for="basic-url" class="form-label rtitle">${data.estWriterName}님 수납/정리 건에 대한 이용후기입니다.</label>
                         </div>
                         <div class="rstarsection">
                             <label for="basic-url" class="form-label">별점</label>
@@ -57,19 +61,19 @@ const reviewView = () => {
                         </div>
                         <div class="rcontentsection">
                             <label for="basic-url" class="form-label">이용후기 내용</label>
-                            <p class="form-control rimg1"></p>
-                            <p class="form-control rimg2"></p>
-                            <p class="form-control rimg3"></p>
-                            <p class="form-control rcontent"></p>
+                            <img src="/img/review/${revimg1}" class="card-img-top revimgList" alt="리뷰이미지" onerror="this.src='/img/WebProjectLogo.png'">
+                            <p class="form-control rcontent">${data.revcontent}</p>
                         </div>
                         <div class="rcdatesection">
                             <label for="basic-url" class="form-label">이용후기 작성 날짜</label>
-                            <p class="form-control rcdate"></p>
+                            <p class="form-control rcdate">${data.revcdate}</p>
                         </div>
                     </div>
                 </div>
             `;
+            revViewContent.innerHTML += html;
         })
+
 }
 
 reviewView();
