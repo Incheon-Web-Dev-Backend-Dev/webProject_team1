@@ -126,6 +126,34 @@ public class ReviewService {
         return topReviewDtos;
     }
 
+    // 5. 리뷰 수정
+    @Transactional
+    public boolean modifyReview(ReviewDto modifyRevDto){
+        int getRevno = modifyRevDto.getRevno();
+        ReviewEntity reviewEntity = reviewRepository.findByRevno(getRevno);
+        reviewEntity.setRevcontent(modifyRevDto.getRevcontent());
+        reviewEntity.setRevstar(modifyRevDto.getRevstar());
+        reviewEntity.setReviewFileEntityList(modifyRevDto.toEntity().getReviewFileEntityList());
+
+        return true;
+    }
+
+    // 6. 리뷰 삭제
+    @Transactional
+    public boolean deleteReview(int delRevno){
+        MemberDto loginDto = memberService.getMyInfo();
+        if(loginDto == null) {
+            System.out.println("login error");
+            return false;
+        }// if end
+
+        List<ReviewEntity> reviewEntityList = reviewRepository.findAll();
+        List<ReviewFileEntity> reviewFileEntityList = reviewFileRepository.findAll();
+
+        return false;
+
+    }
+
 
     // estimate가 삭제될 때 매핑 관계를 끊는 메서드
     @Transactional
