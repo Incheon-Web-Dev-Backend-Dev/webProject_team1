@@ -129,30 +129,47 @@ public class ReviewService {
     // 5. 리뷰 수정
     @Transactional
     public boolean modifyReview(ReviewDto modifyRevDto){
-        int getRevno = modifyRevDto.getRevno();
-        ReviewEntity reviewEntity = reviewRepository.findByRevno(getRevno);
-        reviewEntity.setRevcontent(modifyRevDto.getRevcontent());
-        reviewEntity.setRevstar(modifyRevDto.getRevstar());
-        reviewEntity.setReviewFileEntityList(modifyRevDto.toEntity().getReviewFileEntityList());
-
-        return true;
+        // 1. 로그인한 회원의 정보를 가져오기
+        int loginMno = memberService.getMyInfo().getMno();
+        System.out.println("loginMno" + loginMno);
+        System.out.println("getMno" + modifyRevDto.getMno());
+        // 2. 로그인한 회원의 정보가 리뷰 작성자와 같으면 리뷰 수정 허용
+        if(loginMno == modifyRevDto.getMno()){
+            int getRevno = modifyRevDto.getRevno();
+            ReviewEntity reviewEntity = reviewRepository.findByRevno(getRevno);
+            reviewEntity.setRevcontent(modifyRevDto.getRevcontent());
+            reviewEntity.setRevstar(modifyRevDto.getRevstar());
+            reviewEntity.setReviewFileEntityList(modifyRevDto.toEntity().getReviewFileEntityList());
+            return true;
+        } else{
+            return false;
+        }// if-else end
     }
 
     // 6. 리뷰 삭제
     @Transactional
     public boolean deleteReview(int delRevno){
-        MemberDto loginDto = memberService.getMyInfo();
-        if(loginDto == null) {
+
+        // 1. 로그인 세션 객체 조회
+        String loginMid = memberService.getSession();
+        if(loginMid == null) {
             System.out.println("login error");
             return false;
-        }// if end
+        } else {
+            // 2. 리뷰에 업로드된 이미지 파일이 있으면 해당 엔티티를 찾아서 먼저 삭ㅈ=
+            List<ReviewFileEntity> reviewFileEntityList = reviewFileRepository.findAll();
+            reviewFileEntityList.forEach( entity -> {
+                if(entity.getReviewEntity().getRevno() == delRevno) {
+                    reviewFileRepository.delete(entity);
+                } // if end
+            }); // foreach end
 
-        List<ReviewEntity> reviewEntityList = reviewRepository.findAll();
-        List<ReviewFileEntity> reviewFileEntityList = reviewFileRepository.findAll();
+            // 3. 리뷰 삭제
+            reviewRepository.deleteById(delRevno);
 
-        return false;
-
-    }
+            return true;
+        } // if-else end
+    }// deleteReview end
 
 
     // estimate가 삭제될 때 매핑 관계를 끊는 메서드

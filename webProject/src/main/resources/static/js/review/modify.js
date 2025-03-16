@@ -1,7 +1,54 @@
-console.log("review.write js open")
+console.log("review.modify js open")
 
 
-// 별점 관련 기능 추가
+// 수정할 이용후기 글의 인덱스(revno)를 전역으로 관리
+const urlParams = new URLSearchParams(window.location.search); console.log(urlParams);
+const revno = urlParams.get('revno'); console.log(revno);
+
+// 페이지 로드 시 실행되는 함수
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. 현재 리뷰 정보 가져오기
+    loadReviewData();
+    
+    // 2. 별점 기능 초기화
+    initStarRating();
+});
+
+// 조회한 이용후기 데이터 불러오기
+const loadReviewData = () => {
+    fetch(`/review/view.do?revno=${revno}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("리뷰 데이터:", data);
+            
+            // DOM 요소 확인 후 데이터 채우기
+            const revstarElement = document.getElementById('revstar');
+            if (revstarElement) {
+                revstarElement.value = data.revstar;
+            } else {
+                console.error("revstar 요소를 찾을 수 없습니다!");
+            }
+            
+            const revcontentElement = document.querySelector('input[name="revcontent"]');
+            if (revcontentElement) {
+                revcontentElement.value = data.revcontent;
+            } else {
+                console.error("revcontent 요소를 찾을 수 없습니다!");
+            }
+            
+            // 기존 이미지 표시 (옵션)
+            if(data.revimgList && data.revimgList.length > 0) {
+                // 이미지 미리보기 로직 구현 가능
+                console.log("기존 이미지:", data.revimgList);
+            }
+        })
+        .catch(error => {
+            console.error("리뷰 데이터 로딩 실패:", error);
+            alert("리뷰 정보를 불러오는데 실패했습니다.");
+        });
+};
+
+// 별점 초기화 및 이벤트 리스너 설정
 document.addEventListener("DOMContentLoaded", function() {
     const stars = document.querySelectorAll('.star-rating .star');
     const ratingInput = document.getElementById('revstar');
@@ -64,13 +111,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-
-
-
-
-// 1. 리뷰 작성하기 함수
+// 1. 리뷰 수정 함수
 const onWriteBtn = () => {
-    console.log("리뷰 작성하기 함수 실행")
+    console.log("리뷰 수정하기 함수 실행")
 
     // 별점 확인
     const revstar = document.getElementById('revstar').value;
@@ -79,15 +122,6 @@ const onWriteBtn = () => {
         return;
     }
     
-    // estno는 입력칸이 없으므로 파라미터에서 값을 가져와 넣어줌
-    const urlParams = new URLSearchParams(window.location.search);
-    const estno = urlParams.get('estno');
-    // hidden input에 estno 값 설정
-    if(estno) {
-        document.getElementById('estno').value = estno;
-    }
-
-
     // 1. 전송할 form dom 객체를 가져옴
     const writeForm = document.querySelector(".writeBox");
     console.log(writeForm);
@@ -101,18 +135,19 @@ const onWriteBtn = () => {
 
     // 3. multipart-form 형식의 fetch 설정
     const option = {
-        method : 'POST',
+        method : 'PUT',
         body : writeFormData
     }
     
-    const isUploadBtn = confirm("이용 후기를 올리시겠습니까?");
+    const isUploadBtn = confirm("이용 후기를 수정 하시겠습니까?");
     if(isUploadBtn == true){
-        fetch("/review/write.do", option)
+        fetch("/review/modify.do", option)
             .then(response => response.text())
             .then(data => {
-                if(data === "review.write status OK" || data.includes("OK") || data === "true" || data === true) {  // 백에서 반환받는 body값
+                if(data) { 
                     alert("이용후기 작성 완료")
-                    window.location.href = `/review/list`;
+                    // 상세 보기 페이지로 이동
+                    window.location.href = `/review/view?revno=${revno}`
                 } else {
                     alert("이용후기 작성 실패")
                 }// if-else end

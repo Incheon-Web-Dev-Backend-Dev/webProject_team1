@@ -39,7 +39,7 @@ const reviewFindAll = () => {
                               `<img src="/img/WebProjectLogo.png" class="card-img-top revimgList" alt="기본 이미지">`}
                             <div class="card-body">
                                 <p class="card-text revstar">${starHtml}</p>
-                                <p class="card-text revcontent"><a href="/review/view?revno=${list.revno}">${list.revcontent}</a></p>
+                                <p class="card-text revcontent"><a href="/review/view?revno=${list.revno}">${list.revcontent.substring(0, 100)}${list.revcontent.length > 100? '...' : ''}</a></p>
                             </div>
                         </div>
                     `;
