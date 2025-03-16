@@ -166,11 +166,6 @@ function nowLocation() {
     });
 }
 
-
-
-
-
-
 // ======== 카카오 지도 ========
 let map;  // 전역 변수로 지도 객체 선언
 
@@ -212,8 +207,8 @@ function initMap() {
 
                 // 현재 위치 마커 생성
                 const marker = new kakao.maps.Marker({
-                    position: currentPosition,  // 현위치 좌표
-                    map: map,                   // 지도에 마커 표시
+                    position: currentPosition,    // 현위치 좌표
+                    map: map,                     // 지도에 마커 표시
                     title: "현재 위치",           // 마커 제목
                     image: markerImage           // 마커에 커스텀 이미지 적용
                 });
@@ -232,15 +227,23 @@ function initMap() {
             .then(responseData => {
                 console.log(responseData);
 
-                // 데이터에서 마커를 만들고 클러스터에 추가
+                // 마커와 클러스터 추가가
                 let markers = responseData.map(data => {
                     const marker = new kakao.maps.Marker({
                         position: new kakao.maps.LatLng(data.latitude, data.longitude) // DB에서 받아온 위도, 경도 사용
                     });
+                    // 마커 클릭시 이벤트
+                    kakao.maps.event.addListener(marker, 'click', function() {
+                        // 마커 클릭시 req title 표시 및 클릭시 상세페이지 이동
+                        const infoWindow = new kakao.maps.InfoWindow({
+                            content: `<a href="/request/view?reqno=${data.reqno}">${data.reqtitle}</a>
+                            ` 
+                        });
+                        infoWindow.open(map, marker);
+                    });
                     return marker;
                 });
-
-                // 클러스터에 마커들 추가
+                // 클러스터 추가가
                 clusterer.addMarkers(markers);
             })
             .catch(error => {
