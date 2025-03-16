@@ -37,8 +37,44 @@ body {
     font-family: 'NanumSquareNeoExtraBold';
 }
 
+.revViewContent{
+    display: flex;
+    flex-direction: column;
+}
+
 .form-label{
     color: #5e9ce2;
     font-family: NanumSquareNeoExtraBold;
 }
+
+
+.revViewContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btnSection{
+    display: flex;
+    width: 200px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+    gap: 20px;
+}
+
+.btnSection .btn {
+    background-color: #88B3E4 !important;
+    color: white;
+    border:none;
+}
+
+
+.btnSection .btn:hover {
+    background-color: #72a6e1 !important;
+    color: white;
+}
+
+
 

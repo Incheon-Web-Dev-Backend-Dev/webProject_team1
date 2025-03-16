@@ -53,6 +53,10 @@ public class ViewController {
     @GetMapping("/review/list")
     public String reviewViewAll() {return "/review/list.html";}
 
+    // 리뷰 수정 페이지
+    @GetMapping("/review/modify")
+    public String modifyReview() {return "/review/modify.html";}
+
     //============================Estimate============================
     // 견적서 쓰기 (업체 / 개인수납가)
     @GetMapping("/estimate/write")

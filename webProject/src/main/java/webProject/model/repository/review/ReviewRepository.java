@@ -30,5 +30,8 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Integer> {
             nativeQuery = true)
     List<ReviewEntity> findTopReviewsWithImages();
 
+    // 리뷰 인덱스로 엔티티 조회
+    ReviewEntity findByRevno(int revno);
+
 }
 

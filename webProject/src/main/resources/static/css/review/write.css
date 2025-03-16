@@ -34,3 +34,22 @@ body {
 .form-control {
     margin: 10px 0px;
 }
+
+.writeBtn{
+    display: flex;
+    justify-content: center;
+    margin: 50px 0px;
+}
+
+.writeBtn .btn {
+    background-color: #88B3E4 !important;
+    color: white;
+    border:none;
+}
+
+
+.writeBtn .btn:hover {
+    background-color: #72a6e1 !important;
+    color: white;
+}
+

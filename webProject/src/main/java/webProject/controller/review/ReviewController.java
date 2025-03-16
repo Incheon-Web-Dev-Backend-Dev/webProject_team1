@@ -83,4 +83,26 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body( "mainTopReview error"+ e.getMessage());
         } // try-catch end
     }// mainTopReview end
+
+    // 5. 리뷰 수정
+    @PutMapping("/modify.do")
+    public ResponseEntity<?> modifyReview(@ModelAttribute ReviewDto modifyRev){
+        try {
+            boolean result = reviewService.modifyReview(modifyRev);
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("modify review error" + e.getMessage());
+        }// try - catch end
+    }// modifyReview end
+
+    // 6. 리뷰 삭제
+    @DeleteMapping("/delete.do")
+    public ResponseEntity<?> deleteReview(@RequestParam int delRevno){
+        try {
+            boolean result = reviewService.deleteReview(delRevno);
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("modify review error" + e.getMessage());
+        }// try - catch end
+    }
 }
