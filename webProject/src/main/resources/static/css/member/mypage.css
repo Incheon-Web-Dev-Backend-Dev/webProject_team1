@@ -8,7 +8,11 @@ body {
     margin: 0;
     padding: 0;
 }
-
+ /* 비밀번호 변경 폼을 기본적으로 숨김 */
+    .password-change-form {
+      display: none;
+      margin-top: 10px;
+    }
 .allContainer {
     width: 600px;
     margin-top: 100px;    /* 헤더 높이만큼 여백 */

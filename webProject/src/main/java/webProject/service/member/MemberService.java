@@ -167,19 +167,30 @@ public boolean myUpdate(MemberDto memberDto) {
     if (memail != null) {
         MemberEntity memberEntity = memberRepository.findByMemail(memail);
         memberEntity.setMemail(memberDto.getMemail());
+        memberEntity.setMpwd(memberDto.getMpwd());
+        memberEntity.setMname(memberDto.getMname());
+        memberEntity.setMphone(memberDto.getMphone());
+        memberEntity.setMaddr(memberDto.getMaddr());
         return true;
     }
     return false;
 }
 
-public boolean chechpwd(String mpwd){
-    String memail = getSession();  // 1. 현재 세션에 저장된 회원 아이디 조회
-    if (memail != null) {   // 2. 만약에 로그인상태이면
-        MemberEntity memberEntity = memberRepository.findByMemail(memail);  // 3. 회원아이디로 엔티티 조회
-        if (memberEntity.getMpwd() == mpwd)return true;
+    public boolean chechpwd(String mpwd) {
+        String memail = getSession();  // 1. 현재 세션에 저장된 회원 이메일 조회
+        if (memail != null) {   // 2. 로그인 상태인지 확인
+            MemberEntity memberEntity = memberRepository.findByMemail(memail);  // 3. 이메일로 회원 조회
+
+            // memberEntity가 null인지 체크하여 NPE 방지
+            if (memberEntity != null) {
+                String storedPwd = memberEntity.getMpwd(); // DB에 저장된 비밀번호
+                if (storedPwd != null && storedPwd.equals(mpwd)) { // 안전한 null 체크 후 비교
+                    return true;
+                }
+            }
+        }
+        return false;  // 로그인되지 않았거나 비밀번호 불일치 시 false 반환
     }
-    return false;
-}
 
 public boolean isEmailDuplicate(String email) {
     // 이메일이 존재하면 true 반환, 존재하지 않으면 false 반환

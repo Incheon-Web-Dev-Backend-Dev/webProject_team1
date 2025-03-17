@@ -106,7 +106,12 @@ public class ViewController {
     @GetMapping("/member/deleteinfo")
     public String memberDeleteInfo(){return "/member/deleteinfo.html";}
 
-
+    // 내정보변경/비밀번호변경시 비밀번호 물어보는 페이지
+    @GetMapping("/member/checkpwd")
+    public String memberCheckInfo(){ return "/member/checkpwd.html";}
+    // 내정보수정 페이지
+    @GetMapping("/member/update")
+    public String memberUpdate(){ return "/member/update.html";}
     // 고객센터
     @GetMapping("/help/main")
     public String helpMainPage(){return "/help/main.html";}

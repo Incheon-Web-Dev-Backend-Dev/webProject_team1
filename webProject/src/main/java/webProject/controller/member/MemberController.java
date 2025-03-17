@@ -7,6 +7,8 @@ import webProject.model.entity.member.MemberEntity;
 import webProject.service.job.JobOfferService;
 import webProject.service.member.MemberService;
 
+import java.util.Map;
+
 @RestController
 public class MemberController {
     @Autowired
@@ -47,7 +49,12 @@ public class MemberController {
     @GetMapping("/member/checkemail.do")
     public boolean isEmailDuplicate(@RequestParam String email) {return memberService.isEmailDuplicate(email);}
     //9. 회원정보수정시 비밀번호확인
-    @GetMapping("/member/checkpwd.do")
-    public boolean chechpwd(@RequestParam  String mpwd){return memberService.chechpwd(mpwd);}
+    // ✅ 9. 회원정보 수정 시 비밀번호 확인 (GET → POST 변경)
+    @PostMapping("/member/checkpwd.do")  // ✅ GET → POST 변경
+    public boolean checkPwd(@RequestBody Map<String, String> request) {
+        String mpwd = request.get("mpwd");  // ✅ JSON Body에서 비밀번호 받기
+        return memberService.chechpwd(mpwd);
+    }
+
 
 }
