@@ -10,9 +10,9 @@ import java.util.UUID;
 public class ReviewFileService {
     // 서버 경로 내 이미지 폴더
     // 유지명 COM - 프로젝트 폴더 경로
-    //String uploadReviewFilePath = "/Users/jimyung/webProject_team1/webProject/build/resources/main/static/img/review/";
+    String uploadReviewFilePath = "/Users/jimyung/webProject_team1/webProject/build/resources/main/static/img/review/";
     // window -v
-    String uploadReviewFilePath = "D:\\sourcetree\\webProject\\build\\resources\\main\\static\\img\\review\\";
+    //String uploadReviewFilePath = "D:\\sourcetree\\webProject\\build\\resources\\main\\static\\img\\review\\";
 
     // 1. 업로드 합수
     public String reviewFileUpload(MultipartFile multipartFiles){

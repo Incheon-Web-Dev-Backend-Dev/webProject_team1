@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import webProject.model.dto.request.RequestDto;
 import webProject.service.request.RequestService;
@@ -20,9 +22,21 @@ public class RequestController {
 
     // 현재 로그인된 회원의 요청글 전체조회
     @GetMapping("/findall.do")
-    public List<RequestDto> requestFindAll() {
-        return requestService.requestFindAll();
-    }
+    public ResponseEntity<?> requestFindAll() {
+        try{
+            List<RequestDto> result = requestService.requestFindAll();
+            if(result == null) { // request 리스트가 없고
+                // 로그인 정보도 없으면
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("requestFindAll : please login");
+            } else if (result.isEmpty()) {// 로그인은 했지만 request 리스트가 비어있으면
+                return ResponseEntity.status(HttpStatus.OK).body("request.findAll status OK : review list null");
+            } else {
+                return  ResponseEntity.status(HttpStatus.OK).body(result);
+            } // if-else end
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("review.findAll status error" + e.getMessage());
+        } //try-catch end
+    } // requestFindAll end
 
     // 현재 로그인된 회윈의 요청글 개별조회
     @GetMapping("/find.do")
