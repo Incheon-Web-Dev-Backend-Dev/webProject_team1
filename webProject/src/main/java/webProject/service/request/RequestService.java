@@ -150,9 +150,10 @@ public class RequestService {
     private double userLongitude;
 
     // 사용자 위치 설정, (post)로 받은 위치 정보
-    public void setUserLocation(double latitude, double longtitude) {
+    public boolean setUserLocation(double latitude, double longtitude) {
         this.userLatitude = latitude;
         this.userLongitude = longtitude;
+        return true;
     }
 
     // 거리 계산 된 요청서 리스트 반환 메서드(GET 요청시 호출)

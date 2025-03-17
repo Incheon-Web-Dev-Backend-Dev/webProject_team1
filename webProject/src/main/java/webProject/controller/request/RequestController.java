@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import webProject.model.dto.request.RequestDto;
 import webProject.service.request.RequestService;
@@ -41,17 +43,34 @@ public class RequestController {
 
     // 요청글 보는 사용자 현재 위치 받기
     @PostMapping("/location")
-    public void setUserLocation(@RequestBody LocationRequest userLocation) {
-        System.out.println("Received Latitude: " + userLocation.getLatitude());
-        System.out.println("Received Longitude: " + userLocation.getLongitude());  // 여기가 0.0인지 확인
-        requestService.setUserLocation(userLocation.getLatitude(), userLocation.getLongitude());
+    public ResponseEntity<?> setUserLocation(@RequestBody LocationRequest userLocation) {
+        try{
+            boolean result = requestService.setUserLocation(userLocation.getLatitude(), userLocation.getLongitude());
+            if(result) {
+                System.out.println("Received Latitude: " + userLocation.getLatitude());
+                System.out.println("Received Longitude: " + userLocation.getLongitude());
+                return ResponseEntity.status(HttpStatus.CREATED).body(result);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
+            }
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
-
     // GET 요청으로 거리 계산된 요청서 리스트 가져오기
     @GetMapping("/near")
-    public List<RequestDto> getNearRequests() {
-        // 거리 계산 후 가까운 요청서 리스트 반환
-        return requestService.getNearRequests();
+    public ResponseEntity<List<RequestDto>> getNearRequests() {
+        try{
+            List<RequestDto> requestDtoList = requestService.getNearRequests();
+
+            if(!requestDtoList.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.OK).body(requestDtoList);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(requestDtoList);
+            }
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 } // class End
 
