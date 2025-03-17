@@ -13,14 +13,12 @@
 
     <!-- 전체 페이지  -->
     <div class="allContainer">
-
         <div class="wrapper">
             <div class="sidebar">
                 <div class="profile-image">
                     <img src="/img/default.png">
                 </div>
-                <a href="#" class="button">내 정보 수정</a>
-                <a href="#" class="button">비밀번호 변경</a>
+                <a href="/member/checkpwd" class="button" onclick="onUpdate()">내 정보 수정</a>
                 <a href="/member/deleteinfo" class="button">계정 탈퇴</a>
                 </div>
             <div class="container">
@@ -49,8 +47,6 @@
         </div>
 
     </div> <!--Container end-->
-
-
     <div th:replace="~{ /footer.html :: footer }"></div>
 
     <script src="/js/member/mypage.js"></script>
