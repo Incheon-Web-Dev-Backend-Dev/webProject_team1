@@ -40,6 +40,17 @@ a {
     display: flex;
     justify-content: space-between;
 }
+.btnmap{
+    background-color: #72a6e1;
+    color: white;
+    padding-top: 9px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 14px;
+    width: 92px;
+    height: 30px;
+}
 
 .companyButton .btn {
     background-color: #88B3E4 !important;
