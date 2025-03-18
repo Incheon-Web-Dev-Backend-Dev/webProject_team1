@@ -13,6 +13,9 @@ const estView = () => {
         console.log(data);
         // HTML로 표시할 부분을 만들어서 그곳에 넣을 것
         const estviewForm = document.querySelector(".estviewForm"); // 데이터를 넣을 곳
+        const adoptedBtn = document.querySelector(".adoptedBtn"); // 버튼 넣을 곳
+        
+        
 
         // 견적 채택하기 버튼 관련 함수들(채택여부, 마감여부에 따라 속성 설정)
         const getBtnAction = (data) => { // 버튼 기능
@@ -71,17 +74,23 @@ const estView = () => {
                     <span>작성 시간 : </span> ${data.cdate}
                 </div>   
                 
-                <div class="card-link receivedEstimates">
+            </div>
+
+        `;
+        // 결과를 HTML 요소에 삽입
+        estviewForm.innerHTML = html;
+        }
+
+
+        // 버튼 html 삽입 구역
+        if(data.mno>0){
+            let buttonHtml = `
                 ${loginMemberInfo.role !== "requester" ? //업체랑 개인활동자만 보이게
                     `<a href="/request/view?reqno=${data.reqno}" class="btn btn-primary" style="color: white;">해당 요청글 보기</a>` 
                     : ''}
-                
-                <div class="card-link receivedEstimates">
                 ${loginMemberInfo.role !== "requester" ?  //삭제
                     `<a onclick="estDelete()" class="btn btn-primary" style="color: white;">견적글 삭제하기</a>` 
                     : ''}
-            </div>
-            <div class="card-link receivedEstimates">
                 ${loginMemberInfo.role == "requester" ?  // 견적 선택하기
                     // eststate 와 reqstate 값에 따라서 버튼 효과 
                     `<a onclick= "${ getBtnAction(data) }"
@@ -91,15 +100,16 @@ const estView = () => {
                     ${getBtnText(data)}
                     </a>`
                 : ''}
-                <div class="btnBox">
-                ${data.eststate ? `<button type="button" class="btn btn-primary" onclick="sendReviewRequest(${data.estno})">(완료)리뷰작성 페이지 보내기</button>` : ''}
-                    <button type="button" class="btn btn-primary"><a href='/estimate/list?reqno=${data.reqno}' style='color: white;' >목록</a></button>
-                </div>
-            </div>
-        `;
-        // 결과를 HTML 요소에 삽입
-        estviewForm.innerHTML = html;
-                }
+                    ${loginMemberInfo.mno == data.mno ? 
+                        `<button type="button" class="btn btn-primary" onclick="sendReviewRequest(${data.estno})">(완료)리뷰작성 페이지 보내기</button>` 
+                        : ''
+                    }
+                    <button type="button" class="btn btn-primary">
+                        <a href='/estimate/list?reqno=${data.reqno}' style='color: white;'>목록</a>
+                    </button>
+            `;
+            adoptedBtn.innerHTML = buttonHtml;
+        }
     })
     .catch(e => {
         console.log(e);

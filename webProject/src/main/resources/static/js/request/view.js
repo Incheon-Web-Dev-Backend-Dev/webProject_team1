@@ -98,9 +98,15 @@ document.querySelector('.rspacebox').innerHTML = spaceName;
 
             // 3). 유저 정보(role)에 따라서 button 보이기 여부
             if(loginMemberInfo.role === "master" || loginMemberInfo.role === "company"){
-                html += `
-                    <button class="btn btn-primary"><a href="/estimate/write">이 요청글에 견적서 올리기</a></button>
-                `
+                if(data.reqstate){ // 아직 진행중인 요청서이면 견적서 작성 버튼 생성
+                    html += `
+                        <button class="btn btn-primary"><a href="/estimate/write">이 요청글에 견적서 올리기</a></button>
+                    `
+                } else if(data.reqstate == false) { // 마감된 요청서이면
+                    html += `
+                        <button class="btn btn-secondary" disabled>마감 된 요청글입니다.</button>
+                    `
+                }
             }// if end
 
             uploadBtnBox.innerHTML = html;

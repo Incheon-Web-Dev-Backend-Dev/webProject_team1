@@ -25,8 +25,8 @@ const requestFindAll = () => {
                 // 탈퇴한 회원의 요청서는 보여주지 않기위해 조건 설정
                 if (list.mno > 0) {
                     html += `
-                        <div class="card" style="width: 32rem;">
-                            <div class="card-body">
+                        <div class="card ${list.reqstate ? "border-primary" : ''}" style="width: 32rem;">
+                            <div class="card-body ">
                                 <div class="card-content cardbox">
                                     <div>
                                         <h6 class="card-subtitle mb-2 text-body-secondary">${list.reqdatetime}</h6>
@@ -139,7 +139,7 @@ function nowLocation() {
                 // 탈퇴한 회원의 요청서는 보여주지 않기 위해 조건 설정
                 if (list.mno > 0) {
                     html += `
-                        <div class="card" style="width: 32rem;">
+                        <div class="card ${list.reqstate ? "border-primary" : ''}" style="width: 32rem;">
                             <div class="card-body">
                                 <div class="card-content cardbox">
                                     <div>
