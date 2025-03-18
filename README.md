@@ -114,4 +114,4 @@
 ### 리뷰 URL 이메일 전송 화면, 작성 화면, 조회 화면
 ![img4.jpg](./readMe/img4.jpg)
 
-[JAVA_WEB_Project 1조 영상 0217](https://youtu.be/ZwstbcVF0nk)
+[JAVA_WEB_Project 영상](https://www.youtube.com/watch?v=VtXWd4tA1A4)
