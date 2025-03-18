@@ -40,16 +40,38 @@ public class RequestController {
 
     // 현재 로그인된 회윈의 요청글 개별조회
     @GetMapping("/find.do")
-    public RequestDto requestFind(@RequestParam int reqno) {
-        System.out.println("요청된 글번호: " + reqno);
-        return requestService.requestFind(reqno);
-    }
+    public ResponseEntity<?> requestFind(@RequestParam int reqno) {
+        try{
+            RequestDto result = requestService.requestFind(reqno);
+            if(result == null) { // request 리스트가 없고
+                // 로그인 정보도 없으면
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("requestFindAll : please login");
+            } else {
+                return  ResponseEntity.status(HttpStatus.OK).body(result);
+            } // if-else end
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("review.findAll status error" + e.getMessage());
+        } //try-catch end
+    } // requestFindAll end
+
 
     // 견적 요청글 작성
     @PostMapping("/post.do")
-    public boolean requestPost (@RequestBody RequestDto requestDto){
-        return requestService.requestPost(requestDto);
-    }
+    public ResponseEntity<?> requestPost(@RequestBody RequestDto requestDto){
+        try{
+            boolean result = requestService.requestPost(requestDto);
+            if(result) {
+                // 성공 : 201 created 상태코드에 대한 반환 내용
+                return ResponseEntity.status(HttpStatus.CREATED).body(result);
+            } else {
+                // 서비스 로직은 성공했지만 리뷰 등록은 실패했을 때 반환 내용
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("request.post status BAD");
+            }// if- else end
+        } catch(Exception e) {
+            // 서버 내부 오류 : 500 상태코드에 대한 반환 내용
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("request.post status error" + e.getMessage());
+        }// try-catch end
+    }// reviewWrite end
 
     // ========== 위치에 따른 요청서 ==========
 

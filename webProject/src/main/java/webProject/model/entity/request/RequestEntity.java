@@ -86,6 +86,7 @@ public class RequestEntity extends BaseTime {
 
 
     public RequestDto toDto(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); // 날짜 저장 형식을 년-월-일 시-분 으로 수정
         return RequestDto.builder()
                 .reqno(this.reqno)
                 .reqcontent(this.reqcontent)
@@ -100,7 +101,7 @@ public class RequestEntity extends BaseTime {
                 .deadLineTime(this.calculatedDeadline())
                 .mno(this.memberEntity.getMno())
                 .mname(this.memberEntity.getMname())
-                .reqdatetime(this.getCdate().toString())
+                .reqdatetime(this.getCdate().format(formatter))
                 .build();
 
     }

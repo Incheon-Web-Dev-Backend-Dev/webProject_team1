@@ -8,6 +8,7 @@ import webProject.model.entity.BaseTime;
 import webProject.model.entity.estimate.EstimateEntity;
 import webProject.model.entity.member.MemberEntity;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,11 +48,12 @@ public class ReviewEntity extends BaseTime {
     private List<ReviewFileEntity> reviewFileEntityList = new ArrayList<>();
 
     public ReviewDto toDto() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return ReviewDto.builder()
                 .revno(this.revno)
                 .revcontent(this.revcontent)
-                .revcdate(this.getCdate().toString())
-                .requdate(this.getUdate().toString())
+                .revcdate(this.getCdate().format(formatter))
+                .requdate(this.getUdate().format(formatter))
                 .revstar(this.revstar)
                 .mno(this.memberEntity.getMno())
                 .estno(this.estimateEntity.getEstno())
