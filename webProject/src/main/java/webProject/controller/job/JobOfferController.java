@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import webProject.model.dto.job.JobOfferDto;
 import webProject.model.dto.job.JobPageDto;
 import webProject.service.job.JobOfferService;
-
 import java.util.List;
 
 @RestController
