@@ -89,7 +89,6 @@ public class EstimateService {
         return estimateDtoList;
     }
 
-
     @Transactional
     // 견적글 개별 조회
     public EstimateDto estimateFind(int estno){
@@ -132,9 +131,7 @@ public class EstimateService {
         } // if end
         return false;
     }// selectEstimate end
-
-
-
+    
     // 현재 로그인된 회원의 작성항 견적글 천제 조회
     public List<EstimateDto> estimateMyWrote(){
         // 로그인된 회원 아이디 가져오기

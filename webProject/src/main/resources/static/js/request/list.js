@@ -83,28 +83,16 @@ requestFindAll();
 
 //========== 현재 위치 기반 가까운 대로 List 출력 ==========
 function nowLocation() {
-    // 사용자의 현재 위치를 가져오는 코드
+    // 사용자의 현재 위치 좌표 조회
     navigator.geolocation.getCurrentPosition(function(position) {
-        const userLatitude = position.coords.latitude; 
-        const userLongitude = position.coords.longitude;
-
-        console.log(userLatitude, userLongitude);
-
-        // 위치 정보를 백엔드로 전달
+        const userLatitude = position.coords.latitude; const userLongitude = position.coords.longitude;
+        // 위치 정보를 서버로 전달
         fetch('/request/location', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                latitude: userLatitude,
-                longitude: userLongitude
-            })
-        })
+            headers: {'Content-Type': 'application/json',},
+            body: JSON.stringify({latitude: userLatitude,longitude: userLongitude})})
         .then(response => response.json())
-        .then(data => {
-            displayRequests(data);
-        })
+        .then(data => {displayRequests(data);})
         .catch(error => console.error('Error:', error));
 
         // 두 번째 fetch 요청에 위치 정보 추가하여 서버에 요청

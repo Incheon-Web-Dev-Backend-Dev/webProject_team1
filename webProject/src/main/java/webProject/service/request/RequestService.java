@@ -155,58 +155,65 @@ public class RequestService {
         this.userLongitude = longtitude;
         return true;
     }
-
     // 거리 계산 된 요청서 리스트 반환 메서드(GET 요청시 호출)
     public List<RequestDto> getNearRequests() {
         // 로그인 된 유저 정보 가져오기
-        String loginid = memberService.getSession();
-        MemberEntity memberEntity = memberRepository.findByMemail(loginid);
-
-        List<RequestEntity> requestEntityList = requestRepository.findAll();
-
+        String loginid = memberService.getSession();  // 세션에서 로그인된 유저의 이메일을 가져옴
+        MemberEntity memberEntity = memberRepository.findByMemail(loginid);  // 이메일을 통해 회원 정보 조회
         // 예외 처리 1: 회원 정보가 null일 경우 처리
         if (memberEntity == null) {
+            // 회원 정보가 없으면 예외를 발생시킴
             throw new IllegalArgumentException("회원 정보가 제공되지 않았습니다.");
         }
+        // 모든 요청서를 조회
+        List<RequestEntity> requestEntityList = requestRepository.findAll();
         // 예외 처리 2: 회원의 역할에 따른 필터링
         if (memberEntity.getRole().equals("requester")) {
-            // 로그인유저가 의뢰인일 경우 본인이 작성한 요청글만 조회
+            // 로그인유저가 'requester'(의뢰인)일 경우 본인이 작성한 요청글만 조회
             requestEntityList = requestRepository.findByMemberEntity(memberEntity);
         } else if (memberEntity.getRole().equals("master") || memberEntity.getRole().equals("company")) {
-            // 로그인유저가 업체나 마스터일 경우 해당하는 reqrole을 가진 글만 조회
-            int reqrole = memberEntity.getRole().equals("master") ? 2 : 1;
+            // 로그인유저가 'master' 또는 'company'일 경우 해당하는 reqrole을 가진 글만 조회
+            int reqrole = memberEntity.getRole().equals("master") ? 2 : 1;  // 'master'는 2, 'company'는 1
             requestEntityList = requestRepository.findByReqrole(reqrole);
         } else {
+            // 잘못된 역할일 경우 예외 처리
             throw new IllegalArgumentException("잘못된 역할 정보입니다.");
         }
         // 예외 처리 3: 요청서 목록이 없을 경우 처리
         if (requestEntityList.isEmpty()) {
+            // 요청서가 없으면 예외를 발생시킴
             throw new RuntimeException("조회할 요청서가 없습니다.");
         }
-        System.out.println("requestEntityList => " + requestEntityList);
-        List<RequestDto> nearbyRequestList = new ArrayList<>();
+        System.out.println("requestEntityList => " + requestEntityList);  // 디버깅 용도: 요청서 리스트 출력
+        List<RequestDto> nearbyRequestList = new ArrayList<>();  // 반환할 요청서 DTO 리스트
+        // 각 요청서에 대해 거리를 계산하고 DTO 객체에 추가
         requestEntityList.forEach(requestEntity -> {
+            // 현재 사용자와 요청서 간의 거리를 계산
             double distance = calculateDistance(userLatitude, userLongitude, requestEntity.getLatitude(), requestEntity.getLongitude());
 
+            // 요청서를 DTO로 변환하고 거리 정보 추가
             RequestDto requestDto = requestEntity.toDto();
-            requestDto.setDistance(distance);
-            nearbyRequestList.add(requestDto);
+            requestDto.setDistance(distance);  // 거리 추가
+            nearbyRequestList.add(requestDto);  // 리스트에 추가
         });
+        // 요청서 리스트를 거리 순으로 정렬
         nearbyRequestList.sort(Comparator.comparingDouble(RequestDto::getDistance));
 
+        // 정렬된 요청서 리스트 반환
         return nearbyRequestList;
     }
 
+    // 두 지점 간의 거리 계산 메서드 (Haversine 공식을 사용)
     private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         final int R = 6371;  // 지구 반지름 (단위: km)
 
         // 위도, 경도 차이를 라디안으로 변환
         double latDistance = Math.toRadians(lat2 - lat1);
         double lonDistance = Math.toRadians(lon2 - lon1);
-        System.out.println(lat2);
-        System.out.println(lat1);
-        System.out.println(lon2);
-        System.out.println(lon1);
+        System.out.println(lat2);  // 디버깅: 경도 출력
+        System.out.println(lat1);  // 디버깅: 위도 출력
+        System.out.println(lon2);  // 디버깅: 경도 출력
+        System.out.println(lon1);  // 디버깅: 위도 출력
 
         // Haversine 공식
         double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) +
@@ -214,9 +221,8 @@ public class RequestService {
                         Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-        // 실제 거리 계산
-        return R * c;  // 단위: km
+        // 실제 거리 계산 (단위: km)
+        return R * c;
     }
-
 }
 
