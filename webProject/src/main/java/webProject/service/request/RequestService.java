@@ -158,48 +158,34 @@ public class RequestService {
     // 거리 계산 된 요청서 리스트 반환 메서드(GET 요청시 호출)
     public List<RequestDto> getNearRequests() {
         // 로그인 된 유저 정보 가져오기
-        String loginid = memberService.getSession();  // 세션에서 로그인된 유저의 이메일을 가져옴
-        MemberEntity memberEntity = memberRepository.findByMemail(loginid);  // 이메일을 통해 회원 정보 조회
+        String loginid = memberService.getSession();
+        MemberEntity memberEntity = memberRepository.findByMemail(loginid);
         // 예외 처리 1: 회원 정보가 null일 경우 처리
         if (memberEntity == null) {
-            // 회원 정보가 없으면 예외를 발생시킴
             throw new IllegalArgumentException("회원 정보가 제공되지 않았습니다.");
         }
-        // 모든 요청서를 조회
-        List<RequestEntity> requestEntityList = requestRepository.findAll();
         // 예외 처리 2: 회원의 역할에 따른 필터링
+        List<RequestEntity> requestEntityList;
         if (memberEntity.getRole().equals("requester")) {
-            // 로그인유저가 'requester'(의뢰인)일 경우 본인이 작성한 요청글만 조회
             requestEntityList = requestRepository.findByMemberEntity(memberEntity);
         } else if (memberEntity.getRole().equals("master") || memberEntity.getRole().equals("company")) {
-            // 로그인유저가 'master' 또는 'company'일 경우 해당하는 reqrole을 가진 글만 조회
-            int reqrole = memberEntity.getRole().equals("master") ? 2 : 1;  // 'master'는 2, 'company'는 1
+            int reqrole = memberEntity.getRole().equals("master") ? 2 : 1;
             requestEntityList = requestRepository.findByReqrole(reqrole);
         } else {
-            // 잘못된 역할일 경우 예외 처리
             throw new IllegalArgumentException("잘못된 역할 정보입니다.");
         }
         // 예외 처리 3: 요청서 목록이 없을 경우 처리
         if (requestEntityList.isEmpty()) {
-            // 요청서가 없으면 예외를 발생시킴
             throw new RuntimeException("조회할 요청서가 없습니다.");
         }
-        System.out.println("requestEntityList => " + requestEntityList);  // 디버깅 용도: 요청서 리스트 출력
-        List<RequestDto> nearbyRequestList = new ArrayList<>();  // 반환할 요청서 DTO 리스트
-        // 각 요청서에 대해 거리를 계산하고 DTO 객체에 추가
+        List<RequestDto> nearbyRequestList = new ArrayList<>();
         requestEntityList.forEach(requestEntity -> {
-            // 현재 사용자와 요청서 간의 거리를 계산
             double distance = calculateDistance(userLatitude, userLongitude, requestEntity.getLatitude(), requestEntity.getLongitude());
-
-            // 요청서를 DTO로 변환하고 거리 정보 추가
             RequestDto requestDto = requestEntity.toDto();
-            requestDto.setDistance(distance);  // 거리 추가
-            nearbyRequestList.add(requestDto);  // 리스트에 추가
+            requestDto.setDistance(distance);
+            nearbyRequestList.add(requestDto);
         });
-        // 요청서 리스트를 거리 순으로 정렬
         nearbyRequestList.sort(Comparator.comparingDouble(RequestDto::getDistance));
-
-        // 정렬된 요청서 리스트 반환
         return nearbyRequestList;
     }
 

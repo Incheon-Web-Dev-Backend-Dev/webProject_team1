@@ -146,37 +146,41 @@ public class EstimateService {
         return estimateDtoList;
     }
 
-    // 견적글 삭제하기
+    // 견적서 삭제하기
     @Transactional
-    public boolean estimateDelete (int estno) {
-         //현재 로그인된 세션 객체 조회
+    public boolean estimateDelete(int estno) {
+        // 로그인된 사용자의 정보 가져오기
         MemberDto loginDto = memberService.getMyInfo();
-        if(loginDto == null){ System.out.println("login error"); return false;}
-
+        // 로그인 정보가 없으면 삭제 불가능, false 반환
+        if (loginDto == null) {
+            System.out.println("login error");
+            return false;
+        }
         try {
+            // 모든 리뷰 엔티티를 가져옴
             List<ReviewEntity> reviewEntityList = reviewRepository.findAll();
+            // 모든 리뷰 파일 엔티티를 가져옴
             List<ReviewFileEntity> reviewFileEntityList = reviewFileRepository.findAll();
+            // 리뷰 엔티티 목록을 순회하면서 해당 estno와 일치하는 리뷰 삭제
             reviewEntityList.forEach(entity -> {
-                if (entity.getEstimateEntity().getEstno()==estno){
+                if (entity.getEstimateEntity().getEstno() == estno) {
                     reviewRepository.delete(entity);
                 }
             });
-            reviewFileEntityList.forEach(entity->{
-                if(entity.getReviewEntity().getEstimateEntity().getEstno() == estno){
+            // 리뷰 파일 엔티티 목록을 순회하면서 해당 estno와 일치하는 리뷰 파일 삭제
+            reviewFileEntityList.forEach(entity -> {
+                if (entity.getReviewEntity().getEstimateEntity().getEstno() == estno) {
                     reviewFileRepository.delete(entity);
                 }
             });
-
-//            // 1. 리뷰와의 관계 해제
-//            reviewRepository.unlinkEstimate(estno);
-            // 3. 견적서 삭제
+            // 견적서 삭제
             estimateRepository.deleteById(estno);
 
             return true;
-        } catch(Exception e) {
+        } catch (Exception e) {
+            // 예외 발생 시 스택 트레이스를 출력하고 false 반환
             e.printStackTrace();
             return false;
         }
-
     }
 }
