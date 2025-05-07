@@ -105,3 +105,44 @@ a {
     text-decoration: none; /* 밑줄 제거 */
     color: black; /* 텍스트 색상 검은색 */
 }
+
+/* 추가 스타일 - list.css에 추가 */
+.loading-indicator {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #5e9ce2;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.no-more-data {
+    text-align: center;
+    padding: 15px;
+    color: #888;
+    font-style: italic;
+    margin-top: 20px;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    text-align: center;
+}

@@ -1,5 +1,6 @@
 package webProject.model.entity.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -7,10 +8,13 @@ import org.hibernate.annotations.DynamicInsert;
 import org.springframework.stereotype.Component;
 import webProject.model.dto.request.RequestDto;
 import webProject.model.entity.BaseTime;
+import webProject.model.entity.estimate.EstimateEntity;
 import webProject.model.entity.member.MemberEntity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter @ToString @Builder
@@ -52,6 +56,14 @@ public class RequestEntity extends BaseTime {
     @ManyToOne
     @JoinColumn(name= "mno", nullable = true)
     private MemberEntity memberEntity;
+
+    // 양방향 관계를 위한 추가
+    @OneToMany(mappedBy = "requestEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude // ToString 에서 제외, = 무한 순한 참조 발생 가능성
+    @Builder.Default
+    @JsonIgnore // JSON 으로 변환시 제외
+    private List<EstimateEntity> estimateEntities = new ArrayList<>();
+
 
     // 1. 요청서 마감처리에 관한 함수
     public boolean isDeadlineReached() {

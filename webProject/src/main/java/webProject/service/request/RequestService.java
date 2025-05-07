@@ -2,6 +2,10 @@ package webProject.service.request;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import webProject.model.dto.member.MemberDto;
 import webProject.model.dto.request.RequestDto;
@@ -206,6 +210,60 @@ public class RequestService {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         // 실제 거리 계산 (단위: km)
         return R * c;
+    }
+
+    // 페이징 처리
+    public Page<RequestDto> getPagedRequests(int page, int size, String sortField, String sortDirection) {
+        // 1. 로그인된 사용자 정보 가져오기
+        String loginid = memberService.getSession();
+        MemberEntity memberEntity = memberRepository.findByMemail(loginid);
+
+        if (memberEntity == null) {
+            return null; // 로그인 정보가 없는 경우
+        }
+
+        // 2. 정렬 설정
+        Sort.Direction direction = sortDirection.equalsIgnoreCase("asc") ?
+                Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, sortField);
+
+        // 3. 페이지 요청 생성
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        // 4. 역할에 따라 다른 쿼리 실행
+        Page<RequestEntity> entityPage;
+        if (memberEntity.getRole().equals("requester")) {
+            entityPage = requestRepository.findByMemberEntity(memberEntity, pageable);
+        } else {
+            int reqrole = memberEntity.getRole().equals("master") ? 2 : 1;
+            entityPage = requestRepository.findByReqrole(reqrole, pageable);
+        }
+
+        // 5. 엔티티를 DTO로 변환
+        return entityPage.map(entity -> {
+            try {
+                RequestDto dto = entity.toDto();
+                // 각 요청글의 견적서 수를 계산
+                dto.setEstimateCount(estimateRepository.countByRequestEntity_Reqno(entity.getReqno()));
+                return dto;
+            } catch (NullPointerException e) {
+                // 탈퇴한 회원 처리
+                RequestDto dto = RequestDto.builder()
+                        .reqno(entity.getReqno())
+                        .mno(0)
+                        .mname("탈퇴한 회원입니다.")
+                        .reqtitle(entity.getReqtitle())
+                        .reqcontent(entity.getReqcontent())
+                        .reqspace(entity.getReqspace())
+                        .latitude(entity.getLatitude())
+                        .longitude(entity.getLongitude())
+                        .reqstate(entity.isReqstate())
+                        .reqrole(entity.getReqrole())
+                        .build();
+                dto.setEstimateCount(estimateRepository.countByRequestEntity_Reqno(entity.getReqno()));
+                return dto;
+            }
+        });
     }
 }
 
