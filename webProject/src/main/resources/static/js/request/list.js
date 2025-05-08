@@ -1,154 +1,237 @@
-// 내가 올린 견적요청서 리스트 조회 함수
-const requestFindAll = () => {
-    console.log("견적요청서 전체조회 함수 실행");
-    fetch('/request/findall.do', {method: 'GET'})
-        .then(r => {
-            if (!r.ok) {
-                throw new Error(`HTTP error! status: ${r.status}`);
+// 페이징 변수 설정
+let currentPage = 0;
+const pageSize = 10;
+let isLoading = false;
+let hasMoreData = true;
+
+// 요청글 목록 불러오기 함수 (페이징 적용)
+const loadRequestList = () => {
+    if (isLoading || !hasMoreData) return;
+    
+    isLoading = true;
+    showLoadingIndicator();
+    
+    console.log(`페이지 ${currentPage} 로딩 중...`);
+    fetch(`/request/paginated?page=${currentPage}&size=${pageSize}&sort=reqno&direction=desc`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-            console.log('응답 상태:', r.status);
-            console.log('응답 헤더:', r.headers);
-            return r.json();  // 일단 텍스트로 받아보기
+            return response.json();
         })
         .then(data => {
-            // 요청 결과 응답자료 확인
-            console.log(data);
-
-            // 1. html을 출력할 구역 가져오기 
-            const reqCardContent = document.querySelector(".reqListCardBox");
+            hideLoadingIndicator();
             
-            // 2. 출력할 html을 저장하는 변수 선언 
-            let html = ``;
-
-            // 3. 응답 자료를 반복문을 이용하여 하나씩 순회해서 html 누적으로 더해서 출력하기 
-            data.forEach(list => {
-                // 탈퇴한 회원의 요청서는 보여주지 않기위해 조건 설정
-                if (list.mno > 0) {
-                    html += `
-                        <div class="card ${list.reqstate ? "border-primary" : ''}" style="width: 32rem;">
-                            <div class="card-body ">
-                                <div class="card-content cardbox">
-                                    <div>
-                                        <h6 class="card-subtitle mb-2 text-body-secondary">${list.reqdatetime}</h6>
-                                        <h5 class="card-title"><a href="/request/view?reqno=${list.reqno}">${list.reqtitle}</a></h5>
-                                    </div>
-                                    <div class="card-link receivedEstimates">
-                                        ${loginMemberInfo.role === "requester" ? 
-                                            `<span>들어온 견적서</span>
-                                             <a href="/estimate/list?reqno=${list.reqno}" class="card-link">${list.estimateCount}건</a>`
-                                            : ''
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>               
-                    `;
-                }
-            });
-
-            // 4. 역할이 "master" 또는 "company"일 때만 상단 버튼을 추가
-            if (loginMemberInfo.role === "master" || loginMemberInfo.role === "company") {
-                const topButtonContainer = document.querySelector("#topButtonContainer");
-                topButtonContainer.innerHTML = `
-                    <button id="showMapButton" class="top-button">지도로 보기</button>
-                    <button id="imHereButton" class="top-button" onclick="nowLocation()" ><i class="fa-solid fa-compass"></i></button>
-                `;
-                
-                // "지도로 보기" 버튼 클릭 시 오프캔버스 열기 또는 닫기
-                const showMapButton = document.getElementById("showMapButton");
-                const offcanvasElement = document.getElementById("offcanvasScrolling");
-                const offcanvas = new bootstrap.Offcanvas(offcanvasElement);
-
-                showMapButton.addEventListener("click", function () {
-                    if (offcanvasElement.classList.contains("show")) {
-                        // 오프캔버스가 이미 열려있다면 닫기
-                        offcanvas.hide();
-                    } else {
-                        // 오프캔버스를 열기
-                        offcanvas.show();
-
-                        // 오프캔버스가 열리면 카카오 지도 초기화
-                        initMap();
-                    }
-                });
+            // 데이터가 없거나 빈 배열인 경우
+            if (!data.content || data.content.length === 0) {
+                hasMoreData = false;
+                showNoMoreDataMessage();
+                return;
             }
-
-            // 5. 반복문 종료 후 html 변수에 누적된 구역 출력하기
-            reqCardContent.innerHTML = html;
+            
+            // 요청 결과 렌더링
+            renderRequestCards(data.content);
+            
+            // 페이지 번호 증가
+            currentPage++;
+            
+            // 마지막 페이지인지 확인
+            if (data.last) {
+                hasMoreData = false;
+            }
+            
+            isLoading = false;
         })
-        .catch(e => { console.log(e) });
-}
-// 페이지 실행되면 자동으로 함수 실행
-requestFindAll();
+        .catch(error => {
+            console.error('Fetch error:', error);
+            hideLoadingIndicator();
+            isLoading = false;
+            showErrorMessage('데이터를 불러오는 중 오류가 발생했습니다.');
+        });
+};
 
-//========== 현재 위치 기반 가까운 대로 List 출력 ==========
-function nowLocation() {
-    // 사용자의 현재 위치를 가져오는 코드
+// 요청 카드 렌더링 함수
+const renderRequestCards = (requests) => {
+    // 1. 출력할 컨테이너 가져오기
+    const reqCardContent = document.querySelector(".reqListCardBox");
+    
+    // 2. 출력할 HTML 생성
+    let html = '';
+    
+    // 3. 데이터 반복하며 카드 생성
+    requests.forEach(request => {
+        // 탈퇴한 회원의 요청서는 표시하지 않음
+        if (request.mno > 0) {
+            html += `
+                <div class="card ${request.reqstate ? "border-primary" : ''}" style="width: 32rem;">
+                    <div class="card-body">
+                        <div class="card-content cardbox">
+                            <div>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">${request.reqdatetime || ''}</h6>
+                                <h5 class="card-title"><a href="/request/view?reqno=${request.reqno}">${request.reqtitle}</a></h5>
+                            </div>
+                            <div class="card-link receivedEstimates">
+                                ${loginMemberInfo && loginMemberInfo.role === "requester" ? 
+                                    `<span>들어온 견적서</span>
+                                     <a href="/estimate/list?reqno=${request.reqno}" class="card-link">${request.estimateCount || 0}건</a>`
+                                    : ''
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+            `;
+        }
+    });
+    
+    // 4. 첫 페이지인 경우 컨테이너 초기화, 아니면 기존 내용에 추가
+    if (currentPage === 0) {
+        reqCardContent.innerHTML = html;
+    } else {
+        reqCardContent.innerHTML += html;
+    }
+};
+
+// 상단 버튼 초기화 함수
+const initTopButtons = () => {
+    if (loginMemberInfo && (loginMemberInfo.role === "master" || loginMemberInfo.role === "company")) {
+        const topButtonContainer = document.querySelector("#topButtonContainer");
+        topButtonContainer.innerHTML = `
+            <button id="showMapButton" class="top-button">지도로 보기</button>
+            <button id="imHereButton" class="top-button" onclick="nowLocation()"><i class="fa-solid fa-compass"></i></button>
+        `;
+        
+        // 지도 버튼 이벤트 리스너 추가
+        const showMapButton = document.getElementById("showMapButton");
+        const offcanvasElement = document.getElementById("offcanvasScrolling");
+        const offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+
+        showMapButton.addEventListener("click", function() {
+            if (offcanvasElement.classList.contains("show")) {
+                offcanvas.hide();
+            } else {
+                offcanvas.show();
+                initMap();
+            }
+        });
+    }
+};
+
+// 로딩 인디케이터 표시/숨김 함수
+const showLoadingIndicator = () => {
+    // 로딩 인디케이터가 없으면 생성
+    let loadingIndicator = document.getElementById('loadingIndicator');
+    if (!loadingIndicator) {
+        loadingIndicator = document.createElement('div');
+        loadingIndicator.id = 'loadingIndicator';
+        loadingIndicator.className = 'loading-indicator';
+        loadingIndicator.innerHTML = `
+            <div class="spinner"></div>
+            <p>로딩 중...</p>
+        `;
+        document.querySelector('.requestList').appendChild(loadingIndicator);
+    }
+    loadingIndicator.style.display = 'flex';
+};
+
+const hideLoadingIndicator = () => {
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    if (loadingIndicator) {
+        loadingIndicator.style.display = 'none';
+    }
+};
+
+// 더 이상 데이터가 없음을 표시하는 함수
+const showNoMoreDataMessage = () => {
+    let noMoreDataElem = document.getElementById('noMoreData');
+    if (!noMoreDataElem) {
+        noMoreDataElem = document.createElement('div');
+        noMoreDataElem.id = 'noMoreData';
+        noMoreDataElem.className = 'no-more-data';
+        noMoreDataElem.textContent = '더 이상 표시할 요청이 없습니다.';
+        document.querySelector('.requestList').appendChild(noMoreDataElem);
+    }
+    noMoreDataElem.style.display = 'block';
+};
+
+// 오류 메시지 표시 함수
+const showErrorMessage = (message) => {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = message;
+    
+    document.querySelector('.requestList').appendChild(errorDiv);
+    
+    // 3초 후 메시지 제거
+    setTimeout(() => {
+        errorDiv.remove();
+    }, 3000);
+};
+
+// 스크롤 이벤트 핸들러
+const handleScroll = () => {
+    if (isLoading || !hasMoreData) return;
+    
+    const scrollY = window.scrollY;
+    const visibleHeight = window.innerHeight;
+    const pageHeight = document.documentElement.scrollHeight;
+    const bottomOfPage = scrollY + visibleHeight >= pageHeight - 300;
+    
+    if (bottomOfPage) {
+        loadRequestList();
+    }
+};
+
+// 현재 위치 기반 가까운 요청서 목록 출력
+const nowLocation = () => {
+    // 사용자의 현재 위치 좌표 조회
     navigator.geolocation.getCurrentPosition(function(position) {
-        const userLatitude = position.coords.latitude; 
+        const userLatitude = position.coords.latitude;
         const userLongitude = position.coords.longitude;
-
-        console.log(userLatitude, userLongitude);
-
-        // 위치 정보를 백엔드로 전달
+        
+        // 위치 정보를 서버로 전달
         fetch('/request/location', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                latitude: userLatitude,
-                longitude: userLongitude
-            })
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({latitude: userLatitude, longitude: userLongitude})
         })
         .then(response => response.json())
         .then(data => {
-            displayRequests(data);
-        })
-        .catch(error => console.error('Error:', error));
-
-        // 두 번째 fetch 요청에 위치 정보 추가하여 서버에 요청
-        fetch(`/request/near?latitude=${userLatitude}&longitude=${userLongitude}`, {
-            method: 'GET',
+            // 성공적으로 위치 전송 완료
+            console.log('위치 정보 전송 완료:', data);
+            
+            // 그 후 가까운 요청서 목록 조회
+            return fetch(`/request/near?latitude=${userLatitude}&longitude=${userLongitude}`, {
+                method: 'GET',
+            });
         })
         .then(response => {
-            // 응답이 정상인지 확인
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-
-            // 응답 본문이 비어있는지 확인
-            if (response.status === 204) {  // 204 No Content
-                throw new Error('No content returned from server');
-            }
-
-            return response.json();  // 정상 응답인 경우 JSON 파싱
+            return response.json();
         })
         .then(data => {
-            // 요청 결과 응답 자료 확인
-            console.log(data);
-
-            // 1. html을 출력할 구역 가져오기 
+            console.log('가까운 요청서 데이터:', data);
+            
+            // 기존 목록 초기화 및 가까운 순서대로 정렬된 목록 표시
             const reqCardContent = document.querySelector(".reqListCardBox");
-
-            // 2. 출력할 html을 저장하는 변수 선언 
-            let html = ``;
-
-            // 3. 응답 자료를 반복문을 이용하여 하나씩 순회해서 html 누적으로 더해서 출력하기 
-            data.forEach(list => {
-                // 탈퇴한 회원의 요청서는 보여주지 않기 위해 조건 설정
-                if (list.mno > 0) {
+            reqCardContent.innerHTML = '';
+            
+            let html = '';
+            data.forEach(request => {
+                if (request.mno > 0) {
                     html += `
-                        <div class="card ${list.reqstate ? "border-primary" : ''}" style="width: 32rem;">
+                        <div class="card ${request.reqstate ? "border-primary" : ''}" style="width: 32rem;">
                             <div class="card-body">
                                 <div class="card-content cardbox">
                                     <div>
-                                        <h6 class="card-subtitle mb-2 text-body-secondary">${list.reqdatetime}</h6>
+                                        <h6 class="card-subtitle mb-2 text-body-secondary">${request.reqdatetime || ''}</h6>
                                         <h5 class="card-title">
-                                            <a href="/request/view?reqno=${list.reqno}">${list.reqtitle}</a>
+                                            <a href="/request/view?reqno=${request.reqno}">${request.reqtitle}</a>
                                         </h5>
-                                        <p class="card-text">${list.reqcontent}</p>
-                                        <p class="card-text">요청서 위치: ${list.raddress} - 거리: ${list.distance.toFixed(2)} km</p>
+                                        <p class="card-text">${request.reqcontent || ''}</p>
+                                        <p class="card-text">요청서 위치: ${request.raddress || ''} - 거리: ${request.distance ? request.distance.toFixed(2) : '?'} km</p>
                                     </div>
                                 </div>
                             </div>
@@ -156,94 +239,93 @@ function nowLocation() {
                     `;
                 }
             });
-
-            // 4. html 내용물을 해당 div에 삽입
+            
             reqCardContent.innerHTML = html;
+            
+            // 페이지 초기화 (이제는 가까운 순서로 정렬된 목록이므로 무한 스크롤 비활성화)
+            hasMoreData = false;
+            document.getElementById('noMoreData')?.remove();
         })
         .catch(error => {
             console.error('Fetch error:', error);
+            showErrorMessage('가까운 요청서를 불러오는 중 오류가 발생했습니다.');
         });
+    }, function(error) {
+        console.error('위치 정보를 가져오는 데 실패했습니다:', error);
+        showErrorMessage('위치 정보를 가져오는 데 실패했습니다. 위치 권한을 확인해주세요.');
     });
-}
+};
 
-// ======== 카카오 지도 ========
-let map;  // 전역 변수로 지도 객체 선언
-
+// 카카오 지도 초기화 함수 (기존 코드 유지)
+let map;
 function initMap() {
-    // 카카오 지도 API 로드 후, 지도 객체 생성
     kakao.maps.load(function() {
-        const container = document.getElementById("map"); // 지도가 표시될 div
+        const container = document.getElementById("map");
         const options = {
-            center: new kakao.maps.LatLng(37.5665, 126.9780),  // 초기 위치 (서울)
-            level: 3 // 초기 줌 레벨
+            center: new kakao.maps.LatLng(37.5665, 126.9780),
+            level: 3
         };
 
-        const map = new kakao.maps.Map(container, options); // 지도 객체 생성
+        map = new kakao.maps.Map(container, options);
 
         // 마커 클러스터러 생성
         var clusterer = new kakao.maps.MarkerClusterer({
-            map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
-            averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-            minLevel: 8 // 클러스터 할 최소 지도 레벨 
+            map: map,
+            averageCenter: true,
+            minLevel: 8
         });
 
         // Geolocation API를 이용해 현재 위치 받아오기
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
-                const lat = position.coords.latitude;  // 위도
-                const lon = position.coords.longitude; // 경도
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
 
-                // 현재 위치로 지도 중심 설정
                 const currentPosition = new kakao.maps.LatLng(lat, lon);
-                map.setCenter(currentPosition);  // 지도 중심을 현재 위치로 변경
+                map.setCenter(currentPosition);
 
                 const markerImage = new kakao.maps.MarkerImage(
-                    '/img/custom_marker.png',  // FontAwesome 아이콘을 이미지로 바꿔서 URL 넣기
-                    new kakao.maps.Size(40, 40),  // 이미지 크기
+                    '/img/custom_marker.png',
+                    new kakao.maps.Size(40, 40),
                     {
-                        offset: new kakao.maps.Point(20, 40)  // 이미지의 중심을 설정
+                        offset: new kakao.maps.Point(20, 40)
                     }
                 );
 
-                // 현재 위치 마커 생성
                 const marker = new kakao.maps.Marker({
-                    position: currentPosition,    // 현위치 좌표
-                    map: map,                     // 지도에 마커 표시
-                    title: "현재 위치",           // 마커 제목
-                    image: markerImage           // 마커에 커스텀 이미지 적용
+                    position: currentPosition,
+                    map: map,
+                    title: "현재 위치",
+                    image: markerImage
                 });
 
             }, function(error) {
-                // 위치 정보를 가져오지 못했을 때 처리
                 console.error("현재 위치를 가져오는 데 실패했습니다.", error);
             });
         } else {
             console.error("Geolocation을 지원하지 않는 브라우저입니다.");
         }
 
-        // API를 호출하여 데이터를 가져오기
+        // 요청글 데이터 가져와서 지도에 표시
         fetch('/request/findall.do', { method: 'GET' })
             .then(r => r.json())
             .then(responseData => {
-                console.log(responseData);
+                console.log('지도에 표시할 데이터:', responseData);
 
-                // 마커와 클러스터 추가가
                 let markers = responseData.map(data => {
                     const marker = new kakao.maps.Marker({
-                        position: new kakao.maps.LatLng(data.latitude, data.longitude) // DB에서 받아온 위도, 경도 사용
+                        position: new kakao.maps.LatLng(data.latitude, data.longitude)
                     });
-                    // 마커 클릭시 이벤트
+                    
                     kakao.maps.event.addListener(marker, 'click', function() {
-                        // 마커 클릭시 req title 표시 및 클릭시 상세페이지 이동
                         const infoWindow = new kakao.maps.InfoWindow({
-                            content: `<a href="/request/view?reqno=${data.reqno}">${data.reqtitle}</a>
-                            ` 
+                            content: `<a href="/request/view?reqno=${data.reqno}">${data.reqtitle}</a>`
                         });
                         infoWindow.open(map, marker);
                     });
                     return marker;
                 });
-                // 클러스터 추가가
+                
                 clusterer.addMarkers(markers);
             })
             .catch(error => {
@@ -252,5 +334,62 @@ function initMap() {
     });
 }
 
+// 페이지 로드 시 초기화
+document.addEventListener('DOMContentLoaded', () => {
+    // 상단 버튼 초기화
+    initTopButtons();
+    
+    // 초기 데이터 로드
+    loadRequestList();
+    
+    // 스크롤 이벤트 리스너 추가
+    window.addEventListener('scroll', handleScroll);
+    
+    // CSS 추가 (옵션)
+    addStyles();
+});
 
-
+// CSS 스타일 동적 추가 함수
+const addStyles = () => {
+    const style = document.createElement('style');
+    style.textContent = `
+        .loading-indicator {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #5e9ce2;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .no-more-data {
+            text-align: center;
+            padding: 15px;
+            color: #888;
+            font-style: italic;
+        }
+        
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            text-align: center;
+        }
+    `;
+    document.head.appendChild(style);
+};

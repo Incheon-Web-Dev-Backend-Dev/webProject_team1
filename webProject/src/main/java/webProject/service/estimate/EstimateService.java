@@ -89,7 +89,6 @@ public class EstimateService {
         return estimateDtoList;
     }
 
-
     @Transactional
     // 견적글 개별 조회
     public EstimateDto estimateFind(int estno){
@@ -132,9 +131,7 @@ public class EstimateService {
         } // if end
         return false;
     }// selectEstimate end
-
-
-
+    
     // 현재 로그인된 회원의 작성항 견적글 천제 조회
     public List<EstimateDto> estimateMyWrote(){
         // 로그인된 회원 아이디 가져오기
@@ -149,37 +146,35 @@ public class EstimateService {
         return estimateDtoList;
     }
 
-    // 견적글 삭제하기
+    // 견적서 삭제하기
     @Transactional
-    public boolean estimateDelete (int estno) {
-         //현재 로그인된 세션 객체 조회
+    public boolean estimateDelete(int estno) {
+        // 로그인된 사용자의 정보 가져오기
         MemberDto loginDto = memberService.getMyInfo();
-        if(loginDto == null){ System.out.println("login error"); return false;}
-
+        if (loginDto == null) {
+            System.out.println("login error");
+            return false;
+        }
         try {
             List<ReviewEntity> reviewEntityList = reviewRepository.findAll();
             List<ReviewFileEntity> reviewFileEntityList = reviewFileRepository.findAll();
             reviewEntityList.forEach(entity -> {
-                if (entity.getEstimateEntity().getEstno()==estno){
+                if (entity.getEstimateEntity().getEstno() == estno) {
                     reviewRepository.delete(entity);
                 }
             });
-            reviewFileEntityList.forEach(entity->{
-                if(entity.getReviewEntity().getEstimateEntity().getEstno() == estno){
+            reviewFileEntityList.forEach(entity -> {
+                if (entity.getReviewEntity().getEstimateEntity().getEstno() == estno) {
                     reviewFileRepository.delete(entity);
                 }
             });
-
-//            // 1. 리뷰와의 관계 해제
-//            reviewRepository.unlinkEstimate(estno);
-            // 3. 견적서 삭제
+            // 견적서 삭제
             estimateRepository.deleteById(estno);
-
             return true;
-        } catch(Exception e) {
+        } catch (Exception e) {
+            // 예외 발생 시 스택 트레이스를 출력하고 false 반환
             e.printStackTrace();
             return false;
         }
-
     }
 }

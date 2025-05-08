@@ -1,8 +1,11 @@
 package webProject.model.repository.request;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import webProject.model.entity.member.MemberEntity;
 import webProject.model.entity.request.RequestEntity;
@@ -20,4 +23,20 @@ public interface RequestRepository extends JpaRepository<RequestEntity, Integer>
     @Modifying
     @Query("UPDATE RequestEntity r SET r.memberEntity = null WHERE r.memberEntity.mno = :mno")
     void unlinkMember(Integer mno);
+
+    // 페이징 처리 메서드
+    Page<RequestEntity> findByMemberEntity(MemberEntity memberEntity, Pageable pageable);
+    Page<RequestEntity> findByReqrole(int reqrole, Pageable pageable);
+
+    // 검색 기능을 위한 메서드 (선택 사항)
+    Page<RequestEntity> findByReqroleAndReqtitleContaining(int reqrole, String keyword, Pageable pageable);
+
+    // N+1 문제 해결을 위한 페치 조인 쿼리
+    @Query("SELECT r FROM RequestEntity r LEFT JOIN FETCH r.estimateEntities WHERE r.reqrole = :reqrole")
+    List<RequestEntity> findByReqroleWithEstimates(@Param("reqrole") int reqrole);
+
+    // 페이징과 함께 사용하기 위한 카운트 쿼리
+    @Query(value = "SELECT r FROM RequestEntity r WHERE r.reqrole = :reqrole",
+            countQuery = "SELECT COUNT(r) FROM RequestEntity r WHERE r.reqrole = :reqrole")
+    Page<RequestEntity> findByReqroleWithPaging(@Param("reqrole") int reqrole, Pageable pageable);
 }
