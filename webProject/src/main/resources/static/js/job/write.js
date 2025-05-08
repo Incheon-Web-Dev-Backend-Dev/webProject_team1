@@ -96,9 +96,8 @@ function execDaumPostcode() {
 function jobwrite(){
 
     let jotitleValue = document.querySelector('.jotitleValue');
-    let joservice = $("select[id=joserviceSelect] option:selected").text();   // 선택된 option의 value 값이 아닌 그에 해당하는 text를 받아옴
-//    let jocity = $("select[id=jocitySelect] option:selected").text();         // 선택된 option의 value 값이 아닌 그에 해당하는 text를 받아옴
-//    let jodistrict = $("select[id=jodistrictSelect] option:selected").text(); // 선택된 option의 value 값이 아닌 그에 해당하는 text를 받아옴
+    // 선택된 option의 value 값이 아닌 그에 해당하는 text를 받아옴
+    let joservice = $("select[id=joserviceSelect] option:selected").text();   
     let jocontentValue = document.querySelector('.jocontentValue');
 
     let addr = document.querySelector('#address');
