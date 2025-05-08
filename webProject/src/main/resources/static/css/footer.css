@@ -1,83 +1,79 @@
-body {
-    margin-bottom: 0px; /* 본문 아래에 푸터 높이만큼의 여백 추가 */
-    border-radius: 0px;
-}
 .text-bg-secondary {
-    background-color: white !important;
+    background-color: #f7f7f7 !important;
     position: fixed;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
     max-width: 600px;
-    min-width: 600px !important;
-    padding: 10px 0;
+    width: 100%;
+    margin: 0 auto;
+    padding: 8px 0;
     z-index: 1000;
-    }
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+}
+
 .footer-buttons {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    min-width: 600px;
-    margin: 0 auto; /* 화면 중앙 정렬 */
-    padding: 0; /* 불필요한 여백 제거 */
-    overflow: hidden; /* 초과되는 요소 숨김 */
+    padding: 0 10px;
+    flex-wrap: nowrap;
+    width: 100%;
 }
 
 .footer-btn {
+    flex: 1 1 auto;
+    max-width: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1 1 22%;
-    max-width: 120px;
-    margin: 5px;
     text-align: center;
-    color: #5e9ce2; /* 기본 텍스트 색상은 흰색 */
-    text-decoration: none; /* 텍스트 밑줄 제거 */
-    cursor: pointer; /* 버튼에 마우스를 올리면 클릭할 수 있는 모양으로 변경 */
-    transition: all 0.3s ease; /* 모든 속성에 부드러운 애니메이션 효과 적용 */
+    text-decoration: none;
+    color: #5e9ce2;
+    font-size: 14px;
+    font-weight: bold;  /* 글씨를 진하게 설정 */
+    transition: all 0.2s ease;
+    padding: 4px 0;
+    border-radius: 8px;
 }
-/* 텍스트 크기 조정 안 하기 */
-.footer-btn span {
-    font-size: 17px; /* 텍스트 크기는 별도로 설정 */
+
+.footer-btn:hover {
+    background-color: #f2f8ff;
+    transform: translateY(-2px);
+}
+
+.footer-btn:active {
+    background-color: #e2efff;
+    transform: scale(0.95);
 }
 
 .btn-icon {
-    font-size: 24px;
-    margin-bottom: 5px; /* 아이콘과 텍스트 사이 간격 추가 */
-    transition: transform 0.3s ease; /* 아이콘에 부드러운 애니메이션 추가 */
-    color: #5e9ce2;
-}
-
-/* 클릭 시 효과 */
-.footer-btn:active {
-    transform: scale(0.95); /* 버튼이 살짝 눌리는 효과 */
-    box-shadow: 0 2px 5px burlywood(0, 188, 212, 0.3); /* 클릭 시 그림자 효과를 줄여서 눌린 느낌 추가 */
-    color: #5e9ce2;
-    border-radius: 12px;
-}
-.footer-btn:hover {
-    transform: scale(1.05);
+    font-size: 20px;
+    margin-bottom: 3px;
+    transition: transform 0.3s ease;
 }
 
 .footer-btn:hover .btn-icon {
-    transform: rotate(10deg); /* 호버 시 아이콘 약간 회전 */
+    transform: rotate(5deg);
 }
 
 .footer-btn:active .btn-icon {
-    transform: rotate(-10deg) scale(0.9); /* 클릭 시 아이콘 살짝 회전 및 크기 축소 */
-}
-/* 클릭 시 효과 끝 */
-
-
-
-/* 특정 아이콘 크기 조정 */
-.fa-sheet-plastic {
-    font-size: 24px; /* 원하는 크기로 설정 */
+    transform: rotate(-5deg) scale(0.9);
 }
 
-.fa-person-circle-question{
-    font-size: 24px;
+/* 반응형: 모바일에서 버튼 간격 여유 */
+@media screen and (max-width: 400px) {
+    .footer-buttons {
+        justify-content: space-between;
+    }
+
+    .footer-btn {
+        font-size: 13px;
+        max-width: 70px;
+    }
+
+    .btn-icon {
+        font-size: 18px;
+    }
 }
-
-
-/* 반응형 스타일 추가 */

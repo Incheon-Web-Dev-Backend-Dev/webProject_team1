@@ -1,41 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="/css/member/login.css" />
-  </head>
-  <body>
-    <div th:replace="~{ /header.html :: header }"></div>
-    <div class="mainContent">
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/member/login.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <title>Login</title>
+</head>
+<body>
+  <div th:replace="~{ /header.html :: header }"></div>
 
-      <div class="form">
-        <div id="companysignup">
-          <h3>LOGIN</h3>
+  <div class="mainContent">
+    <div class="login-form">
+      <div class="form-container">
+        <h3>로그인</h3>
 
-          <form>
-            <div class="input-group input-group-sm mb-3">
-              <span class="input-group-text" id="inputGroup-sizing-sm">E-mail</span>
-              <input type="text" class="form-control memailInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            </div>
-            <div class="input-group input-group-sm mb-3">
-              <span class="input-group-text" id="inputGroup-sizing-sm">Password</span>
-              <input onkeyup="enterKey()" type="password" class="form-control mpwdInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            </div>
-      
-            <!-- 비밀번호 찾기, 회원가입 링크는 여기에 배치 --> <!--기능 추후 대입 -->
-            <div class="forgot-container">
-              <p id="signup"><a href="/member/signup" style="text-decoration: none;">👉 회원가입</a></p>
-              <p id="forgotpw"><a href="#" style="text-decoration: none;">👉 비밀번호를 찾기</a></p>
-            </div>
-      
-            <button type="button" onclick="onLogin()" class="button button-block">Login</button>
-          </form>
-        </div>
+        <form>
+          <div class="input-group">
+            <input type="email" class="form-control memailInput" placeholder="이메일을 입력하세요" required />
+          </div>
+          <div class="input-group">
+            <input type="password" onkeyup="enterKey()" class="form-control mpwdInput" placeholder="비밀번호를 입력하세요" required />
+          </div>
+
+          <div class="forgot-container">
+            <a href="/member/signup" class="link-text">👉 회원가입</a>
+            <a href="#" class="link-text">👉 비밀번호 찾기</a>
+          </div>
+
+          <button type="button" onclick="onLogin()" class="button button-login">로그인</button>
+
+          <button type="button" class="button button-kakao">카카오톡으로 간편 로그인</button>
+        </form>
       </div>
-
     </div>
-    <div th:replace="~{ /footer.html :: footer }"></div>
-    <script src="/js/member/login.js"></script>
-  </body>
-</html>
+  </div>
 
+  <div th:replace="~{ /footer.html :: footer }"></div>
+  <script src="/js/member/login.js"></script>
+</body>
+</html>
