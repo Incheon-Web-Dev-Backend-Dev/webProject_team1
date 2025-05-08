@@ -1,42 +1,37 @@
-const findTop2Reviews = () => {
-    fetch('/review/mainReview.do')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
+const findTop2Reviews = async () => {
+    try {
+        const response = await fetch('/review/mainReview.do');
+        const data = await response.json();
+        const cardBox = document.querySelector(".cardBox");
+        cardBox.innerHTML = ""; // 초기화 (중복 방지)
 
-            const cardBox = document.querySelector(".cardBox");
+        data.forEach((review) => {
+            const stars = Array.from({ length: 5 }, (_, i) =>
+                i < review.revstar
+                    ? `<i class="fa-solid fa-star"></i>`
+                    : `<i class="fa-regular fa-star"></i>`
+            ).join("");
 
-            let html = ``;
-            data.forEach( review =>{
-                // 별점 표시 HTML 생성
-                let starHtml = '';
-                for (let i = 0; i < review.revstar; i++) {
-                    starHtml += `<i class="fa-solid fa-star"></i>`;
-                }
-                for (let i = review.revstar; i < 5; i++) {
-                    starHtml += `<i class="fa-regular fa-star"></i>`;
-                }
+            const reviewImg = (review.revimgList?.[0]) || "default.png";
+            const shortContent = review.revcontent.length > 100
+                ? review.revcontent.slice(0, 100) + "..."
+                : review.revcontent;
 
-                // 리뷰 카드 HTML 생성
-                let reviewImg = '';
-                if (review.revimgList && review.revimgList.length > 0) {
-                    reviewImg = review.revimgList[0];
-                }
-
-                html += `
-                <div class="card" style="width: 16rem;">
+            const card = `
+                <div class="card" style="width: 100%; max-width: 260px;">
                     <img src="/img/review/${reviewImg}" class="card-img-top revimgList" alt="리뷰이미지" onerror="this.src='/img/default.png'">
                     <div class="card-body">
-                        <p class="card-text revstar">${starHtml}</p>
-                        <p class="card-text">${review.revcontent.substring(0, 100)}${review.revcontent.length > 100 ? '...' : ''}</p>
+                        <p class="card-text revstar">${stars}</p>
+                        <p class="card-text">${shortContent}</p>
                     </div>
                 </div>
-                `;
+            `;
+            cardBox.innerHTML += card;
+        });
 
-            });
-            cardBox.innerHTML += html;
-        })
-        .catch(error => {console.log("mainTopReviews error" + error)})
-}
+    } catch (error) {
+        console.error("리뷰 데이터를 불러오는 중 오류 발생:", error);
+    }
+};
 
 findTop2Reviews();

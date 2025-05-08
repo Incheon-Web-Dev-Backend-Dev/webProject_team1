@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +54,6 @@ public class RequestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("review.findAll status error" + e.getMessage());
         } //try-catch end
     } // requestFindAll end
-
 
     // 견적 요청글 작성
     @PostMapping("/post.do")
@@ -104,6 +104,29 @@ public class RequestController {
             }
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+    // 페이징 관련
+    @GetMapping("/paginated")
+    public ResponseEntity<?> getPagedRequests(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "reqno") String sort,
+            @RequestParam(defaultValue = "desc") String direction) {
+
+        try {
+            Page<RequestDto> result = requestService.getPagedRequests(page, size, sort, direction);
+
+            if (result == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Please login to view requests");
+            } else if (result.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.OK).body("No requests found");
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).body(result);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error fetching paginated requests: " + e.getMessage());
         }
     }
 } // class End

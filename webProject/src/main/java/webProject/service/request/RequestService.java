@@ -2,6 +2,10 @@ package webProject.service.request;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import webProject.model.dto.member.MemberDto;
 import webProject.model.dto.request.RequestDto;
@@ -155,25 +159,20 @@ public class RequestService {
         this.userLongitude = longtitude;
         return true;
     }
-
     // 거리 계산 된 요청서 리스트 반환 메서드(GET 요청시 호출)
     public List<RequestDto> getNearRequests() {
         // 로그인 된 유저 정보 가져오기
         String loginid = memberService.getSession();
         MemberEntity memberEntity = memberRepository.findByMemail(loginid);
-
-        List<RequestEntity> requestEntityList = requestRepository.findAll();
-
         // 예외 처리 1: 회원 정보가 null일 경우 처리
         if (memberEntity == null) {
             throw new IllegalArgumentException("회원 정보가 제공되지 않았습니다.");
         }
         // 예외 처리 2: 회원의 역할에 따른 필터링
+        List<RequestEntity> requestEntityList;
         if (memberEntity.getRole().equals("requester")) {
-            // 로그인유저가 의뢰인일 경우 본인이 작성한 요청글만 조회
             requestEntityList = requestRepository.findByMemberEntity(memberEntity);
         } else if (memberEntity.getRole().equals("master") || memberEntity.getRole().equals("company")) {
-            // 로그인유저가 업체나 마스터일 경우 해당하는 reqrole을 가진 글만 조회
             int reqrole = memberEntity.getRole().equals("master") ? 2 : 1;
             requestEntityList = requestRepository.findByReqrole(reqrole);
         } else {
@@ -183,40 +182,88 @@ public class RequestService {
         if (requestEntityList.isEmpty()) {
             throw new RuntimeException("조회할 요청서가 없습니다.");
         }
-        System.out.println("requestEntityList => " + requestEntityList);
         List<RequestDto> nearbyRequestList = new ArrayList<>();
         requestEntityList.forEach(requestEntity -> {
             double distance = calculateDistance(userLatitude, userLongitude, requestEntity.getLatitude(), requestEntity.getLongitude());
-
             RequestDto requestDto = requestEntity.toDto();
             requestDto.setDistance(distance);
             nearbyRequestList.add(requestDto);
         });
         nearbyRequestList.sort(Comparator.comparingDouble(RequestDto::getDistance));
-
         return nearbyRequestList;
     }
 
+    // 두 지점 간의 거리 계산 메서드 (Haversine 공식을 사용)
     private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         final int R = 6371;  // 지구 반지름 (단위: km)
-
         // 위도, 경도 차이를 라디안으로 변환
         double latDistance = Math.toRadians(lat2 - lat1);
         double lonDistance = Math.toRadians(lon2 - lon1);
-        System.out.println(lat2);
-        System.out.println(lat1);
-        System.out.println(lon2);
-        System.out.println(lon1);
-
+        // 디버깅: 경도 출력           // 디버깅: 위도 출력
+        System.out.println(lat2);   System.out.println(lat1);
+        // 디버깅: 경도 출력           // 디버깅: 위도 출력
+        System.out.println(lon2);   System.out.println(lon1);
         // Haversine 공식
         double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) +
                 Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
                         Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-        // 실제 거리 계산
-        return R * c;  // 단위: km
+        // 실제 거리 계산 (단위: km)
+        return R * c;
     }
 
+    // 페이징 처리
+    public Page<RequestDto> getPagedRequests(int page, int size, String sortField, String sortDirection) {
+        // 1. 로그인된 사용자 정보 가져오기
+        String loginid = memberService.getSession();
+        MemberEntity memberEntity = memberRepository.findByMemail(loginid);
+
+        if (memberEntity == null) {
+            return null; // 로그인 정보가 없는 경우
+        }
+
+        // 2. 정렬 설정
+        Sort.Direction direction = sortDirection.equalsIgnoreCase("asc") ?
+                Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, sortField);
+
+        // 3. 페이지 요청 생성
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        // 4. 역할에 따라 다른 쿼리 실행
+        Page<RequestEntity> entityPage;
+        if (memberEntity.getRole().equals("requester")) {
+            entityPage = requestRepository.findByMemberEntity(memberEntity, pageable);
+        } else {
+            int reqrole = memberEntity.getRole().equals("master") ? 2 : 1;
+            entityPage = requestRepository.findByReqrole(reqrole, pageable);
+        }
+
+        // 5. 엔티티를 DTO로 변환
+        return entityPage.map(entity -> {
+            try {
+                RequestDto dto = entity.toDto();
+                // 각 요청글의 견적서 수를 계산
+                dto.setEstimateCount(estimateRepository.countByRequestEntity_Reqno(entity.getReqno()));
+                return dto;
+            } catch (NullPointerException e) {
+                // 탈퇴한 회원 처리
+                RequestDto dto = RequestDto.builder()
+                        .reqno(entity.getReqno())
+                        .mno(0)
+                        .mname("탈퇴한 회원입니다.")
+                        .reqtitle(entity.getReqtitle())
+                        .reqcontent(entity.getReqcontent())
+                        .reqspace(entity.getReqspace())
+                        .latitude(entity.getLatitude())
+                        .longitude(entity.getLongitude())
+                        .reqstate(entity.isReqstate())
+                        .reqrole(entity.getReqrole())
+                        .build();
+                dto.setEstimateCount(estimateRepository.countByRequestEntity_Reqno(entity.getReqno()));
+                return dto;
+            }
+        });
+    }
 }
 
