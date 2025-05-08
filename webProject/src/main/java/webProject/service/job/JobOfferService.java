@@ -86,7 +86,8 @@ public class JobOfferService {
         int startBtn = ((page-1)/btnSize)*btnSize+1;
         int endBtn = startBtn+(btnSize-1);
         if (endBtn>=totalPage) endBtn = totalPage;
-        JobPageDto pageDto = JobPageDto.builder().page(page).totalpage(totalPage).totalcount(totalCount).startbtn(startBtn).endbtn(endBtn).data(list).build();
+        JobPageDto pageDto = JobPageDto.builder().page(page).totalpage(totalPage).totalcount(totalCount)
+                .startbtn(startBtn).endbtn(endBtn).data(list).build();
         return pageDto;
     }
 
@@ -135,10 +136,7 @@ public class JobOfferService {
             likeRepository.delete(likeEntity);
             }
         });
-
-//        likeRepository.deleteByQuery(jono);
         jobOfferRepository.deleteById(jono);
-
         return true;
     }
 
@@ -160,7 +158,8 @@ public class JobOfferService {
         int startBtn = ((page-1)/btnSize)*btnSize+1;
         int endBtn = startBtn+(btnSize-1);
         if (endBtn>=totalPage) endBtn = totalPage;
-        JobPageDto pageDto = JobPageDto.builder().page(page).totalpage(totalPage).totalcount(totalCount).startbtn(startBtn).endbtn(endBtn).data(list).build();
+        JobPageDto pageDto = JobPageDto.builder().page(page).totalpage(totalPage).totalcount(totalCount)
+                .startbtn(startBtn).endbtn(endBtn).data(list).build();
         return pageDto;
     }
 }
