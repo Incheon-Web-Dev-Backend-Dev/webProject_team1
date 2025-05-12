@@ -13,56 +13,40 @@
 
     <!-- 전체 페이지  -->
     <div class="allContainer">
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> a1ed1e5da4e836dea96a2392a13dc475796b0997
         <div class="wrapper">
             <div class="sidebar">
                 <div class="profile-image">
                     <img src="/img/default.png">
                 </div>
-                <button name="update" onclick="onUpdate()">내 정보 수정</button>
-                <button name="changepw">비밀번호 변경</button>
-                <button name="delete" onclick="onDelete()">계정 탈퇴</button>
-            </div>
+                <a href="/member/checkpwd" class="button" onclick="onUpdate()">내 정보 수정</a>
+                <a href="/member/deleteinfo" class="button">계정 탈퇴</a>
+                </div>
             <div class="container">
-                <div class="profileheader">반갑습니다 :)</div>
+                <div class="profileheader ">반갑습니다. :)</div>
                 <div class="profile-info">
                     <div class="info-group">
-                        <div class="memail">
-                            <label>이메일</label>
+                        <div class="info">
+                            <label id="title">이메일</label>
                             <input type="text" class="form-control memailInput"readonly>
                         </div>
-                        <div class="mname">
-                            <label>이름</label>
+                        <div class="info">
+                            <label id="title">이름</label>
                             <input type="text" class="form-control mnameInput"readonly>
                         </div>
-                        <div class="mphone">
-                            <label>전화번호</label>
+                        <div class="info">
+                            <label id="title">전화번호</label>
                             <input type="text" class="form-control mphoneInput"readonly>
-<<<<<<< HEAD
                         </div>
-=======
-                        </div>                        
->>>>>>> a1ed1e5da4e836dea96a2392a13dc475796b0997
-                        <div class="maddr">
-                            <label>주소</label>
+                        <div class="info">
+                            <label id="title">주소</label>
                             <input type="text" class="form-control maddrInput"readonly>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> a1ed1e5da4e836dea96a2392a13dc475796b0997
     </div> <!--Container end-->
-
-
     <div th:replace="~{ /footer.html :: footer }"></div>
 
     <script src="/js/member/mypage.js"></script>

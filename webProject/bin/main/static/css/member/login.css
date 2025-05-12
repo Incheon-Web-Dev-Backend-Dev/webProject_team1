@@ -1,84 +1,138 @@
+/* 웹폰트 설정 */
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff) format("woff");
+}
 @font-face {
   font-family: 'NanumSquareNeoBold';
-  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot);
-  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.ttf) format("truetype");
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff");
 }
 
-/* 메인 콘텐츠 영역 스타일 */
-.mainContent {
-  width: 600px !important; /* 콘텐츠 영역 너비 설정 */
-  margin-top: 100px;    /* 헤더 높이만큼 여백 */
-  margin-bottom: 80px; /* 푸터 높이만큼 여백 */
-  padding: 20px; /* 내부 여백 설정 */
-  overflow-y: auto; /* 세로 스크롤 가능하도록 설정 */
+* {
+  font-family: 'NanumSquareNeo', sans-serif;
+  box-sizing: border-box;
 }
 
-/* 폼 스타일 */
-.form {
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f4f6f9;
   display: flex;
-  justify-content: center;
-  background: #E6D5B8; /* 배경 색상 설정 */
-  padding: 40px; /* 폼 내부 여백 설정 */
-  max-width: 450px; /* 폼 최대 너비 설정 */
-  margin: 40px auto; /* 폼을 수평 가운데 정렬 */
-  border-radius: 4px; /* 폼의 모서리 둥글게 설정 */
-  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3); /* 그림자 효과 설정 */
+  flex-direction: column;
+  align-items: center;
 }
 
-/* 제목 스타일 */
-h3 {
-  text-align: center; /* 제목을 가운데 정렬 */
-  color: #ffffff; /* 제목 색상 설정 */
-  font-family: NanumSquareNeoBold;
-  font-weight: 300; /* 제목 폰트 두께 설정 */
-  margin: 0 0 40px; /* 제목 아래에 40px 여백 설정 */
+.mainContent {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  background-color: #fff;
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-/* 버튼 스타일 */
-.button {
-  border: 0; /* 버튼의 테두리 제거 */
-  outline: none; /* 버튼의 외곽선 제거 */
-  border-radius: 0; /* 버튼의 테두리 둥글게 하지 않기 */
-  padding: 15px 0; /* 버튼 내부 여백 설정 */
-  font-size: 14px; /* 버튼 글자 크기 설정 */
-  font-weight: 600; /* 버튼 글자 두께 설정 */
-  text-transform: uppercase; /* 버튼 글자를 모두 대문자로 설정 */
-  letter-spacing: 0.1em; /* 버튼 글자 간격 설정 */
-  background: #D4A373; /* 버튼 배경 색상 설정 */
-  color: #ffffff; /* 버튼 글자 색상 설정 */
-  transition: all 0.5s ease; /* 모든 변화에 대해 트랜지션 설정 */
-  -webkit-appearance: none; /* 브라우저 기본 스타일 제거 */
-}
-
-/* 버튼 hover 및 focus 시 색상 변경 */
-.button:hover,
-.button:focus {
-  background: brown; /* hover 또는 focus 상태에서 배경 색상 변경 */
-}
-
-/* 버튼 블록 스타일: 버튼을 가로로 꽉 채우기 */
-.button-block {
-  display: block;
+.login-form {
   width: 100%;
 }
 
+.form-container {
+  width: 100%;
+  text-align: center;
+}
+
+h3 {
+  font-family: 'NanumSquareNeoBold';
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #222;
+}
+
+/* 입력창 */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  border-color: #5e9ce2;
+  outline: none;
+}
+
+/* 버튼 */
+.button {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.button-login {
+  background-color: #5e9ce2;
+  color: white;
+}
+
+.button-login:hover {
+  background-color: #4a8ec7;
+}
+
+.button-kakao {
+  background-color: #fee500;
+  color: #191600;
+}
+
+.button-kakao:hover {
+  background-color: #fdd800;
+}
+
+/* 링크 */
 .forgot-container {
-  display: flex; /* flexbox 사용 */
-  justify-content: space-between; /* 왼쪽 끝과 오른쪽 끝에 배치 */
-  width: 100%; /* 부모 요소의 너비를 100%로 설정 */
-  margin-top: -20px; /* 상단 여백 설정 */
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  margin-bottom: 20px;
+  font-size: 14px;
 }
-#signup{
-  margin-top: 30px;
-  margin-bottom: 30px;
-  font-weight: bold;
+
+.link-text {
+  color: #5e9ce2;
+  text-decoration: none;
 }
-#forgotpw{
-  margin-top: 30px;
-  margin-bottom: 30px;
-  font-weight: bold;
+
+.link-text:hover {
+  text-decoration: underline;
 }
-/* 각 링크의 추가 스타일 */
-#signup a, #forgotpw a {
-  color: #000; /* 원하는 색상으로 설정 (예: 검정색) */
+
+/* 반응형 */
+@media (max-width: 480px) {
+  .mainContent {
+    margin: 40px 20px;
+    padding: 30px 20px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  .form-control {
+    font-size: 14px;
+  }
+
+  .button {
+    font-size: 15px;
+  }
 }
