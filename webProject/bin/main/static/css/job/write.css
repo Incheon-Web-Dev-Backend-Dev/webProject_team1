@@ -1,0 +1,42 @@
+
+@font-face {
+    font-family: 'NanumSquareNeoExtraBold';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
+}
+
+
+.jobofferContent {
+    width: 600px;
+    padding: 100px 20px;
+    overflow-y: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
+}
+
+.jobofferpostHeader{
+    padding: 20px;
+    text-align: center;
+}
+
+.form-label{
+    color: #5e9ce2;
+    font-family: NanumSquareNeoExtraBold;
+}
+
+.jobofferBtn .btn {
+    background-color: #88B3E4 !important;
+    color: white;
+    border: none;
+}
+
+.jobofferBtn .btn:hover {
+    background-color: #72a6e1 !important;
+    color: white;
+}
+
+.jobofferBtn{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

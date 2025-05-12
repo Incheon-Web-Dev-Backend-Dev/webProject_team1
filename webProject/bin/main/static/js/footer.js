@@ -6,7 +6,7 @@ function getLoginMemailFoot(){
     const option = { method: 'GET' };
     const mlogBoxFooter = document.querySelector('.mlogBoxFooter');
 
-    fetch('/member/myinfo.do', option)
+    fetch('/member/myinfo', option)
         .then(response => response.json())
         .then(data => {
             console.log(data);

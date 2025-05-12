@@ -1,102 +1,131 @@
-/* 기본 폰트 설정 */
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot);
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot?#iefix) format("embedded-opentype"),
+    url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff) format("woff"),
+    url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: 'NanumSquareNeoBold';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot);
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot?#iefix) format("embedded-opentype"),
+    url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff"),
+    url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.ttf) format("truetype");
+}
+
 * {
-    font-family: 'NanumSquareNeo', sans-serif;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  font-family: 'NanumSquareNeo';
+  box-sizing: border-box;
 }
 
-/* 페이지 중앙 정렬 */
 body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
 }
 
-/* 비밀번호 확인 컨테이너 */
 .pwcontainer {
-    background: white;
-    padding: 25px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
-    text-align: center;
-    border-radius: 8px;
-    width: 580px;
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-/* 안내 문구 스타일 */
+h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-family: 'NanumSquareNeoBold';
+  color: #333;
+}
+
 .info-text {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 15px;
+  margin-bottom: 30px;
+  color: #666;
+  line-height: 1.6;
 }
 
-/* 입력 필드 스타일 */
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s;
 }
 
-/* 버튼 그룹 (확인 & 취소 버튼) */
+input[type="password"]:focus {
+  border-color: #88B3E4;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(136, 179, 228, 0.2);
+}
+
 .button-group {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
-/* 비밀번호 입력 버튼 스타일 */
-#passwordForm button {
-    background: #007BFF;
-    color: white;
-    border: none;
-    padding: 12px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 14px;
-    width: 48%;
+button {
+  padding: 10px 30px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
 }
 
-#passwordForm button:hover {
-    background: #5e9ce2 !important;
+#okBtn {
+  background-color: #88B3E4;
+  color: white;
 }
 
-/* 취소 버튼 스타일 */
-#okBtn,#cancelBtn {
-    background: #5e9ce2 !important;
+#okBtn:hover {
+  background-color: #5e9ce2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#okBtn:hover , #cancelBtn:hover {
-    background: #5e9ce2 !important;
+#cancelBtn {
+  background-color: #f0f0f0;
+  color: #333;
 }
 
-/* 에러 메시지 스타일 */
+#cancelBtn:hover {
+  background-color: #e0e0e0;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 .error {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
+  color: #dc3545;
+  margin-top: 20px;
+  font-size: 14px;
+  min-height: 20px;
 }
 
-/* 정보 수정 버튼 스타일 */
-.update-button {
-    margin-top: 20px;
-    padding: 12px 20px;
-    background-color: #5e9ce2 !important;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    display: block;
+@media (max-width: 600px) {
+  .pwcontainer {
+    width: 90%;
+    padding: 20px;
+    margin: 30px auto;
+  }
+  
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  button {
     width: 100%;
-    text-align: center;
-    border-radius: 5px;
-}
-
-.update-button:hover {
-    background-color: #45a049;
+  }
 }

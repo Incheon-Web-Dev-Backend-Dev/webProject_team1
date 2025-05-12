@@ -1,54 +1,69 @@
-body {
+@font-face {
+    font-family: 'NanumSquareNeo';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff) format("woff");
+  }
+  
+  * {
+    font-family: 'NanumSquareNeo', sans-serif;
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0;
-    padding: 0;
-}
-
-
-.headerAll {
-    width: 600px;
-    background-color: #A8B5A2;
+  }
+  
+  .headerAll {
+    width: 100%;
+    max-width: 600px;  /* 최대 폭을 600px로 제한 */
+    background-color: #f7f7f7; /* 배경색을 연한 회색으로 변경 */
     display: flex;
     justify-content: space-between;
-    align-items: center;  /* 세로 중앙 정렬 추가 */
+    align-items: center;
     position: fixed;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
-    padding: 10px 20px;  /* 좌우 여백 추가 */
-}
-
-.logoNav {
-    width: auto;  
-}
-
-.logoNav img {
-    height: 100%;  /* 이미지를 로고 영역에 맞춤 */
-    width: auto;
-}
-
-.authNav {
-    display: flex;  /* 가로 정렬을 위해 추가 */
-    list-style: none;  /* li 점 제거 */
-    padding: 0;  /* 기본 패딩 제거 */
-    margin-left: auto;  /* 기본 마진 제거 */
-    margin-top: auto;
-    margin-bottom: auto;
-    align-items: center;  /* 세로 중앙 정렬 */
-    gap: 20px;  /* 항목 사이 간격 */
-}
-
-.authNav li a {
-    text-decoration: none;  /* 밑줄 제거 */
-    color: black;  /* 글자색 검정으로 */
-    font-family: 'NanumSquareNeo';  /* 폰트 통일 */
-}
-
-/* 호버 효과 (선택사항) */
-.authNav li a:hover {
-    opacity: 0.8;  /* 호버 시 약간 투명하게 */
-}
-
+    padding: 12px 25px;  /* 패딩을 조금 더 여유 있게 조정 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* 그림자 효과 강화 */
+  }
+  
+  .logoNav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;  /* 로고가 가운데 위치하도록 조정 */
+  }
+  
+  .logoNav img {
+    height: 70px;  /* 로고 높이 70px로 키움 */
+    width: auto;  /* 너비는 자동으로 비율에 맞춰 크기 조정 */
+    max-height: 70px;  /* 최대 높이를 70px로 설정 */
+    object-fit: contain; /* 이미지 비율을 유지하며 크기 조정 */
+  }
+  
+  .authNav {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 20px;  /* 항목 간 간격을 조금 더 넓게 설정 */
+    align-items: center;
+  }
+  
+  .authNav li a {
+    text-decoration: none;
+    color: #5e9ce2;  /* 색상 변경: 5e9ce2 */
+    font-size: 16px;  /* 글자 크기를 조금 더 크게 */
+    font-weight: bold;  /* 글자를 진하게 */
+    transition: color 0.2s ease;
+  }
+  
+  .authNav li a:hover {
+    color: #3b78b8;  /* 호버시 색상을 조금 더 어두운 파란색으로 변경 */
+  }
+  

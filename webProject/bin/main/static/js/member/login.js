@@ -29,7 +29,11 @@ const onLogin = () => {
       body: JSON.stringify(loginDto),
   };
 
+<<<<<<< HEAD
   fetch("/member/login.do", option)
+=======
+  fetch("/member/login", option)
+>>>>>>> yimjunsu
       .then((response) => response.json())
       .then((data) => {
           if (data === true) {

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/css/member/mypage.css'>
-
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>마이페이지</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/member/mypage.css">
 </head>
 <body>
+<<<<<<< HEAD
     <div th:replace="~{ /header.html :: header }"></div>
 
     <!-- 전체 페이지  -->
@@ -43,12 +43,157 @@
                         </div>
                     </div>
                 </div>
+=======
+  <div th:replace="~{ /header.html :: header }"></div>
+  
+  <!-- 전체 페이지 -->
+  <div class="mainContent">
+    <div class="pageContainer">
+      <div class="wrapper">
+        <div class="sidebar">
+          <div class="profile-image">
+            <img id="profileImage" src="/img/default.png" alt="프로필 이미지">
+            <div class="profile-edit">
+              <label for="profileUpload" class="profile-edit-btn">
+                <i class="icon-edit"></i>
+              </label>
+              <input type="file" id="profileUpload" accept="image/*" style="display: none;">
             </div>
+          </div>
+          
+          <div class="button-container">
+            <button id="editModeBtn" class="button">수정 모드</button>
+            <button id="deleteAccountBtn" class="button danger-btn">계정 탈퇴</button>
+            
+            <!-- 업체 또는 마스터 역할일 때만 표시될 첨부파일 관련 버튼 -->
+            <div id="roleSpecificControls" style="display: none; width: 100%;">
+              <button id="viewFilesBtn" class="button">첨부 파일 보기</button>
+              <button id="updateFilesBtn" class="button">첨부 파일 수정</button>
+>>>>>>> yimjunsu
+            </div>
+          </div>
         </div>
+<<<<<<< HEAD
 
     </div> <!--Container end-->
     <div th:replace="~{ /footer.html :: footer }"></div>
 
     <script src="/js/member/mypage.js"></script>
+=======
+        
+        <div class="container">
+          <div class="profileheader">반갑습니다. :)</div>
+          
+          <!-- 정보 표시/수정 폼 -->
+          <div class="profile-info">
+            <form id="userInfoForm">
+              <div class="info-group">
+                <div class="info">
+                  <label for="memail">이메일</label>
+                  <input type="email" id="memail" class="form-control memailInput" readonly>
+                </div>
+                <div class="info">
+                  <label for="mname">이름</label>
+                  <input type="text" id="mname" class="form-control mnameInput" readonly>
+                </div>
+                <div class="info">
+                  <label for="mphone">전화번호</label>
+                  <input type="tel" id="mphone" class="form-control mphoneInput" readonly>
+                </div>
+                <div class="info">
+                  <label for="maddr">주소</label>
+                  <input type="text" id="maddr" class="form-control maddrInput" readonly>
+                  <div id="addressGroup" class="address-group" style="display: none; margin-top: 10px;">
+                    <input type="text" id="zipcode" placeholder="우편번호" readonly>
+                    <button type="button" id="searchAddrBtn" class="small-btn">주소 검색</button>
+                  </div>
+                  <input type="text" id="address" style="display: none; margin-top: 5px;" placeholder="주소" readonly>
+                  <input type="text" id="detailAddress" style="display: none; margin-top: 5px;" placeholder="상세주소">
+                  <input type="hidden" id="extraAddress">
+                </div>
+                <div class="info">
+                  <label for="mrole">가입 역할</label>
+                  <input type="text" id="mrole" class="form-control mroleInput" readonly>
+                </div>
+                
+                <!-- 비밀번호 변경 영역 - 수정 모드에서만 표시 -->
+                <div id="passwordChangeSection" class="password-section" style="display: none;">
+                  <div class="section-header">
+                    <h3>비밀번호 변경</h3>
+                    <button type="button" id="togglePwdBtn" class="toggle-btn">변경하기</button>
+                  </div>
+                  <div id="passwordFields" style="display: none;">
+                    <div class="info">
+                      <label for="currentPwd">현재 비밀번호</label>
+                      <input type="password" id="currentPwd" class="form-control" placeholder="현재 비밀번호">
+                      <p id="currentPwdMessage" class="form-message"></p>
+                    </div>
+                    <div class="info">
+                      <label for="newPwd">새 비밀번호</label>
+                      <input type="password" id="newPwd" class="form-control" placeholder="새 비밀번호" disabled>
+                      <p id="pwdHelp" class="form-message">비밀번호는 영어와 숫자를 포함하고, 8~20자 이내여야 합니다.</p>
+                    </div>
+                    <div class="info">
+                      <label for="confirmPwd">비밀번호 확인</label>
+                      <input type="password" id="confirmPwd" class="form-control" placeholder="비밀번호 확인" disabled>
+                      <p id="confirmMessage" class="form-message"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 버튼 그룹 - 수정 모드에서만 표시 -->
+              <div id="actionButtons" class="button-group" style="display: none;">
+                <button type="submit" id="saveBtn" class="primary-btn">저장하기</button>
+                <button type="button" id="cancelBtn" class="secondary-btn">취소</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 첨부 파일 모달 -->
+  <div id="fileModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>첨부된 파일</h2>
+      <div id="fileList" class="file-list">
+        <!-- 파일 목록이 여기에 동적으로 추가됩니다 -->
+      </div>
+      <div id="fileUploadSection" style="display: none;">
+        <h3>파일 업로드</h3>
+        <form id="fileUploadForm" enctype="multipart/form-data">
+          <input type="file" id="fileUpload" name="uploadFile" accept="image/*">
+          <button type="submit" class="button">업로드</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 비밀번호 확인 모달 -->
+  <div id="pwdConfirmModal" class="modal">
+    <div class="modal-content pwd-modal">
+      <span class="close">&times;</span>
+      <h2>비밀번호 확인</h2>
+      <p class="info-text">보안을 위해 비밀번호를 입력해주세요.</p>
+      <div class="pwd-input-group">
+        <input type="password" id="pwdConfirmInput" placeholder="비밀번호 입력">
+        <p id="pwdConfirmMessage" class="form-message"></p>
+      </div>
+      <div class="button-group">
+        <button id="pwdConfirmBtn" class="primary-btn">확인</button>
+        <button id="pwdCancelBtn" class="secondary-btn">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <div th:replace="~{ /footer.html :: footer }"></div>
+  
+  <!-- 다음 주소 API 추가 -->
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="/js/member/mypage.js"></script>
+>>>>>>> yimjunsu
 </body>
 </html>
