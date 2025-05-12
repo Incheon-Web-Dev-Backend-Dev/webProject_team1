@@ -4,7 +4,7 @@ const getLoginMemail = () => {
   const option = { method: "GET" };
   const mlogBox = document.querySelector(".mlogBox");
 
-  fetch("/member/myinfo.do", option)
+  fetch("/member/myinfo", option)
     .then(response => response.json())
     .then(data => {
       console.log(data);
@@ -27,7 +27,7 @@ const getLoginMemail = () => {
 };
 
 const logOut = () => {
-  fetch("/member/logout.do", { method: "GET" })
+  fetch("/member/logout", { method: "GET" })
     .then(response => response.json())
     .then(data => {
       if (data === true) {

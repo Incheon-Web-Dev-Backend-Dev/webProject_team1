@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>견적서 상세조회</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="/css/estimate/view.css">
+</head>
+<body>
+    
+    <div th:replace="~{ /header.html :: header }"></div>
+
+    <div class="estimateContainer">
+
+        <h2 class="estimateViewHeader">견적서 상세 조회</h2>
+        <div class="estviewForm">
+            <h6>견적 제목</h6>
+                <div class="form-control esttitleInput">
+                    
+                </div>
+            <h6>견적 내용</h6>
+                <div class="form-control estcontentInput" >
+                    
+                </div>
+            <h6>견적 금액</h6>
+                <div class="form-control estcashInput" >
+                    
+                </div>
+        </div>            
+        <div class="adoptedBtn">
+            <!-- 견적서 채택버튼 구역 -->
+        </div>
+
+    </div>
+
+    <div th:replace="~{ /footer.html :: footer }"></div>
+
+    <script src="/js/estimate/view.js"></script>
+
+</body>
+</html>
+
+<!--esttitleInput estcontentInput estcashInput
+
+
+
+
+
+
+<h6>견적 제목</h6>
+<div class="form-floating mb-3">
+    <textarea class="form-control" placeholder="견적 제목을 여기에 입력하세요." id="floatingTextarea" disabled>
+        여기에 텍스트가 들어갑니다.
+    </textarea>
+    <label for="floatingTextarea">견적 제목</label>
+</div>
+
+
+-->

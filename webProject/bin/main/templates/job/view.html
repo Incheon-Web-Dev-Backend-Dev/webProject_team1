@@ -2,29 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>구인 상세조회</title>
     <link rel="stylesheet" href="/css/job/view.css">
 
 </head>
 <body>
     <div th:replace="~{/header.html :: header}"></div>
-    
-    <div class="viewBox">
-        <div class="mnamebox" style="font-size: 10px;"><!--작성자 이름--></div>
-        <div class="jotitle"><!--게시물 제목--></div><div class="jostate"><!--마감상태--></div><br/>
-        <div class="jocontent"><!--게시물 내용--></div>
-        <br/>
-        <div class="writerInfo">
-            <span class="maddrbox"><!--작성자 주소--></span>
-            <span class="mphonebox"><!--작성자 전화번호--></span>
-            <span class="cdatebox"><!--작성일--></span>
-        </div>
-        <br/>
-        <div class="bottomMenu">
+
+    <div class="jobofferContent">
+    <h2 class="jobofviewHeader">구인 상세조회</h2>
+
+        <div class="viewBox">
+
+            <div class="content">
+                <div class="content-header">
+                    <div class="jotitle"><!--게시물 제목--></div>
+                    <div class="jostate"><!--마감상태--></div>
+                </div>
+                <div class="jocontent"><!--게시물 내용--></div>
+            </div>    
+
+            <div>
+                <div id="map" style="width:400px;height:300px;"><!--지도--></div>
+                <p id="joaddr"></p>
+            </div>
+
+            <div class="writerInfo">
+                <label>작성 업체명 : </label><div class="mnamebox"></div></br>
+                <label>업 체 주 소 : </label><span class="maddrbox"><!--작성자 주소--></span></br>
+                <label>연 락 처 : </label><span class="mphonebox"><!--작성자 전화번호--></span></br>
+                <label>작 성 일 자 : </label><span class="cdatebox">2025-02-27</span>
+            </div>
+            <br/>
+            <div class="bottomMenu">
+            </div>
+
         </div>
     </div>
-    
+
     <div th:replace="~{/footer.html :: footer}"></div>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a2930aa098b826571b66b6aa728b79e1"></script>
     <script src="/js/job/view.js"></script>
 </body>
 </html>

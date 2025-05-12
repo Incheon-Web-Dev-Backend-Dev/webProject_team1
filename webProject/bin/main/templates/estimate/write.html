@@ -15,7 +15,7 @@
 
         <!-- 견적서 from section -->
         <div class="estimateBox">
-            <h2> 견적서 작성 페이지입니다. </h2>
+            <h2 class="estimateWriteHeader">견적서 작성</h2>
             <!-- esttitle input -->
             <div class="title">
                 <label for="esttitle" class="form-label esttitle">&#128073; 견적서 제목</label>
@@ -43,7 +43,9 @@
             </div><!-- estcash end -->
 
             <!-- request post button -->
-            <button type="button" class="btn btn-secondary btn-lg" style="margin: 100px 50px;" onclick="onEstimateWrite()"> 요청글 견적서 올리기 </button>
+             <div class="estimatePostBtn">
+                 <button type="button" class="btn btn-primary" onclick="onEstimateWrite()"> 요청글 견적서 올리기 </button>
+             </div>
 
         </div>
 

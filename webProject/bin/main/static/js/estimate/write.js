@@ -59,26 +59,34 @@ const onEstimateWrite = () => {
 
     // 4. fetch
     const option = {
-      method : 'POST',
-      headers : { 'Content-Type' : 'application/json' },
-      body : JSON.stringify(estdto)
-    }
-    fetch('/estimate/write.do' , option)
-    .then(r=>r.json())
-    .then(data => {
-      console.log(data)
-      if(data == true){
-        alert("견적서 업로드 성공!")
-        location.href='/'; // 해당 요청서로 이동하기 추후 수정 
-      }else{
-        alert("요청서 업로드에 실패했습니다.")
-      }
-    })
-    .catch(e=>{console.log(e)})
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(estdto)
   }
-
-
-
+  
+  fetch('/estimate/write.do', option)
+      .then(response => {
+          console.log("Status code:", response.status);
+          return {
+              text: response.text(),
+              status: response.status
+          };
+      })
+      .then(({text, status}) => {
+          console.log("서버 응답 텍스트:", text);
+          
+          if (status >= 200 && status < 300) {
+              alert("견적서 업로드 성공!");
+              location.href = '/';
+          } else {
+              alert("요청서 업로드에 실패했습니다.");
+          }
+      })
+      .catch(e => {
+          console.log(e);
+          alert("네트워크 오류가 발생했습니다.");
+      });
+    }
 
 
 //========================================== 참고 효과 js =======================================================//
@@ -92,7 +100,7 @@ const appendAlert = (message, type) => {
 
   const wrapper = document.createElement('div');
   wrapper.innerHTML = [
-    `<div class="alert alert-${type} alert-dismissible" role="alert" style="font-size:13px; background-color:#D4A373; color: white;">`,
+    `<div class="alert alert-${type} alert-dismissible" role="alert" style="font-size:13px; background-color:#88B3E4; color: white;">`,
     `   <div>${message}</div>`,
     '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
     '</div>'

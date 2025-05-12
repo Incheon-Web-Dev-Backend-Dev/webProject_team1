@@ -1,0 +1,148 @@
+
+@font-face {
+    font-family: 'NanumSquareNeoExtraBold';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.requestList {
+    width: 600px;
+    min-height: 1100px;
+    padding: 100px 20px;
+    overflow-y: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
+}
+
+.reqstlistHeader{
+    padding: 20px;
+    text-align: center;
+}
+#topButtonContainer {
+    display: flex;               /* Flexbox 사용 */
+    justify-content: space-between; /* 양끝에 배치 */
+    align-items: center;         /* 세로 중앙 정렬 */
+}
+.top-button{
+    background-color: #5e9ce2;
+    color: #fff;
+    border-radius: 5px;
+    padding: 3px;
+    margin-left: 25px; margin-bottom: 18px; margin-right: 25px;
+    border: none;
+    transition: all 0.3s ease;  /* 버튼 상태 변화에 부드러운 애니메이션 추가 */
+}
+
+.top-button:active {
+    background-color: #4c8cbf;  /* 클릭 시 색상 변화 */
+    transform: scale(0.95);      /* 클릭 시 살짝 축소되는 효과 */
+}
+
+.reqListCardBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    
+}
+
+.card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cardbox {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cardbox .receivedEstimates {
+    width: 40%;
+    text-align: right;
+}
+
+.reqListCardBox .card .card-title a{
+    text-decoration: none;
+    color: #5e9ce2;
+    font-family: NanumSquareNeoExtraBold;
+}
+
+.reqListCardBox .card .card-link a{
+    text-decoration: none;
+    color: #5e9ce2;
+    font-family: NanumSquareNeoExtraBold;
+}
+/* offcanvas의 너비를 400px로 변경 */
+.custom-offcanvas-width {
+    width: 37% !important;  /* 원하는 너비 값 */
+}
+
+/* 썸머노트 에디터 너비 조정 */
+.note-editor {
+    width: 100% !important;
+}
+
+/* 반응형 처리 */
+@media screen and (max-width: 600px) {
+    .requestContent {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+/* a 태그 스타일 변경 */
+a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: black; /* 텍스트 색상 검은색 */
+}
+
+/* 추가 스타일 - list.css에 추가 */
+.loading-indicator {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #5e9ce2;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.no-more-data {
+    text-align: center;
+    padding: 15px;
+    color: #888;
+    font-style: italic;
+    margin-top: 20px;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    text-align: center;
+}

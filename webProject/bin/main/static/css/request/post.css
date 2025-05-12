@@ -1,29 +1,21 @@
-
 @font-face {
-    font-family: 'NanumSquareNeo';
-    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot);
-    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.ttf) format("truetype");
-}
-
-/* 모든 폰트 웹 폰트로 변경 */
-* {
-    font-family: 'NanumSquareNeo';
+    font-family: 'NanumSquareNeoExtraBold';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
 }
 
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0;
-    padding: 0;
 }
 
 .requestContent {
     width: 600px;
-    margin-top: 60px;    /* 헤더 높이만큼 여백 */
-    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
-    padding: 20px;
+    padding: 100px 20px;
     overflow-y: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
+    min-height: 1100px;
 }
 
 .postBox {
@@ -32,8 +24,8 @@ body {
 }
 
 .reqstpostHeader{
-    margin-top: 50px;
     padding: 20px;
+    text-align: center;
 }
 
 /* 썸머노트 에디터 너비 조정 */
@@ -46,9 +38,33 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    
+}
+
+.reqpostBtn .btn {
+    background-color: #88B3E4 !important;
+    color: white;
 }
 
 
+.reqpostBtn .btn:hover {
+    background-color: #72a6e1 !important;
+    color: white;
+}
+
+.form-label{
+    color: #5e9ce2;
+    font-family: NanumSquareNeoExtraBold;
+}
+
+
+.form-text{
+    margin-bottom: 10px;
+}
+#map{
+    width:100%;height:300px;padding: 20px; margin-bottom: 20px; display:none;
+    border: solid; border-color: lightgray; border-radius: 2%;
+}
 /* 반응형 처리 */
 @media screen and (max-width: 600px) {
     .requestContent {
