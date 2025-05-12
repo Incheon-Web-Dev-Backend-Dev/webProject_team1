@@ -55,37 +55,13 @@
                 </div> 
                 <div class="form-text" id="basic-addon4">기타를 선택할 경우 아래 요청 내용에 작업 요청공간을 자세하게 작성해주세요.</div>
             </div> <!-- reqspace end -->
-
-
-            <!-- reqarea input section -->
-            <div class="mb-3">
-                <label for="basic-url" class="form-label">정리/수납 요청 지역</label>
-                <div class="input-group">
-                    <select class="form-select reqbigareaValue" id="inputGroupSelect04" aria-label="Example select with button addon">
-                    <option selected>선택하기</option>
-                    <option value="1">서울특별시</option>
-                    <option value="2">경기도</option>
-                    <option value="3">충청북도</option>
-                    <option value="4">충청남도</option>
-                    <option value="5">전라남도</option>
-                    <option value="6">경상북도</option>
-                    <option value="7">경상남도</option>
-                    <option value="8">부산광역시</option>
-                    <option value="9">인천광역시</option>
-                    <option value="10">대구광역시</option>
-                    <option value="11">광주광역시</option>
-                    <option value="12">울산광역시</option>
-                    <option value="13">세종특별자치시</option>
-                    <option value="14">강원특별자치도</option>
-                    <option value="15">전북특별자치도</option>
-                    <option value="16">제주특별자치도</option>
-                    </select>
-                    <select class="form-select reqsmallareaValue" id="inputGroupSelect04" aria-label="Example select with button addon">
-                    <option selected>선택하기</option>
-                    </select>
-                </div> 
-            </div>  <!-- reqarea end -->
-
+            <div> <!-- address -->
+                <label for="basic-url" class="form-label">정리/수납 요청 주소</label><br>
+                <input type="text" id="sample5_address" placeholder="주소">
+                <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+                <div class="form-text" id="basic-addon4">안전한 서비스 이용을 위해 상세주소는 달인과 연결되면 알려주세요.</div>
+                <div id="map"></div>
+            </div>
             <!-- reqcontent input section -->
             <div class="mb-3">
                 <label for="basic-url" class="form-label">정리/수납 자세한 요청 내용</label>
@@ -96,7 +72,7 @@
 
             <!-- request post button -->
              <div class="reqpostBtn">
-                 <button type="button" class="btn btn-secondary btn-lg" onclick="onRequestPost()"> 정리/수납 견적 요청서 올리기 </button>
+                 <button type="button" class="btn " onclick="onRequestPost()"> 정리/수납 견적 요청서 올리기 </button>
              </div>
     
 
@@ -104,10 +80,10 @@
 
     </div> <!-- page and -->
     
- 
-
     <div th:replace="~{ /footer.html :: footer }"></div>
-
+    <!-- 카카오 주소 API -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=188d696add98c977851d949c4e296649&libraries=services"></script>
     <!-- JQUERY = (자바스크립트 기반의 라이브러리) 최신 버전 임포트 -->
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <!-- 썸머노트 api 에 필요한 JS 임포트 -->

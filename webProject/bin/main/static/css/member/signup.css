@@ -1,46 +1,172 @@
-/* signup.css */
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot);
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot?#iefix) format("embedded-opentype"),
+    url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff) format("woff"),
+    url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: 'NanumSquareNeoBold';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot);
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot?#iefix) format("embedded-opentype"),
+    url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff"),
+    url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.ttf) format("truetype");
+}
+
+* {
+  font-family: NanumSquareNeo;
+  box-sizing: border-box;
+}
 
 body {
-    background-color: #f8f9fa;
+  background-color: #f8f9fa;
+  padding: 20px 0;
 }
 
 .container {
-    max-width: 600px !important; /* 최대 너비 600px */
-    margin: auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px !important;
+  margin: auto;
+  padding: 30px;
+  padding-top: 50px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 400px) {
+  .container {
+    max-width: 100% !important;
+    padding: 20px 15px;
+  }
+}
+
+.text-center {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-family: NanumSquareNeoBold;
+  color: #333;
+}
+
+.form-label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.mb-3 {
+  margin-bottom: 25px !important;
 }
 
 .role-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 .role-box {
-    flex: 1;
-    margin: 0 10px;
-    padding: 10px; /* 패딩 조정하여 높이 줄이기 */
-    text-align: center;
-    border: 1px solid #ced4da;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 14px; /* 폰트 크기 줄이기 */
-    display: flex; /* Flexbox 사용 */
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
-    height: 60px; /* 고정 높이 설정 */
+  color: white;
+  background-color: #88b3e4;
+  flex: 1;
+  margin: 0 10px;
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #5e9ce2;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
 }
 
-.role-box:hover {
-    background-color: #e9ecef;
+.role-box:first-child {
+  margin-left: 0;
 }
-/* 버튼에 hover 시 효과 */
-#checkEmailBtn:hover {
-  background-color: #0d6efd;
+
+.role-box:last-child {
+  margin-right: 0;
+}
+
+.role-box h5 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.role-box:hover, .role-box.active {
+  background-color: #5e9ce2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  border-color: #5e9ce2;
+  box-shadow: 0 0 0 0.25rem rgba(94, 156, 226, 0.25);
+}
+
+.btn-outline-primary {
+  color: #5e9ce2;
+  border-color: #5e9ce2;
+}
+
+.btn-outline-primary:hover {
+  background-color: #5e9ce2;
   color: white;
-  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#checkEmailBtn {
+  margin-top: 8px;
+  width: 100%;
+}
+
+.joinbtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #5e9ce2;
+  color: white;
+  width: 100%;
+  max-width: 350px;
+  height: 50px;
+  border: none;
+  border-radius: 6px;
+  margin: 35px auto 0;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.joinbtn:hover {
+  background-color: #4785c8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.input-group .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-text {
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+/* 성공/실패 메시지 스타일 */
+.success-text {
+  color: #198754;
+}
+
+.error-text {
+  color: #dc3545;
 }

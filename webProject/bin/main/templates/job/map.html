@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>구인/구직 지도</title>
+    <link rel="stylesheet" href="/css/job/map.css">
+
+</head>
+<body>
+
+    <div th:replace = "~{ /header.html :: header }"></div>
+
+    <div class="jobmap">
+      <!-- jospace input section -->
+      <div class="mb-3">
+        <label for="basic-url" class="form-label">정리/수납 공간</label>
+        <div class="input-group">
+          <select class="form-select joserviceValue" id="joserviceSelect" aria-label="Example select with button addon">
+            <option value="0">전체</option>
+            <option value="1">주방</option>
+            <option value="2">안방</option>
+            <option value="3">자녀방</option>
+            <option value="4">거실</option>
+            <option value="5">서재</option>
+            <option value="6">사무실</option>
+            <option value="7">기타</option>
+          </select>
+          <button class="btn btn-primary" onclick="jobSearch()" type="button">검색</button>
+        </div>
+      </div> <!-- jospace end -->
+      
+      <div id="map" style="width:550px;height:500px;"></div>
+
+    </div><!--jobmap end-->
+
+    <div th:replace = "~{ /footer.html :: footer }"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a2930aa098b826571b66b6aa728b79e1"></script>
+<script src="/js/job/map.js"></script>
+</body>
+</html>

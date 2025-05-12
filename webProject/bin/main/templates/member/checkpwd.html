@@ -1,34 +1,35 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>비밀번호 확인</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <link rel="stylesheet" href="/index.css">
-    
-    <script src="main.js"></script>
-  </head>
-  <body>
-    <div th:replace="~{ /header.html :: header }"></div>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>비밀번호 확인</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/member/checkpwd.css" />
+</head>
+<body>
+  <div th:replace="~{ /header.html :: header }"></div>
 
+  <div class="pwcontainer">
+    <h2>비밀번호 확인</h2>
+    <p class="info-text">
+      보안상의 이유로 비밀번호를 다시 입력해주세요.<br />
+      본인 확인 후 회원 정보 수정이 가능합니다.
+    </p>
 
+    <form id="passwordForm" onsubmit="event.preventDefault(); checkPwd();">
+      <input type="password" id="password" placeholder="비밀번호 입력" required>
+      <div class="button-group">
+        <button type="submit" id="okBtn">확인</button>
+        <button type="button" id="cancelBtn" onclick="goBack()">취소</button>
+      </div>
+    </form>
 
+    <p id="error-message" class="error"></p>
+  </div>
 
+  <div th:replace="~{ /footer.html :: footer }"></div>
 
-
-
-
-
-
-
-
-
-
-
-    <div th:replace="~{ /footer.html :: footer }"></div>
-
-
-  </body>
+  <script src="/js/member/checkpwd.js"></script>
+</body>
 </html>

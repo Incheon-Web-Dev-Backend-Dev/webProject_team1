@@ -1,0 +1,75 @@
+
+@font-face {
+    font-family: 'NanumSquareNeoExtraBold';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
+}
+
+.joboflistHeader{
+    padding: 20px;
+    text-align: center;
+}
+
+.listPage {
+    width: 600px;
+    margin-top: 100px;    /* 헤더 높이만큼 여백 */
+    margin-bottom: 80px; /* 푸터 높이만큼 여백 */
+    padding: 20px;
+    overflow-y: visible;
+    font-size : 12px;
+}
+
+a {
+    text-decoration : none !important;
+    
+}
+
+/* 6. 만일 할일이 완료일때 */
+.success{
+    background-color:  gray;
+    color: white;
+    text-decoration: line-through; /* 밑줄 */
+}
+
+.success > a{
+    /* 상위선택자A > 하위선택자B : A선택자 바로 하위에 B선택자를 선택 */
+    color: gray;
+}
+
+.bottomMenu{
+    display: flex;
+    justify-content: space-between;
+}
+.btnmap{
+    background-color: #72a6e1;
+    color: white;
+    padding-top: 9px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 14px;
+    width: 92px;
+    height: 30px;
+}
+
+.companyButton .btn {
+    background-color: #88B3E4 !important;
+    color: white;
+    border: none;
+}
+
+.companyButton .btn:hover {
+    background-color: #72a6e1 !important;
+    color: white;
+}
+
+.row .btn {
+    background-color: #88B3E4 !important;
+    color: white;
+    border: none;
+}
+
+.row .btn:hover {
+    background-color: #72a6e1 !important;
+    color: white;
+}

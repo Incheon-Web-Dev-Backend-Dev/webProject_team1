@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>구인글 수정</title>
   <link rel="stylesheet" href="/css/job/update.css">
   <!-- 썸머노트 api 에 필요한 css 임포트 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote-bs5.min.css"/>
@@ -13,7 +13,7 @@
 <!-- 전체 페이지  -->
 <div class="jobofferContent">
 
-  <h2 class="jobofferpostHeader"> 구인글 작성하기 </h2>
+  <h2 class="jobofferpostHeader"> 구인글 수정하기 </h2>
 
   <!-- 요청서 form section -->
   <div class="postBox">
@@ -45,35 +45,17 @@
       <div class="form-text" id="basic-addon4">기타를 선택할 경우 아래 요청 내용에 작업 요청공간을 자세하게 작성해주세요.</div>
     </div> <!-- jospace end -->
 
-
-    <!-- jocity input section -->
+    <!--주소-->
     <div class="mb-3">
-      <label for="basic-url" class="form-label">정리/수납 지역</label>
-      <div class="input-group">
-        <select class="form-select jocityValue" id="jocitySelect" aria-label="Example select with button addon">
-          <option selected>선택하기</option>
-          <option value="1">서울특별시</option>
-          <option value="2">경기도</option>
-          <option value="3">충청북도</option>
-          <option value="4">충청남도</option>
-          <option value="5">전라남도</option>
-          <option value="6">경상북도</option>
-          <option value="7">경상남도</option>
-          <option value="8">부산광역시</option>
-          <option value="9">인천광역시</option>
-          <option value="10">대구광역시</option>
-          <option value="11">광주광역시</option>
-          <option value="12">울산광역시</option>
-          <option value="13">세종특별자치시</option>
-          <option value="14">강원특별자치도</option>
-          <option value="15">전북특별자치도</option>
-          <option value="16">제주특별자치도</option>
-        </select>
-        <select class="form-select jodistrictValue" id="jodistrictSelect" aria-label="Example select with button addon">
-          <option selected>선택하기</option>
-        </select>
-      </div>
-    </div>  <!-- jocity end -->
+      <input type="text" id="postcode" placeholder="우편번호">
+      <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+      <input type="text" id="address"  placeholder="주소"><br>
+      <input type="text" id="detailAddress" placeholder="상세주소">
+      <input type="text" id="extraAddress" placeholder="참고항목">
+      <div id="map" style="width:300px;height:300px;margin-top:10px;display:none;"></div> <!-- 지도 -->
+      <input hidden class="longitude"/><input hidden class="latitude"/> <!--위도 경도 받기-->
+    </div>
+
 
     <!-- jocontent input section -->
     <div class="mb-3">
@@ -84,7 +66,9 @@
     </div><!-- jocontent end -->
 
     <!-- joboffer post button -->
-    <button type="button" class="btn btn-secondary btn-lg" style="margin: 100px 50px;" onclick="jobUpdate()"> 수정하기 </button>
+    <div class="jobofferBtn">
+      <button type="button" class="btn btn-secondary btn-lg" style="margin: 100px 50px;" onclick="jobUpdate()"> 수정하기 </button>
+    </div>
 
 
   </div> <!-- section end -->
@@ -95,6 +79,9 @@
 
 <div th:replace="~{ /footer.html :: footer }"></div>
 
+
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bac15d3b0060abb950e7c8f7891432ac&libraries=services"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- JQUERY = (자바스크립트 기반의 라이브러리) 최신 버전 임포트 -->
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- 썸머노트 api 에 필요한 JS 임포트 -->
