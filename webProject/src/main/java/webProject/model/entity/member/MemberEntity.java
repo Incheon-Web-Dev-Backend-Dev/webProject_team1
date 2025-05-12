@@ -19,7 +19,7 @@ public class MemberEntity extends BaseTime {
     private int mno; //회원번호 
     @Column( nullable = false , unique = true , columnDefinition = "varchar(50)")
     private String memail;//회원 이메일
-    @Column( nullable = false ,columnDefinition = "varchar(16)")
+    @Column( nullable = false ,columnDefinition = "varchar(256)")
     private String mpwd;//회원 비밀번호
     @Column( nullable = false ,columnDefinition = "varchar(30)")
     private String mname;//회원 이름

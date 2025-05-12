@@ -41,15 +41,22 @@ public class MemberService {
     RequestRepository requestRepository;
     @Autowired
     LikeRepository likeRepository;
+    @Autowired private PasswordEncoder passwordEncoder;
 
     // 기본 프로필 이미지 이름
     private static final String DEFAULT_PROFILE_IMAGE = "default.png";
 
+    // 회원가입
     @Transactional
     public boolean signup(MemberDto memberDto) {
         try {
             // 회원 정보 저장
             MemberEntity memberEntity = memberDto.toEntity();
+
+            // 비밀번호 암호화
+            String encodedPwd = passwordEncoder.encrypt(memberDto.getMpwd());
+            memberEntity.setMpwd(encodedPwd);
+
             MemberEntity saveEntity = memberRepository.save(memberEntity);
             System.out.println(memberDto);
             if (saveEntity.getMno() <= 0) return false;
@@ -119,9 +126,9 @@ public class MemberService {
     // 로그인 함수
     @Transactional
     public boolean login(MemberDto memberDto) {
-        boolean result = memberRepository.existsByMemailAndMpwd(memberDto.getMemail(), memberDto.getMpwd());
+        MemberEntity memberEntity = memberRepository.findByMemail(memberDto.getMemail());
 
-        if (result) {
+        if (memberEntity != null && passwordEncoder.matches(memberDto.getMpwd(), memberEntity.getMpwd())) {
             System.out.println("로그인성공!");
             setSession(memberDto.getMemail());
             return true;
@@ -190,12 +197,12 @@ public class MemberService {
         if (memail != null) {
             MemberEntity memberEntity = memberRepository.findByMemail(memail);
             if (memberEntity != null) {
-                String storedPwd = memberEntity.getMpwd();
-                return storedPwd != null && storedPwd.equals(mpwd);
+                return passwordEncoder.matches(mpwd, memberEntity.getMpwd());
             }
         }
         return false;
     }
+
 
     public boolean isEmailDuplicate(String email) {
         return memberRepository.existsByMemail(email);
