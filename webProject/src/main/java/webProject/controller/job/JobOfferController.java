@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import webProject.model.dto.job.JobInfiniteScrollDto;
 import webProject.model.dto.job.JobOfferDto;
 import webProject.model.dto.job.JobPageDto;
 import webProject.service.job.JobOfferService;
@@ -163,6 +164,41 @@ public class JobOfferController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);  // NullPointerException 발생 시 500 Internal Server Error 반환
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);  // 기타 예외 발생 시 500 Internal Server Error 반환
+        }
+    }
+
+    /* 페이징 형식 - 무한스크롤 처리 */
+    // 구인글 무한 스크롤 조회 API
+    @GetMapping("/scroll")
+    public ResponseEntity<JobInfiniteScrollDto> getJobsWithScroll(
+            @RequestParam String key,
+            @RequestParam String keyword,
+            @RequestParam(required = false) Integer lastId,
+            @RequestParam(defaultValue = "5") int limit) {
+        try {
+            JobInfiniteScrollDto result = jobOfferService.getJobsInfiniteScroll(key, keyword, lastId, limit);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // 내 구인글 무한 스크롤 조회 API
+    @GetMapping("/myjobs/scroll")
+    public ResponseEntity<JobInfiniteScrollDto> getMyJobsWithScroll(
+            @RequestParam String key,
+            @RequestParam String keyword,
+            @RequestParam(required = false) Integer lastId,
+            @RequestParam(defaultValue = "3") int limit) {
+        try {
+            JobInfiniteScrollDto result = jobOfferService.getMyJobsInfiniteScroll(key, keyword, lastId, limit);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

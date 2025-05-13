@@ -62,8 +62,11 @@ const renderRequestCards = (requests) => {
     requests.forEach(request => {
         // 탈퇴한 회원의 요청서는 표시하지 않음
         if (request.mno > 0) {
+            // reqstate가 false인 경우 마감된 요청서
+            const isClosedClass = !request.reqstate ? "closed" : "";
+            
             html += `
-                <div class="card ${request.reqstate ? "border-primary" : ''}" style="width: 32rem;">
+                <div class="card ${isClosedClass}">
                     <div class="card-body">
                         <div class="card-content cardbox">
                             <div>
@@ -92,50 +95,16 @@ const renderRequestCards = (requests) => {
     }
 };
 
-// 상단 버튼 초기화 함수
-const initTopButtons = () => {
-    if (loginMemberInfo && (loginMemberInfo.role === "master" || loginMemberInfo.role === "company")) {
-        const topButtonContainer = document.querySelector("#topButtonContainer");
-        topButtonContainer.innerHTML = `
-            <button id="showMapButton" class="top-button">지도로 보기</button>
-            <button id="imHereButton" class="top-button" onclick="nowLocation()"><i class="fa-solid fa-compass"></i></button>
-        `;
-        
-        // 지도 버튼 이벤트 리스너 추가
-        const showMapButton = document.getElementById("showMapButton");
-        const offcanvasElement = document.getElementById("offcanvasScrolling");
-        const offcanvas = new bootstrap.Offcanvas(offcanvasElement);
-
-        showMapButton.addEventListener("click", function() {
-            if (offcanvasElement.classList.contains("show")) {
-                offcanvas.hide();
-            } else {
-                offcanvas.show();
-                initMap();
-            }
-        });
-    }
-};
-
 // 로딩 인디케이터 표시/숨김 함수
 const showLoadingIndicator = () => {
-    // 로딩 인디케이터가 없으면 생성
-    let loadingIndicator = document.getElementById('loadingIndicator');
-    if (!loadingIndicator) {
-        loadingIndicator = document.createElement('div');
-        loadingIndicator.id = 'loadingIndicator';
-        loadingIndicator.className = 'loading-indicator';
-        loadingIndicator.innerHTML = `
-            <div class="spinner"></div>
-            <p>로딩 중...</p>
-        `;
-        document.querySelector('.requestList').appendChild(loadingIndicator);
+    const loadingIndicator = document.getElementById('loading-indicator');
+    if (loadingIndicator) {
+        loadingIndicator.style.display = 'block';
     }
-    loadingIndicator.style.display = 'flex';
 };
 
 const hideLoadingIndicator = () => {
-    const loadingIndicator = document.getElementById('loadingIndicator');
+    const loadingIndicator = document.getElementById('loading-indicator');
     if (loadingIndicator) {
         loadingIndicator.style.display = 'none';
     }
@@ -143,29 +112,33 @@ const hideLoadingIndicator = () => {
 
 // 더 이상 데이터가 없음을 표시하는 함수
 const showNoMoreDataMessage = () => {
-    let noMoreDataElem = document.getElementById('noMoreData');
-    if (!noMoreDataElem) {
-        noMoreDataElem = document.createElement('div');
-        noMoreDataElem.id = 'noMoreData';
-        noMoreDataElem.className = 'no-more-data';
-        noMoreDataElem.textContent = '더 이상 표시할 요청이 없습니다.';
-        document.querySelector('.requestList').appendChild(noMoreDataElem);
+    const noMoreDataElem = document.getElementById('no-more-posts');
+    if (noMoreDataElem) {
+        noMoreDataElem.style.display = 'block';
     }
-    noMoreDataElem.style.display = 'block';
 };
 
 // 오류 메시지 표시 함수
 const showErrorMessage = (message) => {
+    // 기존 에러 메시지가 있다면 제거
+    const existingError = document.querySelector('.error-message');
+    if (existingError) {
+        existingError.remove();
+    }
+    
     const errorDiv = document.createElement('div');
     errorDiv.className = 'error-message';
     errorDiv.textContent = message;
     
-    document.querySelector('.requestList').appendChild(errorDiv);
-    
-    // 3초 후 메시지 제거
-    setTimeout(() => {
-        errorDiv.remove();
-    }, 3000);
+    const container = document.querySelector('.listPage');
+    if (container) {
+        container.appendChild(errorDiv);
+        
+        // 3초 후 메시지 제거
+        setTimeout(() => {
+            errorDiv.remove();
+        }, 3000);
+    }
 };
 
 // 스크롤 이벤트 핸들러
@@ -216,35 +189,45 @@ const nowLocation = () => {
             
             // 기존 목록 초기화 및 가까운 순서대로 정렬된 목록 표시
             const reqCardContent = document.querySelector(".reqListCardBox");
-            reqCardContent.innerHTML = '';
-            
-            let html = '';
-            data.forEach(request => {
-                if (request.mno > 0) {
-                    html += `
-                        <div class="card ${request.reqstate ? "border-primary" : ''}" style="width: 32rem;">
-                            <div class="card-body">
-                                <div class="card-content cardbox">
-                                    <div>
-                                        <h6 class="card-subtitle mb-2 text-body-secondary">${request.reqdatetime || ''}</h6>
-                                        <h5 class="card-title">
-                                            <a href="/request/view?reqno=${request.reqno}">${request.reqtitle}</a>
-                                        </h5>
-                                        <p class="card-text">${request.reqcontent || ''}</p>
-                                        <p class="card-text">요청서 위치: ${request.raddress || ''} - 거리: ${request.distance ? request.distance.toFixed(2) : '?'} km</p>
+            if (reqCardContent) {
+                reqCardContent.innerHTML = '';
+                
+                let html = '';
+                data.forEach(request => {
+                    if (request.mno > 0) {
+                        // reqstate가 false인 경우 마감된 요청서
+                        const isClosedClass = !request.reqstate ? "closed" : "";
+                        
+                        html += `
+                            <div class="card ${isClosedClass}">
+                                <div class="card-body">
+                                    <div class="card-content cardbox">
+                                        <div>
+                                            <h6 class="card-subtitle mb-2 text-body-secondary">${request.reqdatetime || ''}</h6>
+                                            <h5 class="card-title">
+                                                <a href="/request/view?reqno=${request.reqno}">${request.reqtitle}</a>
+                                            </h5>
+                                            <p class="card-text">${request.reqcontent || ''}</p>
+                                            <p class="card-text">요청서 위치: ${request.raddress || ''} - 거리: ${request.distance ? request.distance.toFixed(2) : '?'} km</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    }
+                });
+                
+                reqCardContent.innerHTML = html;
+                
+                // 페이지 초기화 (이제는 가까운 순서로 정렬된 목록이므로 무한 스크롤 비활성화)
+                hasMoreData = false;
+                
+                // 더 이상 데이터 없음 메시지 제거
+                const noMoreDataElem = document.getElementById('no-more-posts');
+                if (noMoreDataElem) {
+                    noMoreDataElem.style.display = 'none';
                 }
-            });
-            
-            reqCardContent.innerHTML = html;
-            
-            // 페이지 초기화 (이제는 가까운 순서로 정렬된 목록이므로 무한 스크롤 비활성화)
-            hasMoreData = false;
-            document.getElementById('noMoreData')?.remove();
+            }
         })
         .catch(error => {
             console.error('Fetch error:', error);
@@ -336,60 +319,30 @@ function initMap() {
 
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
-    // 상단 버튼 초기화
-    initTopButtons();
+    // 오프캔버스 버튼 이벤트 등록
+    const offcanvasToggleButton = document.getElementById("offcanvasToggleButton");
+    if (offcanvasToggleButton) {
+        // 버튼 보이게 설정
+        offcanvasToggleButton.removeAttribute("hidden");
+        
+        // 오프캔버스가 표시될 때 지도 초기화
+        const offcanvasElement = document.getElementById("offcanvasScrolling");
+        if (offcanvasElement) {
+            offcanvasElement.addEventListener('shown.bs.offcanvas', function () {
+                initMap();
+            });
+        }
+    }
+    
+    // 위치순으로 보기 버튼 이벤트 등록
+    const locationButton = document.getElementById("locationButton");
+    if (locationButton) {
+        locationButton.addEventListener('click', nowLocation);
+    }
     
     // 초기 데이터 로드
     loadRequestList();
     
     // 스크롤 이벤트 리스너 추가
     window.addEventListener('scroll', handleScroll);
-    
-    // CSS 추가 (옵션)
-    addStyles();
 });
-
-// CSS 스타일 동적 추가 함수
-const addStyles = () => {
-    const style = document.createElement('style');
-    style.textContent = `
-        .loading-indicator {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            border-top: 4px solid #5e9ce2;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .no-more-data {
-            text-align: center;
-            padding: 15px;
-            color: #888;
-            font-style: italic;
-        }
-        
-        .error-message {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 10px;
-            border-radius: 4px;
-            margin: 10px 0;
-            text-align: center;
-        }
-    `;
-    document.head.appendChild(style);
-};

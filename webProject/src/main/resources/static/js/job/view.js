@@ -1,5 +1,5 @@
 const getMyInfo = () => {
-    fetch('/member/myinfo.do',{method : 'GET'})
+    fetch('/member/myinfo',{method : 'GET'})
     .then(r => r.json())
     .then(d => {
         console.log(d);

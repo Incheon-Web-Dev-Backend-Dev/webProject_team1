@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import webProject.model.dto.job.JobInfiniteScrollDto;
 import webProject.model.dto.job.JobOfferDto;
 import webProject.model.dto.job.JobPageDto;
 import webProject.model.dto.member.MemberDto;
@@ -161,5 +162,75 @@ public class JobOfferService {
         JobPageDto pageDto = JobPageDto.builder().page(page).totalpage(totalPage).totalcount(totalCount)
                 .startbtn(startBtn).endbtn(endBtn).data(list).build();
         return pageDto;
+    }
+
+    /* 무한스크롤 섹터 */
+    // 전체 구인글 무한 스크롤 조회
+    public JobInfiniteScrollDto getJobsInfiniteScroll(String key, String keyword, Integer lastId, int limit) {
+        // 첫 요청일 경우 가장 큰 ID 값부터 시작
+        int idToUse = lastId != null ? lastId : Integer.MAX_VALUE;
+
+        // limit+1 개를 요청해서 더 불러올 데이터가 있는지 확인
+        List<JobOfferEntity> jobOfferEntities = jobOfferRepository.findForInfiniteScroll(key, keyword, idToUse, limit + 1);
+
+        boolean hasMore = jobOfferEntities.size() > limit;
+
+        // 더 불러올 데이터 확인용 추가 항목 제거
+        if (hasMore) {
+            jobOfferEntities.remove(jobOfferEntities.size() - 1);
+        }
+
+        // Entity를 DTO로 변환
+        List<JobOfferDto> list = new ArrayList<>();
+        jobOfferEntities.forEach(entity -> {
+            JobOfferDto dto = entity.toDto();
+            list.add(dto);
+        });
+
+        // 마지막 항목의 ID 저장 (다음 요청 시 사용)
+        int newLastId = 0;
+        if (!list.isEmpty()) {
+            newLastId = list.get(list.size() - 1).getJono();
+        }
+
+        return JobInfiniteScrollDto.builder()
+                .jobList(list)
+                .hasMore(hasMore)
+                .lastId(newLastId)
+                .build();
+    }
+
+    // 내 구인글 무한 스크롤 조회
+    public JobInfiniteScrollDto getMyJobsInfiniteScroll(String key, String keyword, Integer lastId, int limit) {
+        String mid = memberService.getSession();
+        MemberEntity loginEntity = memberRepository.findByMemail(mid);
+
+        int idToUse = lastId != null ? lastId : Integer.MAX_VALUE;
+
+        List<JobOfferEntity> jobOfferEntities = jobOfferRepository.findMyJobsForInfiniteScroll(
+                loginEntity.getMno(), key, keyword, idToUse, limit + 1);
+
+        boolean hasMore = jobOfferEntities.size() > limit;
+
+        if (hasMore) {
+            jobOfferEntities.remove(jobOfferEntities.size() - 1);
+        }
+
+        List<JobOfferDto> list = new ArrayList<>();
+        jobOfferEntities.forEach(entity -> {
+            JobOfferDto dto = entity.toDto();
+            list.add(dto);
+        });
+
+        int newLastId = 0;
+        if (!list.isEmpty()) {
+            newLastId = list.get(list.size() - 1).getJono();
+        }
+
+        return JobInfiniteScrollDto.builder()
+                .jobList(list)
+                .hasMore(hasMore)
+                .lastId(newLastId)
+                .build();
     }
 }

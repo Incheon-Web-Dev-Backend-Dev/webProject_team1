@@ -1,70 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>작성 구인글</title>
-  <link rel="stylesheet" href="/css/job/list.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내가 작성한 구인글</title>
+    <link rel="stylesheet" href="/css/job/list.css">
 </head>
 <body>
-<div th:replace="~{/header.html :: header}"></div>
-<div class="listPage">
-
-  <h2 class="joboflistHeader">작성 구인글</h2>
-
-  <div class="jobofferlist">
-      
-    <table class="table">
-      <thead>
-        <tr>
-          <th>번호</th>
-          <th>서비스</th>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>작성일</th>
-        </tr>
-      </thead>
-      <tbody>
-
-      </tbody>
-    </table>
-  </div>
-
-  <div class="bottomMenu">
-    <div> 
-      <nav aria-label="Page navigation example">
-      <ul class="pagination pagebox">
-
-      </ul>
-      </nav>
-    </div>
-    <!--company일 경우 추가될 버튼-->
-    <div class="companyButton"></div>
-  </div>
-  
-  <div class="row">
-    <!-- col-12 col-sm-auto : 각 요소를 자동 크기 조정하면서, 모바일부터 넓은 화면까지 잘 배치 -->
-
-  
-    <!-- 두 번째 select -->
-    <div class="col-auto">
-      <select class="form-select key">
-        <option value="jotitle">제목</option>
-        <option value="jocontent">내용</option>
-      </select>
-    </div>
-  
-    <!-- 입력 필드 -->
-    <div class="col-auto">
-      <input type="text" class="form-control keyword" placeholder="검색어 입력">
-    </div>
-  
-    <!-- 검색 버튼 -->
-    <div class="col-auto">
-      <button onclick="onSearch()" type="button" class="btn btn-primary">검색</button>
-    </div>
-  </div>
-</div><!--listPage end-->
-<div th:replace="~{/footer.html :: footer}"></div>
-<script src="/js/job/mylist.js"></script>
+    <div th:replace="~{/header.html :: header}"></div>
+    
+    <!-- 전체 페이지 -->
+    <div class="listPage">
+        <h2 class="joboflistHeader">내가 작성한 구인글</h2>
+        
+        <!-- 상단 컨트롤 영역 -->
+        <div class="top-controls">
+            <!-- 검색 및 작성 영역 -->
+            <div class="search-controls">
+                <!-- 검색key select -->
+                <div class="col-auto">
+                    <select class="form-select key">
+                        <option value="jotitle">제목</option>
+                        <option value="jocontent">내용</option>
+                    </select>
+                </div>
+                
+                <!-- 검색 keyword 입력 필드 -->
+                <div class="col-auto">
+                    <input type="text" class="form-control keyword" placeholder="검색어 입력">
+                </div>
+                
+                <!-- 검색 버튼 -->
+                <div class="col-auto">
+                    <button onclick="onSearch()" type="button" class="btn btn-primary">검색</button>
+                </div>
+                <!-- 회사 회원일 경우 보이는 버튼 영역 -->
+                <div class="companyButton"></div>
+            </div>
+        </div>
+        
+        <!-- 카드 목록이 표시될 영역 -->
+        <div class="jobListCardBox"></div>
+        
+        <!-- 로딩 표시기 -->
+        <div id="loading-indicator" style="display: none; text-align: center; margin: 20px 0;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">로딩 중...</span>
+            </div>
+            <p>더 많은 구인글을 불러오는 중...</p>
+        </div>
+        
+        <!-- 더이상 결과 없음 표시 -->
+        <div id="no-more-posts" style="display: none; text-align: center; margin: 20px 0;">
+            <p>더 이상 구인글이 없습니다.</p>
+        </div>
+    </div> <!-- 전체페이지 end -->
+    
+    <div th:replace="~{/footer.html :: footer}"></div>
+    
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/js/job/mylist.js"></script>
 </body>
 </html>

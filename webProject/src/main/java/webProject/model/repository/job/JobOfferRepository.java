@@ -54,4 +54,22 @@ public interface JobOfferRepository extends JpaRepository<JobOfferEntity, Intege
 // 2. 제목조회 : select * from board where cno = :cno and btitle like %:keyWord%
 // 3. 내용조회 : select * from board where cno = :cno and bcontent like %:keyWord%
 // 4. 그외 : select * from board where cno = :cno and true}
+    // 무한 스크롤 생성
+    @Query(value = "select * from joboffer where 1=1 and " +
+            "if(:keyword = '', true, " +
+            "if(:key = 'jotitle', jotitle like %:keyword%, " +
+            "if(:key = 'jocontent', jocontent like %:keyword%, true))) " +
+            "AND jono < :lastId " +
+            "ORDER BY jono DESC LIMIT :limit",
+            nativeQuery = true)
+    List<JobOfferEntity> findForInfiniteScroll(String key, String keyword, int lastId, int limit);
+
+    @Query(value = "select * from joboffer where mno = :mno and " +
+            "if(:keyword = '', true, " +
+            "if(:key = 'jotitle', jotitle like %:keyword%, " +
+            "if(:key = 'jocontent', jocontent like %:keyword%, true))) " +
+            "AND jono < :lastId " +
+            "ORDER BY jono DESC LIMIT :limit",
+            nativeQuery = true)
+    List<JobOfferEntity> findMyJobsForInfiniteScroll(int mno, String key, String keyword, int lastId, int limit);
 }

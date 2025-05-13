@@ -1,180 +1,175 @@
-//
-//
-//
-//function jobFindAll () {
-//    let page = new URL(location.href).searchParams.get('page');
-//
-//
-//    if(page == null) page = 1;
-//    let key = new URL(location.href).searchParams.get('key')
-//    if (key == null) key=''
-//    let keyword = new URL(location.href).searchParams.get('keyword')
-//    if (keyword == null) keyword=''
-//    // 2. fetch option
-//    const option = {method : 'GET'}
-//    // 3. fetch
-//    fetch(`/joboffer/findall.do?page=${page}&key=${key}&keyword=${keyword}`,option)
-//    .then(r => r.json())
-//    .then(d => {
-//        // 4. 요청 결과 응답 자료 확인
-//        console.log(d)
-//        // 5. html 를 출력할 구역 dom 가져오기
-//        const tbody = document.querySelector('tbody')
-//        // 6. 출력할 html 를 저장하는 변수 선언
-//        let html = ``
-//        // 7. 응답 자료를 반복문 이용하여 하나씩 순회해서 html 누적으로 더해주기
-//            // + 응답 자료에서 게시물 리스트 추출
-//            // data = {data : []}
-//        let jobOfferList = d.data;
-//        jobOfferList.forEach(jobOffer => {
-//            html += `<tr>
-//                      <td> ${jobOffer.jono}</td>
-//                      <td> ${jobOffer.joservice}</td>
-//                      <td class="jotitle ${jobOffer.jostate? 'success' : ''}"> <a href="/job/view?jono=${jobOffer.jono}"> ${jobOffer.jotitle} </a> </td>
-//                      <td> ${jobOffer.memberDto.mname}</td>
-//                      <td> ${jobOffer.cdate}</td>
-//                    </tr>`
-//
-//        });
-//        // 8. 반복문 종료후 html 변수에 누적된 <tr> 출력하기
-//        tbody.innerHTML = html;
-//        // 9. 게시물 출력 후 페이징 버튼 생성 함수 호출
-//        printPageNation(d, key, keyword)
-//    })
-//    .catch(e => console.log(e))
-//}
-//
-//jobFindAll();
-//
-//// [2] 페이징버튼 생성하는 함수
-//function printPageNation (d, key, keyword) {
-//    let page = d.page; // 현재페이지
-//    let totalpage = d.totalpage;
-//    let startbtn = d.startbtn;
-//    let endbtn = d.endbtn;
-//    // (1) 어디에
-//    const pagebox = document.querySelector('.pagebox')
-//    // (2) 무엇을
-//    let html = ``
-//    // 이전 버튼, 현재 페이지에서 -1 차감한 페이지 이동, 만약에 0이면 1페이지로 고정
-//    html += `<li class="page-item"><a class="page-link" href="/job/list?page=${page <= 1? 1 : page-1}&key=${key}&keyword=${keyword}">Previous</a></li>`
-//    // 페이징 버튼, 반복무 이용하여 startbtn 부터 endbtn 까지
-//    for(let index = startbtn; index <= endbtn; index++){
-//    // 만약 현재 페이지와 버튼번호가 같다면 .active 부트스트랩 클래스 부여
-//    html += `<li class="page-item"><a class="page-link ${page==index?'active' : ''}" href="/job/list?page=${index}&key=${key}&keyword=${keyword}">${index}</a></li>`}
-//    // 다음 버튼, 현재 페이지에서 +1 증가한 페이지 이동, 만약에 전체페이지수보다 크면 전체페이지 수로 고정
-//    html += `<li class="page-item"><a class="page-link" href="/job/list?page=${page >= totalpage? totalpage : page+1}&key=${key}&keyword=${keyword}">Next</a></li>`
-//    // (3) 출력
-//    pagebox.innerHTML = html
-//}
-//
-//// [3] 검색 버튼을 클릭 했을때 함수
-//const onSearch = ( ) => {
-//    // 1. 선택한 검색필드 와 입력받은 검색어 가져오기
-//
-//    const key = document.querySelector('.key').value
-//    const keyword = document.querySelector('.keyword').value
-//
-//    location.href = `/job/list?page=1&key=${ key }&keyword=${ keyword }`
-//}
-//function getMyInfo () {
-//    fetch('/member/myinfo.do',{method : 'GET'})
-//    .then(r => r.json())
-//    .then(d => {
-//        console.log(d)
-//        if (d.role == 'company'){
-//            document.querySelector('.companyButton').innerHTML +=
-//                    `<a href="/job/write"><button class="btn btn-primary" type="button">글쓰기</button></a>
-//                     <a href="/job/mylist"><button class="btn btn-primary" type="button">내가 쓴 글 보기</button></a>`
-//        }
-//    })
-//    .catch(e => console.log(e))
-//}
-//
-//getMyInfo();
-
-
-
-
-
-let currentPage = 1;
-let isLastPage = false;
+// 무한 스크롤을 위한 변수들
+let lastId = null;
 let isLoading = false;
+let hasMore = true;
+const limit = 10;
 
+// 구인글 불러오기 함수
 function loadJobs() {
-    if (isLoading || isLastPage) return;
+    // 이미 로딩 중이거나 더 불러올 데이터가 없으면 함수 종료
+    if (isLoading || !hasMore) return;
+    
+    // 로딩 상태로 변경
     isLoading = true;
-
+    document.getElementById('loading-indicator').style.display = 'block';
+    
+    // URL 파라미터 가져오기
     let key = new URL(location.href).searchParams.get('key') || '';
     let keyword = new URL(location.href).searchParams.get('keyword') || '';
-
-    fetch(`/joboffer/findall.do?page=${currentPage}&key=${key}&keyword=${keyword}`)
-        .then(r => r.json())
-        .then(d => {
-            const tbody = document.querySelector('tbody');
-            let html = ``;
-            let jobOfferList = d.data;
-
-            jobOfferList.forEach(jobOffer => {
-                html += `<tr>
-                    <td>${jobOffer.jono}</td>
-                    <td>${jobOffer.joservice}</td>
-                    <td class="jotitle ${jobOffer.jostate ? 'success' : ''}">
-                        <a href="/job/view?jono=${jobOffer.jono}">${jobOffer.jotitle}</a>
-                    </td>
-                    <td>${jobOffer.memberDto.mname}</td>
-                    <td>${jobOffer.cdate}</td>
-                </tr>`;
-            });
-
-            tbody.insertAdjacentHTML('beforeend', html);
-
-            if (currentPage >= d.totalpage) {
-                isLastPage = true;
-            } else {
-                currentPage++;
-            }
+    
+    // API 호출
+    fetch(`/joboffer/scroll?key=${key}&keyword=${keyword}&limit=${limit}${lastId ? `&lastId=${lastId}` : ''}`)
+    .then(r => r.json())
+    .then(d => {
+        // 로딩 표시기 숨기기
+        document.getElementById('loading-indicator').style.display = 'none';
+        
+        // 결과가 비어있으면 더 이상 데이터 없음
+        if (d.jobList.length === 0) {
+            hasMore = false;
+            document.getElementById('no-more-posts').style.display = 'block';
             isLoading = false;
-        })
-        .catch(e => {
-            console.log(e);
-            isLoading = false;
+            return;
+        }
+        
+        // 카드 컨테이너 가져오기
+        const cardContainer = document.querySelector('.jobListCardBox');
+        
+        // 각 구인글에 대해 카드 생성 및 추가
+        d.jobList.forEach(job => {
+            const card = createJobCard(job);
+            cardContainer.appendChild(card);
         });
+        
+        // 상태 업데이트
+        lastId = d.lastId;
+        hasMore = d.hasMore;
+        
+        // 더 이상 데이터가 없으면 메시지 표시
+        if (!hasMore) {
+            document.getElementById('no-more-posts').style.display = 'block';
+        }
+        
+        // 로딩 상태 해제
+        isLoading = false;
+    })
+    .catch(e => {
+        console.error('구인글 로딩 중 오류:', e);
+        document.getElementById('loading-indicator').style.display = 'none';
+        isLoading = false;
+    });
 }
 
-const onSearch = () => {
+// 구인글 카드 생성 함수
+function createJobCard(job) {
+    const card = document.createElement('div');
+    card.className = `job-card ${job.jostate ? 'closed' : ''}`;
+    card.innerHTML = `
+        <div class="job-number">#${job.jono}</div>
+        <div class="job-service">${job.joservice}</div>
+        <div class="job-title">${job.jotitle}</div>
+        <div class="job-info">
+            <p class="job-writer">작성자: ${job.memberDto.mname}</p>
+            <p class="job-date">작성일: ${formatDate(job.cdate)}</p>
+            <p class="job-address">위치: ${job.joaddr}</p>
+        </div>
+    `;
+    
+    // 카드 클릭 시 상세 페이지로 이동
+    card.addEventListener('click', () => {
+        window.location.href = `/job/view?jono=${job.jono}`;
+    });
+    
+    return card;
+}
+
+// 날짜 포맷팅 함수
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+// 검색 기능
+function onSearch() {
+    // 검색어와 검색 필드 가져오기
     const key = document.querySelector('.key').value;
     const keyword = document.querySelector('.keyword').value;
-
-    document.querySelector('tbody').innerHTML = '';
-    currentPage = 1;
-    isLastPage = false;
+    
+    // 상태 초기화
+    lastId = null;
+    hasMore = true;
+    
+    // 기존 결과 초기화
+    document.querySelector('.jobListCardBox').innerHTML = '';
+    document.getElementById('no-more-posts').style.display = 'none';
+    
+    // URL 업데이트 (페이지 이동 없이)
     history.replaceState(null, '', `/job/list?key=${key}&keyword=${keyword}`);
+    
+    // 새 검색 결과 로드
     loadJobs();
 }
 
+// 엔터 키로 검색 실행
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.querySelector('.keyword');
+    if (searchInput) {
+        searchInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                onSearch();
+            }
+        });
+    }
+});
+
+// 스크롤 이벤트 리스너
 window.addEventListener('scroll', () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+    // 페이지 하단에 도달하면 추가 데이터 로드
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    if (scrollTop + clientHeight >= scrollHeight - 200) {
         loadJobs();
     }
 });
 
-loadJobs();
-
-
-
-function getMyInfo () {
-    fetch('/member/myinfo.do',{method : 'GET'})
+// 회원 정보 가져오기
+function getMyInfo() {
+    fetch('/member/myinfo', { method: 'GET' })
     .then(r => r.json())
     .then(d => {
-        console.log(d)
-        if (d.role == 'company'){
-            document.querySelector('.companyButton').innerHTML += 
-                    `<a href="/job/write"><button class="btn btn-primary" type="button">글쓰기</button></a>
-                     <a href="/job/mylist"><button class="btn btn-primary" type="button">내가 쓴 글 보기</button></a>`
+        if (d.role == 'company') {
+            document.querySelector('.companyButton').innerHTML = `
+                <a href="/job/write"><button class="btn btn-primary" type="button">글쓰기</button></a>
+                <a href="/job/mylist"><button class="btn btn-primary" type="button">내가 쓴 글</button></a>
+            `;
         }
     })
-    .catch(e => console.log(e))
+    .catch(e => console.error('회원 정보 로딩 오류:', e));
 }
 
-getMyInfo();
+// 초기화 함수
+function init() {
+    // 초기 데이터 로드
+    loadJobs();
+    
+    // 회원 정보 가져오기
+    getMyInfo();
+    
+    // URL에서 검색 조건 가져와서 폼에 설정
+    const url = new URL(location.href);
+    const key = url.searchParams.get('key');
+    const keyword = url.searchParams.get('keyword');
+    
+    if (key) {
+        document.querySelector('.key').value = key;
+    }
+    
+    if (keyword) {
+        document.querySelector('.keyword').value = keyword;
+    }
+}
+
+// 페이지 로드 시 초기화
+document.addEventListener('DOMContentLoaded', init);
