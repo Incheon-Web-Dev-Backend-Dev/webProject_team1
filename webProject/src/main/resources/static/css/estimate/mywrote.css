@@ -1,12 +1,14 @@
-
 @font-face {
     font-family: 'NanumSquareNeoExtraBold';
     src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot);
-    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"),
+         url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"),
+         url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
 }
 
-
 body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,35 +16,62 @@ body {
 
 .allContainer {
     width: 600px;
-    height: 1000px;
     padding: 100px 20px;
     overflow-y: auto;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
-}
-.requestList {
-    width: 600px;
-    padding: 20px;
-    overflow-y: auto;
+    min-height: 1000px;
+    background-color: white;
 }
 
-.mywroteHeader{
+.mywroteHeader {
     padding: 20px;
     text-align: center;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
 }
 
 .estListCardBox {
     display: flex;
     flex-direction: column;
+    gap: 20px;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
 .card-body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.card-content a {
+    text-decoration: none;
+    color: #5e9ce2;
+    font-family: NanumSquareNeoExtraBold;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
 }
 
 .cardbox {
@@ -53,8 +82,19 @@ body {
     align-items: center;
 }
 
-.estListCardBox .card .card-content a {
-    text-decoration: none;
-    color: #5e9ce2;
-    font-family: NanumSquareNeoExtraBold;
+/* 반응형 스타일 추가 */
+@media (max-width: 768px) {
+    .allContainer {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .card {
+        max-width: 100%; /* 모바일에서는 카드가 화면 너비에 맞도록 설정 */
+        padding: 15px;
+    }
+
+    .mywroteHeader {
+        font-size: 20px; /* 모바일에서도 잘 보이도록 폰트 크기 조정 */
+    }
 }

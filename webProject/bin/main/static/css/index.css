@@ -17,8 +17,8 @@ body {
 }
 
 .container {
-    padding: 90px 40px 0;
-}  
+  padding: 90px 40px 0;
+}
 
 /* Info section (ad show 대체) */
 .infoCards {
@@ -44,10 +44,11 @@ body {
   background-color: #e5effb;
 }
 
-.infoCard i {
-  font-size: 26px;
-  color: #4a90e2;
+/* 이모지 스타일 */
+.infoCard .emoji {
+  font-size: 28px;
   margin-bottom: 12px;
+  display: block;
 }
 
 .infoCard h4 {
@@ -94,12 +95,12 @@ body {
 }
 
 .revstar i.fa-solid.fa-star {
-    color: #FFD700; /* 또는 #FFC107 같은 따뜻한 노란색 */
-  }
-  
-  .revstar i.fa-regular.fa-star {
-    color: #ccc; /* 회색 처리 (채워지지 않은 별) */
-  }  
+  color: #FFD700;
+}
+
+.revstar i.fa-regular.fa-star {
+  color: #ccc;
+}
 
 .cardBox {
   display: grid;

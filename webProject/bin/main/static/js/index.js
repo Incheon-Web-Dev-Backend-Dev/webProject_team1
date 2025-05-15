@@ -19,7 +19,7 @@ const findTop2Reviews = async () => {
 
             const card = `
                 <div class="card" style="width: 100%; max-width: 260px;">
-                    <img src="/img/review/${reviewImg}" class="card-img-top revimgList" alt="리뷰이미지" onerror="this.src='/img/default.png'">
+                    <img src="/uploads/review/${reviewImg}" class="card-img-top revimgList" alt="리뷰이미지" onerror="this.src='/img/default.png'">
                     <div class="card-body">
                         <p class="card-text revstar">${stars}</p>
                         <p class="card-text">${shortContent}</p>

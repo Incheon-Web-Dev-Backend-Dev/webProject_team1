@@ -1,10 +1,14 @@
 @font-face {
     font-family: 'NanumSquareNeoExtraBold';
     src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot);
-    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"),
+         url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"),
+         url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
 }
 
 body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,13 +18,59 @@ body {
     width: 600px;
     padding: 100px 20px;
     overflow-y: auto;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     min-height: 1100px;
+    background-color: white;
 }
 
-.estimateFindAllHeader{
+.estimateFindAllHeader {
     padding: 20px;
     text-align: center;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none !important;
+    color: black;
+}
+
+.estFindAllCardBox {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* 카드 디자인 재사용 */
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.card-title a {
+    color: #5e9ce2;
+    font-family: NanumSquareNeoExtraBold;
 }
 
 .card-body {
@@ -29,34 +79,77 @@ body {
     align-items: center;
 }
 
-.card-title-content{
-    width: 70%;
+.cardbox {
     display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.showBox {
     width: 100%;
-    padding: 20px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.reqstpostHeader{
-    margin-top: 50px;
-    padding: 20px;
+.cardbox .receivedEstimates {
+    width: 40%;
+    text-align: right;
 }
 
-.estFindAllCardBox .card .card-title a{
+.card-link a {
     text-decoration: none;
     color: #5e9ce2;
     font-family: NanumSquareNeoExtraBold;
 }
 
-.estFindAllCardBox {
-    display: flex;       /* 가로 정렬 */
-    flex-wrap: wrap;     /* 너비 초과 시 줄바꿈 */
-    gap: 20px;           /* 카드 사이 간격 */
-    justify-content: center; /* 중앙 정렬 */
-    max-width: 600px;    /* 최대 너비 제한 */
+/* 반응형 스타일 추가 */
+@media (max-width: 768px) {
+    .allContainer {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .card {
+        width: 100%; /* 모바일에서는 카드가 화면 너비에 맞도록 설정 */
+        padding: 15px;
+    }
+
+    .card-title {
+        font-size: 16px; /* 모바일에서 제목 크기 적당하게 조정 */
+    }
+
+    .card-body {
+        flex-direction: column; /* 모바일에서는 카드 본문을 세로로 배치 */
+        align-items: flex-start;
+    }
+
+    .cardbox {
+        flex-direction: column; /* 카드 본문 내용도 세로로 배치 */
+        align-items: flex-start;
+    }
+
+    .cardbox .receivedEstimates {
+        width: 100%;
+        text-align: left; /* 모바일에서 받은 견적은 왼쪽 정렬 */
+        margin-top: 10px;
+    }
+
+    .card-link a {
+        font-size: 14px; /* 링크 글자 크기도 모바일에 맞게 조정 */
+    }
 }
 
+/* 작은 모바일 화면을 위한 추가 스타일 */
+@media (max-width: 480px) {
+    .card-title {
+        font-size: 14px; /* 더 작은 화면에서는 제목 크기를 더욱 줄임 */
+    }
+
+    .card {
+        padding: 10px; /* 작은 화면에서 패딩을 줄여서 공간을 확보 */
+    }
+
+    .card-body {
+        padding: 10px 0; /* 작은 화면에서 본문 여백을 줄임 */
+    }
+
+    .cardbox .receivedEstimates {
+        margin-top: 5px;
+    }
+}

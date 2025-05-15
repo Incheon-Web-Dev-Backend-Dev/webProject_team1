@@ -15,16 +15,13 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // 기존 리소스 핸들러 유지
-        registry.addResourceHandler("/img/review/**")
-                .addResourceLocations("file:/Users/jimyung/webProject_team1/webProject/build/resources/main/static/img/review/");
-
         // 외부 업로드 폴더에 대한 리소스 핸들러 추가
         // 외부 폴더 확인 및 생성
         createDirectoryIfNotExists(uploadBasePath);
         createDirectoryIfNotExists(uploadBasePath + "/profile");
         createDirectoryIfNotExists(uploadBasePath + "/company");
         createDirectoryIfNotExists(uploadBasePath + "/master");
+        createDirectoryIfNotExists(uploadBasePath + "/review");
 
         // /uploads/** 경로 요청을 외부 폴더로 연결
         registry.addResourceHandler("/uploads/**")
