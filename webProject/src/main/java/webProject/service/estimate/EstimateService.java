@@ -16,6 +16,7 @@ import webProject.model.repository.member.MemberRepository;
 import webProject.model.repository.request.RequestRepository;
 import webProject.model.repository.review.ReviewFileRepository;
 import webProject.model.repository.review.ReviewRepository;
+import webProject.service.mail.MailService;
 import webProject.service.member.MemberService;
 
 import java.util.ArrayList;
@@ -31,13 +32,17 @@ public class EstimateService {
     @Autowired private RequestRepository requestRepository;
     @Autowired private ReviewRepository reviewRepository;
     @Autowired private ReviewFileRepository reviewFileRepository;
+    @Autowired private MailService mailService;
 
     // 견적글 쓰기
-    public boolean estimateWrite(EstimateDto estimateDto){
+    public boolean estimateWrite(EstimateDto estimateDto) {
         EstimateEntity estimateEntity = estimateDto.toESEntity();
         // 현재 로그인된 세션 객체 조회
         MemberDto loginDto = memberService.getMyInfo();
-        if(loginDto == null){ System.out.println("login error"); return false; }
+        if (loginDto == null) {
+            System.out.println("login error");
+            return false;
+        }
         // 로그인된 상태이면 회원번호 조회
         int loginMno = loginDto.getMno();
 
@@ -49,11 +54,16 @@ public class EstimateService {
         estimateEntity.setRequestEntity(requestEntity);
 
         EstimateEntity saveEntity = estimateRepository.save(estimateEntity);
-        if(saveEntity.getEstno()>0){
+        if (saveEntity.getEstno() > 0) {
+            // 메일 전송 (예외 발생해도 실패 처리하지 않음)
+            try {
+                mailService.sendEstimateNotificationToRequester(saveEntity);
+            } catch (Exception e) {
+                System.out.println("메일 전송 중 오류 발생: " + e.getMessage());
+            }
             return true;
-        }else {
-            return false;
         }
+        return false;
     }
 
     // 견적글 전체 보기

@@ -15,6 +15,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import webProject.model.entity.estimate.EstimateEntity;
 import webProject.model.entity.member.MemberEntity;
+import webProject.model.entity.request.RequestEntity;
 import webProject.model.repository.estimate.EstimateRepository;
 import webProject.model.repository.member.MemberRepository;
 import webProject.service.estimate.EstimateService;
@@ -31,8 +32,6 @@ public class MailService {
     private EstimateRepository estimateRepository;
     @Autowired
     private MemberRepository memberRepository;
-    @Autowired
-    private EstimateService estimateService;
     @Autowired
     private MemberService memberService;
     @Autowired
@@ -106,4 +105,32 @@ public class MailService {
         MatrixToImageWriter.writeToStream(bitMatrix, "PNG", byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }// generateQRCode end
+
+    // 견적서 수신 시 메일 알림
+    public boolean sendEstimateNotificationToRequester(EstimateEntity estimateEntity) {
+        try {
+            RequestEntity request = estimateEntity.getRequestEntity();
+            MemberEntity requester = request.getMemberEntity();
+
+            // 메일 내용 구성
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+            helper.setFrom(ADMIN_GOOGLE_EMAIL);
+            helper.setTo(requester.getMemail());
+            helper.setSubject("새 견적서가 도착했습니다!");
+            helper.setText(
+                    "<h2>" + requester.getMname() + "님, 새로운 견적서가 도착했습니다.</h2>" +
+                            "<p>요청하신 \"" + request.getReqtitle() + "\"에 새로운 견적이 등록되었습니다.</p>" +
+                            "<p>서비스 플랫폼에서 확인해보세요!</p>",
+                    true
+            );
+
+            javaMailSender.send(message);
+            return true;
+        } catch (Exception e) {
+            System.out.println("견적 알림 메일 발송 실패: " + e.getMessage());
+            return false;
+        }
+    }
 }
